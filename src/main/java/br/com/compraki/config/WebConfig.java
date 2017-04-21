@@ -11,6 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.data.repository.support.DomainClassConverter;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -42,6 +43,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @ComponentScan(basePackageClasses = { UsuariosController.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
+@PropertySource("classpath:messages_br.properties")
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;
@@ -113,7 +115,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	@Bean
 	public MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
-		bundle.setBasename("classpath:/messages");
+		bundle.setBasename("classpath:/messages_br");
 		bundle.setDefaultEncoding("UTF-8"); // http://www.utf8-chartable.de/
 		return bundle;
 	}

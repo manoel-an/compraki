@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:agr="http://compraki.com.br"
+    layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Home</title>
+</head>
+
+<section layout:fragment="conteudo">
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <h1 th:text="#{home.msg}"></h1>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        
+
+    </div>
+</section>
+
+<th:block layout:fragment="javascript-extra">
+</th:block>
+
+</html>
