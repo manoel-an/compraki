@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/LayoutVazio}">
+    
+<th:block layout:fragment="conteudo">
+	<div class="container-fluid">
+		<h5>Teste</h5>
+		<div class="row">
+			<div class="form-group col-sm-4">
+				<label class="control-label" for="idVeiculo">Código do Veículo:</label>
+				<input id="idVeiculo" class="form-control">
+			</div>
+			<div class="form-group col-sm-4">
+				<label class="control-label" for="dataInclusao">Data de Inclusão</label> 
+				<input id="dataInclusao" type="text" class="form-control">
+			</div>
+			<div class="form-group col-sm-4">
+				<label class="control-label" for="dataInclusao">Data de Alteração</label> 
+				<input id="dataAlteracao" type="text" class="form-control">
+			</div>
+		</div>
+		<button class="btn-primary js-btn-teste">Teste</button>
+	</div>
+</th:block>
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/layout/javascripts/home.js}"></script>
+    <script>
+       $(function() {
+    	   alert('oi');
+       });
+    </script>
+</th:block>
+</html>
