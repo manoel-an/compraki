@@ -24,38 +24,67 @@
 
 <body class="aw-layout-simple-page login-page">
 	<div class="aw-layout-simple-page__container">
-		<form th:action="@{/login}" method="POST">
-		    <div class="aw-simple-panel">
-		        
-		        <div class="aw-simple-panel__message">
-		            Por favor, faça o login.
-		        </div>
-		        
-		        <div class="aw-simple-panel__message  is-error" th:if="${#bools.isTrue(param.error)}">
-		            O e-mail e/ou senha não conferem
-		        </div>
-		        
-		        <div class="aw-simple-panel__box">
-		            <div class="form-group  has-feedback">
-		                <input type="text" class="form-control  input-lg" placeholder="Seu e-mail" autofocus="autofocus" name="username"/>
-		                <span class="glyphicon  glyphicon-envelope  form-control-feedback"></span>
-		            </div>
-		            
-		            <div class="form-group  has-feedback">
-		                <input type="password" class="form-control  input-lg" placeholder="Sua senha" name="password"/>
-		                <span class="glyphicon  glyphicon-lock  form-control-feedback" ></span>
-		            </div>
-		            <div class="form-group">
-		                <button type="submit" class="btn  btn-primary  btn-lg  aw-btn-full-width">Entrar</button>
-					    <a th:href="@{/usuarios/novo}" class="btn  btn-warning  btn-lg  aw-btn-full-width">
-					        <i class="glyphicon glyphicon-user" aria-hidden="true"></i> Cadastra-se
-					    </a>                
-		            </div>
-		            
-		        </div>
-		    </div>
-		</form>	
-	</div>
+        <div class="row">
+            <div class="form-group  col-sm-6">
+	            <form th:action="@{/login}" method="POST">
+			                
+			        <div class="aw-simple-panel__message" style=" font-size: 25px; font-weight: bold;" align="center">
+				        <label style="background-color: rgba(30, 148, 210, 0.49);">Por favor, faça o login.</label>		                
+			        </div>				        
+			        
+			        <div class="aw-simple-panel__message  is-error" th:if="${#bools.isTrue(param.error)}">
+			            O e-mail e/ou senha não conferem
+			        </div>	    
+			                
+				    <div class="form-group  has-feedback">
+				        <input type="text" class="form-control  input-lg" placeholder="Seu e-mail" autofocus="autofocus" name="username"/>
+				        <span class="glyphicon  glyphicon-envelope  form-control-feedback"></span>
+				    </div>	
+				    		                
+				    <div class="form-group  has-feedback">
+				        <input type="password" class="form-control  input-lg" placeholder="Sua senha" name="password"/>
+				        <span class="glyphicon  glyphicon-lock  form-control-feedback" ></span>
+				    </div>                
+	                
+				    <div class="form-group">
+				        <button type="submit" class="btn  btn-primary  btn-lg  aw-btn-full-width">Entrar
+				        	<span class="fa fa-sign-in"></span> 
+				        </button>
+				    </div>
+	             </form>	
+            </div>
+            <div class="form-group  col-sm-6">
+	            <form th:action="@{/login}" method="POST">
+			                
+			        <div class="aw-simple-panel__message" style=" font-size: 25px; font-weight: bold;" align="center">
+				        <label style="background-color: rgba(240, 173, 78, 0.55);">Ainda não tenho cadastro</label>		                
+			        </div>	
+			        
+				    <div class="form-group  has-feedback">
+				        <input type="text" class="form-control  input-lg" placeholder="Seu e-mail" autofocus="autofocus" name="username"/>
+				        <span class="glyphicon  glyphicon-envelope  form-control-feedback"></span>
+				    </div>	
+				    		                
+				    <div class="form-group  has-feedback">
+				        <input type="password" class="form-control  input-lg" placeholder="Sua senha" name="password"/>
+				        <span class="glyphicon  glyphicon-lock  form-control-feedback" ></span>
+				    </div>  
+				    
+				    <div class="form-group  has-feedback">
+				        <input type="password" class="form-control  input-lg" placeholder="Confirme Sua senha" name="confirm"/>
+				        <span class="glyphicon  glyphicon-lock  form-control-feedback" ></span>
+				    </div>  				                  
+
+				    <div class="form-group">
+				        <button type="submit" class="btn  btn-warning  btn-lg  aw-btn-full-width">Criar Conta
+				        	<span class="fa fa-user"></span> 
+				        </button>
+				    </div>	                    
+	                                   
+	             </form>	
+            </div>            
+       </div>		        
+  </div>		    
 <script th:src="@{/layout/javascripts/vendors.min.js}"></script>
 <script th:src="@{/layout/javascripts/algaworks.min.js}"></script>
 </body>
