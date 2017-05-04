@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/layout/**").antMatchers("/images/**").antMatchers("/usuarios/**").antMatchers("/info/**");
+		web.ignoring().antMatchers("/layout/**").antMatchers("/images/**").antMatchers("/info/**");
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// hasAuthority omite ROLE_
 
 		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().exceptionHandling()
-				.accessDeniedPage("/403");
+				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/info").and()
+				.exceptionHandling().accessDeniedPage("/403");
 
 		// http.authorizeRequests().antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE").antMatchers("/usuarios/**")
 		// .hasRole("CADASTRAR_USUARIO").anyRequest().authenticated().and().formLogin().loginPage("/login")
