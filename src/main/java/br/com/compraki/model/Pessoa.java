@@ -1,16 +1,32 @@
 package br.com.compraki.model;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -18,9 +34,11 @@ import br.com.compraki.enuns.EnumSexo;
 
 @Entity
 @Table(name = "pessoa")
-public class Pessoa extends Usuario {
+@Inheritance(strategy=InheritanceType.JOINED) // Inheritance quer dizer herança.
+@DiscriminatorColumn(name="TIPO_PESSOA", discriminatorType=DiscriminatorType.INTEGER)
+public abstract class Pessoa{
 
-	private static final long serialVersionUID = 1L;
+	/**O relacionamento entre pessoa e grupo se dá pelo relacionamento entre Usuario e Pessoa*/
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,22 +47,26 @@ public class Pessoa extends Usuario {
 	@NotBlank(message="Você deve inserir um nome")
 	private String nome;
 	
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private EnumSexo sexo;
 	
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_nascimento")
+	private Date dataNascimento;
+	
+	@Embedded /**está embutindo na mesma tabela o endereço*/
 	private Endereco endereco;
-	
-	@Column(name="pessoa_fisica")
-	private PessoaFisica pessoaFisica;
-	
-	@Column(name="pessoa_juridica")
-	private PessoaJuridica pessoaJuridica;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="codigo_usuario", unique=true)	
 	private Usuario usuario;
 	
-	private Grupo grupo; //FN, PC, ADM...
+	@ElementCollection
+	@CollectionTable(name="pessoa_telefone",
+			joinColumns=@JoinColumn(name="codigo_pessoa"))
+	@AttributeOverrides({@AttributeOverride(name="numero", column=@Column(name="numero_telefone"))})
+	private List<Telefone> telefones = new ArrayList<>();
 	
 	//Getters and Setters
 	public Long getCodigo() {
@@ -66,36 +88,27 @@ public class Pessoa extends Usuario {
 	public void setSexo(EnumSexo sexo) {
 		this.sexo = sexo;
 	}
+	
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 	public Endereco getEndereco() {
 		return endereco;
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public PessoaFisica getPessoaFisica() {
-		return pessoaFisica;
-	}
-	public void setPessoaFisica(PessoaFisica pessoaFisica) {
-		this.pessoaFisica = pessoaFisica;
-	}
-	public PessoaJuridica getPessoaJuridica() {
-		return pessoaJuridica;
-	}
-	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
-		this.pessoaJuridica = pessoaJuridica;
-	}
-	public Usuario getUsuario() {
+	
+	/*public Usuario getUsuario() {
 		return usuario;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Grupo getGrupo() {
-		return grupo;
-	}
-	public void setGrupo(Grupo grupo) {
-		this.grupo = grupo;
-	}
+	}*/
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
