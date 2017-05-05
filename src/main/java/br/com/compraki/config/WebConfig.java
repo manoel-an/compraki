@@ -35,12 +35,12 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 
-import br.com.compraki.controller.UsuariosController;
+import br.com.compraki.controller.SegurancaController;
 import br.com.compraki.thymeleaf.CompraAKIDialect;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { UsuariosController.class })
+@ComponentScan(basePackageClasses = { SegurancaController.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @PropertySource("classpath:messages_br.properties")
