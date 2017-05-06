@@ -12,10 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.ModeloCarro;
 
+@Table(name="intencao_de_compra")
 public class IntencaoCompra {
 	
 	@Id

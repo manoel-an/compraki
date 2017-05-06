@@ -107,6 +107,7 @@ public class Carro {
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_criacao")
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
@@ -115,6 +116,7 @@ public class Carro {
 	}
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_modificacao")
 	public Date getDataModificacao() {
 		return dataModificacao;
 	}
