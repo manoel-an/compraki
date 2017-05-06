@@ -83,7 +83,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		novoUsuario.setAtivo(Boolean.TRUE);
 		novoUsuario.setEmail(req.getParameter("username"));
 		novoUsuario.setSenha(req.getParameter("password"));
-		novoUsuario.setNome("Novo Usuário");
+		novoUsuario.setNome(req.getParameter("username"));
 		novoUsuario.setGrupos(null);
 		return this.usuarioService.salvarPreCadastro(novoUsuario);
 	}

@@ -50,5 +50,12 @@
 <script th:src="@{/javascripts/compraki.js}"></script>
 
 <th:block layout:fragment="javascript-extra"></th:block>
+<script>
+   $(function() {
+       $('body').tooltip({
+    	    selector: '[data-toggle="tooltip"]'
+    	});           
+   });
+</script>
 </body>
 </html>

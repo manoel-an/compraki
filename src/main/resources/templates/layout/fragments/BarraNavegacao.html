@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:th="http://www.thymeleaf.org">
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:data="http://www.thymeleaf.org/extras/data">
     
 <body>
 <nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar" th:fragment="navbar">
@@ -19,12 +20,15 @@
     </div>
 
     <ul class="nav navbar-nav  navbar-right">
-        <li>
-            <p class="navbar-text" th:text="${#authentication.principal.usuario.nome}">Usuário</p>
-        </li>
+    	<li>
+		    <a th:href="@{/usuarios/novo}" class="btn-lg  aw-btn-full-width">
+		        <i class="fa fa-user" aria-hidden="true" th:text="|  Olá ${#authentication.principal.usuario.nome}|" data-toggle="tooltip" data-placement="bottom" 
+		                  title="Minha Conta"></i> 
+		    </a>    	
+    	</li>
     
         <li>
-            <a th:href="@{/logout}"><em class="fa  fa-sign-out"></em></a>
+            <a th:href="@{/logout}"><em class="fa  fa-sign-out" data-toggle="tooltip" data-placement="bottom" title="Sair do Sistema"></em></a>
         </li> 
     </ul>
 
