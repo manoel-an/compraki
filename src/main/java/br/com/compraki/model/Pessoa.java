@@ -74,7 +74,13 @@ public class Pessoa implements Serializable{
 	@NotBlank(message = "CPF/CNPJ é obrigatório")
     @Column(name = "cpf_cnpj")
     private String cpfOuCnpj;
-
+	
+	@Column(name = "apelido")
+	private String apelido;
+	
+	@Column(name = "nome_fantasia")
+	private String nomeFantasia;
+	
 		
 	//Getters and Setters
 	public Long getCodigo() {
@@ -110,13 +116,42 @@ public class Pessoa implements Serializable{
 		this.endereco = endereco;
 	}
 	
-	/*public Usuario getUsuario() {
+	public Usuario getUsuario() {
 		return usuario;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}*/
-	
+	}
+	public List<Telefone> getTelefones() {
+		return telefones;
+	}
+	public void setTelefones(List<Telefone> telefones) {
+		this.telefones = telefones;
+	}
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
+	}
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
+	public String getApelido() {
+		return apelido;
+	}
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
+	}
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
