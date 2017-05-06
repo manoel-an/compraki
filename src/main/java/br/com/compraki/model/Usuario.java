@@ -13,103 +13,119 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
+import br.com.compraki.validation.AtributoConfirmacao;
+
 @Entity
 @Table(name = "usuario")
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
 public class Usuario implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
-	
-	private String nome;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigo;
 
-	private String email;
+    @NotBlank(message = "E-mail é obrigatório")
+    @Email(message = "E-mail inválido")
+    private String email;
 
-	private String senha;
+    @NotBlank(message = "Senha é obrigatório")
+    private String senha;
 
-	@Transient
-	private String confirmacaoSenha;
+    private String nome;
 
-	private Boolean ativo;
+    @Transient
+    private String confirmacaoSenha;
 
-	@ManyToMany
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
-	private List<Grupo> grupos;
+    private Boolean ativo;
 
-	public Long getCodigo() {
-		return codigo;
-	}
+    @ManyToMany
+    @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario") , inverseJoinColumns = @JoinColumn(name = "codigo_grupo") )
+    private List<Grupo> grupos;
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
+    public Long getCodigo() {
+        return codigo;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public String getSenha() {
+        return senha;
+    }
 
-	public String getConfirmacaoSenha() {
-		return confirmacaoSenha;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public void setConfirmacaoSenha(String confirmacaoSenha) {
-		this.confirmacaoSenha = confirmacaoSenha;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public Boolean getAtivo() {
-		return ativo;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
+    public String getConfirmacaoSenha() {
+        return confirmacaoSenha;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
-	}
+    public void setConfirmacaoSenha(String confirmacaoSenha) {
+        this.confirmacaoSenha = confirmacaoSenha;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
-	}
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public List<Grupo> getGrupos() {
+        return grupos;
+    }
+
+    public void setGrupos(List<Grupo> grupos) {
+        this.grupos = grupos;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Usuario other = (Usuario) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
 
 }

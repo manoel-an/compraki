@@ -14,13 +14,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import br.com.compraki.security.AppUserDetailsService;
+import br.com.compraki.security.LoginFailureHandler;
+import br.com.compraki.service.UsuarioService;
 
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = AppUserDetailsService.class)
+@ComponentScan(basePackageClasses = { AppUserDetailsService.class, UsuarioService.class })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private LoginFailureHandler loginFailureHandler;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -31,7 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/layout/**").antMatchers("/images/**").antMatchers("/usuarios/**").antMatchers("/info/**");
+		web.ignoring().antMatchers("/layout/**").antMatchers("/images/**").antMatchers("/info/**")
+				.antMatchers("/limite/**").antMatchers("/email/**").antMatchers("/invalido/**")
+				.antMatchers("/confere/**").antMatchers("/error/**");
+		;
 	}
 
 	@Override
@@ -39,9 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// hasRole tem que estar ROLE_... no BD
 		// hasAuthority omite ROLE_
 
-		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login").permitAll().and()
-				.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).and().exceptionHandling()
-				.accessDeniedPage("/403");
+		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
+				.failureHandler(loginFailureHandler).permitAll().and().logout()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/info").and()
+				.exceptionHandling().accessDeniedPage("/403");
 
 		// http.authorizeRequests().antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE").antMatchers("/usuarios/**")
 		// .hasRole("CADASTRAR_USUARIO").anyRequest().authenticated().and().formLogin().loginPage("/login")
