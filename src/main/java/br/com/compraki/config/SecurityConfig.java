@@ -36,9 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/layout/**").antMatchers("/images/**").antMatchers("/info/**")
+		web.ignoring().antMatchers("/layout/**").antMatchers("/layout/images/**").antMatchers("/info/**")
 				.antMatchers("/limite/**").antMatchers("/email/**").antMatchers("/invalido/**")
-				.antMatchers("/confere/**").antMatchers("/error/**");
+				.antMatchers("/confere/**").antMatchers("/error/*");
 		;
 	}
 
