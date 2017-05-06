@@ -19,10 +19,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
+@Table(name="carro")
 @NamedQueries({
 	@NamedQuery(name="Carro.buscarTodos", query="select c from Carro c"),
 	@NamedQuery(name="Carro.buscarCarroComAcessorios", query="select c "
