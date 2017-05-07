@@ -16,7 +16,6 @@
 	        <div class="col-xs-11">
 	            <h1>Minha Conta</h1>
 	        </div>
-	        
 	        <!-- 
 		        <div class="col-xs-1">
 		            <div class="aw-page-header-controls">
@@ -28,14 +27,44 @@
 	         -->
         </div>
     </div>
-    <form id="formPessoa">
-    	<!-- 
-	        <compraki:message/>
-    	 -->
-    	<div class="container-fluid">
-	        <button type="submit" class="btn  btn-primary">Salvar</button> 
-	    </div>
-   	</form>
+   	<div class="container-fluid">
+	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
+		    <compraki:message/>
+           <div class="row">
+			    <div class="form-group  col-sm-5">
+	                <label class="control-label" for="nome">Nome</label>
+	                <input id="nomePessoa" type="text" class="form-control" placeholder="Nome" 
+	                   th:field="*{nome}" autocomplete="off">
+			    </div>                        
+               
+                <div class="col-sm-4  form-group">
+                  <label class="control-label" for="nome">Selecione o sexo</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">Sexo</div>
+	                    <div class="btn-group" data-toggle="buttons">
+	                      <th:block th:each="sexo : ${sexos}">
+	                         <label th:id="|sexo${sexo.descricao}|" class="btn btn-primary" 
+	                               th:classappend="${sexo.descricao == 'Feminino' ? 'active' : ''}">
+	                           <input type="radio" autocomplete="off" th:text="${sexo.descricao}" th:value="${sexo}" 
+	                               th:field="*{sexo}" th:checked="${sexo.descricao == 'Feminino' ? 'checked' : ''}"> 
+	                         </label>                                                          
+	                      </th:block>
+	                   </div>
+                    </div>
+                </div>  
+                
+			    <div class="form-group  col-sm-3">
+	                <label class="control-label" for="nome">Data Nascimento</label>
+	                <input id="dataNascimento" type="text" class="form-control js-date" placeholder="Data Nascimento" 
+	                   th:field="*{dataNascimento}" autocomplete="off">
+			    </div>                                
+               	                   
+           </div>       		    
+	       <button type="submit" class="btn  btn-primary">
+ 				<span class="fa fa-floppy-o"></span> Salvar	        
+	       </button> 
+	   	</form>
+    </div>
 </section>
 <th:block layout:fragment="javascript-extra">
 </th:block>

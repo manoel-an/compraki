@@ -2,8 +2,8 @@ package br.com.compraki.enuns;
 
 public enum EnumSexo {
 
-	MASCULINO("MASCULINO"), FEMININO("FEMININO"), INDEFINIDO("INDEFINIDO") ;
-	
+	FEMININO("Feminino"), MASCULINO("Masculino"), INDEFINIDO("Indefinido");
+
 	String descricao;
 
 	private EnumSexo(String descricao) {
