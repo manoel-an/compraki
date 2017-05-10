@@ -1,5 +1,6 @@
 package br.com.compraki.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,7 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.ModeloCarro;
@@ -57,11 +62,23 @@ public class IntencaoCompra {
 	@Column(name="outro_modelo")
 	private String outroModelo;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "codigo_usuario")
+	private Usuario usuario;
+	
 	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(name="intencao_acessorios_desejados"
 				, joinColumns=@JoinColumn(name="codigo_intencao")
 				, inverseJoinColumns=@JoinColumn(name="codigo_acessorio"))
 	private List<Acessorio> acessorios;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_criacao")
+	private Date dataCriacao;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="data_modificacao")
+	private Date dataModificacao;
 	
 	//Getters and setters
 	public Long getCodigo() {
@@ -160,6 +177,33 @@ public class IntencaoCompra {
 	public void setAcessorios(List<Acessorio> acessorios) {
 		this.acessorios = acessorios;
 	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	public Date getDataModificacao() {
+		return dataModificacao;
+	}
+	public void setDataModificacao(Date dataModificacao) {
+		this.dataModificacao = dataModificacao;
+	}
 	
+	@PrePersist
+	@PreUpdate
+	public void configuraDatasCriacaoAlteracao() {
+		this.dataModificacao = new Date();
+		
+		if (this.dataCriacao == null) {
+			this.dataCriacao = new Date();
+		}
+	}
 		
 }
