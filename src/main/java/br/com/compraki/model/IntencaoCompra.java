@@ -1,10 +1,12 @@
 package br.com.compraki.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +20,16 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.NumberFormat;
 
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.ModeloCarro;
 
+@Entity
 @Table(name="intencao_de_compra")
 public class IntencaoCompra {
 	
@@ -34,6 +42,12 @@ public class IntencaoCompra {
 	private String ano;
 	
 	private String cor;
+	
+	@NotNull(message = "Valor é obrigatório")
+	@DecimalMin(value = "3.000.00", message = "Valor não pode ser menor que R$ 3.000,00")
+	@DecimalMax(value = "9999999.99", message = "Valor não pode ser maior que 9.999.999,99")
+	@NumberFormat(pattern = "#,##0.00")
+	private BigDecimal valor;
 	
 	//Escolher entre por exemplo alcool, gasolina, flex
 	@Column(name="tipo_combustivel")
@@ -196,6 +210,12 @@ public class IntencaoCompra {
 		this.dataModificacao = dataModificacao;
 	}
 	
+	public BigDecimal getValor() {
+		return valor;
+	}
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 	@PrePersist
 	@PreUpdate
 	public void configuraDatasCriacaoAlteracao() {
@@ -205,5 +225,30 @@ public class IntencaoCompra {
 			this.dataCriacao = new Date();
 		}
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IntencaoCompra other = (IntencaoCompra) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
+	
+	
 		
 }

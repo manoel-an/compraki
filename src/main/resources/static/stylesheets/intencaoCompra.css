@@ -1,0 +1,37 @@
+.navbar-static-top{
+	background-color: #00BFFF;
+}
+
+.navbar-brand {
+	padding-top: 0px;
+	padding-left: 0px;
+}
+.panel-default{
+	margin-left: 10px;
+	margin-right: 10px;
+	
+}
+.alert{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.panel-default>.panel-heading{
+	background-color: #00BFFF;
+}
+
+.it-titulo-panel{
+	float: left;
+	padding-top: 5px;
+	color: white;
+}
+.it-link-panel{
+	float: right;
+	padding: 0px;
+	color: white;
+}
+
+.it-panelTituloLink{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+

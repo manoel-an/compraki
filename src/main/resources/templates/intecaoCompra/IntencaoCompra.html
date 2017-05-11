@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:compraki="http://agr.go.gov.br"
+    layout:decorate="~{layout/LayoutPadrao}">
+
+<head>
+    <title>Minha Conta</title>
+</head>
+
+<section layout:fragment="conteudo">
+    <div class="row page-header">
+    	<div class="container-fluid">
+	        <div class="col-xs-11">
+	            <h1>Nova Intenção de Compra</h1>
+	        </div>
+	       
+        </div>
+    </div>
+   	<div class="container-fluid">
+	    <form class="form-horizontal" method="POST" action="/intencaoCompra" th:object="${intencaoCompra}">
+    	 <compraki:message/>
+    
+    	<div class="panel panel-default">
+    		<div class="panel-heading it-panelTituloLink">
+    			<div class="clearfix">
+	   				<h1 class="panel-title it-titulo-panel">Nova Intenção de Compra</h1>
+					<a class="btn btn-link it-link-panel" href="">Ver Intenções de Compras</a>
+	   			</div>
+    		</div>
+    		
+    		<div class="panel-body">
+    			<input type="hidden" th:field="*{codigo}"/>
+    		
+				<div class="form-group" th:classappend="${#fields.hasErrors('marca')} ? has-error">
+					<label for="marca" class="col-sm-2 control-label">Marca Desejada</label>
+					<div class="col-sm-4"> 
+						<input type="text" class="form-control" id="marca" th:field="*{marca}"/>
+					</div>
+				</div>
+				<div class="form-group" th:classappend="${#fields.hasErrors('ano')} ? has-error">
+					<label for="ano" class="col-sm-2 control-label">Ano desejado</label>
+					<div class="col-sm-4"> 
+						<input type="text" class="form-control" id="ano" th:field="*{ano}"/>
+					</div>
+				</div>
+				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
+					<label for="valor" class="col-sm-2 control-label">Valor que dispõe</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="valor" th:field="*{valor}"/>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Salvar</button>
+					</div>
+				</div>
+			</div>
+    	</div>
+    </form>
+    </div>
+</section>
+</html>
