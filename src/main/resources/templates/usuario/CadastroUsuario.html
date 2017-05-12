@@ -30,14 +30,38 @@
    	<div class="container-fluid">
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
 		    <compraki:message/>
+		   <div class="row">
+                <div class="col-sm-6  form-group">
+                  <label class="control-label" for="nome">Selecione o tipo de pessoa</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">Tipo</div>
+                        <div class="btn-group" data-toggle="buttons">
+                          <th:block th:each="tipo : ${tipos}">
+                             <label th:id="|tipo${tipo}|" class="btn btn-primary" 
+                                   th:classappend="${tipo.descricao == 'Pessoa Física' ? 'active' : ''}" data:mascara="${tipo.mascara}">
+                               <input type="radio" autocomplete="off" th:text="${tipo.descricao}" th:value="${tipo}" 
+                                   th:field="*{tipoPessoa}" th:checked="${tipo.descricao == 'Pessoa Física' ? 'checked' : ''}"> 
+                             </label>                                                          
+                          </th:block>
+                       </div>
+                    </div>
+                </div>  		   
+		   </div>
+           <h2 id="tituloTipoPessoa">Dados Pessoais</h2>		   
            <div class="row">
-			    <div class="form-group  col-sm-5">
-	                <label class="control-label" for="nome">Nome</label>
+			    <div class="form-group  col-sm-6 compraki-required">
+	                <label class="control-label js-nome" for="nome">Nome</label>
 	                <input id="nomePessoa" type="text" class="form-control" placeholder="Nome" 
 	                   th:field="*{nome}" autocomplete="off">
-			    </div>                        
+			    </div>           
+			    
+                <div class="form-group  col-sm-2 js-div-data-nascimento compraki-required">
+                    <label class="control-label" for="nome">Data Nascimento</label>
+                    <input id="dataNascimento" type="text" class="form-control js-date" placeholder="Data Nascimento" 
+                       th:field="*{dataNascimento}" autocomplete="off">
+                </div> 			                 
                
-                <div class="col-sm-4  form-group">
+                <div class="col-sm-4  form-group js-div-sexo">
                   <label class="control-label" for="nome">Selecione o sexo</label>
                     <div class="input-group">
                         <div class="input-group-addon">Sexo</div>
@@ -53,13 +77,37 @@
                     </div>
                 </div>  
                 
-			    <div class="form-group  col-sm-3">
-	                <label class="control-label" for="nome">Data Nascimento</label>
-	                <input id="dataNascimento" type="text" class="form-control js-date" placeholder="Data Nascimento" 
-	                   th:field="*{dataNascimento}" autocomplete="off">
-			    </div>                                
-               	                   
-           </div>       		    
+                <div class="form-group  col-sm-4 js-div-nome-fanatasia-juridico hidden compraki-required">
+                    <label class="control-label" for="nomeFantasia">Nome Fantasia</label>
+                    <input id="nomeFantasia" type="text" class="form-control" placeholder="Nome Fantasia" 
+                       th:field="*{nomeFantasia}" autocomplete="off">
+                </div>
+                <div class="form-group  col-sm-2 js-div-nome-fanatasia-juridico hidden">
+                    <label class="control-label" for="apelido">Apelido</label>
+                    <input id="apelido" type="text" class="form-control" placeholder="Apelido" 
+                       th:field="*{apelido}" autocomplete="off">
+                </div>                
+           </div>   
+           
+           <div class="row js-div-nome-fanatasia-cpf">
+                <div class="form-group  col-sm-2">
+                    <label class="control-label" for="apelido">Apelido</label>
+                    <input id="apelido" type="text" class="form-control" placeholder="Apelido" 
+                       th:field="*{apelido}" autocomplete="off">
+                </div>
+                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="cpfOuCnpj">
+                    <label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
+                    <input type="text" class="form-control js-cpf-cnpj" th:field="*{cpfOuCnpj}" placeholder="CPF/CNPJ"/>
+                </div>                
+           </div> 
+           
+           <div class="row div-js-cpf-cnpj hidden">
+                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="cpfOuCnpj">
+                    <label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
+                    <input type="text" class="form-control js-cpf-cnpj" th:field="*{cpfOuCnpj}" placeholder="CPF/CNPJ"/>
+                </div>             
+           </div>
+           
 	       <button type="submit" class="btn  btn-primary">
  				<span class="fa fa-floppy-o"></span> Salvar	        
 	       </button> 
