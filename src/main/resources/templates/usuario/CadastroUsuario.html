@@ -50,8 +50,8 @@
            <h2 id="tituloTipoPessoa">Dados Pessoais</h2>		   
            <div class="row">
 			    <div class="form-group  col-sm-6 compraki-required">
-	                <label class="control-label js-nome" for="nome">Nome</label>
-	                <input id="nomePessoa" type="text" class="form-control" placeholder="Nome" 
+	                <label class="control-label js-nome" for="nomePessoaRazaoSocial">Nome</label>
+	                <input id="nomePessoaRazaoSocial" type="text" class="form-control" placeholder="Nome" 
 	                   th:field="*{nome}" autocomplete="off">
 			    </div>           
 			    
@@ -77,16 +77,11 @@
                     </div>
                 </div>  
                 
-                <div class="form-group  col-sm-4 js-div-nome-fanatasia-juridico hidden compraki-required">
+                <div class="form-group  col-sm-4 js-div-nome-fantasia-juridico hidden compraki-required">
                     <label class="control-label" for="nomeFantasia">Nome Fantasia</label>
                     <input id="nomeFantasia" type="text" class="form-control" placeholder="Nome Fantasia" 
                        th:field="*{nomeFantasia}" autocomplete="off">
                 </div>
-                <div class="form-group  col-sm-2 js-div-nome-fanatasia-juridico hidden">
-                    <label class="control-label" for="apelido">Apelido</label>
-                    <input id="apelido" type="text" class="form-control" placeholder="Apelido" 
-                       th:field="*{apelido}" autocomplete="off">
-                </div>                
            </div>   
            
            <div class="row js-div-nome-fanatasia-cpf">
@@ -105,8 +100,56 @@
                 <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="cpfOuCnpj">
                     <label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
                     <input type="text" class="form-control js-cpf-cnpj" th:field="*{cpfOuCnpj}" placeholder="CPF/CNPJ"/>
-                </div>             
+                </div> 
+                <div class="form-group  col-sm-2">
+                    <label class="control-label" for="apelido">Apelido</label>
+                    <input id="apelido" type="text" class="form-control" placeholder="Apelido" 
+                       th:field="*{apelido}" autocomplete="off">
+                </div>                              
            </div>
+           
+           <h2>Endereço</h2>   
+           
+           <div class="row">
+                <div class="form-group col-sm-4 compraki-required" compraki:classforerror="endereco.cep">
+                    <label for="cep" class="control-label">CEP:</label>
+                    <div class="input-group">
+                        <input id="cep" type="text" class="form-control js-cep" th:field="*{endereco.cep}" placeholder="Cep">
+                        <span class="input-group-addon">
+                            <img th:src="@{/images/correios.png}" width="25"/>
+                        </span>
+                    </div>
+                </div>  
+               <div class="form-group  col-sm-7  compraki-required" compraki:classforerror="endereco.rua">
+                   <label for="rua" class="control-label">Rua</label>
+                   <input id="rua" type="text" class="form-control" th:field="*{endereco.rua}" placeholder="Rua"/>
+               </div> 
+           </div> 
+           
+           <div class="row">
+               <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="endereco.cidade">
+                   <label for="cidade" class="control-label">Cidade</label>
+                   <input id="cidade" type="text" class="form-control" th:field="*{endereco.cidade}" placeholder="Cidade"/>
+               </div>
+               <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="endereco.bairro">
+                   <label for="bairro" class="control-label">Bairro</label>
+                   <input id="bairro" type="text" class="form-control" th:field="*{endereco.bairro}" placeholder="Bairro"/>
+               </div>               
+               <div class="form-group col-sm-3" compraki:classforerror="endereco.estado">
+                    <label for="uf" class="control-label">Estado:</label>
+                    <select id="uf" class="form-control js-select-search" th:field="*{endereco.estado}">
+                        <option value=""></option>
+                        <option th:each="estado : ${estados}" th:text="${estado.nome}+' ('+${estado.sigla} + ')'" th:value="${estado}"></option>
+                    </select>
+               </div>            
+           </div>  
+           
+           <div class="row">
+               <div class="form-group col-sm-11">
+		           <label for="complemento" class="control-label">Complemento</label>
+		           <input id="complemento" type="text" class="form-control" th:field="*{endereco.complemento}" placeholder="Complemento"/>           
+               </div>
+           </div>                        
            
 	       <button type="submit" class="btn  btn-primary">
  				<span class="fa fa-floppy-o"></span> Salvar	        

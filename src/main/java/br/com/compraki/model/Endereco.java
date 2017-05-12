@@ -9,71 +9,73 @@ import org.hibernate.validator.constraints.NotBlank;
 @Embeddable
 public class Endereco implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@NotBlank(message="Ops!Rua está em branco")
-	private String rua;
-	
-	@NotBlank(message="Ops!Bairro está em branco")
-	private String bairro;
-	
-	@NotBlank(message="Ops!Cidade está em branco")
-	private String cidade;
-	
-	@NotBlank(message="Ops!Estado está em branco")
-	private String estado;
-	
-	@NotBlank(message="Ops!cep está em branco")
-	private String cep;
-	
-	//getters and setters
+    @NotBlank(message = "Ops!Rua está em branco")
+    private String rua;
 
-	public String getRua() {
-		return rua;
-	}
+    @NotBlank(message = "Ops!Bairro está em branco")
+    private String bairro;
 
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
+    @NotBlank(message = "Ops!Cidade está em branco")
+    private String cidade;
 
-	public String getBairro() {
-		return bairro;
-	}
+    @NotBlank(message = "Ops!Estado está em branco")
+    private String estado;
 
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+    @NotBlank(message = "Ops!cep está em branco")
+    private String cep;
 
-	public String getCidade() {
-		return cidade;
-	}
+    private String complemento;
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
+    // getters and setters
 
-	public String getEstado() {
-		return estado;
-	}
+    public String getRua() {
+        return rua;
+    }
 
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
 
-	public String getCep() {
-		return cep;
-	}
+    public String getBairro() {
+        return bairro;
+    }
 
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
-	
-	
-		
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
 
 }

@@ -46,7 +46,6 @@ public class Pessoa implements Serializable {
     @NotBlank(message = "Você deve inserir um nome")
     private String nome;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
 

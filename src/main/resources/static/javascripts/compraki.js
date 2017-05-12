@@ -100,6 +100,22 @@ Compraki.recuperarValor = function(valorFormatado) {
 	return numeral().unformat(valorFormatado);
 }
 
+Compraki.SelectSearch = (function(){
+	
+	function SelectSearch(){
+		this.selectsearch = $('.js-select-search');
+	}
+	
+	SelectSearch.prototype.enable = function() {
+		this.selectsearch.select2({
+			placeholder: "Selecione uma opção"
+		});
+	}
+	
+	return SelectSearch;
+	
+}());
+
 $(function() {
 	var maskMoney = new Compraki.MaskMoney();
 	maskMoney.enable();
@@ -115,5 +131,8 @@ $(function() {
 	
 	var security = new Compraki.Security();
 	security.enable();
+	
+	var selectSearch = new Compraki.SelectSearch();
+	selectSearch.enable();
 	
 });

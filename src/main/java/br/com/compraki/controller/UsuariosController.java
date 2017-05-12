@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.compraki.enuns.EnumSexo;
 import br.com.compraki.enuns.TipoPessoa;
+import br.com.compraki.enuns.UF;
 import br.com.compraki.model.Pessoa;
 import br.com.compraki.security.UsuarioSistema;
 
@@ -27,6 +28,7 @@ public class UsuariosController {
         ModelAndView modelAndView = new ModelAndView("usuario/CadastroUsuario");
         modelAndView.addObject("sexos", EnumSexo.values());
         modelAndView.addObject("tipos", TipoPessoa.values());
+        modelAndView.addObject("estados", UF.values());
         return modelAndView;
     }
 }
