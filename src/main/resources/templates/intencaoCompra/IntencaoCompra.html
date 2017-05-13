@@ -27,7 +27,7 @@
     	<div class="panel panel-default">
     		<div class="panel-heading it-panelTituloLink">
     			<div class="clearfix">
-	   				<h1 class="panel-title it-titulo-panel">Nova Intenção de Compra</h1>
+	   				<h1 class="panel-title it-titulo-panel">Escolha as intenções desejadas</h1>
 					<a class="btn btn-link it-link-panel" href="">Ver Intenções de Compras</a>
 	   			</div>
     		</div>
@@ -35,24 +35,56 @@
     		<div class="panel-body">
     			<input type="hidden" th:field="*{codigo}"/>
     		
-				<div class="form-group" th:classappend="${#fields.hasErrors('marca')} ? has-error">
-					<label for="marca" class="col-sm-2 control-label">Marca Desejada</label>
+				<div class="form-group" compraki:classforerror="marca">
+					<label for="marca" class="col-sm-2 control-label">Marca</label>
 					<div class="col-sm-4"> 
 						<input type="text" class="form-control js-input-marca" id="marca" th:field="*{marca}"/>
 					</div>
 				</div>
-				<div class="form-group" th:classappend="${#fields.hasErrors('ano')} ? has-error">
-					<label for="ano" class="col-sm-2 control-label">Ano desejado</label>
+				<div class="form-group" compraki:classforerror="ano">
+					<label for="ano" class="col-sm-2 control-label">Ano</label>
 					<div class="col-sm-4"> 
 						<input type="text" class="form-control" id="ano" th:field="*{ano}"/>
 					</div>
 				</div>
-				<div class="form-group" th:classappend="${#fields.hasErrors('valor')} ? has-error">
-					<label for="valor" class="col-sm-2 control-label">Valor que dispõe</label>
+				<div class="form-group" compraki:classforerror="valor">
+					<label for="valor" class="col-sm-2 control-label">Valor</label>
 					<div class="col-sm-2">   
 						<input type="text" class="form-control js-decimal" id="valor" th:field="*{valor}"/>
 					</div>
 				</div>
+				<div class="form-group" compraki:classforerror="tipoCombustivel">
+					<label for="valor" class="col-sm-2 control-label">Tipo de Combustivel</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control" id="tipoCombustivel" th:field="*{tipoCombustivel}"/>
+					</div>
+				</div>
+				<div class="form-group" compraki:classforerror="outrasCaracterísticas">
+					<label for="valor" class="col-sm-2 control-label">Outras características</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control" id="outrasCaracterísticas" th:field="*{outrasCaracterísticas}"/>
+					</div>
+				</div>
+				<div class="form-group" compraki:classforerror="potencia">
+					<label for="valor" class="col-sm-2 control-label">Potência do Veiculo</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control" id="outrasCaracterísticas" th:field="*{potencia}"/>
+					</div>
+				</div>
+					
+				<div class="form-group" compraki:classforerror="descricao">
+					<label for="valor" class="col-sm-2 control-label">Descrição do Veiculo</label>
+					<div class="col-sm-2">   
+						<textarea rows="5" class="form-control" id="descricao" th:field="*{potencia}"></textarea>
+					</div>
+				</div>
+				<div class="form-group" compraki:classforerror="tipoDeRoda">
+					<label for="valor" class="col-sm-2 control-label">Tipo de roda</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control" id="tipoDeRoda" th:field="*{tipoDeRoda}"/>
+					</div>
+				</div>
+							
 				
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">

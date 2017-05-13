@@ -51,7 +51,7 @@ public class IntencaoCompra {
 	
 	//Escolher entre por exemplo alcool, gasolina, flex
 	@Column(name="tipo_combustivel")
-	private String tipoCombustível;
+	private String tipoCombustivel;
 	
 	@Column(name="outras_caracteristicas")
 	private String outrasCaracterísticas;
@@ -123,13 +123,12 @@ public class IntencaoCompra {
 		this.cor = cor;
 	}
 	
-	public String getTipoCombustível() {
-		return tipoCombustível;
+	public String getTipoCombustivel() {
+		return tipoCombustivel;
 	}
-	public void setTipoCombustível(String tipoCombustível) {
-		this.tipoCombustível = tipoCombustível;
+	public void setTipoCombustivel(String tipoCombustivel) {
+		this.tipoCombustivel = tipoCombustivel;
 	}
-	
 	public String getOutrasCaracterísticas() {
 		return outrasCaracterísticas;
 	}
