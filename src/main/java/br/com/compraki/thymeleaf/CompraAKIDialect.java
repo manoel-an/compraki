@@ -16,7 +16,7 @@ import br.com.compraki.thymeleaf.processor.PaginationElementTagProcessor;
 public class CompraAKIDialect extends AbstractProcessorDialect {
 
     public CompraAKIDialect() {
-        super("AGR Dialect Validation", "compraki", StandardDialect.PROCESSOR_PRECEDENCE);
+        super("Compraki Dialect Validation", "compraki", StandardDialect.PROCESSOR_PRECEDENCE);
     }
 
     @Override

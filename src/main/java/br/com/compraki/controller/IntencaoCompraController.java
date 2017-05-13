@@ -10,7 +10,7 @@ import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.repository.IntencaoCompras;
 
 @Controller
-@RequestMapping("/intencao")
+@RequestMapping("/intencoes")
 public class IntencaoCompraController {
 
 	private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";

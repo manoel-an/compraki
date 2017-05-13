@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:th="http://www.thymeleaf.org"
-    xmlns:agr="http://agr.go.gov.br">
+   	xmlns:compraki="http://compraki.com.br">
     
 <body>
 <aside class="aw-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
@@ -16,13 +16,13 @@
                 
                 <li class="aw-menu__item">
                     <a href="#">
-                        <i class="fa  fa-fw  fa-credit-card"></i><span>Vendas</span>
+                        <i class="fa  fa-fw  fa fa-shopping-basket"></i><span>Intenções de Compra</span>
                         <i class="aw-menu__navigation-icon  fa"></i>
                     </a>
       
                     <ul class="aw-menu__list  aw-menu__list--sublist">
-                        <li class="aw-menu__item  aw-menu__item--link" agr:menu="@{/vendas}">
-                            <a th:href="@{/vendas/nova}">Nova venda</a>
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/intencoes.+}">
+                            <a th:href="@{/intencoes/novo}">Nova intenção de compra</a>
                         </li>
                     </ul>
                 </li>
@@ -34,10 +34,10 @@
                     </a>
       
                     <ul class="aw-menu__list  aw-menu__list--sublist">
-                        <li class="aw-menu__item  aw-menu__item--link" agr:menu="@{/estilos}">
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/estilos}">
                             <a th:href="@{/estilos}">Estilos</a>
                         </li>
-                        <li class="aw-menu__item  aw-menu__item--link" agr:menu="@{/cervejas}">
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/cervejas}">
                             <a th:href="@{/cervejas}">Cervejas</a>
                         </li>
                     </ul>
@@ -50,13 +50,13 @@
                     </a>
 
                     <ul class="aw-menu__list  aw-menu__list--sublist">
-                        <li class="aw-menu__item  aw-menu__item--link" agr:menu="@{/cidades}">
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/cidades}">
                             <a th:href="@{/cidades}">Cidades</a>
                         </li>
-                        <li class="aw-menu__item  aw-menu__item--link" agr:menu="@{/clientes}">
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/clientes}">
                             <a th:href="@{/clientes}">Clientes</a>
                         </li>
-                        <li class="aw-menu__item  aw-menu__item--link" agr:menu="@{/usuarios}">
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/usuarios}">
                             <a th:href="@{/usuarios}">Usuários</a>
                         </li>
                     </ul>
