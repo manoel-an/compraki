@@ -2,15 +2,9 @@ package br.com.compraki.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -32,193 +26,191 @@ import br.com.compraki.enuns.TipoPessoa;
 @Table(name = "pessoa")
 public class Pessoa implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * O relacionamento entre pessoa e grupo se dá pelo relacionamento entre
-     * Usuario e Pessoa
-     */
+	/**
+	 * O relacionamento entre pessoa e grupo se dá pelo relacionamento entre
+	 * Usuario e Pessoa
+	 */
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long codigo;
 
-    @NotBlank(message = "Você deve inserir um nome")
-    private String nome;
+	@NotBlank(message = "Você deve inserir um nome")
+	private String nome;
 
-    @Enumerated(EnumType.STRING)
-    private EnumSexo sexo;
+	@Enumerated(EnumType.STRING)
+	private EnumSexo sexo;
 
-    @Column(name = "data_nascimento")
-    private LocalDate dataNascimento;
+	@Column(name = "data_nascimento")
+	private LocalDate dataNascimento;
 
-    @Column(name = "data_inclusao")
-    private LocalDate dataInclusao;
+	@Column(name = "data_inclusao")
+	private LocalDate dataInclusao;
 
-    @Column(name = "data_alteracao")
-    private LocalDate dataAlteracao;
+	@Column(name = "data_alteracao")
+	private LocalDate dataAlteracao;
 
-    @Embedded /** está embutindo na mesma tabela o endereço */
-    private Endereco endereco;
+	@Embedded /** está embutindo na mesma tabela o endereço */
+	private Endereco endereco;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "codigo_usuario", unique = true)
-    private Usuario usuario;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "codigo_usuario", unique = true)
+	private Usuario usuario;
 
-    @ElementCollection
-    @CollectionTable(name = "pessoa_telefone", joinColumns = @JoinColumn(name = "codigo_pessoa") )
-    @AttributeOverrides({@AttributeOverride(name = "numero", column = @Column(name = "numero_telefone") )})
-    private List<Telefone> telefones = new ArrayList<>();
+	@Embedded /** está embutindo na mesma tabela o endereço */
+	private Telefone telefone;
 
-    @NotNull(message = "Tipo pessoa é obrigatório")
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_pessoa")
-    private TipoPessoa tipoPessoa;
+	@NotNull(message = "Tipo pessoa é obrigatório")
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_pessoa")
+	private TipoPessoa tipoPessoa;
 
-    @NotBlank(message = "CPF/CNPJ é obrigatório")
-    @Column(name = "cpf_cnpj")
-    private String cpfOuCnpj;
+	@NotBlank(message = "CPF/CNPJ é obrigatório")
+	@Column(name = "cpf_cnpj")
+	private String cpfOuCnpj;
 
-    @Column(name = "apelido")
-    private String apelido;
+	@Column(name = "apelido")
+	private String apelido;
 
-    @Column(name = "nome_fantasia")
-    private String nomeFantasia;
+	@Column(name = "nome_fantasia")
+	private String nomeFantasia;
 
-    // Getters and Setters
-    public Long getCodigo() {
-        return codigo;
-    }
+	// Getters and Setters
+	public Long getCodigo() {
+		return codigo;
+	}
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public EnumSexo getSexo() {
-        if (sexo == null) {
-            sexo = EnumSexo.FEMININO;
-        }
-        return sexo;
-    }
+	public EnumSexo getSexo() {
+		if (sexo == null) {
+			sexo = EnumSexo.FEMININO;
+		}
+		return sexo;
+	}
 
-    public void setSexo(EnumSexo sexo) {
-        this.sexo = sexo;
-    }
+	public void setSexo(EnumSexo sexo) {
+		this.sexo = sexo;
+	}
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
-    public LocalDate getDataInclusao() {
-        return dataInclusao;
-    }
+	public LocalDate getDataInclusao() {
+		return dataInclusao;
+	}
 
-    public void setDataInclusao(LocalDate dataInclusao) {
-        this.dataInclusao = dataInclusao;
-    }
+	public void setDataInclusao(LocalDate dataInclusao) {
+		this.dataInclusao = dataInclusao;
+	}
 
-    public LocalDate getDataAlteracao() {
-        return dataAlteracao;
-    }
+	public LocalDate getDataAlteracao() {
+		return dataAlteracao;
+	}
 
-    public void setDataAlteracao(LocalDate dataAlteracao) {
-        this.dataAlteracao = dataAlteracao;
-    }
+	public void setDataAlteracao(LocalDate dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
+	public Endereco getEndereco() {
+		return endereco;
+	}
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
+	public Usuario getUsuario() {
+		return usuario;
+	}
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
-    public List<Telefone> getTelefones() {
-        return telefones;
-    }
+	public Telefone getTelefone() {
+		return telefone;
+	}
 
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
-    }
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
+	}
 
-    public TipoPessoa getTipoPessoa() {
-        if (tipoPessoa == null) {
-            tipoPessoa = TipoPessoa.FISICA;
-        }
-        return tipoPessoa;
-    }
+	public TipoPessoa getTipoPessoa() {
+		if (tipoPessoa == null) {
+			tipoPessoa = TipoPessoa.FISICA;
+		}
+		return tipoPessoa;
+	}
 
-    public void setTipoPessoa(TipoPessoa tipoPessoa) {
-        this.tipoPessoa = tipoPessoa;
-    }
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
+	}
 
-    public String getCpfOuCnpj() {
-        return cpfOuCnpj;
-    }
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
 
-    public void setCpfOuCnpj(String cpfOuCnpj) {
-        this.cpfOuCnpj = cpfOuCnpj;
-    }
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
 
-    public String getApelido() {
-        return apelido;
-    }
+	public String getApelido() {
+		return apelido;
+	}
 
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
-    }
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
+	}
 
-    public String getNomeFantasia() {
-        return nomeFantasia;
-    }
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
 
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
-    }
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Pessoa other = (Pessoa) obj;
-        if (codigo == null) {
-            if (other.codigo != null)
-                return false;
-        } else if (!codigo.equals(other.codigo))
-            return false;
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Pessoa other = (Pessoa) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}
 
 }
