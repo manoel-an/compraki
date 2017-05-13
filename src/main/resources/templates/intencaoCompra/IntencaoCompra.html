@@ -20,7 +20,7 @@
         </div>
     </div>
    	<div class="container-fluid">
-	    <form class="form-horizontal" method="POST" action="/intencaoCompra" th:object="${intencaoCompra}">
+	    <form class="form-horizontal" method="POST" th:action="@{/intecao/novo}" th:object="${intencaoCompra}">
     	 <compraki:message/>
     
     	<div class="panel panel-default">

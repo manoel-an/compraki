@@ -11,21 +11,19 @@ import br.com.compraki.repository.IntencaoCompras;
 
 @Controller
 @RequestMapping("/intencao")
-public class ItencaoCompraController {
-	
-	private static final String IT_VIEW = "IntencaoCompra";
-	
+public class IntencaoCompraController {
+
+	private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
+
 	@Autowired
 	private IntencaoCompras intencaoCompras;
 
-	
 	@GetMapping("/novo")
-	public ModelAndView novo() {
+	public ModelAndView novo(IntencaoCompra intencaoCompra) {
 		ModelAndView mv = new ModelAndView(IT_VIEW);
-		mv.addObject(new IntencaoCompra());
 		return mv;
 	}
 
-	//FAZER MÉTODO SALVAR
-	
+	// FAZER MÉTODO SALVAR
+
 }
