@@ -8,6 +8,7 @@
 
 <head>
     <title>Minha Conta</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
 </head>
 
 <section layout:fragment="conteudo">
@@ -29,7 +30,52 @@
     </div>
    	<div class="container-fluid">
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
-		    <compraki:message/>
+		   <compraki:message/>
+           <h2 id="tituloTipoPessoa">Dados de Autenticação</h2> 
+            <div class="row">
+                <div class="form-group  col-sm-9  compraki-required" compraki:classforerror="usuario.nome">
+                    <label for="nome" class="control-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" autofocus="autofocus" th:field="*{usuario.nome}"/>
+                </div>
+                <div class="form-group  col-sm-3  compraki-required" compraki:classforerror="usuario.email">
+                    <label for="email" class="control-label">E-mail</label>
+                    <input type="text" class="form-control" id="email" th:field="*{usuario.email}"/>
+                </div>                
+            </div>            
+            <div class="row" >
+                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="usuario.senha">
+                    <label for="senha" class="control-label">Senha</label> 
+                    <input type="password" class="form-control" id="senha" th:field="*{usuario.senha}"/>
+                </div>
+                
+                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="usuario.confirmacaoSenha">
+                    <label for="confirmacaoSenha" class="control-label">Confirmação de senha</label> 
+                    <input type="password" class="form-control" id="confirmacaoSenha" th:field="*{usuario.confirmacaoSenha}"/>
+                </div>
+                
+                <div class="form-group  col-sm-3">
+                    <label class="control-label">Status</label>
+                    <div>
+                        <input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
+                            data-on-text="Ativo" data-off-text="Inativo" th:field="*{usuario.ativo}"/>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="row">
+                <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="usuario.grupos">
+                    <label class="control-label">Grupos</label> 
+                    <div>
+                        <th:block th:each="grupo, iterStat : ${grupos}">
+                            <div class="checkbox  checkbox-inline"> 
+                                <input type="checkbox" th:value="${grupo.codigo}" th:field="*{usuario.grupos}" />
+                                <label th:for="${#ids.prev('usuario.grupos')}" th:text="${grupo.nome}" ></label>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>                        		   
 		   <div class="row">
                 <div class="col-sm-6  form-group">
                   <label class="control-label" for="nome">Selecione o tipo de pessoa</label>
@@ -170,6 +216,10 @@
     </div>
 </section>
 <th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
     <script th:src="@{/javascripts/cadastro-usuario.js}"></script>
+    <script>
+        $('.js-status').bootstrapSwitch();
+    </script>    
 </th:block>
 </html>

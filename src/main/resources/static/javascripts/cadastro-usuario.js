@@ -30,6 +30,7 @@ Compraki.CadastroUsuario = (function() {
 		this.inputCpfCnpj.mask(this.mascaraPadrao);
 		this.inputCep.mask(this.mascaraCep);
 		this.inputCep.on('blur', pesquisarEnderecoPorCep.bind(this));
+		$('.js-status').bootstrapSwitch();
 	}
 	
 	function pesquisarEnderecoPorCep(){
