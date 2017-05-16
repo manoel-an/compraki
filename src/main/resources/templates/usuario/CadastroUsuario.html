@@ -30,27 +30,28 @@
     </div>
    	<div class="container-fluid">
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
+	       <input id="idHidden" type="hidden" th:field="*{codigo}"> 
 		   <compraki:message/>
-           <h2 id="tituloTipoPessoa">Dados de Autenticação</h2> 
+           <h2>Dados de Autenticação</h2> 
             <div class="row">
                 <div class="form-group  col-sm-9  compraki-required" compraki:classforerror="usuario.nome">
                     <label for="nome" class="control-label">Nome</label>
                     <input type="text" class="form-control" id="nome" autofocus="autofocus" th:field="*{usuario.nome}"/>
                 </div>
-                <div class="form-group  col-sm-3  compraki-required" compraki:classforerror="usuario.email">
+                <div class="form-group  col-sm-3  compraki-required" compraki:classforerror="email">
                     <label for="email" class="control-label">E-mail</label>
-                    <input type="text" class="form-control" id="email" th:field="*{usuario.email}"/>
+                    <input type="text" class="form-control" id="email" th:field="*{email}"/>
                 </div>                
             </div>            
             <div class="row" >
-                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="usuario.senha">
+                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="senha">
                     <label for="senha" class="control-label">Senha</label> 
-                    <input type="password" class="form-control" id="senha" th:field="*{usuario.senha}"/>
+                    <input type="password" class="form-control" id="senha" th:field="*{senha}"/>
                 </div>
                 
-                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="usuario.confirmacaoSenha">
+                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="confirmacaoSenha">
                     <label for="confirmacaoSenha" class="control-label">Confirmação de senha</label> 
-                    <input type="password" class="form-control" id="confirmacaoSenha" th:field="*{usuario.confirmacaoSenha}"/>
+                    <input type="password" class="form-control" id="confirmacaoSenha" th:field="*{confirmacaoSenha}"/>
                 </div>
                 
                 <div class="form-group  col-sm-3">
@@ -95,7 +96,7 @@
 		   </div>
            <h2 id="tituloTipoPessoa">Dados Pessoais</h2>		   
            <div class="row">
-			    <div class="form-group  col-sm-6 compraki-required">
+			    <div class="form-group  col-sm-6 compraki-required" compraki:classforerror="nome">
 	                <label class="control-label js-nome" for="nomePessoaRazaoSocial">Nome</label>
 	                <input id="nomePessoaRazaoSocial" type="text" class="form-control" placeholder="Nome" 
 	                   th:field="*{nome}" autocomplete="off">
@@ -218,8 +219,5 @@
 <th:block layout:fragment="javascript-extra">
     <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
     <script th:src="@{/javascripts/cadastro-usuario.js}"></script>
-    <script>
-        $('.js-status').bootstrapSwitch();
-    </script>    
 </th:block>
 </html>

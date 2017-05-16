@@ -15,15 +15,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.compraki.enuns.EnumSexo;
 import br.com.compraki.enuns.TipoPessoa;
+import br.com.compraki.validation.AtributoConfirmacao;
 
 @Entity
 @Table(name = "pessoa")
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
 public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -76,6 +80,16 @@ public class Pessoa implements Serializable {
 
 	@Column(name = "nome_fantasia")
 	private String nomeFantasia;
+
+	@Transient
+	private String senha;
+
+	@Transient
+	private String confirmacaoSenha;
+
+	@Email
+	@Transient
+	private String email;
 
 	// Getters and Setters
 	public Long getCodigo() {
@@ -186,6 +200,30 @@ public class Pessoa implements Serializable {
 
 	public void setNomeFantasia(String nomeFantasia) {
 		this.nomeFantasia = nomeFantasia;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override

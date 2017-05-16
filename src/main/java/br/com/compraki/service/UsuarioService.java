@@ -20,7 +20,6 @@ public class UsuarioService {
 	@Transactional
 	public Usuario salvarPreCadastro(Usuario usuario) {
 		usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-		usuario.setConfirmacaoSenha(usuario.getSenha());
 		return usuarios.saveAndFlush(usuario);
 	}
 

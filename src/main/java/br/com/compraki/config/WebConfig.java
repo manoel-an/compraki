@@ -37,11 +37,11 @@ import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDiale
 
 import br.com.compraki.controller.SegurancaController;
 import br.com.compraki.thymeleaf.CompraAKIDialect;
-import br.com.compraki.validator.UsuarioValidator;
+import br.com.compraki.validator.PessoaValidator;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { SegurancaController.class, UsuarioValidator.class })
+@ComponentScan(basePackageClasses = { SegurancaController.class, PessoaValidator.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @PropertySource("classpath:messages_br.properties")

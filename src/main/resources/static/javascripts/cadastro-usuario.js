@@ -14,7 +14,6 @@ Compraki.CadastroUsuario = (function() {
 		this.divcpfCnpjJuridico = $('.div-js-cpf-cnpj');
 		this.inputCpfCnpj = $('.js-cpf-cnpj');
 		this.mascaraPadrao = "000.000.000-00";
-		this.mascaraCep = "99999-999";
 		this.nomeRazaoSocial = $('#nomePessoaRazaoSocial');
 		this.inputCep = $('.js-cep');
 		this.inputRua = $('#rua');
@@ -28,7 +27,6 @@ Compraki.CadastroUsuario = (function() {
 		this.tipoPessoaFisica.on('click', onAtualizaFormFisico.bind(this));
 		this.tipoPessoaJuridica.on('click', onAtualizaFormJuridico.bind(this));
 		this.inputCpfCnpj.mask(this.mascaraPadrao);
-		this.inputCep.mask(this.mascaraCep);
 		this.inputCep.on('blur', pesquisarEnderecoPorCep.bind(this));
 		$('.js-status').bootstrapSwitch();
 	}
