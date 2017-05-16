@@ -34,16 +34,10 @@
 		   <compraki:message/>
            <h2>Dados de Autenticação</h2> 
             <div class="row">
-                <div class="form-group  col-sm-9  compraki-required" compraki:classforerror="usuario.nome">
-                    <label for="nome" class="control-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" autofocus="autofocus" th:field="*{usuario.nome}"/>
-                </div>
                 <div class="form-group  col-sm-3  compraki-required" compraki:classforerror="email">
                     <label for="email" class="control-label">E-mail</label>
                     <input type="text" class="form-control" id="email" th:field="*{email}"/>
-                </div>                
-            </div>            
-            <div class="row" >
+                </div>
                 <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="senha">
                     <label for="senha" class="control-label">Senha</label> 
                     <input type="password" class="form-control" id="senha" th:field="*{senha}"/>
@@ -60,16 +54,14 @@
                         <input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
                             data-on-text="Ativo" data-off-text="Inativo" th:field="*{usuario.ativo}"/>
                     </div>
-                </div>
-                
-            </div>
-            
+                </div>                                
+            </div>            
             <div class="row">
                 <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="usuario.grupos">
                     <label class="control-label">Grupos</label> 
                     <div>
                         <th:block th:each="grupo, iterStat : ${grupos}">
-                            <div class="checkbox  checkbox-inline"> 
+                            <div class="checkbox  checkbox-inline" th:if="${grupo.codigo != 4}"> 
                                 <input type="checkbox" th:value="${grupo.codigo}" th:field="*{usuario.grupos}" />
                                 <label th:for="${#ids.prev('usuario.grupos')}" th:text="${grupo.nome}" ></label>
                             </div>

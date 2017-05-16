@@ -23,7 +23,7 @@
     	<li>
 		    <a th:href="@{/usuarios/novo}" class="btn-lg  aw-btn-full-width">
 		        <i class="fa fa-user" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Minha Conta"></i> 
-		         	<span class="hidden-xs  hidden-sm" th:text="|  Olá ${#authentication.principal.usuario.nome}|"></span>
+		         	<span class="hidden-xs  hidden-sm" th:text="|  Olá ${#authentication.principal.usuario.email}|"></span>
 		    </a>    	
     	</li>
     
