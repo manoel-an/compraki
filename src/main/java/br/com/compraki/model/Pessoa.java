@@ -30,225 +30,226 @@ import br.com.compraki.validation.AtributoConfirmacao;
 @AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
 public class Pessoa implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * O relacionamento entre pessoa e grupo se dá pelo relacionamento entre
-	 * Usuario e Pessoa
-	 */
+    /**
+     * O relacionamento entre pessoa e grupo se dá pelo relacionamento entre
+     * Usuario e Pessoa
+     */
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigo;
 
-	@NotBlank(message = "Você deve inserir um nome")
-	private String nome;
+    @NotBlank(message = "Você deve inserir um nome em seus dados pessoais")
+    private String nome;
 
-	@Enumerated(EnumType.STRING)
-	private EnumSexo sexo;
+    @Enumerated(EnumType.STRING)
+    private EnumSexo sexo;
 
-	@Column(name = "data_nascimento")
-	private LocalDate dataNascimento;
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
 
-	@Column(name = "data_inclusao")
-	private LocalDate dataInclusao;
+    @Column(name = "data_inclusao")
+    private LocalDate dataInclusao;
 
-	@Column(name = "data_alteracao")
-	private LocalDate dataAlteracao;
+    @Column(name = "data_alteracao")
+    private LocalDate dataAlteracao;
 
-	@Embedded /** está embutindo na mesma tabela o endereço */
-	private Endereco endereco;
+    @Embedded /** está embutindo na mesma tabela o endereço */
+    private Endereco endereco;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codigo_usuario", unique = true)
-	private Usuario usuario;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "codigo_usuario", unique = true)
+    private Usuario usuario;
 
-	@Embedded /** está embutindo na mesma tabela o endereço */
-	private Telefone telefone;
+    @Embedded /** está embutindo na mesma tabela o endereço */
+    private Telefone telefone;
 
-	@NotNull(message = "Tipo pessoa é obrigatório")
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo_pessoa")
-	private TipoPessoa tipoPessoa;
+    @NotNull(message = "Tipo pessoa é obrigatório")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_pessoa")
+    private TipoPessoa tipoPessoa;
 
-	@NotBlank(message = "CPF/CNPJ é obrigatório")
-	@Column(name = "cpf_cnpj")
-	private String cpfOuCnpj;
+    @NotBlank(message = "CPF/CNPJ é obrigatório")
+    @Column(name = "cpf_cnpj")
+    private String cpfOuCnpj;
 
-	@Column(name = "apelido")
-	private String apelido;
+    @Column(name = "apelido")
+    private String apelido;
 
-	@Column(name = "nome_fantasia")
-	private String nomeFantasia;
+    @NotBlank(message = "O Nome Fantasia é obrigatório")
+    @Column(name = "nome_fantasia")
+    private String nomeFantasia;
 
-	@Transient
-	private String senha;
+    @NotBlank(message = "A confirmação de senha é obrigatória")
+    @Transient
+    private String confirmacaoSenha;
 
-	@Transient
-	private String confirmacaoSenha;
+    @NotBlank(message = "A senha é obrigatória")
+    @Transient
+    private String senha;
 
-	@Email
-	@Transient
-	private String email;
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email informado é inválido")
+    @Transient
+    private String email;
 
-	// Getters and Setters
-	public Long getCodigo() {
-		return codigo;
-	}
+    // Getters and Setters
+    public Long getCodigo() {
+        return codigo;
+    }
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public EnumSexo getSexo() {
-		if (sexo == null) {
-			sexo = EnumSexo.FEMININO;
-		}
-		return sexo;
-	}
+    public EnumSexo getSexo() {
+        if (sexo == null) {
+            sexo = EnumSexo.FEMININO;
+        }
+        return sexo;
+    }
 
-	public void setSexo(EnumSexo sexo) {
-		this.sexo = sexo;
-	}
+    public void setSexo(EnumSexo sexo) {
+        this.sexo = sexo;
+    }
 
-	public LocalDate getDataNascimento() {
-		return dataNascimento;
-	}
+    public LocalDate getDataNascimento() {
+        return dataNascimento;
+    }
 
-	public void setDataNascimento(LocalDate dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
+    public void setDataNascimento(LocalDate dataNascimento) {
+        this.dataNascimento = dataNascimento;
+    }
 
-	public LocalDate getDataInclusao() {
-		return dataInclusao;
-	}
+    public LocalDate getDataInclusao() {
+        return dataInclusao;
+    }
 
-	public void setDataInclusao(LocalDate dataInclusao) {
-		this.dataInclusao = dataInclusao;
-	}
+    public void setDataInclusao(LocalDate dataInclusao) {
+        this.dataInclusao = dataInclusao;
+    }
 
-	public LocalDate getDataAlteracao() {
-		return dataAlteracao;
-	}
+    public LocalDate getDataAlteracao() {
+        return dataAlteracao;
+    }
 
-	public void setDataAlteracao(LocalDate dataAlteracao) {
-		this.dataAlteracao = dataAlteracao;
-	}
+    public void setDataAlteracao(LocalDate dataAlteracao) {
+        this.dataAlteracao = dataAlteracao;
+    }
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
+    public Endereco getEndereco() {
+        return endereco;
+    }
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-	public Telefone getTelefone() {
-		return telefone;
-	}
+    public Telefone getTelefone() {
+        return telefone;
+    }
 
-	public void setTelefone(Telefone telefone) {
-		this.telefone = telefone;
-	}
+    public void setTelefone(Telefone telefone) {
+        this.telefone = telefone;
+    }
 
-	public TipoPessoa getTipoPessoa() {
-		if (tipoPessoa == null) {
-			tipoPessoa = TipoPessoa.FISICA;
-		}
-		return tipoPessoa;
-	}
+    public TipoPessoa getTipoPessoa() {
+        return tipoPessoa;
+    }
 
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa;
-	}
+    public void setTipoPessoa(TipoPessoa tipoPessoa) {
+        this.tipoPessoa = tipoPessoa;
+    }
 
-	public String getCpfOuCnpj() {
-		return cpfOuCnpj;
-	}
+    public String getCpfOuCnpj() {
+        return cpfOuCnpj;
+    }
 
-	public void setCpfOuCnpj(String cpfOuCnpj) {
-		this.cpfOuCnpj = cpfOuCnpj;
-	}
+    public void setCpfOuCnpj(String cpfOuCnpj) {
+        this.cpfOuCnpj = cpfOuCnpj;
+    }
 
-	public String getApelido() {
-		return apelido;
-	}
+    public String getApelido() {
+        return apelido;
+    }
 
-	public void setApelido(String apelido) {
-		this.apelido = apelido;
-	}
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
 
-	public String getNomeFantasia() {
-		return nomeFantasia;
-	}
+    public String getNomeFantasia() {
+        return nomeFantasia;
+    }
 
-	public void setNomeFantasia(String nomeFantasia) {
-		this.nomeFantasia = nomeFantasia;
-	}
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
+    }
 
-	public String getSenha() {
-		return senha;
-	}
+    public String getSenha() {
+        return senha;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public String getConfirmacaoSenha() {
-		return confirmacaoSenha;
-	}
+    public String getConfirmacaoSenha() {
+        return confirmacaoSenha;
+    }
 
-	public void setConfirmacaoSenha(String confirmacaoSenha) {
-		this.confirmacaoSenha = confirmacaoSenha;
-	}
+    public void setConfirmacaoSenha(String confirmacaoSenha) {
+        this.confirmacaoSenha = confirmacaoSenha;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Pessoa other = (Pessoa) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Pessoa other = (Pessoa) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
 
 }

@@ -1,0 +1,53 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:compraki="http://compraki.com.br"
+    xmlns:data="http://www.thymeleaf.org/extras/data">
+    <form id="formPessoaFisica" th:object="${pessoa}">
+        <div id="targetContentFormFisico">
+		    <h2>Dados Pessoais</h2>           
+		    <div class="row">
+		         <div class="form-group  col-sm-6 compraki-required" compraki:classforerror="nome">
+		             <label class="control-label js-nome" for="nomePessoa">Nome</label>
+		             <input id="nomePessoa" type="text" class="form-control" placeholder="Nome" 
+		                th:field="*{nome}" autocomplete="off">
+		         </div>           
+		         
+		         <div class="form-group  col-sm-2 compraki-required">
+		             <label class="control-label" for="nome">Data Nascimento</label>
+		             <input id="dataNascimento" type="text" class="form-control js-date" placeholder="Data Nascimento" 
+		                th:field="*{dataNascimento}" autocomplete="off">
+		         </div>                           
+		        
+		         <div class="col-sm-4  form-group">
+		           <label class="control-label" for="nome">Selecione o sexo</label>
+		             <div class="input-group">
+		                 <div class="input-group-addon">Sexo</div>
+		                 <div class="btn-group" data-toggle="buttons">
+		                   <th:block th:each="sexo : ${sexos}">
+		                      <label th:id="|sexo${sexo.descricao}|" class="btn btn-primary" 
+		                            th:classappend="${sexo.descricao == 'Feminino' ? 'active' : ''}">
+		                        <input type="radio" autocomplete="off" th:text="${sexo.descricao}" th:value="${sexo}" 
+		                            th:field="*{sexo}" th:checked="${sexo.descricao == 'Feminino' ? 'checked' : ''}"> 
+		                      </label>                                                          
+		                   </th:block>
+		                </div>
+		             </div>
+		         </div>  
+		    </div>   
+		    
+		    <div class="row">
+		         <div class="form-group  col-sm-2">
+		             <label class="control-label" for="apelido">Apelido</label>
+		             <input id="apelido" type="text" class="form-control" placeholder="Apelido" 
+		                th:field="*{apelido}" autocomplete="off">
+		         </div>
+		         <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="cpfOuCnpj">
+		             <label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
+		             <input type="text" class="form-control js-cpf-cnpj" th:field="*{cpfOuCnpj}" placeholder="CPF/CNPJ"/>
+		         </div>                
+		    </div>     
+        
+        </div>
+    </form>
+</html>

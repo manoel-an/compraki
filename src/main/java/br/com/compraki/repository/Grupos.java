@@ -12,4 +12,6 @@ public interface Grupos extends JpaRepository<Grupo, Long> {
 
     @Query("SELECT g FROM Grupo g INNER JOIN FETCH g.permissoes WHERE g.codigo = (:codigo)")
     public List<Grupo> findByCodigoAndFetchEager(@Param("codigo") Long codigo);
+
+    public List<Grupo> findByCodigoIn(Long[] codigos);
 }

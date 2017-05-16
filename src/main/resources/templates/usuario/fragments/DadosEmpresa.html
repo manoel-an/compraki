@@ -1,0 +1,34 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:compraki="http://compraki.com.br"
+    xmlns:data="http://www.thymeleaf.org/extras/data">
+    <form id="formPessoaJuridica" th:object="${pessoa}">
+	     <div id="targetContentFormJuridico">
+		    <h2>Dados Empresa</h2>           
+		    <div class="row">
+		         <div class="form-group  col-sm-6 compraki-required" compraki:classforerror="nome">
+		             <label class="control-label" for="nomeRazaoSocial">Razão Social</label>
+		             <input id="nomeRazaoSocial" type="text" class="form-control" placeholder="Razão Social" 
+		                th:field="*{nome}" autocomplete="off">
+		         </div>
+		         <div class="form-group  col-sm-5 compraki-required">
+		             <label class="control-label" for="nomeFantasia">Nome Fantasia</label>
+		             <input id="nomeFantasia" type="text" class="form-control" placeholder="Nome Fantasia" 
+		                th:field="*{nomeFantasia}" autocomplete="off">
+		         </div>                
+		    </div>
+	        <div class="row">
+	             <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="cpfOuCnpj">
+	                 <label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
+	                 <input type="text" class="form-control js-cpf-cnpj" th:field="*{cpfOuCnpj}" placeholder="CPF/CNPJ"/>
+	             </div> 
+	             <div class="form-group  col-sm-2">
+	                 <label class="control-label" for="apelido">Apelido</label>
+	                 <input id="apelido" type="text" class="form-control" placeholder="Apelido" 
+	                    th:field="*{apelido}" autocomplete="off">
+	             </div>          
+	        </div>	             
+	     </div>
+    </form>
+</html>
