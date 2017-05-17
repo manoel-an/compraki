@@ -32,7 +32,15 @@
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
 	       <input id="idHidden" type="hidden" th:field="*{codigo}"> 
 	       <input id="mask" type="hidden"> 
-	       <input id="tipoFormPessoa" type="hidden" th:value="${tipoFormPessoa}">> 
+	       <input id="inputTipoPessoa" type="hidden" th:field="*{inputTipoPessoa}" th:value="*{inputTipoPessoa}">
+	       <input id="erroNomePessoa" type="hidden" th:field="*{erroNome}"> 
+	       <input id="erroRazaoSocial" type="hidden" th:field="*{erroRazaoSocial}"> 
+	       <input id="nomeFantasiaHidden" type="hidden" th:field="*{nomeFantasia}"> 
+	       <input id="erroDataNascimento" type="hidden" th:field="*{erroDataNascimento}"> 
+	       <input id="dataNascimentoHidden" type="hidden" th:field="*{dataNascimento}"> 
+	       <input id="erroCpf" type="hidden" th:field="*{erroCpf}"> 
+	       <input id="erroCnpj" type="hidden" th:field="*{erroCnpj}"> 
+	       <input id="erroNomeFantasia" type="hidden" th:field="*{erroNomeFantasia}"> 
 		   <compraki:message/>
            <h2>Dados de Autenticação</h2> 
             <div class="row">

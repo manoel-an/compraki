@@ -43,6 +43,29 @@ public class UsuariosController {
             RedirectAttributes attributes) {
         validator.validate(pessoa, result);
         if (result.hasErrors()) {
+            if (result.getFieldError("nome") != null && pessoa.getInputTipoPessoa().equals("inputPessoaFISICA")) {
+                pessoa.setErroNome(Boolean.TRUE);
+            }
+            if (result.getFieldError("nome") != null && pessoa.getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+                pessoa.setErroRazaoSocial(Boolean.TRUE);
+            }
+            if (result.getFieldError("dataNascimento") != null) {
+                pessoa.setErroDataNascimento(Boolean.TRUE);
+            }
+            if (result.getFieldError("cpfOuCnpj") != null && pessoa.getInputTipoPessoa().equals("inputPessoaFISICA")) {
+                pessoa.setErroCpf(Boolean.TRUE);
+            }
+            if (result.getFieldError("cpfOuCnpj") != null
+                    && pessoa.getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+                pessoa.setErroCnpj(Boolean.TRUE);
+            }
+            if (result.getFieldError("nomeFantasia") != null
+                    && pessoa.getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+                pessoa.setErroNomeFantasia(Boolean.TRUE);
+            }
+            if (result.getFieldError("endereco.cep") != null) {
+                System.out.println("oi");
+            }
             return novo(user, pessoa);
         }
         return null;
@@ -72,7 +95,6 @@ public class UsuariosController {
         modelAndView.addObject("tipos", TipoPessoa.values());
         modelAndView.addObject("estados", UF.values());
         modelAndView.addObject("grupos", this.pessoaService.getGruposByRole(user));
-        modelAndView.addObject("tipoFormPessoa", "inputPessoaFISICA");
         modelAndView.addObject("pessoa", pessoa);
         return modelAndView;
     }

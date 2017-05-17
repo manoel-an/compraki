@@ -15,15 +15,24 @@ Compraki.CadastroUsuario = (function() {
 		this.divDadosPessoais = $('#divDadosPessoais');
 		this.divDadosEmpresa = $('#divDadosEmpresa');
 		this.cpfCnpj = $('.js-cpf-cnpj');
-		this.tipoFormPessoa = $('#tipoFormPessoa');
+		this.inputTipoPessoa = $('#inputTipoPessoa');
+		this.erroNomePessoa = $('#erroNomePessoa');
+		this.erroRazaoSocial = $('#erroRazaoSocial');
+		this.checkBoxStatus = $('.js-status');
+		this.nomeFantasiaHidden = $('#nomeFantasiaHidden');
+		this.erroDataNascimento = $('#erroDataNascimento');
+		this.dataNascimentoHidden = $('#dataNascimentoHidden');
+		this.erroCpf = $('#erroCpf');
+		this.erroCnpj = $('#erroCnpj');
+		this.erroNomeFantasia = $('#erroNomeFantasia');
 	}
 	
 	CadastroUsuario.prototype.iniciar = function(event) {
 		this.tipoPessoaFisica.on('click', onAtualizaFormFisico.bind(this));
 		this.tipoPessoaJuridica.on('click', onAtualizaFormJuridico.bind(this));
 		this.inputCep.on('blur', pesquisarEnderecoPorCep.bind(this));
-		$('.js-status').bootstrapSwitch();
-		document.getElementById(this.tipoFormPessoa.val()).click();
+		this.checkBoxStatus.bootstrapSwitch();
+		document.getElementById(this.inputTipoPessoa.val()).click();
 		
 	}
 	
@@ -59,14 +68,30 @@ Compraki.CadastroUsuario = (function() {
 			method: 'POST',
 			error: onError.bind(this),
 			success: onSucessFormularioPessoaFisica.bind(this),
-			complete: onAdicionaFormatacaoFormularioFisico.bind(this)
+			complete: onAdicionaValidacoesFormularioFisico.bind(this)
 		});	
 	}
 	
-	function onAdicionaFormatacaoFormularioFisico(event){
+	function onAdicionaValidacoesFormularioFisico(event){
 		this.cpfCnpj.mask(this.mascara.val());
 		var maskDate = new Compraki.MaskDate();
 		maskDate.enable();
+		var divNomePessoa = $('.js-div-nome-pessoa');
+		this.inputTipoPessoa.val('inputPessoaFISICA');
+		this.nomeFantasiaHidden.attr('name', 'nomeFantasia');
+		this.nomeFantasiaHidden.val('-');
+		if(this.erroNomePessoa.val() == 'true'){
+			divNomePessoa.addClass('has-error');
+		}
+		var divDataNascimento = $('.js-div-data-nascimento');
+		if(this.erroDataNascimento.val() == 'true'){
+			divDataNascimento.addClass('has-error');
+		}
+		this.dataNascimentoHidden.attr('name', 'dataNascimentoHidden');	
+		var divCpf = $('.js-div-cpf');
+		if(this.erroCpf.val() == 'true'){
+			divCpf.addClass('has-error');
+		}		
 	}
 	
 	function onSucessFormularioPessoaFisica(resultado){
@@ -90,12 +115,28 @@ Compraki.CadastroUsuario = (function() {
 			method: 'POST',
 			error: onError.bind(this),
 			success: onSucessFormularioPessoaJuridica.bind(this),
-			complete: onAdicionaFormatacaoFormularioJuridico.bind(this)
+			complete: onAdicionaValidacoesFormularioJuridico.bind(this)
 		});			
 	}
 	
-	function onAdicionaFormatacaoFormularioJuridico(event){
+	function onAdicionaValidacoesFormularioJuridico(event){
 		this.cpfCnpj.mask(this.mascara.val());
+		var divNomeRazaoSocial = $('.js-div-nome-razao-social');
+		this.inputTipoPessoa.val('inputPessoaJURIDICA');
+		this.nomeFantasiaHidden.attr('name', 'nomeFantasiaHidden');
+		if(this.erroRazaoSocial.val() == 'true'){
+			divNomeRazaoSocial.addClass('has-error');
+		}
+		this.dataNascimentoHidden.attr('name', 'dataNascimento');
+		this.dataNascimentoHidden.val("01/01/1000");
+		var divCnpj = $('.js-div-cnpj');
+		if(this.erroCnpj.val() == 'true'){
+			divCnpj.addClass('has-error');
+		}
+		var divNomeFantasia = $('.js-div-nome-fantasia');
+		if(this.erroNomeFantasia.val() == 'true'){
+			divNomeFantasia.addClass('has-error');
+		}
 	}
 	
 	function onSucessFormularioPessoaJuridica(resultado){

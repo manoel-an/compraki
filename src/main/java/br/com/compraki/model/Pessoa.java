@@ -14,6 +14,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -41,14 +43,8 @@ public class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;
 
-    @NotBlank(message = "Você deve inserir um nome em seus dados pessoais")
-    private String nome;
-
     @Enumerated(EnumType.STRING)
     private EnumSexo sexo;
-
-    @Column(name = "data_nascimento")
-    private LocalDate dataNascimento;
 
     @Column(name = "data_inclusao")
     private LocalDate dataInclusao;
@@ -71,29 +67,68 @@ public class Pessoa implements Serializable {
     @Column(name = "tipo_pessoa")
     private TipoPessoa tipoPessoa;
 
-    @NotBlank(message = "CPF/CNPJ é obrigatório")
-    @Column(name = "cpf_cnpj")
-    private String cpfOuCnpj;
-
     @Column(name = "apelido")
     private String apelido;
-
-    @NotBlank(message = "O Nome Fantasia é obrigatório")
-    @Column(name = "nome_fantasia")
-    private String nomeFantasia;
-
-    @NotBlank(message = "A confirmação de senha é obrigatória")
-    @Transient
-    private String confirmacaoSenha;
-
-    @NotBlank(message = "A senha é obrigatória")
-    @Transient
-    private String senha;
 
     @NotBlank(message = "Email é obrigatório")
     @Email(message = "Email informado é inválido")
     @Transient
     private String email;
+
+    @NotBlank(message = "A senha é obrigatória")
+    @Transient
+    private String senha;
+
+    @NotBlank(message = "A confirmação de senha é obrigatória")
+    @Transient
+    private String confirmacaoSenha;
+
+    @NotBlank(message = "O Nome/Razão Social é obrigatório")
+    private String nome;
+
+    @NotNull(message = "A data de Nascimento é obrigatória")
+    @Column(name = "data_nascimento")
+    private LocalDate dataNascimento;
+
+    @NotBlank(message = "O Nome Fantasia é obrigatório")
+    @Column(name = "nome_fantasia")
+    private String nomeFantasia;
+
+    @NotBlank(message = "CPF/CNPJ é obrigatório")
+    @Column(name = "cpf_cnpj")
+    private String cpfOuCnpj;
+
+    @Transient
+    private String inputTipoPessoa;
+
+    @Transient
+    private Boolean erroNome;
+
+    @Transient
+    private Boolean erroRazaoSocial;
+
+    @Transient
+    private Boolean erroDataNascimento;
+
+    @Transient
+    private Boolean erroCpf;
+
+    @Transient
+    private Boolean erroCnpj;
+
+    @Transient
+    private Boolean erroNomeFantasia;
+
+    @PrePersist
+    @PreUpdate
+    private void prePersistPreUpdate() {
+        if (this.nomeFantasia != null && this.nomeFantasia.equals("-")) {
+            this.nomeFantasia = null;
+        }
+        if (inputTipoPessoa.equals("inputPessoaJURIDICA")) {
+            this.dataNascimento = null;
+        }
+    }
 
     // Getters and Setters
     public Long getCodigo() {
@@ -225,6 +260,65 @@ public class Pessoa implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getInputTipoPessoa() {
+        if (inputTipoPessoa == null) {
+            inputTipoPessoa = "inputPessoaFISICA";
+        }
+        return inputTipoPessoa;
+    }
+
+    public void setInputTipoPessoa(String inputTipoPessoa) {
+        this.inputTipoPessoa = inputTipoPessoa;
+    }
+
+    public Boolean getErroNome() {
+        return erroNome;
+    }
+
+    public void setErroNome(Boolean erroNome) {
+        this.erroNome = erroNome;
+    }
+
+    public Boolean getErroRazaoSocial() {
+        return erroRazaoSocial;
+    }
+
+    public void setErroRazaoSocial(Boolean erroRazaoSocial) {
+        this.erroRazaoSocial = erroRazaoSocial;
+    }
+
+    public Boolean getErroDataNascimento() {
+        return erroDataNascimento;
+    }
+
+    public void setErroDataNascimento(Boolean erroDataNascimento) {
+        this.erroDataNascimento = erroDataNascimento;
+    }
+
+    public Boolean getErroCpf() {
+        return erroCpf;
+    }
+
+    public void setErroCpf(Boolean erroCpf) {
+        this.erroCpf = erroCpf;
+    }
+
+    public Boolean getErroCnpj() {
+        return erroCnpj;
+    }
+
+    public void setErroCnpj(Boolean erroCnpj) {
+        this.erroCnpj = erroCnpj;
+    }
+
+    public Boolean getErroNomeFantasia() {
+        return erroNomeFantasia;
+    }
+
+    public void setErroNomeFantasia(Boolean erroNomeFantasia) {
+        this.erroNomeFantasia = erroNomeFantasia;
     }
 
     @Override
