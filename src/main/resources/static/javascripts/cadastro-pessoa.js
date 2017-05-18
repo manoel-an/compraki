@@ -25,6 +25,8 @@ Compraki.CadastroUsuario = (function() {
 		this.erroCpf = $('#erroCpf');
 		this.erroCnpj = $('#erroCnpj');
 		this.erroNomeFantasia = $('#erroNomeFantasia');
+		this.botaoSalvarPessoa = $('.js-btn-salvar-pessoa');
+		this.formulario = $('#formPessoa');
 	}
 	
 	CadastroUsuario.prototype.iniciar = function(event) {
@@ -32,9 +34,15 @@ Compraki.CadastroUsuario = (function() {
 		this.tipoPessoaJuridica.on('click', onAtualizaFormJuridico.bind(this));
 		this.inputCep.on('blur', pesquisarEnderecoPorCep.bind(this));
 		this.checkBoxStatus.bootstrapSwitch();
+		this.botaoSalvarPessoa.on('click', onSalvarPessoa.bind(this));
 		document.getElementById(this.inputTipoPessoa.val()).click();
 		
 	}
+	
+	function onSalvarPessoa(event){
+		event.preventDefault();
+		this.formulario.submit();
+	}	
 	
 	function pesquisarEnderecoPorCep(){
 		var cep = this.inputCep.val();
