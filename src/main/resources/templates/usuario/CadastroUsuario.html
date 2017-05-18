@@ -122,14 +122,14 @@
                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="endereco.bairro">
                    <label for="bairro" class="control-label">Bairro</label>
                    <input id="bairro" type="text" class="form-control" th:field="*{endereco.bairro}" placeholder="Bairro"/>
-               </div>               
-               <div class="form-group col-sm-3 compraki-required" compraki:classforerror="endereco.estado">
-                    <label for="uf" class="control-label">Estado:</label>
+               </div>  
+                <div class="form-group col-sm-3 compraki-required" compraki:classforerror="endereco.estado">
+                    <label class="control-label" for="uf">Estado:</label>
                     <select id="uf" class="form-control js-select-search" th:field="*{endereco.estado}">
                         <option value=""></option>
                         <option th:each="estado : ${estados}" th:text="${estado.nome}+' ('+${estado.sigla} + ')'" th:value="${estado}"></option>
                     </select>
-               </div>            
+                </div>               
            </div>  
            
            <div class="row">
