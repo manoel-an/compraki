@@ -12,7 +12,7 @@ Compraki.IntencaoCompra = (function() {
 	}
 	
 	function teste(event){
-		alert('oi');
+		//alert('oi');
 	}
 	
 	return IntencaoCompra;

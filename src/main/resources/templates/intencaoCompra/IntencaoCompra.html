@@ -21,8 +21,8 @@
         </div>
     </div>
    	<div class="container-fluid">
-	    <form class="form-horizontal" method="POST" th:action="@{/intecao/novo}" th:object="${intencaoCompra}">
-    	 <compraki:message/>
+	    <form class="form-horizontal" method="post" th:action="@{/intencoes/novo}" th:object="${intencaoCompra}">
+	     
     
     	<div class="panel panel-default">
     		<div class="panel-heading it-panelTituloLink">
@@ -33,7 +33,7 @@
     		</div>
     		
     		<div class="panel-body">
-    			<input type="hidden" th:field="*{codigo}"/>
+    			<input id="idHidden" type="hidden" th:field="*{codigo}"/>
     		
 				<div class="form-group" compraki:classforerror="marca">
 					<label for="marca" class="col-sm-2 control-label">Marca</label>
@@ -43,7 +43,7 @@
 				</div>
 				<div class="form-group" compraki:classforerror="ano">
 					<label for="ano" class="col-sm-2 control-label">Ano</label>
-					<div class="col-sm-4"> 
+					<div class="col-sm-2"> 
 						<input type="text" class="form-control" id="ano" th:field="*{ano}"/>
 					</div>
 				</div>
@@ -73,8 +73,8 @@
 				</div>
 					
 				<div class="form-group" compraki:classforerror="descricao">
-					<label for="valor" class="col-sm-2 control-label">Descrição do Veiculo</label>
-					<div class="col-sm-2">   
+					<label for="descricao" class="col-sm-2 control-label">Descrição do Veiculo</label>
+					<div class="col-sm-5">   
 						<textarea rows="5" class="form-control" id="descricao" th:field="*{potencia}"></textarea>
 					</div>
 				</div>
