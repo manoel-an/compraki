@@ -32,15 +32,23 @@
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
 	       <input id="idHidden" type="hidden" th:field="*{codigo}"> 
 	       <input id="mask" type="hidden"> 
-	       <input id="inputTipoPessoa" type="hidden" th:field="*{inputTipoPessoa}" th:value="*{inputTipoPessoa}">
-	       <input id="erroNomePessoa" type="hidden" th:field="*{erroNome}"> 
-	       <input id="erroRazaoSocial" type="hidden" th:field="*{erroRazaoSocial}"> 
+	       <input id="inputTipoPessoa" type="hidden" th:field="*{pessoaHelper.inputTipoPessoa}" th:value="*{pessoaHelper.inputTipoPessoa}">
+	       <input id="erroNomePessoa" type="hidden" th:field="*{pessoaHelper.erroNome}"> 
+	       <input id="erroRazaoSocial" type="hidden" th:field="*{pessoaHelper.erroRazaoSocial}"> 
 	       <input id="nomeFantasiaHidden" type="hidden" th:field="*{nomeFantasia}"> 
-	       <input id="erroDataNascimento" type="hidden" th:field="*{erroDataNascimento}"> 
+	       <input id="erroDataNascimento" type="hidden" th:field="*{pessoaHelper.erroDataNascimento}"> 
 	       <input id="dataNascimentoHidden" type="hidden" th:field="*{dataNascimento}"> 
-	       <input id="erroCpf" type="hidden" th:field="*{erroCpf}"> 
-	       <input id="erroCnpj" type="hidden" th:field="*{erroCnpj}"> 
-	       <input id="erroNomeFantasia" type="hidden" th:field="*{erroNomeFantasia}"> 
+	       <input id="erroCpf" type="hidden" th:field="*{pessoaHelper.erroCpf}"> 
+	       <input id="erroCnpj" type="hidden" th:field="*{pessoaHelper.erroCnpj}"> 
+	       <input id="erroNomeFantasia" type="hidden" th:field="*{pessoaHelper.erroNomeFantasia}"> 
+	       <input id="nomeHelper" type="hidden" th:field="*{pessoaHelper.nome}" th:value="*{pessoaHelper.nome}"> 
+	       <input id="razaoSocialHelper" type="hidden" th:field="*{pessoaHelper.razaoSocial}" th:value="*{pessoaHelper.razaoSocial}"> 
+	       <input id="dataNascimentoHelper" type="hidden" th:field="*{pessoaHelper.dataNascimento}" th:value="*{pessoaHelper.dataNascimento}"> 
+	       <input id="cpfHelper" type="hidden" th:field="*{pessoaHelper.cpf}" th:value="*{pessoaHelper.cpf}"> 
+	       <input id="cnpjHelper" type="hidden" th:field="*{pessoaHelper.cnpj}" th:value="*{pessoaHelper.cnpj}"> 
+	       <input id="nomeFantasiaHelper" type="hidden" th:field="*{pessoaHelper.nomeFantasia}" th:value="*{pessoaHelper.nomeFantasia}"> 
+	       <input id="apelidoHelper" type="hidden" th:field="*{pessoaHelper.apelido}" th:value="*{pessoaHelper.apelido}"> 
+	       <input id="sexoHelper" type="hidden" th:field="*{pessoaHelper.sexo}" th:value="*{pessoaHelper.sexo}"> 
 		   <compraki:message/>
            <h2>Dados de Autenticação</h2> 
             <div class="row">

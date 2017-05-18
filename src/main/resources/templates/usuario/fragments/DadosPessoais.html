@@ -23,10 +23,10 @@
 		             <div class="input-group">
 		                 <div class="input-group-addon">Sexo</div>
 		                 <div class="btn-group" data-toggle="buttons">
-		                   <th:block th:each="sexo : ${sexos}">
+		                   <th:block th:each="sexo, iterStat : ${sexos}">
 		                      <label th:id="|sexo${sexo.descricao}|" class="btn btn-primary" 
 		                            th:classappend="${sexo.descricao == 'Feminino' ? 'active' : ''}">
-		                        <input type="radio" autocomplete="off" th:text="${sexo.descricao}" th:value="${sexo}" 
+		                        <input th:id="|sexo${iterStat.index + 1}|" type="radio" autocomplete="off" th:text="${sexo.descricao}" th:value="${sexo}" 
 		                            th:field="*{sexo}" th:checked="${sexo.descricao == 'Feminino' ? 'checked' : ''}"> 
 		                      </label>                                                          
 		                   </th:block>

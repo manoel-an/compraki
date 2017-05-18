@@ -27,6 +27,10 @@ Compraki.CadastroUsuario = (function() {
 		this.erroNomeFantasia = $('#erroNomeFantasia');
 		this.botaoSalvarPessoa = $('.js-btn-salvar-pessoa');
 		this.formulario = $('#formPessoa');
+		this.nomeHelper = $('#nomeHelper');
+		this.dataNascimentoHelper = $('#dataNascimentoHelper');
+		this.apelidoHelper = $('#apelidoHelper');
+		this.sexoHelper = $('#sexoHelper');
 	}
 	
 	CadastroUsuario.prototype.iniciar = function(event) {
@@ -99,7 +103,35 @@ Compraki.CadastroUsuario = (function() {
 		var divCpf = $('.js-div-cpf');
 		if(this.erroCpf.val() == 'true'){
 			divCpf.addClass('has-error');
-		}		
+		}	
+		if(this.nomeHelper.val()){
+			var nomePessoa = $('#nomePessoa');
+			nomePessoa.val(this.nomeHelper.val());
+		}
+		if(this.dataNascimentoHelper.val()){
+			var dataNascimento = $('#dataNascimento');
+			dataNascimento.val(this.dataNascimentoHelper.val());
+		}
+		if(this.apelidoHelper.val()){
+			var apelido = $('#apelido');
+			apelido.val(this.apelidoHelper.val());
+		}	
+		if(this.sexoHelper.val() == 'FEMININO'){
+			var sexoFeminino = $('#sexo1');
+			var labelSexoFeminino = $('#sexoFeminino');
+			labelSexoFeminino.addClass('active');
+			sexoFeminino.val(this.sexoHelper.val());
+			var labelSexoMasculino = $('#sexoMasculino');
+			labelSexoMasculino.removeClass('active');
+		} 
+		if(this.sexoHelper.val() == 'MASCULINO'){
+			var sexoMasculino = $('#sexo2');
+			var labelSexoMasculino = $('#sexoMasculino');
+			labelSexoMasculino.addClass('active');
+			sexoMasculino.val(this.sexoHelper.val());
+			var labelSexoFeminino = $('#sexoFeminino');
+			labelSexoFeminino.removeClass('active');
+		}			
 	}
 	
 	function onSucessFormularioPessoaFisica(resultado){
