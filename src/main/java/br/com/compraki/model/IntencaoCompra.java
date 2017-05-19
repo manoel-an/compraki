@@ -24,6 +24,7 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
 import br.com.compraki.model.carro.Acessorio;
@@ -37,29 +38,35 @@ public class IntencaoCompra {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long codigo;
 	
+	@NotBlank(message="Ops! Escolha a marca do veículo desejado")
 	private String marca;
 	
+	@NotBlank(message="Ops! Escolha o ano do veículo desejado")
 	private String ano;
 	
+	@NotBlank(message="Ops! Escolha a cor do veículo desejado")
 	private String cor;
 	
-	@NotNull(message = "Valor é obrigatório")
-	@DecimalMin(value = "3.000.00", message = "Valor não pode ser menor que R$ 3.000,00")
-	@DecimalMax(value = "9999999.99", message = "Valor não pode ser maior que 9.999.999,99")
+	@NotNull(message = "Ops! Valor é obrigatório")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
 	
 	//Escolher entre por exemplo alcool, gasolina, flex
+	@NotBlank(message="Ops! Escolha qual combustível para o veículo desejado")
 	@Column(name="tipo_combustivel")
 	private String tipoCombustivel;
 	
+	@NotBlank(message="Ops! As características são importantes para uma intenção de compra")
 	@Column(name="outras_caracteristicas")
 	private String outrasCaracterísticas;
 	
+	@NotBlank(message="Ops! Potência do veículo também ajuda")
 	private String potencia;
 	
+	@NotBlank(message="Ops! A descrição é muito importante")
 	private String descricao;
 	
+	@NotBlank(message="Ops! Ajuda muito se você colocar se sua roda é comum ou uma mais específica. Se não sabe coloque qualquer")
 	@Column(name="tipo_de_roda")
 	private String tipoDeRoda;
 	
@@ -93,6 +100,16 @@ public class IntencaoCompra {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_modificacao")
 	private Date dataModificacao;
+		
+	@PrePersist
+	@PreUpdate
+	public void configuraDatasCriacaoAlteracao() {
+		this.dataModificacao = new Date();
+		
+		if (this.dataCriacao == null) {
+			this.dataCriacao = new Date();
+		}
+	}
 	
 	//Getters and setters
 	public Long getCodigo() {
@@ -101,28 +118,30 @@ public class IntencaoCompra {
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-	
 	public String getMarca() {
 		return marca;
 	}
 	public void setMarca(String marca) {
 		this.marca = marca;
 	}
-	
 	public String getAno() {
 		return ano;
 	}
 	public void setAno(String ano) {
 		this.ano = ano;
 	}
-	
 	public String getCor() {
 		return cor;
 	}
 	public void setCor(String cor) {
 		this.cor = cor;
 	}
-	
+	public BigDecimal getValor() {
+		return valor;
+	}
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 	public String getTipoCombustivel() {
 		return tipoCombustivel;
 	}
@@ -135,14 +154,12 @@ public class IntencaoCompra {
 	public void setOutrasCaracterísticas(String outrasCaracterísticas) {
 		this.outrasCaracterísticas = outrasCaracterísticas;
 	}
-	
 	public String getPotencia() {
 		return potencia;
 	}
 	public void setPotencia(String potencia) {
 		this.potencia = potencia;
 	}
-	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -155,46 +172,41 @@ public class IntencaoCompra {
 	public void setTipoDeRoda(String tipoDeRoda) {
 		this.tipoDeRoda = tipoDeRoda;
 	}
-	
 	public String getCorParachoque() {
 		return corParachoque;
 	}
 	public void setCorParachoque(String corParachoque) {
 		this.corParachoque = corParachoque;
 	}
-	
 	public String getCidadePreferencia() {
 		return cidadePreferencia;
 	}
 	public void setCidadePreferencia(String cidadePreferencia) {
 		this.cidadePreferencia = cidadePreferencia;
 	}
-	
 	public ModeloCarro getModelo() {
 		return modelo;
 	}
 	public void setModelo(ModeloCarro modelo) {
 		this.modelo = modelo;
 	}
-	
 	public String getOutroModelo() {
 		return outroModelo;
 	}
 	public void setOutroModelo(String outroModelo) {
 		this.outroModelo = outroModelo;
 	}
-	
-	public List<Acessorio> getAcessorios() {
-		return acessorios;
-	}
-	public void setAcessorios(List<Acessorio> acessorios) {
-		this.acessorios = acessorios;
-	}
 	public Usuario getUsuario() {
 		return usuario;
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	public List<Acessorio> getAcessorios() {
+		return acessorios;
+	}
+	public void setAcessorios(List<Acessorio> acessorios) {
+		this.acessorios = acessorios;
 	}
 	public Date getDataCriacao() {
 		return dataCriacao;
@@ -209,21 +221,7 @@ public class IntencaoCompra {
 		this.dataModificacao = dataModificacao;
 	}
 	
-	public BigDecimal getValor() {
-		return valor;
-	}
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
-	@PrePersist
-	@PreUpdate
-	public void configuraDatasCriacaoAlteracao() {
-		this.dataModificacao = new Date();
-		
-		if (this.dataCriacao == null) {
-			this.dataCriacao = new Date();
-		}
-	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
