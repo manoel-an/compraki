@@ -84,7 +84,7 @@ public class AppUserDetailsService implements UserDetailsService {
         novoUsuario.setEmail(req.getParameter("username"));
         novoUsuario.setSenha(req.getParameter("password"));
         novoUsuario.setGrupos(this.usuarioService.getGrupos().findByCodigoAndFetchEager(4l));
-        return this.usuarioService.salvarPreCadastro(novoUsuario);
+        return this.usuarioService.salvarUsuario(novoUsuario);
     }
 
     private Collection<? extends GrantedAuthority> getPermissoes(Usuario usuario) {

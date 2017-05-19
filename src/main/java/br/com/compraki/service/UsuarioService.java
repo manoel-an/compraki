@@ -22,7 +22,7 @@ public class UsuarioService {
     private Grupos grupos;
 
     @Transactional
-    public Usuario salvarPreCadastro(Usuario usuario) {
+    public Usuario salvarUsuario(Usuario usuario) {
         usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
         return usuarios.saveAndFlush(usuario);
     }

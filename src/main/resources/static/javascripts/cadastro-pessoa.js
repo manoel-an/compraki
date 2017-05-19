@@ -31,6 +31,12 @@ Compraki.CadastroUsuario = (function() {
 		this.dataNascimentoHelper = $('#dataNascimentoHelper');
 		this.apelidoHelper = $('#apelidoHelper');
 		this.sexoHelper = $('#sexoHelper');
+		this.razaoSocialHelper = $('#razaoSocialHelper');
+		this.nomeFantasiaHelper = $('#nomeFantasiaHelper');
+		this.cpfHelper = $('#cpfHelper');
+		this.cnpjHelper = $('#cnpjHelper');
+		this.senhaAux = $('#senhaAux');
+		this.confirmaSenhaAux = $('#confirmaSenhaAux');
 	}
 	
 	CadastroUsuario.prototype.iniciar = function(event) {
@@ -115,7 +121,11 @@ Compraki.CadastroUsuario = (function() {
 		if(this.apelidoHelper.val()){
 			var apelido = $('#apelido');
 			apelido.val(this.apelidoHelper.val());
-		}	
+		}
+		if(this.cpfHelper.val()){
+			var cpf = $('.js-cpf-cnpj');
+			cpf.val(this.cpfHelper.val());
+		}
 		if(this.sexoHelper.val() == 'FEMININO'){
 			var sexoFeminino = $('#sexo1');
 			var labelSexoFeminino = $('#sexoFeminino');
@@ -131,7 +141,7 @@ Compraki.CadastroUsuario = (function() {
 			sexoMasculino.val(this.sexoHelper.val());
 			var labelSexoFeminino = $('#sexoFeminino');
 			labelSexoFeminino.removeClass('active');
-		}			
+		}	
 	}
 	
 	function onSucessFormularioPessoaFisica(resultado){
@@ -177,6 +187,24 @@ Compraki.CadastroUsuario = (function() {
 		if(this.erroNomeFantasia.val() == 'true'){
 			divNomeFantasia.addClass('has-error');
 		}
+		if(this.razaoSocialHelper.val()){
+			var nomeRazaoSocial = $('#nomeRazaoSocial');
+			nomeRazaoSocial.val(this.razaoSocialHelper.val());
+		}
+		if(this.nomeFantasiaHelper.val() && this.nomeFantasiaHelper.val() != '-'){
+			var nomeFantasia = $('#nomeFantasia');
+			nomeFantasia.val(this.nomeFantasiaHelper.val());
+		} else {
+			$('#nomeFantasia').val('');
+		}
+		if(this.cnpjHelper.val()){
+			var cnpj = $('.js-cpf-cnpj');
+			cnpj.val(this.cnpjHelper.val());
+		}
+		if(this.apelidoHelper.val()){
+			var apelido = $('#apelido');
+			apelido.val(this.apelidoHelper.val());
+		}	
 	}
 	
 	function onSucessFormularioPessoaJuridica(resultado){
