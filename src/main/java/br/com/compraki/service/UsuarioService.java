@@ -24,6 +24,7 @@ public class UsuarioService {
 	@Transactional
 	public Usuario salvarUsuario(Usuario usuario) {
 		usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
+		usuario.setAtivo(usuario.getAtivo());
 		return usuarios.saveAndFlush(usuario);
 	}
 
