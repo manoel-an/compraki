@@ -6,156 +6,190 @@ import br.com.compraki.enuns.EnumSexo;
 
 public class PessoaHelper {
 
-    private Boolean erroNome;
+	private Boolean erroNome;
 
-    private String nome;
+	private String nome;
 
-    private Boolean erroRazaoSocial;
+	private Boolean erroRazaoSocial;
 
-    private String razaoSocial;
+	private String razaoSocial;
 
-    private Boolean erroDataNascimento;
+	private Boolean erroDataNascimento;
 
-    private LocalDate dataNascimento;
+	private LocalDate dataNascimento;
 
-    private Boolean erroCpf;
+	private Boolean erroCpf;
 
-    private String cpf;
+	private String cpf;
 
-    private Boolean erroCnpj;
+	private Boolean erroCnpj;
 
-    private String cnpj;
+	private String cnpj;
 
-    private Boolean erroNomeFantasia;
+	private Boolean erroNomeFantasia;
 
-    private String nomeFantasia;
+	private String nomeFantasia;
 
-    private String inputTipoPessoa;
+	private String inputTipoPessoa;
 
-    private String apelido;
+	private String apelido;
 
-    private EnumSexo sexo;
+	private EnumSexo sexo;
 
-    public Boolean getErroNome() {
-        return erroNome;
-    }
+	private Boolean hasError;
 
-    public void setErroNome(Boolean erroNome) {
-        this.erroNome = erroNome;
-    }
+	private String senha;
 
-    public String getNome() {
-        return nome;
-    }
+	private String confirmaSenha;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public Boolean getErroNome() {
+		return erroNome;
+	}
 
-    public Boolean getErroRazaoSocial() {
-        return erroRazaoSocial;
-    }
+	public void setErroNome(Boolean erroNome) {
+		this.erroNome = erroNome;
+	}
 
-    public void setErroRazaoSocial(Boolean erroRazaoSocial) {
-        this.erroRazaoSocial = erroRazaoSocial;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getRazaoSocial() {
-        return razaoSocial;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setRazaoSocial(String razaoSocial) {
-        this.razaoSocial = razaoSocial;
-    }
+	public Boolean getErroRazaoSocial() {
+		return erroRazaoSocial;
+	}
 
-    public Boolean getErroDataNascimento() {
-        return erroDataNascimento;
-    }
+	public void setErroRazaoSocial(Boolean erroRazaoSocial) {
+		this.erroRazaoSocial = erroRazaoSocial;
+	}
 
-    public void setErroDataNascimento(Boolean erroDataNascimento) {
-        this.erroDataNascimento = erroDataNascimento;
-    }
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+	public Boolean getErroDataNascimento() {
+		return erroDataNascimento;
+	}
 
-    public Boolean getErroCpf() {
-        return erroCpf;
-    }
+	public void setErroDataNascimento(Boolean erroDataNascimento) {
+		this.erroDataNascimento = erroDataNascimento;
+	}
 
-    public void setErroCpf(Boolean erroCpf) {
-        this.erroCpf = erroCpf;
-    }
+	public LocalDate getDataNascimento() {
+		return dataNascimento;
+	}
 
-    public String getCpf() {
-        return cpf;
-    }
+	public void setDataNascimento(LocalDate dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+	public Boolean getErroCpf() {
+		return erroCpf;
+	}
 
-    public Boolean getErroCnpj() {
-        return erroCnpj;
-    }
+	public void setErroCpf(Boolean erroCpf) {
+		this.erroCpf = erroCpf;
+	}
 
-    public void setErroCnpj(Boolean erroCnpj) {
-        this.erroCnpj = erroCnpj;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public String getCnpj() {
-        return cnpj;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+	public Boolean getErroCnpj() {
+		return erroCnpj;
+	}
 
-    public Boolean getErroNomeFantasia() {
-        return erroNomeFantasia;
-    }
+	public void setErroCnpj(Boolean erroCnpj) {
+		this.erroCnpj = erroCnpj;
+	}
 
-    public void setErroNomeFantasia(Boolean erroNomeFantasia) {
-        this.erroNomeFantasia = erroNomeFantasia;
-    }
+	public String getCnpj() {
+		return cnpj;
+	}
 
-    public String getNomeFantasia() {
-        return nomeFantasia;
-    }
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 
-    public void setNomeFantasia(String nomeFantasia) {
-        this.nomeFantasia = nomeFantasia;
-    }
+	public Boolean getErroNomeFantasia() {
+		return erroNomeFantasia;
+	}
 
-    public String getInputTipoPessoa() {
-        if (inputTipoPessoa == null) {
-            inputTipoPessoa = "inputPessoaFISICA";
-        }
-        return inputTipoPessoa;
-    }
+	public void setErroNomeFantasia(Boolean erroNomeFantasia) {
+		this.erroNomeFantasia = erroNomeFantasia;
+	}
 
-    public void setInputTipoPessoa(String inputTipoPessoa) {
-        this.inputTipoPessoa = inputTipoPessoa;
-    }
+	public String getNomeFantasia() {
+		return nomeFantasia;
+	}
 
-    public String getApelido() {
-        return apelido;
-    }
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
+	}
 
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
-    }
+	public String getInputTipoPessoa() {
+		if (inputTipoPessoa == null) {
+			inputTipoPessoa = "inputPessoaFISICA";
+		}
+		return inputTipoPessoa;
+	}
 
-    public EnumSexo getSexo() {
-        return sexo;
-    }
+	public void setInputTipoPessoa(String inputTipoPessoa) {
+		this.inputTipoPessoa = inputTipoPessoa;
+	}
 
-    public void setSexo(EnumSexo sexo) {
-        this.sexo = sexo;
-    }
+	public String getApelido() {
+		return apelido;
+	}
+
+	public void setApelido(String apelido) {
+		this.apelido = apelido;
+	}
+
+	public EnumSexo getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(EnumSexo sexo) {
+		this.sexo = sexo;
+	}
+
+	public Boolean getHasError() {
+		if (hasError == null) {
+			hasError = Boolean.FALSE;
+		}
+		return hasError;
+	}
+
+	public void setHasError(Boolean hasError) {
+		this.hasError = hasError;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public String getConfirmaSenha() {
+		return confirmaSenha;
+	}
+
+	public void setConfirmaSenha(String confirmaSenha) {
+		this.confirmaSenha = confirmaSenha;
+	}
+
 }

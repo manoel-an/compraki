@@ -37,6 +37,18 @@ Compraki.CadastroUsuario = (function() {
 		this.cnpjHelper = $('#cnpjHelper');
 		this.senhaAux = $('#senhaAux');
 		this.confirmaSenhaAux = $('#confirmaSenhaAux');
+		this.divErro = $('.js-div-erro');
+		this.divTextoErro = $('#js-div-texto-erro');
+		this.divEmail = $('.js-div-email');
+		this.divSenha = $('.js-div-senha');
+		this.divConfirmaSenha = $('.js-div-confirma-senha');
+		this.email = $('#email');
+		this.senha = $('#senha');
+		this.confirmaSenha = $('#confirmacaoSenha');
+		this.topoPagina = $('.js-topo-page');
+		this.hasErrorHelper = $('#hasErrorHelper');
+		this.senhaHelper = $('#senhaHelper');
+		this.confirmaSenhaHelper = $('#confirmaSenhaHelper');
 	}
 	
 	CadastroUsuario.prototype.iniciar = function(event) {
@@ -46,13 +58,55 @@ Compraki.CadastroUsuario = (function() {
 		this.checkBoxStatus.bootstrapSwitch();
 		this.botaoSalvarPessoa.on('click', onSalvarPessoa.bind(this));
 		document.getElementById(this.inputTipoPessoa.val()).click();
-		
+		carregaSenhaConfirmaSenha.call(this);
+		//this.inputTipoPessoa.val() == 'inputPessoaFISICA'
+	}
+	
+	function carregaSenhaConfirmaSenha(){
+		if(this.hasErrorHelper.val() == 'true'){
+			this.senha.val(this.senhaHelper.val());
+			this.confirmaSenha.val(this.confirmaSenhaHelper.val());
+		}
 	}
 	
 	function onSalvarPessoa(event){
 		event.preventDefault();
-		this.formulario.submit();
+		validar.call(this);
 	}	
+	
+	function validar(){
+		if(this.email.val() == ""){
+			this.divSenha.removeClass('has-error');
+			this.divConfirmaSenha.removeClass('has-error');
+			this.divEmail.addClass('has-error');
+			this.divErro.removeClass('hidden');
+			this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> É necessário informar o email');
+			this.email.focus();
+			$(document).scrollTop($(this.topoPagina).offset().top);
+			return;
+		}
+		if(this.senha.val() == ""){
+			this.divEmail.removeClass('has-error');
+			this.divConfirmaSenha.removeClass('has-error');
+			this.divSenha.addClass('has-error');
+			this.divErro.removeClass('hidden');
+			this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> É necessário informar a senha');
+			this.senha.focus();
+			$(document).scrollTop($(this.topoPagina).offset().top);		
+			return;
+		}
+		if(this.confirmaSenha.val() == ""){
+			this.divSenha.removeClass('has-error');
+			this.divEmail.removeClass('has-error');
+			this.divConfirmaSenha.addClass('has-error');
+			this.divErro.removeClass('hidden');
+			this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> É necessário informar a confirmação de senha');
+			this.confirmaSenha.focus();
+			$(document).scrollTop($(this.topoPagina).offset().top);	
+			return;
+		}
+		this.formulario.submit();
+	}
 	
 	function pesquisarEnderecoPorCep(){
 		var cep = this.inputCep.val();

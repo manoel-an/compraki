@@ -12,27 +12,27 @@ import br.com.compraki.repository.Usuarios;
 @Service
 public class UsuarioService {
 
-    @Autowired
-    private Usuarios usuarios;
+	@Autowired
+	private Usuarios usuarios;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private Grupos grupos;
+	@Autowired
+	private Grupos grupos;
 
-    @Transactional
-    public Usuario salvarUsuario(Usuario usuario) {
-        usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-        return usuarios.saveAndFlush(usuario);
-    }
+	@Transactional
+	public Usuario salvarUsuario(Usuario usuario) {
+		usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
+		return usuarios.saveAndFlush(usuario);
+	}
 
-    public Usuarios getUsuarios() {
-        return usuarios;
-    }
+	public Usuarios getUsuarios() {
+		return usuarios;
+	}
 
-    public Grupos getGrupos() {
-        return grupos;
-    }
+	public Grupos getGrupos() {
+		return grupos;
+	}
 
 }

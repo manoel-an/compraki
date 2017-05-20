@@ -28,61 +28,64 @@ import br.com.compraki.validator.PessoaValidator;
 @RequestMapping("/usuarios")
 public class PessoasController {
 
-    @Autowired
-    private PessoaValidator validator;
+	@Autowired
+	private PessoaValidator validator;
 
-    @Autowired
-    private PessoaService pessoaService;
+	@Autowired
+	private PessoaService pessoaService;
 
-    @GetMapping("/novo")
-    public ModelAndView novo(@AuthenticationPrincipal User user, Pessoa pessoa, Boolean hasErrors) {
-        hasErrors = hasErrors == null ? Boolean.FALSE : (hasErrors != null && hasErrors ? Boolean.TRUE : Boolean.FALSE);
-        ModelAndView modelAndView = getDefaultObjectsModelAndView(pessoa, user, hasErrors);
-        return modelAndView;
-    }
+	@GetMapping("/novo")
+	public ModelAndView novo(@AuthenticationPrincipal User user, Pessoa pessoa, Boolean hasErrors) {
+		hasErrors = hasErrors == null ? Boolean.FALSE : (hasErrors != null && hasErrors ? Boolean.TRUE : Boolean.FALSE);
+		ModelAndView modelAndView = getDefaultObjectsModelAndView(pessoa, user, hasErrors);
+		return modelAndView;
+	}
 
-    @PostMapping("/novo")
-    public ModelAndView salvarPessoa(@AuthenticationPrincipal User user, @Valid Pessoa pessoa, BindingResult result,
-            RedirectAttributes attributes) {
-        validator.validate(pessoa, result);
-        if (result.hasErrors()) {
-            this.pessoaService.getFieldError(pessoa, result);
-            return novo(user, pessoa, Boolean.TRUE);
-        }
-        try {
-            pessoa = this.pessoaService.salvarPessoa(pessoa);
-        } catch (NegocioException e) {
-            result.addError(new ObjectError("Pessoa", e.getMessage()));
-        }
-        attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso !");
-        return new ModelAndView("redirect:/usuarios/novo");
-    }
+	@PostMapping("/novo")
+	public ModelAndView salvarPessoa(@AuthenticationPrincipal User user, @Valid Pessoa pessoa, BindingResult result,
+			RedirectAttributes attributes) {
+		validator.validate(pessoa, result);
+		if (result.hasErrors()) {
+			this.pessoaService.getFieldError(pessoa, result);
+			pessoa.getPessoaHelper().setHasError(Boolean.TRUE);
+			pessoa.getPessoaHelper().setSenha(pessoa.getSenha());
+			pessoa.getPessoaHelper().setConfirmaSenha(pessoa.getConfirmacaoSenha());
+			return novo(user, pessoa, Boolean.TRUE);
+		}
+		try {
+			this.pessoaService.salvarPessoa(pessoa);
+		} catch (NegocioException e) {
+			result.addError(new ObjectError("Pessoa", e.getMessage()));
+		}
+		attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso !");
+		return new ModelAndView("redirect:/usuarios/novo");
+	}
 
-    @RequestMapping(value = "/atualizaFormularioPessoaFisica", method = RequestMethod.POST)
-    public ModelAndView atualizaFormularioPessoaFisica() {
-        ModelAndView modelAndView = new ModelAndView("usuario/fragments/DadosPessoais");
-        modelAndView.addObject("sexos", EnumSexo.values());
-        modelAndView.addObject("pessoa", new Pessoa());
-        return modelAndView;
-    }
+	@RequestMapping(value = "/atualizaFormularioPessoaFisica", method = RequestMethod.POST)
+	public ModelAndView atualizaFormularioPessoaFisica() {
+		ModelAndView modelAndView = new ModelAndView("usuario/fragments/DadosPessoais");
+		modelAndView.addObject("sexos", EnumSexo.values());
+		modelAndView.addObject("pessoa", new Pessoa());
+		return modelAndView;
+	}
 
-    @RequestMapping(value = "/atualizaFormularioPessoaJuridica", method = RequestMethod.POST)
-    public ModelAndView atualizaFormularioPessoaJuridica() {
-        ModelAndView modelAndView = new ModelAndView("usuario/fragments/DadosEmpresa");
-        modelAndView.addObject("pessoa", new Pessoa());
-        return modelAndView;
-    }
+	@RequestMapping(value = "/atualizaFormularioPessoaJuridica", method = RequestMethod.POST)
+	public ModelAndView atualizaFormularioPessoaJuridica() {
+		ModelAndView modelAndView = new ModelAndView("usuario/fragments/DadosEmpresa");
+		modelAndView.addObject("pessoa", new Pessoa());
+		return modelAndView;
+	}
 
-    private ModelAndView getDefaultObjectsModelAndView(Pessoa pessoa, User user, boolean hasErrors) {
-        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-        ModelAndView modelAndView = new ModelAndView("usuario/CadastroPessoa");
-        pessoa.setUsuario(usuarioSistema.getUsuario());
-        pessoa.setEmail(usuarioSistema.getUsuario().getEmail());
-        modelAndView.addObject("tipos", TipoPessoa.values());
-        modelAndView.addObject("estados", UF.values());
-        modelAndView.addObject("grupos", this.pessoaService.getGruposByRole(user));
-        Pessoa p = this.pessoaService.getPessoaByUsuarioLogado(usuarioSistema.getUsuario());
-        modelAndView.addObject("pessoa", p.getCodigo() != null && !hasErrors ? p : pessoa);
-        return modelAndView;
-    }
+	private ModelAndView getDefaultObjectsModelAndView(Pessoa pessoa, User user, boolean hasErrors) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+		ModelAndView modelAndView = new ModelAndView("usuario/CadastroPessoa");
+		pessoa.setUsuario(usuarioSistema.getUsuario());
+		pessoa.setEmail(usuarioSistema.getUsuario().getEmail());
+		modelAndView.addObject("tipos", TipoPessoa.values());
+		modelAndView.addObject("estados", UF.values());
+		modelAndView.addObject("grupos", this.pessoaService.getGruposByRole(user));
+		Pessoa p = this.pessoaService.getPessoaByUsuarioLogado(usuarioSistema.getUsuario());
+		modelAndView.addObject("pessoa", p.getCodigo() != null && !hasErrors ? p : pessoa);
+		return modelAndView;
+	}
 }

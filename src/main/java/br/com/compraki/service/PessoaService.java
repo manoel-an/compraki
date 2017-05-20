@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
+import br.com.compraki.enuns.TipoPessoa;
 import br.com.compraki.model.Grupo;
 import br.com.compraki.model.Pessoa;
 import br.com.compraki.model.Usuario;
@@ -23,126 +24,131 @@ import br.com.compraki.repository.Usuarios;
 @Service
 public class PessoaService {
 
-    private final Long[] codigos = {2l ,3l ,4l};
+	private final Long[] codigos = { 2l, 3l, 4l };
 
-    @Autowired
-    private Usuarios usuarios;
+	@Autowired
+	private Usuarios usuarios;
 
-    @Autowired
-    private Grupos grupos;
+	@Autowired
+	private Grupos grupos;
 
-    @Autowired
-    private Pessoas pessoas;
+	@Autowired
+	private Pessoas pessoas;
 
-    @Autowired
-    private UsuarioService usuarioService;
+	@Autowired
+	private UsuarioService usuarioService;
 
-    public List<Grupo> getGruposByRole(User user) {
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_CADASTRAR_USUARIO"));
-        if (authorized) {
-            return this.grupos.findAll();
-        } else {
-            return this.grupos.findByCodigoIn(this.codigos);
-        }
-    }
+	public List<Grupo> getGruposByRole(User user) {
+		Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+		boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_CADASTRAR_USUARIO"));
+		if (authorized) {
+			return this.grupos.findAll();
+		} else {
+			return this.grupos.findByCodigoIn(this.codigos);
+		}
+	}
 
-    public void getFieldError(Pessoa pessoa, BindingResult result) {
-        if (result.getFieldError("nome") != null
-                && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
-            pessoa.getPessoaHelper().setErroNome(Boolean.TRUE);
-        }
-        if (result.getFieldError("nome") != null
-                && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
-            pessoa.getPessoaHelper().setErroRazaoSocial(Boolean.TRUE);
-        }
-        if (result.getFieldError("dataNascimento") != null) {
-            pessoa.getPessoaHelper().setErroDataNascimento(Boolean.TRUE);
-        }
-        if (result.getFieldError("cpfOuCnpj") != null
-                && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
-            pessoa.getPessoaHelper().setErroCpf(Boolean.TRUE);
-        }
-        if (result.getFieldError("cpfOuCnpj") != null
-                && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
-            pessoa.getPessoaHelper().setErroCnpj(Boolean.TRUE);
-        }
-        if (result.getFieldError("nomeFantasia") != null
-                && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
-            pessoa.getPessoaHelper().setErroNomeFantasia(Boolean.TRUE);
-        }
-        this.carregaCamposTipoPessoa(pessoa, result, Boolean.FALSE);
-    }
+	public void getFieldError(Pessoa pessoa, BindingResult result) {
+		if (result.getFieldError("nome") != null
+				&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
+			pessoa.getPessoaHelper().setErroNome(Boolean.TRUE);
+		}
+		if (result.getFieldError("nome") != null
+				&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+			pessoa.getPessoaHelper().setErroRazaoSocial(Boolean.TRUE);
+		}
+		if (result.getFieldError("dataNascimento") != null) {
+			pessoa.getPessoaHelper().setErroDataNascimento(Boolean.TRUE);
+		}
+		if (result.getFieldError("cpfOuCnpj") != null
+				&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
+			pessoa.getPessoaHelper().setErroCpf(Boolean.TRUE);
+		}
+		if (result.getFieldError("cpfOuCnpj") != null
+				&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+			pessoa.getPessoaHelper().setErroCnpj(Boolean.TRUE);
+		}
+		if (result.getFieldError("nomeFantasia") != null
+				&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+			pessoa.getPessoaHelper().setErroNomeFantasia(Boolean.TRUE);
+		}
+		this.carregaCamposTipoPessoa(pessoa, result, Boolean.FALSE);
+	}
 
-    private void carregaCamposTipoPessoa(Pessoa pessoa, BindingResult result, boolean pessoaSalva) {
-        if (pessoaSalva) {
-            if (pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
-                pessoa.getPessoaHelper().setNome(pessoa.getNome());
-                pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
-                pessoa.getPessoaHelper().setSexo(pessoa.getSexo());
-                pessoa.getPessoaHelper().setCpf(pessoa.getCpfOuCnpj());
-                pessoa.getPessoaHelper().setDataNascimento(pessoa.getDataNascimento());
-            } else {
-                pessoa.getPessoaHelper().setRazaoSocial(pessoa.getNome());
-                pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
-                pessoa.getPessoaHelper().setCnpj(pessoa.getCpfOuCnpj());
-                pessoa.getPessoaHelper().setNomeFantasia(pessoa.getNomeFantasia());
-            }
-            pessoa.setEmail(pessoa.getUsuario().getEmail());
-        } else {
-            if (pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
-                pessoa.getPessoaHelper().setNome(pessoa.getNome());
-                pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
-                pessoa.getPessoaHelper().setSexo(pessoa.getSexo());
-            }
-            if (pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
-                pessoa.getPessoaHelper().setRazaoSocial(pessoa.getNome());
-                pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
-            }
-            if (result.getFieldError("dataNascimento") == null) {
-                pessoa.getPessoaHelper().setDataNascimento(pessoa.getDataNascimento());
-            }
-            if (result.getFieldError("cpfOuCnpj") == null
-                    && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
-                pessoa.getPessoaHelper().setCpf(pessoa.getCpfOuCnpj());
-            }
-            if (result.getFieldError("cpfOuCnpj") == null
-                    && pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
-                pessoa.getPessoaHelper().setCnpj(pessoa.getCpfOuCnpj());
-            }
-            if (result.getFieldError("nomeFantasia") == null) {
-                pessoa.getPessoaHelper().setNomeFantasia(pessoa.getNomeFantasia());
-            }
-        }
-    }
+	private void carregaCamposTipoPessoa(Pessoa pessoa, BindingResult result, boolean pessoaSalva) {
+		if (pessoaSalva) {
+			if (pessoa.getTipoPessoa().equals(TipoPessoa.FISICA)) {
+				pessoa.getPessoaHelper().setNome(pessoa.getNome());
+				pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
+				pessoa.getPessoaHelper().setSexo(pessoa.getSexo());
+				pessoa.getPessoaHelper().setCpf(pessoa.getCpfOuCnpj());
+				pessoa.getPessoaHelper().setDataNascimento(pessoa.getDataNascimento());
+				pessoa.getPessoaHelper().setInputTipoPessoa("inputPessoaFISICA");
+			} else {
+				pessoa.getPessoaHelper().setRazaoSocial(pessoa.getNome());
+				pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
+				pessoa.getPessoaHelper().setCnpj(pessoa.getCpfOuCnpj());
+				pessoa.getPessoaHelper().setNomeFantasia(pessoa.getNomeFantasia());
+				pessoa.getPessoaHelper().setInputTipoPessoa("inputPessoaJURIDICA");
+			}
+			pessoa.setEmail(pessoa.getUsuario().getEmail());
+		} else {
+			if (pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
+				pessoa.getPessoaHelper().setNome(pessoa.getNome());
+				pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
+				pessoa.getPessoaHelper().setSexo(pessoa.getSexo());
+			}
+			if (pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+				pessoa.getPessoaHelper().setRazaoSocial(pessoa.getNome());
+				pessoa.getPessoaHelper().setApelido(pessoa.getApelido());
+			}
+			if (result.getFieldError("dataNascimento") == null) {
+				pessoa.getPessoaHelper().setDataNascimento(pessoa.getDataNascimento());
+			}
+			if (result.getFieldError("cpfOuCnpj") == null
+					&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaFISICA")) {
+				pessoa.getPessoaHelper().setCpf(pessoa.getCpfOuCnpj());
+			}
+			if (result.getFieldError("cpfOuCnpj") == null
+					&& pessoa.getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
+				pessoa.getPessoaHelper().setCnpj(pessoa.getCpfOuCnpj());
+			}
+			if (result.getFieldError("nomeFantasia") == null) {
+				pessoa.getPessoaHelper().setNomeFantasia(pessoa.getNomeFantasia());
+			}
+		}
+	}
 
-    public Pessoa getPessoaByUsuarioLogado(Usuario usuario) {
-        Optional<Pessoa> op = this.pessoas.findByUsuario(usuario);
-        if (op.isPresent()) {
-            Pessoa pessoa = op.get();
-            pessoa.setUsuario(this.usuarios.findByEmailAndFetchEager(usuario.getEmail()).get());
-            this.carregaCamposTipoPessoa(pessoa, null, Boolean.TRUE);
-            return pessoa;
-        } else {
-            return new Pessoa();
-        }
-    }
+	public Pessoa getPessoaByUsuarioLogado(Usuario usuario) {
+		Optional<Pessoa> op = this.pessoas.findByUsuario(usuario);
+		if (op.isPresent()) {
+			Pessoa pessoa = op.get();
+			pessoa.setUsuario(this.usuarios.findByEmailAndFetchEager(usuario.getEmail()).get());
+			pessoa.setEmail(usuario.getEmail());
+			pessoa.setSenha(usuario.getSenha());
+			pessoa.setConfirmacaoSenha(usuario.getSenha());
+			this.carregaCamposTipoPessoa(pessoa, null, Boolean.TRUE);
+			return pessoa;
+		} else {
+			return new Pessoa();
+		}
+	}
 
-    @Transactional
-    public Pessoa salvarPessoa(Pessoa pessoa) throws NegocioException {
-        try {
-            if (pessoa.getCodigo() == null) {
-                pessoa.setDataInclusao(LocalDateTime.now());
-            }
-            pessoa.setDataAlteracao(LocalDateTime.now());
-            pessoa.getUsuario().setEmail(pessoa.getEmail());
-            pessoa.getUsuario().setSenha(pessoa.getSenha());
-            Usuario usuario = this.usuarioService.salvarUsuario(pessoa.getUsuario());
-            pessoa.setUsuario(usuario);
-            return this.pessoas.saveAndFlush(pessoa);
-        } catch (Exception e) {
-            throw new NegocioException(e.getMessage());
-        }
-    }
+	@Transactional
+	public void salvarPessoa(Pessoa pessoa) throws NegocioException {
+		try {
+			if (pessoa.getCodigo() == null) {
+				pessoa.setDataInclusao(LocalDateTime.now());
+			}
+			pessoa.setDataAlteracao(LocalDateTime.now());
+			pessoa.getUsuario().setEmail(pessoa.getEmail());
+			pessoa.getUsuario().setSenha(pessoa.getSenha());
+			Usuario usuario = this.usuarioService.salvarUsuario(pessoa.getUsuario());
+			pessoa.setUsuario(usuario);
+			this.pessoas.save(pessoa);
+		} catch (Exception e) {
+			throw new NegocioException(e.getMessage());
+		}
+	}
 
 }

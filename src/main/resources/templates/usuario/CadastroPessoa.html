@@ -4,7 +4,8 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:data="http://www.thymeleaf.org/extras/data"
     xmlns:compraki="http://compraki.com.br"
-    layout:decorate="~{layout/LayoutPadrao}">
+    layout:decorate="~{layout/LayoutPadrao}"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <title>Minha Conta</title>
@@ -12,7 +13,7 @@
 </head>
 
 <section layout:fragment="conteudo">
-    <div class="row page-header">
+    <div class="row page-header js-topo-page">
     	<div class="container-fluid">
 	        <div class="col-xs-11">
 	            <h1>Minha Conta</h1>
@@ -50,30 +51,34 @@
 	       <input id="nomeFantasiaHelper" type="hidden" th:field="*{pessoaHelper.nomeFantasia}" th:value="*{pessoaHelper.nomeFantasia}"> 
 	       <input id="apelidoHelper" type="hidden" th:field="*{pessoaHelper.apelido}" th:value="*{pessoaHelper.apelido}"> 
 	       <input id="sexoHelper" type="hidden" th:field="*{pessoaHelper.sexo}" th:value="*{pessoaHelper.sexo}"> 
-	       <input id="senhaAux" type="hidden"> 
-	       <input id="confirmaSenhaAux" type="hidden"> 
+	       <input id="hasErrorHelper" type="hidden" th:field="*{pessoaHelper.hasError}" th:value="*{pessoaHelper.hasError}"> 
+	       <input id="senhaHelper" type="hidden" th:field="*{pessoaHelper.senha}" th:value="*{pessoaHelper.senha}"> 
+	       <input id="confirmaSenhaHelper" type="hidden" th:field="*{pessoaHelper.confirmaSenha}" th:value="*{pessoaHelper.confirmaSenha}"> 
 		   <compraki:message/>
+	       <div class="alert  alert-danger  alert-dismissible  hidden  js-div-erro" role="alert">
+	            <div id="js-div-texto-erro"></div>
+	       </div>   		   
            <h2>Dados de Autenticação</h2> 
             <div class="row">
-                <div class="form-group  col-sm-3  compraki-required" compraki:classforerror="email">
+                <div class="form-group  col-sm-3  compraki-required js-div-email" compraki:classforerror="email">
                     <label for="email" class="control-label">E-mail</label>
                     <input type="text" class="form-control" id="email" th:field="*{email}"/>
                 </div>
-                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="senha">
+                <div class="form-group  col-sm-3 compraki-required js-div-senha" compraki:classforerror="senha">
                     <label for="senha" class="control-label">Senha</label> 
                     <input type="password" class="form-control" id="senha" th:field="*{senha}"/>
                 </div>
                 
-                <div class="form-group  col-sm-3 compraki-required" compraki:classforerror="confirmacaoSenha">
+                <div class="form-group  col-sm-3 compraki-required js-div-confirma-senha" compraki:classforerror="confirmacaoSenha">
                     <label for="confirmacaoSenha" class="control-label">Confirmação de senha</label> 
                     <input type="password" class="form-control" id="confirmacaoSenha" th:field="*{confirmacaoSenha}"/>
                 </div>
                 
-                <div class="form-group  col-sm-3">
+                <div class="form-group  col-sm-3" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')">
                     <label class="control-label">Status</label>
                     <div>
                         <input type="checkbox" class="js-status" data-size="small" data-off-color="danger" 
-                            data-on-text="Ativo" data-off-text="Inativo" th:field="*{usuario.ativo}"/>
+                            data-on-text="Ativo" data-off-text="Inativo" th:field="*{usuario.ativo}" readonly="readonly"/>
                     </div>
                 </div>                                
             </div>            
