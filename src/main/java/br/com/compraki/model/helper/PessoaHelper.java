@@ -42,6 +42,8 @@ public class PessoaHelper {
 
 	private String confirmaSenha;
 
+	private Boolean hasCnpjCpj;
+
 	public Boolean getErroNome() {
 		return erroNome;
 	}
@@ -190,6 +192,17 @@ public class PessoaHelper {
 
 	public void setConfirmaSenha(String confirmaSenha) {
 		this.confirmaSenha = confirmaSenha;
+	}
+
+	public Boolean getHasCnpjCpj() {
+		if (hasCnpjCpj == null) {
+			hasCnpjCpj = Boolean.FALSE;
+		}
+		return hasCnpjCpj;
+	}
+
+	public void setHasCnpjCpj(Boolean hasCnpjCpj) {
+		this.hasCnpjCpj = hasCnpjCpj;
 	}
 
 }

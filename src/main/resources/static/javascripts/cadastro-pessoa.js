@@ -49,6 +49,7 @@ Compraki.CadastroUsuario = (function() {
 		this.hasErrorHelper = $('#hasErrorHelper');
 		this.senhaHelper = $('#senhaHelper');
 		this.confirmaSenhaHelper = $('#confirmaSenhaHelper');
+		this.hasCnpjCpjHelper = $('#hasCnpjCpjHelper');
 	}
 	
 	CadastroUsuario.prototype.iniciar = function(event) {
@@ -59,6 +60,7 @@ Compraki.CadastroUsuario = (function() {
 		this.botaoSalvarPessoa.on('click', onSalvarPessoa.bind(this));
 		document.getElementById(this.inputTipoPessoa.val()).click();
 		carregaSenhaConfirmaSenha.call(this);
+		verificaCpfCnpjCadastrado.call(this);
 	}
 	
 	function carregaSenhaConfirmaSenha(){
@@ -66,6 +68,19 @@ Compraki.CadastroUsuario = (function() {
 			this.senha.val(this.senhaHelper.val());
 			this.confirmaSenha.val(this.confirmaSenhaHelper.val());
 		}
+	}
+	
+	function verificaCpfCnpjCadastrado(){
+		if(this.hasCnpjCpjHelper.val() == 'true'){
+			if(this.inputTipoPessoa.val() == 'inputPessoaFISICA'){
+				var divCpf = $('.js-div-cpf');
+				divCpf.addClass('has-error');					
+			} else {
+				var divCnpj = $('.js-div-cnpj');
+				divCnpj.addClass('has-error');					
+			}
+			$(document).scrollTop($(this.topoPagina).offset().top);
+		}		
 	}
 	
 	function onSalvarPessoa(event){

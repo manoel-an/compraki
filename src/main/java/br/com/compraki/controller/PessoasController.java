@@ -54,11 +54,13 @@ public class PessoasController {
 		}
 		try {
 			this.pessoaService.salvarPessoa(pessoa);
+			attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso !");
+			return new ModelAndView("redirect:/usuarios/novo");
 		} catch (NegocioException e) {
 			result.addError(new ObjectError("Pessoa", e.getMessage()));
+			pessoa.getPessoaHelper().setHasCnpjCpj(Boolean.TRUE);
+			return novo(user, pessoa, Boolean.TRUE);
 		}
-		attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso !");
-		return new ModelAndView("redirect:/usuarios/novo");
 	}
 
 	@RequestMapping(value = "/atualizaFormularioPessoaFisica", method = RequestMethod.POST)

@@ -137,15 +137,19 @@ public class PessoaService {
 	@Transactional
 	public void salvarPessoa(Pessoa pessoa) throws NegocioException {
 		try {
-			if (pessoa.getCodigo() == null) {
-				pessoa.setDataInclusao(LocalDateTime.now());
+			if (this.pessoas.findByCpfOuCnpj(pessoa.getCpfOuCnpj()).isPresent()) {
+				throw new NegocioException("CPF/CNPJ já cadastrado");
+			} else {
+				if (pessoa.getCodigo() == null) {
+					pessoa.setDataInclusao(LocalDateTime.now());
+				}
+				pessoa.setDataAlteracao(LocalDateTime.now());
+				pessoa.getUsuario().setEmail(pessoa.getEmail());
+				pessoa.getUsuario().setSenha(pessoa.getSenha());
+				Usuario usuario = this.usuarioService.salvarUsuario(pessoa.getUsuario());
+				pessoa.setUsuario(usuario);
+				this.pessoas.save(pessoa);
 			}
-			pessoa.setDataAlteracao(LocalDateTime.now());
-			pessoa.getUsuario().setEmail(pessoa.getEmail());
-			pessoa.getUsuario().setSenha(pessoa.getSenha());
-			Usuario usuario = this.usuarioService.salvarUsuario(pessoa.getUsuario());
-			pessoa.setUsuario(usuario);
-			this.pessoas.save(pessoa);
 		} catch (Exception e) {
 			throw new NegocioException(e.getMessage());
 		}
