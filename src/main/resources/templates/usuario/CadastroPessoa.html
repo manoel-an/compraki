@@ -30,7 +30,8 @@
     </div>
    	<div class="container-fluid">
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
-	       <input id="idHidden" type="hidden" th:field="*{codigo}"> 
+	       <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 
+	       <input id="codigoUsuarioHidden" type="hidden" th:field="*{usuario.codigo}"> 
 	       <input id="mask" type="hidden"> 
 	       <input id="inputTipoPessoa" type="hidden" th:field="*{pessoaHelper.inputTipoPessoa}" th:value="*{pessoaHelper.inputTipoPessoa}">
 	       <input id="erroNomePessoa" type="hidden" th:field="*{pessoaHelper.erroNome}"> 
@@ -49,6 +50,8 @@
 	       <input id="nomeFantasiaHelper" type="hidden" th:field="*{pessoaHelper.nomeFantasia}" th:value="*{pessoaHelper.nomeFantasia}"> 
 	       <input id="apelidoHelper" type="hidden" th:field="*{pessoaHelper.apelido}" th:value="*{pessoaHelper.apelido}"> 
 	       <input id="sexoHelper" type="hidden" th:field="*{pessoaHelper.sexo}" th:value="*{pessoaHelper.sexo}"> 
+	       <input id="senhaAux" type="hidden"> 
+	       <input id="confirmaSenhaAux" type="hidden"> 
 		   <compraki:message/>
            <h2>Dados de Autenticação</h2> 
             <div class="row">

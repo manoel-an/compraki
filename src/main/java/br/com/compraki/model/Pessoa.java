@@ -2,8 +2,8 @@ package br.com.compraki.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,11 +14,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -48,15 +47,15 @@ public class Pessoa implements Serializable {
     private EnumSexo sexo;
 
     @Column(name = "data_inclusao")
-    private LocalDate dataInclusao;
+    private LocalDateTime dataInclusao;
 
     @Column(name = "data_alteracao")
-    private LocalDate dataAlteracao;
+    private LocalDateTime dataAlteracao;
 
     @Embedded /** está embutindo na mesma tabela o endereço */
     private Endereco endereco;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "codigo_usuario", unique = true)
     private Usuario usuario;
 
@@ -76,10 +75,12 @@ public class Pessoa implements Serializable {
     @Transient
     private String email;
 
+    @Size(min = 5, message = "A senha deve ter pelo menos 5 caracteres")
     @NotBlank(message = "A senha é obrigatória")
     @Transient
     private String senha;
 
+    @Size(min = 5, message = "A confirmação da senha deve ter pelo menos 5 caracteres")
     @NotBlank(message = "A confirmação de senha é obrigatória")
     @Transient
     private String confirmacaoSenha;
@@ -102,17 +103,17 @@ public class Pessoa implements Serializable {
     @Transient
     private PessoaHelper pessoaHelper;
 
-    @PrePersist
-    @PreUpdate
-    private void prePersistPreUpdate() {
-        if (this.nomeFantasia != null && this.nomeFantasia.equals("-")) {
-            this.nomeFantasia = null;
-        }
-        if (getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA")) {
-            this.dataNascimento = null;
-            this.sexo = null;
-        }
-    }
+    // @PrePersist
+    // @PreUpdate
+    // private void prePersistPreUpdate() {
+    // if (this.nomeFantasia != null && this.nomeFantasia.equals("-")) {
+    // this.nomeFantasia = null;
+    // }
+    // if (getPessoaHelper().getInputTipoPessoa().equals("inputPessoaJURIDICA"))
+    // {
+    // this.dataNascimento = null;
+    // }
+    // }
 
     // Getters and Setters
     public Long getCodigo() {
@@ -150,19 +151,19 @@ public class Pessoa implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public LocalDate getDataInclusao() {
+    public LocalDateTime getDataInclusao() {
         return dataInclusao;
     }
 
-    public void setDataInclusao(LocalDate dataInclusao) {
+    public void setDataInclusao(LocalDateTime dataInclusao) {
         this.dataInclusao = dataInclusao;
     }
 
-    public LocalDate getDataAlteracao() {
+    public LocalDateTime getDataAlteracao() {
         return dataAlteracao;
     }
 
-    public void setDataAlteracao(LocalDate dataAlteracao) {
+    public void setDataAlteracao(LocalDateTime dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
     }
 

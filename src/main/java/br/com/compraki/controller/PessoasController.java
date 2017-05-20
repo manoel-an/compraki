@@ -7,6 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ import br.com.compraki.enuns.TipoPessoa;
 import br.com.compraki.enuns.UF;
 import br.com.compraki.model.Pessoa;
 import br.com.compraki.security.UsuarioSistema;
+import br.com.compraki.service.NegocioException;
 import br.com.compraki.service.PessoaService;
 import br.com.compraki.validator.PessoaValidator;
 
@@ -33,21 +35,27 @@ public class PessoasController {
     private PessoaService pessoaService;
 
     @GetMapping("/novo")
-    public ModelAndView novo(@AuthenticationPrincipal User user, Pessoa pessoa) {
-        ModelAndView modelAndView = getDefaultObjectsModelAndView(pessoa, user);
+    public ModelAndView novo(@AuthenticationPrincipal User user, Pessoa pessoa, Boolean hasErrors) {
+        hasErrors = hasErrors == null ? Boolean.FALSE : (hasErrors != null && hasErrors ? Boolean.TRUE : Boolean.FALSE);
+        ModelAndView modelAndView = getDefaultObjectsModelAndView(pessoa, user, hasErrors);
         return modelAndView;
     }
 
     @PostMapping("/novo")
-    public ModelAndView salvarCadastro(@AuthenticationPrincipal User user, @Valid Pessoa pessoa, BindingResult result,
+    public ModelAndView salvarPessoa(@AuthenticationPrincipal User user, @Valid Pessoa pessoa, BindingResult result,
             RedirectAttributes attributes) {
+        validator.validate(pessoa, result);
         if (result.hasErrors()) {
             this.pessoaService.getFieldError(pessoa, result);
-            validator.validate(pessoa, result);
-            return novo(user, pessoa);
+            return novo(user, pessoa, Boolean.TRUE);
         }
-        return null;
-
+        try {
+            pessoa = this.pessoaService.salvarPessoa(pessoa);
+        } catch (NegocioException e) {
+            result.addError(new ObjectError("Pessoa", e.getMessage()));
+        }
+        attributes.addFlashAttribute("mensagem", "Usuario atualizado com sucesso !");
+        return new ModelAndView("redirect:/usuarios/novo");
     }
 
     @RequestMapping(value = "/atualizaFormularioPessoaFisica", method = RequestMethod.POST)
@@ -65,7 +73,7 @@ public class PessoasController {
         return modelAndView;
     }
 
-    private ModelAndView getDefaultObjectsModelAndView(Pessoa pessoa, User user) {
+    private ModelAndView getDefaultObjectsModelAndView(Pessoa pessoa, User user, boolean hasErrors) {
         UsuarioSistema usuarioSistema = (UsuarioSistema) user;
         ModelAndView modelAndView = new ModelAndView("usuario/CadastroPessoa");
         pessoa.setUsuario(usuarioSistema.getUsuario());
@@ -73,7 +81,8 @@ public class PessoasController {
         modelAndView.addObject("tipos", TipoPessoa.values());
         modelAndView.addObject("estados", UF.values());
         modelAndView.addObject("grupos", this.pessoaService.getGruposByRole(user));
-        modelAndView.addObject("pessoa", pessoa);
+        Pessoa p = this.pessoaService.getPessoaByUsuarioLogado(usuarioSistema.getUsuario());
+        modelAndView.addObject("pessoa", p.getCodigo() != null && !hasErrors ? p : pessoa);
         return modelAndView;
     }
 }
