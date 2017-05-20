@@ -14,8 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.compraki.model.IntencaoCompra;
-import br.com.compraki.model.Pessoa;
 import br.com.compraki.repository.IntencaoCompras;
+import br.com.compraki.security.UsuarioSistema;
 import br.com.compraki.validator.IntencaoValidator;
 
 @Controller
@@ -26,30 +26,27 @@ public class IntencaoCompraController {
 
 	@Autowired
 	private IntencaoCompras intencaoCompras;
-	
-	@Autowired
-    private IntencaoValidator validator;
 
+	@Autowired
+	private IntencaoValidator validator;
 
 	@GetMapping("/novo")
-	public ModelAndView novo(IntencaoCompra intencaoCompra) {
+	public ModelAndView novo(@AuthenticationPrincipal User user, IntencaoCompra intencaoCompra) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+		System.out.println(usuarioSistema.getUsuario().getCodigo());
 		ModelAndView mv = new ModelAndView(IT_VIEW);
-		mv.addObject(new IntencaoCompra());
+		// mv.addObject(new IntencaoCompra());
 		return mv;
 	}
-	
+
 	@PostMapping("/novo")
-    public ModelAndView salvar(@Valid IntencaoCompra intencaoCompra, BindingResult result,
-            RedirectAttributes attributes) {
-        if (result.hasErrors()) {
-           
-            validator.validate(intencaoCompra, result);
-            return novo(intencaoCompra);
-        }
-        return null;
+	public ModelAndView salvar(@AuthenticationPrincipal User user, @Valid IntencaoCompra intencaoCompra,
+			BindingResult result, RedirectAttributes attributes) {
+		validator.validate(intencaoCompra, result);
+		if (result.hasErrors()) {
+			return novo(user, intencaoCompra);
+		}
+		return null;
+	}
 
-    }
-
-
-	
-}//fim
+}// fim
