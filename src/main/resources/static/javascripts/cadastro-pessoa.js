@@ -59,7 +59,6 @@ Compraki.CadastroUsuario = (function() {
 		this.botaoSalvarPessoa.on('click', onSalvarPessoa.bind(this));
 		document.getElementById(this.inputTipoPessoa.val()).click();
 		carregaSenhaConfirmaSenha.call(this);
-		//this.inputTipoPessoa.val() == 'inputPessoaFISICA'
 	}
 	
 	function carregaSenhaConfirmaSenha(){
@@ -105,7 +104,33 @@ Compraki.CadastroUsuario = (function() {
 			$(document).scrollTop($(this.topoPagina).offset().top);	
 			return;
 		}
-		this.formulario.submit();
+		var validaCpfCnpj = new Compraki.ValidaCpfCpnj();
+		var cpfCnpj = validaCpfCnpj.enable();
+		if(cpfCnpj == false){
+			var cpfOuCnpj = $('#cpfOuCnpj');
+			if(this.inputTipoPessoa.val() == 'inputPessoaFISICA'){
+				var divCpf = $('.js-div-cpf');
+				divCpf.addClass('has-error');
+				this.divEmail.removeClass('has-error');
+				this.divSenha.removeClass('has-error');
+				this.divConfirmaSenha.removeClass('has-error');
+				this.divErro.removeClass('hidden');
+				this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> CPF Inválido');
+				$(document).scrollTop($(this.topoPagina).offset().top);
+			} else {
+				var divCnpj = $('.js-div-cnpj');
+				divCnpj.addClass('has-error');
+				this.divEmail.removeClass('has-error');
+				this.divSenha.removeClass('has-error');
+				this.divConfirmaSenha.removeClass('has-error');				
+				this.divErro.removeClass('hidden');
+				this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> CNPJ Inválido');	
+				$(document).scrollTop($(this.topoPagina).offset().top);
+			}
+			cpfOuCnpj.focus();
+		} else {
+			this.formulario.submit();
+		}
 	}
 	
 	function pesquisarEnderecoPorCep(){
