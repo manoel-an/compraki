@@ -75,7 +75,7 @@ public class PessoaService {
 		this.carregaCamposTipoPessoa(pessoa, result, Boolean.FALSE);
 	}
 
-	private void carregaCamposTipoPessoa(Pessoa pessoa, BindingResult result, boolean pessoaSalva) {
+	public void carregaCamposTipoPessoa(Pessoa pessoa, BindingResult result, boolean pessoaSalva) {
 		if (pessoaSalva) {
 			if (pessoa.getTipoPessoa().equals(TipoPessoa.FISICA)) {
 				pessoa.getPessoaHelper().setNome(pessoa.getNome());
