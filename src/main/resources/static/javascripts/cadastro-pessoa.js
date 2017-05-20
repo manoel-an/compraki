@@ -132,6 +132,7 @@ Compraki.CadastroUsuario = (function() {
 		}
 		var validaCpfCnpj = new Compraki.ValidaCpfCpnj();
 		var cpfCnpj = validaCpfCnpj.enable();
+		divCpfCnpj.removeClass('has-error');
 		if(cpfCnpj == false){
 			var cpfOuCnpj = $('#cpfOuCnpj');
 			if(this.inputTipoPessoa.val() == 'inputPessoaFISICA'){
@@ -153,7 +154,6 @@ Compraki.CadastroUsuario = (function() {
 				this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> CNPJ Inválido');	
 				$(document).scrollTop($(this.topoPagina).offset().top);
 			}
-			divCpfCnpj.removeClass('has-error');
 			cpfOuCnpj.focus();
 		} else {
 			this.formulario.submit();
