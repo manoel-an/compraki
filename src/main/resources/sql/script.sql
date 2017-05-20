@@ -23,7 +23,8 @@ INSERT INTO acessorio (descricao) VALUES ('Direção Hidraulica');
 INSERT INTO acessorio (descricao) VALUES ('Roda aro 16');
 INSERT INTO acessorio (descricao) VALUES ('Câmbio automático');
 
-INSERT INTO carro (cor, data_criacao, descricao, ipva_pago) VALUES ('Azul', '2017-05-06', 'Carro sem defeito de lataria',1);
+INSERT INTO carro (cor, data_criacao, descricao, ipva_pago, codigo_modelo) VALUES ('Azul', '2017-05-06', 'Carro sem defeito de lataria',1,
+(SELECT codigo FROM modelo_carro WHERE codigo = 1));
 
 INSERT INTO carro_acessorio (codigo_carro, codigo_acessorio) VALUES (
     (SELECT codigo FROM carro WHERE codigo = 1), (SELECT codigo FROM acessorio WHERE codigo = 1));
