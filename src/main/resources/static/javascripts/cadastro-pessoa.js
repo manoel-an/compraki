@@ -60,7 +60,6 @@ Compraki.CadastroUsuario = (function() {
 		this.botaoSalvarPessoa.on('click', onSalvarPessoa.bind(this));
 		document.getElementById(this.inputTipoPessoa.val()).click();
 		carregaSenhaConfirmaSenha.call(this);
-		verificaCpfCnpjCadastrado.call(this);
 	}
 	
 	function carregaSenhaConfirmaSenha(){
@@ -79,6 +78,9 @@ Compraki.CadastroUsuario = (function() {
 				var divCnpj = $('.js-div-cnpj');
 				divCnpj.addClass('has-error');					
 			}
+			this.divConfirmaSenha.removeClass('has-error');
+			this.divSenha.removeClass('has-error');
+			this.divEmail.removeClass('has-error');			
 			$(document).scrollTop($(this.topoPagina).offset().top);
 		}		
 	}
@@ -89,7 +91,14 @@ Compraki.CadastroUsuario = (function() {
 	}	
 	
 	function validar(){
+		var divCpfCnpj = null;
+		if(this.inputTipoPessoa.val() == 'inputPessoaFISICA'){
+			divCpfCnpj = $('.js-div-cpf');			
+		} else {
+			divCpfCnpj = $('.js-div-cnpj');	
+		}
 		if(this.email.val() == ""){
+			divCpfCnpj.removeClass('has-error');
 			this.divSenha.removeClass('has-error');
 			this.divConfirmaSenha.removeClass('has-error');
 			this.divEmail.addClass('has-error');
@@ -100,6 +109,7 @@ Compraki.CadastroUsuario = (function() {
 			return;
 		}
 		if(this.senha.val() == ""){
+			divCpfCnpj.removeClass('has-error');
 			this.divEmail.removeClass('has-error');
 			this.divConfirmaSenha.removeClass('has-error');
 			this.divSenha.addClass('has-error');
@@ -110,6 +120,7 @@ Compraki.CadastroUsuario = (function() {
 			return;
 		}
 		if(this.confirmaSenha.val() == ""){
+			divCpfCnpj.removeClass('has-error');
 			this.divSenha.removeClass('has-error');
 			this.divEmail.removeClass('has-error');
 			this.divConfirmaSenha.addClass('has-error');
@@ -142,6 +153,7 @@ Compraki.CadastroUsuario = (function() {
 				this.divTextoErro.html('<i class="fa  fa-exclamation-circle"></i> CNPJ Inválido');	
 				$(document).scrollTop($(this.topoPagina).offset().top);
 			}
+			divCpfCnpj.removeClass('has-error');
 			cpfOuCnpj.focus();
 		} else {
 			this.formulario.submit();
@@ -236,6 +248,7 @@ Compraki.CadastroUsuario = (function() {
 			var labelSexoFeminino = $('#sexoFeminino');
 			labelSexoFeminino.removeClass('active');
 		}	
+		verificaCpfCnpjCadastrado.call(this);
 	}
 	
 	function onSucessFormularioPessoaFisica(resultado){
@@ -299,6 +312,7 @@ Compraki.CadastroUsuario = (function() {
 			var apelido = $('#apelido');
 			apelido.val(this.apelidoHelper.val());
 		}	
+		verificaCpfCnpjCadastrado.call(this);
 	}
 	
 	function onSucessFormularioPessoaJuridica(resultado){

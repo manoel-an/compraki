@@ -59,6 +59,7 @@ public class PessoasController {
 		} catch (NegocioException e) {
 			result.addError(new ObjectError("Pessoa", e.getMessage()));
 			pessoa.getPessoaHelper().setHasCnpjCpj(Boolean.TRUE);
+			this.pessoaService.carregaCamposTipoPessoa(pessoa, result, Boolean.FALSE);
 			return novo(user, pessoa, Boolean.TRUE);
 		}
 	}

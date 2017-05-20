@@ -75,7 +75,7 @@ public class PessoaService {
 		this.carregaCamposTipoPessoa(pessoa, result, Boolean.FALSE);
 	}
 
-	private void carregaCamposTipoPessoa(Pessoa pessoa, BindingResult result, boolean pessoaSalva) {
+	public void carregaCamposTipoPessoa(Pessoa pessoa, BindingResult result, boolean pessoaSalva) {
 		if (pessoaSalva) {
 			if (pessoa.getTipoPessoa().equals(TipoPessoa.FISICA)) {
 				pessoa.getPessoaHelper().setNome(pessoa.getNome());
@@ -137,7 +137,12 @@ public class PessoaService {
 	@Transactional
 	public void salvarPessoa(Pessoa pessoa) throws NegocioException {
 		try {
-			if (this.pessoas.findByCpfOuCnpj(pessoa.getCpfOuCnpj()).isPresent()) {
+			Optional<Pessoa> op = this.pessoas.findByCpfOuCnpj(pessoa.getCpfOuCnpj());
+			Pessoa p = null;
+			if (op.isPresent()) {
+				p = op.get();
+			}
+			if (p != null && pessoa.getCodigo() != p.getCodigo()) {
 				throw new NegocioException("CPF/CNPJ já cadastrado");
 			} else {
 				if (pessoa.getCodigo() == null) {
