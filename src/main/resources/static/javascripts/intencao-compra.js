@@ -46,12 +46,18 @@ Compraki.IntencaoCompraComboModelo = (function() {
 				url: this.comboModelo.data('url'),
 				method: 'GET',
 				contentType: 'application/json',
-				data: { 'marca': codigoMarca }, 
+				data: { 'marca': codigoMarca },
+				complete: onEstilizaComboModelo.bind(this),
 			});
 			resposta.done(onBuscarModelos.bind(this));
 		} else {
 			reset.call(this);
 		}
+	}
+	
+	function onEstilizaComboModelo(event){
+		var selectSearch = new Compraki.SelectSearch();
+		selectSearch.enable();
 	}
 	
 	function onBuscarModelos(modelos) {
