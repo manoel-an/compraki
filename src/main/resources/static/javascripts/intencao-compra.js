@@ -29,7 +29,7 @@ Compraki.IntencaoCompraComboModelo = (function() {
 	}
 	
 	IntencaoCompraComboModelo.prototype.enable = function(event) {
-		reset.call(this);
+		limparComboModelo.call(this);
 		this.comboMarca.on('alterada', onMarcaAlterada.bind(this));	
 		var codigoMarca = this.comboMarca.comboMarca.val();
 		inicializarModelos.call(this, codigoMarca);
@@ -51,7 +51,7 @@ Compraki.IntencaoCompraComboModelo = (function() {
 			});
 			resposta.done(onBuscarModelos.bind(this));
 		} else {
-			reset.call(this);
+			limparComboModelo.call(this);
 		}
 	}
 	
@@ -75,9 +75,7 @@ Compraki.IntencaoCompraComboModelo = (function() {
 		}
 	}	
 	
-	function reset() {
-		this.comboModelo.html('<option value="">Selecione a cidade</option>');
-		this.comboModelo.val('');
+	function limparComboModelo() {
 		this.comboModelo.attr('disabled', 'disabled');
 	}	
 	
