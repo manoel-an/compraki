@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.compraki.model.IntencaoCompra;
+import br.com.compraki.repository.Fabricantes;
 import br.com.compraki.repository.IntencaoCompras;
 import br.com.compraki.security.UsuarioSistema;
 import br.com.compraki.validator.IntencaoValidator;
@@ -28,14 +29,14 @@ public class IntencaoCompraController {
 	private IntencaoCompras intencaoCompras;
 
 	@Autowired
+	private Fabricantes fabricantes;
+
+	@Autowired
 	private IntencaoValidator validator;
 
 	@GetMapping("/novo")
 	public ModelAndView novo(@AuthenticationPrincipal User user, IntencaoCompra intencaoCompra) {
-		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-		System.out.println(usuarioSistema.getUsuario().getCodigo());
-		ModelAndView mv = new ModelAndView(IT_VIEW);
-		// mv.addObject(new IntencaoCompra());
+		ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra, user);
 		return mv;
 	}
 
@@ -47,6 +48,14 @@ public class IntencaoCompraController {
 			return novo(user, intencaoCompra);
 		}
 		return null;
+	}
+
+	private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+		System.out.println(usuarioSistema.getUsuario().getCodigo());
+		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
+		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
+		return modelAndView;
 	}
 
 }// fim
