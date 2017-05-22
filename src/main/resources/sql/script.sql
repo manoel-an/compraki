@@ -29,13 +29,17 @@ INSERT INTO fabricante (nome) VALUES ('Ford');
 INSERT INTO fabricante (nome) VALUES ('Chevrolet');   
 
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
-    'HATCH', 'Gol',(SELECT codigo FROM fabricante WHERE codigo = 2));
-    
+    'HATCH', 'Gol',(SELECT codigo FROM fabricante WHERE nome = 'Wolksvagem'));
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
-    'HATCH', 'Fox',(SELECT codigo FROM fabricante WHERE codigo = 2));        
-
+    'HATCH', 'Fox',(SELECT codigo FROM fabricante WHERE nome = 'Wolksvagem'));
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
-'HATCH', 'Uno',(SELECT codigo FROM fabricante WHERE codigo = 1));    
+    'SEDAN', 'Fiesta',(SELECT codigo FROM fabricante WHERE nome = 'Ford'));
+INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
+    'SEDAN', 'Focus',(SELECT codigo FROM fabricante WHERE nome = 'Ford'));        
+INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
+'HATCH', 'Uno',(SELECT codigo FROM fabricante WHERE nome = 'Fiat'));
+INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
+'SEDAN', 'Prisma',(SELECT codigo FROM fabricante WHERE nome = 'Chevrolet'));  
     
 
 INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo) VALUES ('Azul', '2017-05-06', null, 'Carro sem defeito de lataria',1,
@@ -49,11 +53,18 @@ INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, co
 (SELECT codigo FROM modelo_carro WHERE codigo = 3));
 
 
-INSERT INTO carro_acessorio (codigo_carro, codigo_acessorio) VALUES (
-    (SELECT codigo FROM carro WHERE codigo = 1), (SELECT codigo FROM acessorio WHERE codigo = 1));
+INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo) VALUES ('Azul', '2017-05-06', null, 'Carro sem defeito de lataria',1,
+(SELECT codigo FROM modelo_carro WHERE descricao = 'Gol'));
 
-INSERT INTO carro_acessorio (codigo_carro, codigo_acessorio) VALUES (
-    (SELECT codigo FROM carro WHERE codigo = 1), (SELECT codigo FROM acessorio WHERE codigo = 3));
+INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo) VALUES ('Branco', '2017-05-06', null, 'Carro sem defeito de lataria',1,
+(SELECT codigo FROM modelo_carro WHERE  descricao = 'Fiesta'));
+
+INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo) VALUES ('Rosa', '2017-05-06', null, 'Carro sem defeito de lataria',1,
+(SELECT codigo FROM modelo_carro WHERE descricao = 'Uno'));
+
+INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo) VALUES ('Rosa', '2017-05-06', null, 'Carro sem defeito de lataria',1,
+(SELECT codigo FROM modelo_carro WHERE descricao = 'Prisma'));
+
     
 
 
