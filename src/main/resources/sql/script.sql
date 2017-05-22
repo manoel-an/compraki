@@ -24,14 +24,14 @@ INSERT INTO acessorio (descricao) VALUES ('Roda aro 16');
 INSERT INTO acessorio (descricao) VALUES ('Câmbio automático');
 
 INSERT INTO fabricante (nome) VALUES ('Fiat');
-INSERT INTO fabricante (nome) VALUES ('Volksvagem');
+INSERT INTO fabricante (nome) VALUES ('Volkswagen');
 INSERT INTO fabricante (nome) VALUES ('Ford');
 INSERT INTO fabricante (nome) VALUES ('Chevrolet');   
 
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
-    'HATCH', 'Gol',(SELECT codigo FROM fabricante WHERE nome = 'Wolksvagem'));
+    'HATCH', 'Gol',(SELECT codigo FROM fabricante WHERE nome = 'Volkswagen'));
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
-    'HATCH', 'Fox',(SELECT codigo FROM fabricante WHERE nome = 'Wolksvagem'));
+    'HATCH', 'Fox',(SELECT codigo FROM fabricante WHERE nome = 'Volkswagen'));
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
     'SEDAN', 'Fiesta',(SELECT codigo FROM fabricante WHERE nome = 'Ford'));
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
