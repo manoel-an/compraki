@@ -54,6 +54,31 @@ Compraki.MaskCep = (function() {
 	
 }());
 
+
+Compraki.PickList = (function() {
+	function PickList() {
+		this.selectPickList = $('select[name="js-duallistbox"]');
+	}
+	
+	PickList.prototype.enable = function() {
+		return this.selectPickList.bootstrapDualListbox({
+			  nonSelectedListLabel: 'Disponíveis',
+			  selectedListLabel: 'Itens Selecionados',
+			  preserveSelectionOnMove: 'moved',
+			  moveOnSelect: false,
+			  infoText: 'Itens Disponíveis {0}',
+			  infoTextEmpty: 'Lista Vazia',
+			  moveAllLabel: 'Mover Todos',
+			  moveSelectedLabel: 'Mover item Selecionado',
+			  removeSelectedLabel: 'Remover item selecionado',
+			  filterPlaceHolder: 'Filtro',
+			  removeAllLabel: 'Remover todos'			
+		});
+	}
+	return PickList;
+	
+}());
+
 Compraki.MaskDate = (function() {
 	
 	function MaskDate() {
@@ -125,6 +150,9 @@ $(function() {
 	
 	var maskCep = new Compraki.MaskCep();
 	maskCep.enable();
+	
+	var pickList = new Compraki.PickList();
+	pickList.enable();
 	
 	var maskDate = new Compraki.MaskDate();
 	maskDate.enable();

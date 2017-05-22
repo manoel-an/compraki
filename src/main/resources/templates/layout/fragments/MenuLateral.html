@@ -29,16 +29,17 @@
 
                 <li class="aw-menu__item">
                     <a href="#">
-                        <i class="fa  fa-fw  fa-truck"></i><span>Estoque</span>
+                        <i class="fa fa-fw fa-bus"></i><span>Veículos</span>
                         <i class="aw-menu__navigation-icon  fa"></i>
                     </a>
       
                     <ul class="aw-menu__list  aw-menu__list--sublist">
-                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/estilos}">
-                            <a th:href="@{/estilos}">Estilos</a>
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/carros.+}">
+                            <a th:href="@{/carros/novo}">Cadastro de Veículo</a>
                         </li>
-                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/cervejas}">
-                            <a th:href="@{/cervejas}">Cervejas</a>
+                        
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/carros}">
+                            <a th:href="@{/carros}">Pesquisa de Veículo</a>
                         </li>
                     </ul>
                 </li>

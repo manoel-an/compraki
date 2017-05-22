@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:compraki="http://compraki.com.br"
+    layout:decorate="~{layout/LayoutPadrao}"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Cadastro de Veículo</title>
+</head>
+
+<section layout:fragment="conteudo">
+    <div class="row page-header js-topo-page">
+        <div class="container-fluid">
+            <div class="col-xs-11">
+                <h1>Cadastro de Veículo</h1>
+            </div>
+            <div class="col-xs-1">
+                <div class="aw-page-header-controls">
+                    <a class="btn  btn-primary" th:href="@{/carros}">
+                        <i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Pesquisar</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
+           <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple>
+           </select>        
+           <compraki:message/>
+           <h2>Modelo do Veículo</h2> 
+            <div class="row">
+                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="modelo.fabricante">
+                   <label for="marca" class="control-label">Marca</label>
+                   <select id="marca" class="form-control js-select-search" th:field="*{modelo.fabricante}">
+                       <option value=""></option>
+                       <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
+                   </select>
+                </div>
+                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="modelo.descricao">
+                    <label for="modelo" class="control-label">Modelo</label>
+                    <input type="text" class="form-control" id="email" th:field="*{modelo.descricao}" placeholder="Ex: Gol 1.0 16V"/>
+                </div>
+                <div class="form-group col-sm-3 compraki-required" compraki:classforerror="modelo.categoria">
+                    <label class="control-label" for="categoria">Categoria:</label>
+                    <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoria}">
+                        <option value=""></option>
+                        <option th:each="categoria : ${categorias}" th:text="${categoria.descricao}" th:value="${categoria}"></option>
+                    </select>
+                </div>                     
+            </div>
+            <h2>Acessórios</h2> 
+            <div class="row">
+                <div class="form-group  col-sm-12">
+		            <select id="selectAcessorios" multiple="multiple" name="js-duallistbox">
+                       <option th:each="acessorio : ${acessorios}" th:text="${acessorio.descricao}" 
+                        th:value="|{codigo: ${acessorio.codigo}, descricao: '${acessorio.descricao}'}|"></option>
+		            </select>
+                </div>
+            </div>           
+           <button class="btn  btn-primary js-btn-salvar-carro">
+                <span class="fa fa-floppy-o"></span> Salvar         
+           </button> 
+        </form>
+    </div>
+</section>
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/cadastro-carro.js}"></script>
+</th:block>
+</html>
