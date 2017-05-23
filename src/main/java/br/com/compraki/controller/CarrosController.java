@@ -13,18 +13,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.compraki.enuns.Categoria;
 import br.com.compraki.model.carro.Carro;
-import br.com.compraki.repository.Acessorios;
-import br.com.compraki.repository.Fabricantes;
+import br.com.compraki.service.CarroService;
+import br.com.compraki.validator.CarroValidator;
 
 @Controller
 @RequestMapping("/carros")
 public class CarrosController {
 
     @Autowired
-    private Fabricantes fabricantes;
+    private CarroService carroService;
 
     @Autowired
-    private Acessorios acessorios;
+    private CarroValidator validator;
 
     @GetMapping("/novo")
     public ModelAndView novo(Carro carro) {
@@ -34,16 +34,18 @@ public class CarrosController {
 
     @PostMapping("/novo")
     public ModelAndView salvarPessoa(@Valid Carro carro, BindingResult result, RedirectAttributes attributes) {
+        validator.validate(carro, result);
         if (result.hasErrors()) {
+            return this.novo(carro);
         }
-        return null;
+        return this.novo(carro);
     }
 
     private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
         ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
-        modelAndView.addObject("fabricantes", this.fabricantes.findAll());
+        modelAndView.addObject("fabricantes", this.carroService.getFabricantes().findAll());
         modelAndView.addObject("categorias", Categoria.values());
-        modelAndView.addObject("acessorios", this.acessorios.findAll());
+        modelAndView.addObject("acessorios", this.carroService.getSelectedAcessorrios(carro));
         return modelAndView;
     }
 }

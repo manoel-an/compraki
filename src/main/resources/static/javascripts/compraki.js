@@ -71,7 +71,9 @@ Compraki.PickList = (function() {
 			  moveAllLabel: 'Mover Todos',
 			  moveSelectedLabel: 'Mover item Selecionado',
 			  removeSelectedLabel: 'Remover item selecionado',
-			  filterPlaceHolder: 'Filtro',
+			  filterPlaceHolder: '',
+			  infoTextFiltered: 'Filtrados {0} de {1}',
+			  filterTextClear: 'Mostrar Todos',
 			  removeAllLabel: 'Remover todos'			
 		});
 	}

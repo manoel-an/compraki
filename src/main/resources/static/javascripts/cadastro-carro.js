@@ -17,11 +17,13 @@ Compraki.CadastroCarro = (function() {
 		var pickList = new Compraki.PickList();
 		var pickListAcessorios = pickList.enable();
 		var options = [];
-        pickListAcessorios.val().forEach(function(acessorio) {
-        	var res = acessorio.split("-");
-			options.push('<option id="acessorio'+ res[0] +'" value="' + res[0]+ '" selected="selected">' + res[1] + '</option>');
-        });	
-		this.selectAcessoriosEscolhidos.html(options.join(''));
+		if(pickListAcessorios.val() != null){
+			pickListAcessorios.val().forEach(function(acessorio) {
+				var res = acessorio.split("-");
+				options.push('<option id="acessorio'+ res[0] +'" value="' + res[0]+ '" selected="selected">' + res[1] + '</option>');
+			});	
+			this.selectAcessoriosEscolhidos.html(options.join(''));
+		}
 		this.formulario.submit();
 	}	
 	
