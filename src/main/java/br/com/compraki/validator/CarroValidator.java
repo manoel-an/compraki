@@ -20,6 +20,7 @@ public class CarroValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "modelo.fabricante", "", "É necesário informar a marca");
         ValidationUtils.rejectIfEmpty(errors, "modelo.descricao", "", "É necesário informar o modelo do véiculo");
         ValidationUtils.rejectIfEmpty(errors, "modelo.categoria", "", "É necesário informar a categoria do veículo");
+        ValidationUtils.rejectIfEmpty(errors, "cor", "", "É necesário informar uma cor para o veículo");
         ValidationUtils.rejectIfEmpty(errors, "acessorios", "", "É necessário selecionar pelo menos um acessório");
     }
 }

@@ -37,24 +37,30 @@
            <compraki:message/>
            <h2>Modelo do Veículo</h2> 
             <div class="row">
-                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="modelo.fabricante">
+                <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="modelo.fabricante">
                    <label for="marca" class="control-label">Marca</label>
                    <select id="marca" class="form-control js-select-search" th:field="*{modelo.fabricante}">
                        <option value=""></option>
                        <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                    </select>
                 </div>
-                <div class="form-group  col-sm-4  compraki-required" compraki:classforerror="modelo.descricao">
+                <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="modelo.descricao">
                     <label for="modelo" class="control-label">Modelo</label>
                     <input type="text" class="form-control" id="email" th:field="*{modelo.descricao}" placeholder="Ex: Gol 1.0 16V"/>
                 </div>
-                <div class="form-group col-sm-4 compraki-required" compraki:classforerror="modelo.categoria">
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 compraki-required" compraki:classforerror="modelo.categoria">
                     <label class="control-label" for="categoria">Categoria:</label>
                     <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoria}">
                         <option value=""></option>
                         <option th:each="categoria : ${categorias}" th:text="${categoria.descricao}" th:value="${categoria}"></option>
                     </select>
-                </div>                     
+                </div> 
+                <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="cor">
+                    <label for="modelo" class="control-label">Cor</label>
+                    <input type="text" class="form-control" id="email" th:field="*{cor}" placeholder="Ex: Branco, Verde ..."/>
+                </div>                            
             </div>
             <h2>Acessórios</h2> 
             <div class="row">

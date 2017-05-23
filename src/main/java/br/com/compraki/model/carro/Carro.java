@@ -21,6 +21,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "carro")
@@ -45,6 +46,8 @@ public class Carro {
     private String url;
     private Date dataCriacao;
     private Date dataModificacao;
+    @Transient
+    private boolean novaFoto;
 
     // getters and setters
     @Id
@@ -154,6 +157,14 @@ public class Carro {
         if (this.dataCriacao == null) {
             this.dataCriacao = new Date();
         }
+    }
+
+    public boolean isNovaFoto() {
+        return novaFoto;
+    }
+
+    public void setNovaFoto(boolean novaFoto) {
+        this.novaFoto = novaFoto;
     }
 
     @Override
