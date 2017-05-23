@@ -36,94 +36,100 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 
 import br.com.compraki.controller.SegurancaController;
+import br.com.compraki.storage.local.FotoStorageLocal;
 import br.com.compraki.thymeleaf.CompraAKIDialect;
 import br.com.compraki.validator.PessoaValidator;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { SegurancaController.class, PessoaValidator.class })
+@ComponentScan(basePackageClasses = {SegurancaController.class ,PessoaValidator.class})
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @PropertySource("classpath:messages_br.properties")
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
-	private ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
 
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		this.applicationContext = applicationContext;
-	}
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
 
-	@Bean
-	public ViewResolver viewResolver() {
-		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-		resolver.setTemplateEngine(templateEngine());
-		resolver.setCharacterEncoding("UTF-8");
-		return resolver;
-	}
+    @Bean
+    public ViewResolver viewResolver() {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+        resolver.setCharacterEncoding("UTF-8");
+        return resolver;
+    }
 
-	@Bean
-	public TemplateEngine templateEngine() {
-		SpringTemplateEngine engine = new SpringTemplateEngine();
-		engine.setEnableSpringELCompiler(true);
-		engine.setTemplateResolver(templateResolver());
+    @Bean
+    public TemplateEngine templateEngine() {
+        SpringTemplateEngine engine = new SpringTemplateEngine();
+        engine.setEnableSpringELCompiler(true);
+        engine.setTemplateResolver(templateResolver());
 
-		engine.addDialect(new LayoutDialect());
-		engine.addDialect(new CompraAKIDialect());
-		engine.addDialect(new DataAttributeDialect());
-		engine.addDialect(new SpringSecurityDialect());
-		return engine;
-	}
+        engine.addDialect(new LayoutDialect());
+        engine.addDialect(new CompraAKIDialect());
+        engine.addDialect(new DataAttributeDialect());
+        engine.addDialect(new SpringSecurityDialect());
+        return engine;
+    }
 
-	private ITemplateResolver templateResolver() {
-		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
-		resolver.setApplicationContext(applicationContext);
-		resolver.setPrefix("classpath:/templates/");
-		resolver.setSuffix(".html");
-		resolver.setTemplateMode(TemplateMode.HTML);
-		return resolver;
-	}
+    private ITemplateResolver templateResolver() {
+        SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+        resolver.setApplicationContext(applicationContext);
+        resolver.setPrefix("classpath:/templates/");
+        resolver.setSuffix(".html");
+        resolver.setTemplateMode(TemplateMode.HTML);
+        return resolver;
+    }
 
-	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
-	}
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+    }
 
-	@Bean
-	public FormattingConversionService mvcConversionService() {
-		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+    @Bean
+    public FormattingConversionService mvcConversionService() {
+        DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
 
-		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
-		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
+        NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
+        conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
 
-		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
-		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
+        NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
+        conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
 
-		// API de Datas do Java 8
-		DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
-		dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
-		dateTimeFormatter.registerFormatters(conversionService);
+        // API de Datas do Java 8
+        DateTimeFormatterRegistrar dateTimeFormatter = new DateTimeFormatterRegistrar();
+        dateTimeFormatter.setDateFormatter(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        dateTimeFormatter.setTimeFormatter(DateTimeFormatter.ofPattern("HH:mm"));
+        dateTimeFormatter.registerFormatters(conversionService);
 
-		return conversionService;
-	}
+        return conversionService;
+    }
 
-	@Bean
-	public LocaleResolver localeResolver() {
-		return new FixedLocaleResolver(new Locale("pt", "BR"));
-	}
+    @Bean
+    public LocaleResolver localeResolver() {
+        return new FixedLocaleResolver(new Locale("pt", "BR"));
+    }
 
-	@Bean
-	public MessageSource messageSource() {
-		ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
-		bundle.setBasename("classpath:/messages_br");
-		bundle.setDefaultEncoding("UTF-8"); // http://www.utf8-chartable.de/
-		return bundle;
-	}
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource bundle = new ReloadableResourceBundleMessageSource();
+        bundle.setBasename("classpath:/messages_br");
+        bundle.setDefaultEncoding("UTF-8"); // http://www.utf8-chartable.de/
+        return bundle;
+    }
 
-	@Bean
-	public DomainClassConverter<FormattingConversionService> domainClassConverter() {
-		return new DomainClassConverter<FormattingConversionService>(mvcConversionService());
-	}
+    @Bean
+    public DomainClassConverter<FormattingConversionService> domainClassConverter() {
+        return new DomainClassConverter<FormattingConversionService>(mvcConversionService());
+    }
+
+    @Bean
+    public FotoStorageLocal fotoStorageLocal() {
+        return new FotoStorageLocal();
+    }
 
 }

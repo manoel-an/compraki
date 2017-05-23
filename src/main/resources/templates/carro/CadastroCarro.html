@@ -76,8 +76,9 @@
                 <div class="form-group  col-sm-12">
                     <input type="hidden" th:field="*{foto}"/>
                     <input type="hidden" th:field="*{contentType}"/>
+                    <input type="hidden" th:field="*{novaFoto}">
                     <label class="control-label">Selecione uma foto</label>
-                    <div class="js-container-foto-carro">
+                    <div class="js-container-foto-carro" th:attr="data-url-fotos=@{/fotos}">
                         <div id="upload-drop" class="bw-upload">
                             <i class="glyphicon  glyphicon-cloud-upload"></i>
                             <span>Arraste a foto aqui ou </span>
@@ -112,6 +113,7 @@
            </button> 
         </form>
     </div>
+    <th:block th:replace="hbs/FotoVeiculo"></th:block>
 </section>
 <th:block layout:fragment="javascript-extra">
     <script th:src="@{/javascripts/cadastro-carro.js}"></script>

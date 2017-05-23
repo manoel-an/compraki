@@ -46,7 +46,6 @@ public class Carro {
     private String url;
     private Date dataCriacao;
     private Date dataModificacao;
-    @Transient
     private boolean novaFoto;
 
     // getters and setters
@@ -159,6 +158,7 @@ public class Carro {
         }
     }
 
+    @Transient
     public boolean isNovaFoto() {
         return novaFoto;
     }
