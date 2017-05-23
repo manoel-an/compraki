@@ -12,20 +12,23 @@
 </head>
 
 <section layout:fragment="conteudo">
-    <div class="row page-header js-topo-page">
+    <div class="page-header js-topo-page">
         <div class="container-fluid">
-            <div class="col-xs-11">
-                <h1>Cadastro de Veículo</h1>
-            </div>
-            <div class="col-xs-1">
-                <div class="aw-page-header-controls">
-                    <a class="btn  btn-primary" th:href="@{/carros}">
-                        <i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Pesquisar</span>
-                    </a>
+            <div class="row">
+                <div class="col-xs-10">
+                    <h1>Cadastro de Veículo</h1>
+                </div>
+                
+                <div class="col-xs-2">
+                    <div class="aw-page-header-controls">
+	                    <a class="btn  btn-primary" th:href="@{/carros}">
+	                        <i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Pesquisar</span>
+	                    </a>                        
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
     <div class="container-fluid">
         <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
            <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple>
@@ -57,7 +60,7 @@
                 <div class="form-group  col-sm-12">
 		            <select id="selectAcessorios" multiple="multiple" name="js-duallistbox">
                        <option th:each="acessorio : ${acessorios}" th:text="${acessorio.descricao}" 
-                        th:value="|{codigo: ${acessorio.codigo}, descricao: '${acessorio.descricao}'}|"></option>
+                        th:value="|${acessorio.codigo}-${acessorio.descricao}|"></option>
 		            </select>
                 </div>
             </div>           

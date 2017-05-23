@@ -16,21 +16,13 @@ Compraki.CadastroCarro = (function() {
 		event.preventDefault();
 		var pickList = new Compraki.PickList();
 		var pickListAcessorios = pickList.enable();
-		var jsontext = '{"firstname":"Jesper","surname":"Aaberg","phone":["555-0100","555-0120"]}';
-		var contact = JSON.parse(jsontext);
 		var options = [];
-        var things = [
-                      { id: 1, color: 'yellow' },
-                      { id: 2, color: 'blue' },
-                      { id: 3, color: 'red' }
-                  ];
-        var teste = "[" + pickListAcessorios.val() + "];";
-        console.log(teste);
-        things.forEach(function(acessorio) {
-			options.push('<option value="' + acessorio.id + '">' + acessorio.color + '</option>');
-		});	
+        pickListAcessorios.val().forEach(function(acessorio) {
+        	var res = acessorio.split("-");
+			options.push('<option id="acessorio'+ res[0] +'" value="' + res[0]+ '" selected="selected">' + res[1] + '</option>');
+        });	
 		this.selectAcessoriosEscolhidos.html(options.join(''));
-		//this.formulario.submit();
+		this.formulario.submit();
 	}	
 	
 	return CadastroCarro;

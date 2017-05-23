@@ -32,7 +32,7 @@
    	<div class="container-fluid">
 	    <form id="formPessoa" method="post" th:object="${pessoa}" th:action="@{/usuarios/novo}">
 	       <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 
-	       <input id="dataIncusao" type="hidden" th:field="*{dataInclusao}"> 	       
+	       <input id="dataIncusao" type="hidden" th:field="*{dataInclusao}"> 	       g
 	       <input id="codigoUsuarioHidden" type="hidden" th:field="*{usuario.codigo}"> 
 	       <input id="mask" type="hidden"> 
 	       <input id="inputTipoPessoa" type="hidden" th:field="*{pessoaHelper.inputTipoPessoa}" th:value="*{pessoaHelper.inputTipoPessoa}">
