@@ -1,6 +1,5 @@
 package br.com.compraki.model.carro;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -37,10 +36,13 @@ public class Carro {
     private Long codigo;
     private String cor;
     private Boolean ipvaPago;
-    private String Descricao;
+    private String descricao;
     private ModeloCarro modelo;
     private List<Acessorio> acessorios;
-    private Blob foto;
+    private String foto;
+    @Column(name = "content_type")
+    private String contentType;
+    private String url;
     private Date dataCriacao;
     private Date dataModificacao;
 
@@ -73,19 +75,11 @@ public class Carro {
     }
 
     public String getDescricao() {
-        return Descricao;
+        return descricao;
     }
 
     public void setDescricao(String descricao) {
-        Descricao = descricao;
-    }
-
-    public Blob getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Blob foto) {
-        this.foto = foto;
+        this.descricao = descricao;
     }
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -106,6 +100,30 @@ public class Carro {
 
     public void setAcessorios(List<Acessorio> acessorios) {
         this.acessorios = acessorios;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     @Temporal(TemporalType.TIMESTAMP)

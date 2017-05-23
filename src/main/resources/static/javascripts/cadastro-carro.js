@@ -6,10 +6,12 @@ Compraki.CadastroCarro = (function() {
 		this.botaoSalvar = $('.js-btn-salvar-carro');
 		this.formulario = $('#formCarro');
 		this.selectAcessoriosEscolhidos = $('#acessoriosEscolhidos');
+		this.checkBoxIpva = $('.js-ipva');
 	}
 	
 	CadastroCarro.prototype.iniciar = function(event) {
 		this.botaoSalvar.on('click', onSalvarCarro.bind(this));
+		this.checkBoxIpva.bootstrapSwitch();
 	}
 	
 	function onSalvarCarro(event){
