@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.compraki.enuns.TipoCombustivel;
+import br.com.compraki.enuns.UF;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.carro.ModeloCarro;
 import br.com.compraki.repository.Fabricantes;
@@ -71,6 +73,7 @@ public class IntencaoCompraController {
 		System.out.println(usuarioSistema.getUsuario().getCodigo());
 		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
 		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
+		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
 		return modelAndView;
 	}
 

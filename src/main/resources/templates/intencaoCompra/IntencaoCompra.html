@@ -33,11 +33,11 @@
     		
     		<div class="panel-body">
     			<input id="idHidden" type="hidden" th:field="*{codigo}"/>
-    		  <div class="row">
-				<div class="form-group compraki-required" compraki:classforerror="modelo.fabricante" >
+    		  
+				<div class="form-group compraki-required" compraki:classforerror="marca" >
 					<label for="marca" class="col-sm-2 control-label">Marca</label>
                  	<div class="col-sm-4">   
-                    	<select id="marca" class="form-control js-select-search" th:field="*{modelo.fabricante}">
+                    	<select id="marca" class="form-control js-select-search" th:field="*{marca}">
 							<option value=""></option>
 							<option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                     	</select>
@@ -52,7 +52,12 @@
                  	 </div>
                 </div> 
                </div> 
-                <div class="row">      
+               <div class="form-group compraki-required" compraki:classforerror="cor">
+					<label for="ano" class="col-sm-2 control-label">Cor</label>
+					<div class="col-sm-2"> 
+						<input type="text" class="form-control" id="cor" th:field="*{cor}"/>
+					</div>
+				</div>      
 				<div class="form-group compraki-required" compraki:classforerror="ano">
 					<label for="ano" class="col-sm-2 control-label">Ano</label>
 					<div class="col-sm-2"> 
@@ -66,11 +71,14 @@
 					</div>
 				</div>
 				<div class="form-group compraki-required" compraki:classforerror="tipoCombustivel">
-					<label for="valor" class="col-sm-2 control-label">Tipo de Combustivel</label>
-					<div class="col-sm-2">   
-						<input type="text" class="form-control" id="tipoCombustivel" th:field="*{tipoCombustivel}"/>
-					</div>
-				</div>
+                    <label for="modelo" class="col-sm-2 control-label">Tipo de Combustivel</label>
+                 	<div class="col-sm-2">   
+                 		<select id="tipoCombustivel" class="form-control js-select-search" th:field="*{tipoCombustivel}">
+                         <option value=""></option>
+                         <option th:each="tipoCombustivel : ${tiposCombustivel}" th:text="${tipoCombustivel.descricao}" th:value="${tipoCombustivel}"></option>
+                    </select>
+                 	 </div>
+                </div> 
 				<div class="form-group compraki-required" compraki:classforerror="outrasCaracterísticas">
 					<label for="valor" class="col-sm-2 control-label">Outras características</label>
 					<div class="col-sm-5">   
@@ -87,7 +95,7 @@
 				<div class="form-group" compraki:classforerror="descricao">
 					<label for="descricao" class="col-sm-2 control-label">Descrição do Veiculo</label>
 					<div class="col-sm-5">   
-						<textarea rows="5" class="form-control" id="descricao" th:field="*{potencia}"></textarea>
+						<textarea rows="5" class="form-control" id="descricao" th:field="*{descricao}"></textarea>
 					</div>
 				</div>
 				<div class="form-group compraki-required" compraki:classforerror="tipoDeRoda">
@@ -115,8 +123,8 @@
 						<button type="submit" class="btn btn-primary">Salvar</button>
 					</div>
 				</div>
-			</div>
-    	</div>
+		
+    	
     </form>
     </div>
 </section>
