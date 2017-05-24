@@ -34,6 +34,7 @@
         <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
            <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple>
            </select>        
+           <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 
            <compraki:message/>
            <h2>Modelo do Veículo</h2> 
             <div class="row">

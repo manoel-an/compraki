@@ -11,6 +11,8 @@ import java.util.UUID;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.compraki.storage.FotoStorage;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.name.Rename;
 
 public class FotoStorageLocal implements FotoStorage {
 
@@ -20,7 +22,7 @@ public class FotoStorageLocal implements FotoStorage {
 
 	public FotoStorageLocal() {
 		this(getDefault().getPath(
-				getSystem().contains("Windows") ? System.getenv("USERPROFILE") : System.getenv("HOME"), ".photouser"));
+				getSystem().contains("Windows") ? System.getenv("USERPROFILE") : System.getenv("HOME"), ".photocar"));
 	}
 
 	public FotoStorageLocal(Path path) {
@@ -37,6 +39,7 @@ public class FotoStorageLocal implements FotoStorage {
 			try {
 				String path = this.local.toAbsolutePath().toString() + getDefault().getSeparator() + novoNome;
 				arquivo.transferTo(new File(path));
+				Thumbnails.of(this.local.resolve(path).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 			} catch (IOException e) {
 				throw new RuntimeException("Erro salvando a foto na pasta temporária", e);
 			}
