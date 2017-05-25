@@ -102,21 +102,25 @@
 						<input type="text" class="form-control" id="tipoDeRoda" th:field="*{tipoDeRoda}"/>
 					</div>
 				</div>
-				<div class="form-group">
-                    <label for="cidade" class="col-sm-2 control-label">Cidade de Preferência</label>
+				<div class="form-group compraki-required">
+                    <label for="uf" class="col-sm-2 control-label">Estado</label>
                  	<div class="col-sm-2">   
-                    	<select id="estado" class="form-control js-select-search" th:field="*{uf}">
+                    	<select id="uf" class="form-control js-select-search" th:field="*{uf}">
 							<option value=""></option>
-							<option th:each="uf : ${ufs}" th:text="${uf.nome}+' ('+${uf.sigla} + ')'" th:value="${uf}"></option>
+							<option th:each="uf : ${ufs}" th:text="${uf.nome}+' ('+${uf.sigla} + ')'" th:value="${uf.sigla}"></option>
 						</select>
                  	 </div>
-                 	 <div class="col-sm-3">   
-                    	<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{cidadePreferencia} != null ? *{*cidadePreferencia.sigla}"/>
+                </div>
+                <div class="form-group compraki-required">
+                	<label for="cidade" class="col-sm-2 control-label">Cidade de Preferência</label>
+                	<div class="col-sm-3">    
+                    	<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{cidadePreferencia} != null ? *{cidadePreferencia.codigo}"/>
                     	<select id="cidade" class="form-control js-select-search" data:url="@{/intencoes/buscarCidades}" th:field="*{cidadePreferencia}">                    	
                     	</select>
                  	 </div>
-                </div> 
-              <div class="form-group">
+                </div>
+                       
+               <div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<button type="submit" class="btn btn-primary">Salvar</button>
 					</div>

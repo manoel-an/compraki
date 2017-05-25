@@ -10,7 +10,7 @@ import br.com.compraki.model.Cidade;
 
 public interface Cidades extends JpaRepository<Cidade, Long	> {
 
-    @Query("SELECT u FROM Cidade u WHERE u.sigla = (:ufSigla) ") 
+    @Query("SELECT u FROM Cidade u WHERE u.nome = (:ufSigla) ") 
 	public List<Cidade> findBySigla(@Param("ufSigla")String ufSigla);
 	
 

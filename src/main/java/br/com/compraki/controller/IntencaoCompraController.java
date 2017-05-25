@@ -68,15 +68,15 @@ public class IntencaoCompraController {
 	}
 
 	@RequestMapping(value = "buscarModelos", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<ModeloCarro> pesquisarPorCodigoEstado(
+	public @ResponseBody List<ModeloCarro> pesquisarPorCodigoFabricante(
 			@RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
 		return this.modelosCarros.findByFabricanteCodigo(codigoMarca);
 	}
 	
 	@RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Cidade> pesquisarCidadePorUf(
-			@RequestParam(name = "uf", defaultValue = "-1") String ufSigla) {
-		return this.cidades.findBySigla(ufSigla);
+			@RequestParam(name = "uf", defaultValue = "-1") String siglaUf) {
+		return this.cidades.findBySigla(siglaUf);
 	}
 
 	private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
@@ -84,6 +84,7 @@ public class IntencaoCompraController {
 		System.out.println(usuarioSistema.getUsuario().getCodigo());
 		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
 		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
+		modelAndView.addObject("cidades", this.cidades.findAll());
 		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
 		modelAndView.addObject("ufs", UF.values());
 		return modelAndView;
