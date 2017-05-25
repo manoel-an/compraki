@@ -148,7 +148,7 @@ Compraki.IntencaoCompraComboCidade = (function() {
 	function onBuscarCidades(cidades) {
 		var options = [];
 		cidades.forEach(function(cidade) {
-			options.push('<option value="' + cidade.codigo + '">' + cidade.descricao + '</option>');
+			options.push('<option value="' + cidade.codigo + '">' + cidade.nome + '</option>');
 		});
 		
 		this.comboCidade.html(options.join(''));
@@ -181,6 +181,6 @@ $(function() {
 	var comboUf = new Compraki.IntencaoCompraComboUf();
 	comboUf.enable();
 	
-	var intencaoCompraComboCidade = new Compraki.IntencaoCompraComboCidade(comboCidade);
+	var intencaoCompraComboCidade = new Compraki.IntencaoCompraComboCidade(comboUf);
 	intencaoCompraComboCidade.enable();	
 });
