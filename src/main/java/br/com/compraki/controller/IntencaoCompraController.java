@@ -20,8 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.compraki.enuns.TipoCombustivel;
 import br.com.compraki.enuns.UF;
+import br.com.compraki.model.Cidade;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.carro.ModeloCarro;
+import br.com.compraki.repository.Cidades;
 import br.com.compraki.repository.Fabricantes;
 import br.com.compraki.repository.IntencaoCompras;
 import br.com.compraki.repository.ModelosCarros;
@@ -39,6 +41,9 @@ public class IntencaoCompraController {
 
 	@Autowired
 	private Fabricantes fabricantes;
+	
+	@Autowired
+	private Cidades cidades;
 
 	@Autowired
 	private ModelosCarros modelosCarros;
@@ -67,6 +72,12 @@ public class IntencaoCompraController {
 			@RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
 		return this.modelosCarros.findByFabricanteCodigo(codigoMarca);
 	}
+	
+	@RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Cidade> pesquisarCidadePorUf(
+			@RequestParam(name = "uf", defaultValue = "-1") String ufSigla) {
+		return this.cidades.findBySigla(ufSigla);
+	}
 
 	private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
 		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
@@ -74,6 +85,7 @@ public class IntencaoCompraController {
 		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
 		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
 		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
+		modelAndView.addObject("ufs", UF.values());
 		return modelAndView;
 	}
 

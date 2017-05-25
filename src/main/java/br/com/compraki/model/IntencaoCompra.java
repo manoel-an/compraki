@@ -71,6 +71,9 @@ public class IntencaoCompra {
 	@Column(name="cor_parachoque")
 	private String corParachoque;
 	
+	@Column(name="uf_preferencia")
+	private String uf;
+	
 	@Column(name="cidade_preferencia")
 	private String cidadePreferencia;
 	
@@ -218,8 +221,14 @@ public class IntencaoCompra {
 	public void setDataModificacao(Date dataModificacao) {
 		this.dataModificacao = dataModificacao;
 	}
-	
-	
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
