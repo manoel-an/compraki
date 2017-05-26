@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,9 +56,15 @@ public class CarrosController {
         }
     }
 
+    @GetMapping("/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") Carro carro) {
+        ModelAndView modelAndView = getDefaultObjectsModelAndView(carro);
+        return modelAndView;
+    }
+
     @GetMapping
     public ModelAndView pesquisar(CarroFilter carroFilter, BindingResult result,
-            @PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
+            @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
         ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
         PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
                 this.carroService.getCarros().filtrar(carroFilter, pageable), httpServletRequest);

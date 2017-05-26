@@ -20,7 +20,7 @@ import br.com.compraki.repository.filter.CarroFilter;
 import br.com.compraki.repository.paginacao.PageableQueries;
 import br.com.compraki.repository.paginacao.PaginacaoUtil;
 
-public class CarrosImpl implements PageableQueries<Carro, CarroFilter> {
+public class CarrosImplAux implements PageableQueries<Carro, CarroFilter> {
 
     @PersistenceContext
     private EntityManager manager;
