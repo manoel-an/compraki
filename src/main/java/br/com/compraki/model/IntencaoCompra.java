@@ -68,8 +68,11 @@ public class IntencaoCompra {
 	@Column(name="tipo_de_roda")
 	private String tipoDeRoda;
 	
-	@Column(name="cor_parachoque")
-	private String corParachoque;
+	@Column(name="aro_roda")
+	private String aroRoda;
+	
+	@Column(name="parachoque_cor_carro")
+	private Boolean parachoqueCorCarro;
 	
 	@Column(name="uf_preferencia")
 	private String uf;
@@ -173,11 +176,17 @@ public class IntencaoCompra {
 	public void setTipoDeRoda(String tipoDeRoda) {
 		this.tipoDeRoda = tipoDeRoda;
 	}
-	public String getCorParachoque() {
-		return corParachoque;
+	public String getAroRoda() {
+		return aroRoda;
 	}
-	public void setCorParachoque(String corParachoque) {
-		this.corParachoque = corParachoque;
+	public void setAroRoda(String aroRoda) {
+		this.aroRoda = aroRoda;
+	}
+	public Boolean getParachoqueCorCarro() {
+		return parachoqueCorCarro;
+	}
+	public void setParachoqueCorCarro(Boolean parachoqueCorCarro) {
+		this.parachoqueCorCarro = parachoqueCorCarro;
 	}
 	public String getCidadePreferencia() {
 		return cidadePreferencia;
