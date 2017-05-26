@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.compraki.enuns.Categoria;
 import br.com.compraki.model.carro.Carro;
 import br.com.compraki.repository.filter.CarroFilter;
+import br.com.compraki.repository.paginacao.PageWrapper;
 import br.com.compraki.service.CarroService;
 import br.com.compraki.service.NegocioException;
 import br.com.compraki.validator.CarroValidator;
@@ -26,46 +27,49 @@ import br.com.compraki.validator.CarroValidator;
 @RequestMapping("/carros")
 public class CarrosController {
 
-    @Autowired
-    private CarroService carroService;
+	@Autowired
+	private CarroService carroService;
 
-    @Autowired
-    private CarroValidator validator;
+	@Autowired
+	private CarroValidator validator;
 
-    @GetMapping("/novo")
-    public ModelAndView novo(Carro carro) {
-        ModelAndView modelAndView = getDefaultObjectsModelAndView(carro);
-        return modelAndView;
-    }
+	@GetMapping("/novo")
+	public ModelAndView novo(Carro carro) {
+		ModelAndView modelAndView = getDefaultObjectsModelAndView(carro);
+		return modelAndView;
+	}
 
-    @PostMapping("/novo")
-    public ModelAndView salvarCarro(@Valid Carro carro, BindingResult result, RedirectAttributes attributes) {
-        validator.validate(carro, result);
-        if (result.hasErrors()) {
-            return this.novo(carro);
-        }
-        try {
-            this.carroService.salvarCarro(carro);
-            attributes.addFlashAttribute("mensagem", "Veículo gravado com sucesso !");
-            return new ModelAndView("redirect:/carros/novo");
-        } catch (NegocioException e) {
-            result.addError(new ObjectError("Carro", e.getMessage()));
-            return novo(carro);
-        }
-    }
+	@PostMapping("/novo")
+	public ModelAndView salvarCarro(@Valid Carro carro, BindingResult result, RedirectAttributes attributes) {
+		validator.validate(carro, result);
+		if (result.hasErrors()) {
+			return this.novo(carro);
+		}
+		try {
+			this.carroService.salvarCarro(carro);
+			attributes.addFlashAttribute("mensagem", "Veículo gravado com sucesso !");
+			return new ModelAndView("redirect:/carros/novo");
+		} catch (NegocioException e) {
+			result.addError(new ObjectError("Carro", e.getMessage()));
+			return novo(carro);
+		}
+	}
 
-    @GetMapping
-    public ModelAndView pesquisar(CarroFilter cervejaFilter, BindingResult result,
-            @PageableDefault(size = 2) Pageable pageable, HttpServletRequest httpServletRequest) {
-        ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
-        return mv;
-    }
+	@GetMapping
+	public ModelAndView pesquisar(CarroFilter carroFilter, BindingResult result,
+			@PageableDefault(size = 10) Pageable pageable, HttpServletRequest httpServletRequest) {
+		ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
+		PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
+				this.carroService.getCarros().filtrar(carroFilter, pageable), httpServletRequest);
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
+	}
 
-    private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
-        ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
-        modelAndView.addObject("fabricantes", this.carroService.getFabricantes().findAll());
-        modelAndView.addObject("categorias", Categoria.values());
-        modelAndView.addObject("acessorios", this.carroService.getSelectedAcessorrios(carro));
-        return modelAndView;
-    }
+	private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
+		ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
+		modelAndView.addObject("fabricantes", this.carroService.getFabricantes().findAll());
+		modelAndView.addObject("categorias", Categoria.values());
+		modelAndView.addObject("acessorios", this.carroService.getSelectedAcessorrios(carro));
+		return modelAndView;
+	}
 }

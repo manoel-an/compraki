@@ -3,7 +3,7 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout/LayoutPadrao}"
-    xmlns:agr="http://agr.go.gov.br">
+    xmlns:compraki="http://compraki.com.br">
     
 <head>
     <title>Pesquisa de veículos</title>
@@ -35,8 +35,49 @@
         </form>
         
         <div class="table-responsive  bw-tabela-simples">
-
+            <table class="table  table-hover">
+                <thead>
+                    <tr>
+                        <th class="table-carros-col-foto"></th>
+                        <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
+                        <th><compraki:order page="${pagina}" field="fabricante.nome" text="Marca"/></th> 
+                        <th>Cor</th>
+                        <th>Descricao</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr th:each="carro : ${pagina.conteudo}">
+                        <td class="text-center" th:if="${carro.foto != null}">
+                            <img th:src="@{/fotos/thumbnail.{foto}(foto=${carro.foto})}" class="img-responsive"/>
+                        </td>
+                        <td class="text-center" th:if="${carro.foto == null}">
+							<div class="aw-box__icon">
+								<i class="fa  fa-picture-o  fa-2x"></i>
+							</div>
+                        </td>                        
+                        <td th:text="${carro.modelo.descricao}"></td>
+                        <td th:text="${carro.modelo.fabricante.nome}"></td>
+                        <td th:text="${carro.cor}"></td>
+                        <td th:text="${carro.descricao}"></td>
+                        <!-- 
+                        <td class="text-right" th:text="|R$ ${cerveja.valor}|"></td>
+                         -->
+                        <td class="text-center">
+                            <a class="btn  btn-link  btn-xs" title="Editar" 
+                                    th:href="@{/carros/{codigo}(codigo=${carro.codigo})}"> 
+                                <i class="glyphicon glyphicon-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr th:if="${pagina.vazia}">
+                        <td colspan="7">Nenhum veículo encontrado</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+       <compraki:pagination page="${pagina}" />
     </div>
 </section>
 </body>

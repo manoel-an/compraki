@@ -80,4 +80,8 @@ public class CarroService {
 		return acessorios;
 	}
 
+	public Carros getCarros() {
+		return carros;
+	}
+
 }
