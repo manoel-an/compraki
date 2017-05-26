@@ -30,7 +30,31 @@
     </div>
     
     <div class="container-fluid">
-        <form method="GET" >
+        <form method="GET" th:object="${carroFilter}">
+            <div class="row">
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="codigo">Código</label>
+                    <input type="text" class="form-control js-simple-decimal" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
+                </div>            
+                <div class="form-group  col-sm-9">
+                    <label class="control-label" for="cnpj">Modelo</label>
+                    <input type="text" class="form-control" id="modelo" autofocus="autofocus" th:field="*{modelo}" placeholder="Ex: Gol 1.0 16V"/>
+                </div>
+                
+            </div>
+            <div class="row">
+                <div class="form-group  col-sm-6">
+                   <label for="marca" class="control-label">Marca</label>
+                   <select id="marca" class="form-control js-select-search" th:field="*{fabricante}">
+                       <option value=""></option>
+                       <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
+                   </select>
+                </div>            
+                <div class="form-group  col-sm-6">
+                    <label class="control-label" for="cor">Cor</label>
+                    <input type="text" class="form-control" id="cor" autofocus="autofocus" th:field="*{cor}" placeholder="Ex: Branco, Verde ..."/>
+                </div>
+            </div>
             <button type="submit" class="btn  btn-primary">Pesquisar</button>
         </form>
         
@@ -39,6 +63,7 @@
                 <thead>
                     <tr>
                         <th class="table-carros-col-foto"></th>
+                        <th><compraki:order page="${pagina}" field="codigo" text="Código"/></th> 
                         <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
                         <th><compraki:order page="${pagina}" field="fabricante.nome" text="Marca"/></th> 
                         <th>Cor</th>
@@ -56,7 +81,8 @@
 							<div class="aw-box__icon">
 								<i class="fa  fa-picture-o  fa-2x"></i>
 							</div>
-                        </td>                        
+                        </td> 
+                        <td th:text="${carro.codigo}" class="text-left"></td>                       
                         <td th:text="${carro.modelo.descricao}"></td>
                         <td th:text="${carro.modelo.fabricante.nome}"></td>
                         <td th:text="${carro.cor}"></td>
