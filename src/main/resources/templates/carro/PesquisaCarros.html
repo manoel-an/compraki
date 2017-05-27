@@ -74,10 +74,10 @@
                 
                 <tbody>
                     <tr th:each="carro : ${pagina.conteudo}">
-                        <td class="text-center" th:if="${carro.foto != null}">
+                        <td class="text-center" th:if="${carro.foto != null && not #strings.isEmpty(carro.foto)}">
                             <img th:src="@{/fotos/thumbnail.{foto}(foto=${carro.foto})}" class="img-responsive"/>
                         </td>
-                        <td class="text-center" th:if="${carro.foto == null}">
+                        <td class="text-center" th:if="${carro.foto == null || #strings.isEmpty(carro.foto)}">
 							<div class="aw-box__icon">
 								<i class="fa  fa-picture-o  fa-2x"></i>
 							</div>
