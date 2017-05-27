@@ -7,10 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.compraki.model.Usuario;
 import br.com.compraki.repository.Grupos;
+import br.com.compraki.repository.Pessoas;
 import br.com.compraki.repository.Usuarios;
 
 @Service
 public class UsuarioService {
+
+	@Autowired
+	private Pessoas pessoas;
 
 	@Autowired
 	private Usuarios usuarios;
@@ -26,6 +30,10 @@ public class UsuarioService {
 		usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
 		usuario.setAtivo(usuario.getAtivo());
 		return usuarios.saveAndFlush(usuario);
+	}
+
+	public Pessoas getPessoas() {
+		return pessoas;
 	}
 
 	public Usuarios getUsuarios() {

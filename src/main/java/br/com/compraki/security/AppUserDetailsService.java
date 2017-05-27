@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.compraki.model.Pessoa;
 import br.com.compraki.model.Usuario;
 import br.com.compraki.service.NegocioException;
 import br.com.compraki.service.UsuarioService;
@@ -54,10 +55,18 @@ public class AppUserDetailsService implements UserDetailsService {
 				if (usuario == null) {
 					usuario = usuarioOptional.get();
 				}
+				Optional<Pessoa> op = this.usuarioService.getPessoas().findByUsuario(usuario);
+				if (op.isPresent()) {
+					usuario.setApelido(op.get().getApelido());
+				}
 				return new UsuarioSistema(usuario, getPermissoes(usuario));
 			} else {
 				usuario = usuarioOptional
 						.orElseThrow(() -> new UsernameNotFoundException("Usuario e/ou senha incorretos"));
+				Optional<Pessoa> op = this.usuarioService.getPessoas().findByUsuario(usuario);
+				if (op.isPresent()) {
+					usuario.setApelido(op.get().getApelido());
+				}
 				return new UsuarioSistema(usuario, getPermissoes(usuario));
 			}
 		}
