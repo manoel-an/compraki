@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.compraki.model.Usuario;
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.Carro;
 import br.com.compraki.model.carro.Fabricante;
@@ -52,11 +53,12 @@ public class CarroService {
 	}
 
 	@Transactional
-	public void salvarCarro(Carro carro) throws NegocioException {
+	public void salvarCarro(Carro carro, Usuario usuario) throws NegocioException {
 		try {
 			ModeloCarro modelo = this.modelosCarros.saveAndFlush(carro.getModelo());
 			carro.setModelo(modelo);
 			carro.setAcessorios(getAcessoriosGerenciados(carro));
+			carro.setUsuario(usuario);
 			this.carros.save(carro);
 		} catch (Exception e) {
 			throw new NegocioException(e.getMessage());

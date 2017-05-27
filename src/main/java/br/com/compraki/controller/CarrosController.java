@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -26,6 +28,7 @@ import br.com.compraki.model.carro.Carro;
 import br.com.compraki.model.carro.Fabricante;
 import br.com.compraki.repository.filter.CarroFilter;
 import br.com.compraki.repository.paginacao.PageWrapper;
+import br.com.compraki.security.UsuarioSistema;
 import br.com.compraki.service.CarroService;
 import br.com.compraki.service.NegocioException;
 import br.com.compraki.validator.CarroValidator;
@@ -47,13 +50,15 @@ public class CarrosController {
 	}
 
 	@PostMapping("/novo")
-	public ModelAndView salvarCarro(@Valid Carro carro, BindingResult result, RedirectAttributes attributes) {
+	public ModelAndView salvarCarro(@AuthenticationPrincipal User user, @Valid Carro carro, BindingResult result,
+			RedirectAttributes attributes) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
 		validator.validate(carro, result);
 		if (result.hasErrors()) {
 			return this.novo(carro);
 		}
 		try {
-			this.carroService.salvarCarro(carro);
+			this.carroService.salvarCarro(carro, usuarioSistema.getUsuario());
 			attributes.addFlashAttribute("mensagem", "Veículo gravado com sucesso !");
 			return new ModelAndView("redirect:/carros/novo");
 		} catch (NegocioException e) {
@@ -85,11 +90,13 @@ public class CarrosController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar(CarroFilter carroFilter, BindingResult result,
+	public ModelAndView pesquisar(@AuthenticationPrincipal User user, CarroFilter carroFilter, BindingResult result,
 			@PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
 		ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
 		PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
-				this.carroService.getCarros().filtrar(carroFilter, pageable), httpServletRequest);
+				this.carroService.getCarros().filtrar(usuarioSistema.getUsuario(), carroFilter, pageable),
+				httpServletRequest);
 		mv.addObject("fabricantes", this.carroService.getFabricantes().findAll());
 		mv.addObject("pagina", paginaWrapper);
 		return mv;

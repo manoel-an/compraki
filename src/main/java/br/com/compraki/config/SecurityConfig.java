@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// hasRole tem que estar ROLE_... no BD
 		// hasAuthority omite ROLE_
 
-		http.authorizeRequests().anyRequest().authenticated().and().formLogin().loginPage("/login")
+		http.authorizeRequests().antMatchers("/carros/novo").hasRole("CADASTRAR_VEICULO").antMatchers("/carros/**")
+				.hasRole("CADASTRAR_VEICULO").anyRequest().authenticated().and().formLogin().loginPage("/login")
 				.failureHandler(loginFailureHandler).permitAll().and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/info").and()
 				.exceptionHandling().accessDeniedPage("/403");

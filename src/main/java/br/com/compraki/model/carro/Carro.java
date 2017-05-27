@@ -16,10 +16,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import br.com.compraki.model.Usuario;
 
 @Entity
 @Table(name = "carro")
@@ -44,6 +47,7 @@ public class Carro {
 	private LocalDateTime dataCriacao;
 	private LocalDateTime dataModificacao;
 	private boolean novaFoto;
+	private Usuario usuario;
 
 	// getters and setters
 	@Id
@@ -152,6 +156,16 @@ public class Carro {
 
 	public void setNovaFoto(boolean novaFoto) {
 		this.novaFoto = novaFoto;
+	}
+
+	@OneToOne
+	@JoinColumn(name = "codigo_usuario")
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

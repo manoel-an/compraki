@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:th="http://www.thymeleaf.org"
-   	xmlns:compraki="http://compraki.com.br">
+   	xmlns:compraki="http://compraki.com.br"
+   	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     
 <body>
 <aside class="aw-layout-sidebar  js-sidebar" th:fragment="layout-sidebar">
@@ -27,7 +28,7 @@
                     </ul>
                 </li>
 
-                <li class="aw-menu__item">
+                <li class="aw-menu__item" sec:authorize="hasRole('ROLE_CADASTRAR_VEICULO')">
                     <a href="#">
                         <i class="fa fa-fw fa-bus"></i><span>Veículos</span>
                         <i class="aw-menu__navigation-icon  fa"></i>
@@ -44,21 +45,15 @@
                     </ul>
                 </li>
 
-                <li class="aw-menu__item">
+                <li class="aw-menu__item" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')">
                     <a href="#">
                         <i class="fa  fa-fw  fa-database"></i><span>Cadastros</span>
                         <i class="aw-menu__navigation-icon  fa"></i>
                     </a>
 
                     <ul class="aw-menu__list  aw-menu__list--sublist">
-                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/cidades}">
-                            <a th:href="@{/cidades}">Cidades</a>
-                        </li>
-                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/clientes}">
-                            <a th:href="@{/clientes}">Clientes</a>
-                        </li>
-                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/usuarios}">
-                            <a th:href="@{/usuarios}">Usuários</a>
+                        <li class="aw-menu__item  aw-menu__item--link" compraki:menu="@{/acessorios.+}">
+                            <a th:href="@{/acessorios}">Acessorios</a>
                         </li>
                     </ul>
                 </li>
