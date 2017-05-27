@@ -33,6 +33,7 @@ public class Usuario implements Serializable {
 	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "codigo_usuario"), inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupos;
 
+	@Transient
 	private String apelido;
 
 	public Long getCodigo() {
@@ -78,7 +79,6 @@ public class Usuario implements Serializable {
 		this.grupos = grupos;
 	}
 
-	@Transient
 	public String getApelido() {
 		return apelido;
 	}
