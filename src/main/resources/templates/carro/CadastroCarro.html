@@ -39,12 +39,20 @@
            <h2>Modelo do Veículo</h2> 
             <div class="row">
                 <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="modelo.fabricante">
-                   <label for="marca" class="control-label">Marca</label>
-                   <select id="marca" class="form-control js-select-search" th:field="*{modelo.fabricante}">
-                       <option value=""></option>
-                       <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
-                   </select>
-                </div>
+                    <label for="marca" class="control-label">Marca</label>
+                    <div class="bw-field-action">
+	                   <select id="marca" class="form-control js-select-search" th:field="*{modelo.fabricante}">
+	                       <option value=""></option>
+	                       <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
+	                   </select>
+                       <div class="bw-field-action__icon" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')" 
+                       		data-toggle="tooltip" data-placement="top" title="Cadastro Rápido de  Marca">
+                           <a href="#" data-toggle="modal" data-target="#modalCadastroRapidoMarca">
+                                <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+                           </a>
+                       </div>
+                    </div>
+                </div>                
                 <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="modelo.descricao">
                     <label for="modelo" class="control-label">Modelo</label>
                     <input type="text" class="form-control" id="email" th:field="*{modelo.descricao}" placeholder="Ex: Gol 1.0 16V"/>
@@ -114,6 +122,7 @@
            </button> 
         </form>
     </div>
+    <div th:replace="marca/CadastroRapidoMarca :: modal"></div>
     <th:block th:replace="hbs/FotoVeiculo"></th:block>
 </section>
 <th:block layout:fragment="javascript-extra">
@@ -122,5 +131,12 @@
     <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
     <script th:src="@{/javascripts/vendors/upload.min.js}"></script>
     <script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+    <script>
+       $(function() {
+           $('body').tooltip({
+        	    selector: '[data-toggle="tooltip"]'
+        	});           
+       });
+    </script>    
 </th:block>
 </html>

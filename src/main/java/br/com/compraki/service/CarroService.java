@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.Carro;
+import br.com.compraki.model.carro.Fabricante;
 import br.com.compraki.model.carro.ModeloCarro;
 import br.com.compraki.repository.Acessorios;
 import br.com.compraki.repository.Carros;
@@ -57,6 +58,18 @@ public class CarroService {
 			carro.setModelo(modelo);
 			carro.setAcessorios(getAcessoriosGerenciados(carro));
 			this.carros.save(carro);
+		} catch (Exception e) {
+			throw new NegocioException(e.getMessage());
+		}
+	}
+
+	@Transactional
+	public Fabricante salvarMarcaRapido(Fabricante fabricante) throws NegocioException {
+		try {
+			if (this.fabricantes.findByNome(fabricante.getNome()).isPresent()) {
+				throw new NegocioException("Marca já cadastrada");
+			}
+			return this.fabricantes.saveAndFlush(fabricante);
 		} catch (Exception e) {
 			throw new NegocioException(e.getMessage());
 		}
