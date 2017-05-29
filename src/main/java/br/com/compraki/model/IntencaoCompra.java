@@ -261,6 +261,7 @@ public class IntencaoCompra {
 			return false;
 		return true;
 	}
+
 	
 	
 		

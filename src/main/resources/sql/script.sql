@@ -40,22 +40,21 @@ INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
 'HATCH', 'Uno',(SELECT codigo FROM fabricante WHERE nome = 'Fiat'));
 INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
-'SEDAN', 'Prisma',(SELECT codigo FROM fabricante WHERE nome = 'Chevrolet'));  
+'SEDAN', 'Prisma',(SELECT codigo FROM fabricante WHERE nome = 'Chevrolet'));
+INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
+'HATCH', 'Palio',(SELECT codigo FROM fabricante WHERE nome = 'Fiat'));
+INSERT INTO modelo_carro (categoria, descricao, codigo_fabricante) VALUES (
+'PICKUP', 'S-10',(SELECT codigo FROM fabricante WHERE nome = 'Chevrolet'));
     
 
 INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Azul', '2017-05-06', null, 'Carro sem defeito de lataria',1,
-(SELECT codigo FROM modelo_carro WHERE codigo = 1), 1);
-
+(SELECT codigo FROM modelo_carro WHERE descricao = 'Gol'), 1);
 
 INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Branco', '2017-05-06', null, 'Carro sem defeito de lataria',1,
-(SELECT codigo FROM modelo_carro WHERE codigo = 2), 1);
+(SELECT codigo FROM modelo_carro WHERE descricao = 'Fox'), 1);
 
-INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Rosa', '2017-05-06', null, 'Carro sem defeito de lataria',1,
-(SELECT codigo FROM modelo_carro WHERE codigo = 3), 1);
-
-
-INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Azul', '2017-05-06', null, 'Carro sem defeito de lataria',1,
-(SELECT codigo FROM modelo_carro WHERE descricao = 'Gol'), 1);
+INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Prata', '2017-05-06', null, 'Carro sem defeito de lataria',1,
+(SELECT codigo FROM modelo_carro WHERE descricao = 'Palio'), 1);
 
 INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Branco', '2017-05-06', null, 'Carro sem defeito de lataria',1,
 (SELECT codigo FROM modelo_carro WHERE  descricao = 'Fiesta'), 1);
@@ -65,8 +64,3 @@ INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, co
 
 INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Rosa', '2017-05-06', null, 'Carro sem defeito de lataria',1,
 (SELECT codigo FROM modelo_carro WHERE descricao = 'Prisma'), 1);
-
-    
-
-
-

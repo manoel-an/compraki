@@ -4,7 +4,10 @@ public enum TipoCombustivel {
 
 	ALCOOL ("Álcool"),
 	GASOLINA ("Gasolina"),
-	FLEX ("Flex");
+	FLEX ("Flex"),
+	DIESEL("Diesel"),
+	GNV("Gás Natural"),
+	GASOLINA_GNV("Gasolina com GNV");
 	
 	private TipoCombustivel(String descricao) {
 		this.descricao = descricao;

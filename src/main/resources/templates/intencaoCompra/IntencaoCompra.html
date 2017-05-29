@@ -22,6 +22,7 @@
     </div>
    	<div class="container-fluid">
 	    <form class="form-horizontal" method="post" th:action="@{/intencoes/novo}" th:object="${intencaoCompra}">
+	    <input id="idHidden" type="hidden" th:field="*{codigo}"/>
 	    <compraki:message/>
     	<div class="panel panel-default">
     		<div class="panel-heading it-panelTituloLink">
@@ -30,11 +31,11 @@
 					<a class="btn btn-link it-link-panel" href="">Ver Intenções de Compras</a>
 	   			</div>
     		</div>
-    		
+    	</div>	
     		<div class="panel-body">
-    			<input id="idHidden" type="hidden" th:field="*{codigo}"/>
+    			
     		   <div class="row">
-				<div class="form-group compraki-required" compraki:classforerror="marca" >
+				<div class="form-group compraki-required" >
 					<label for="marca" class="col-sm-2 control-label">Marca</label>
                  	<div class="col-sm-4">   
                     	<select id="marca" class="form-control js-select-search" th:field="*{marca}">
@@ -55,19 +56,19 @@
                 </div> 
                 </div>
                <div class="row">
-                <div class="form-group compraki-required" compraki:classforerror="cor">
-					<label for="ano" class="col-sm-2 control-label">Cor</label>
-					<div class="col-sm-2"> 
+                <div class="form-group col-sm-8 compraki-required" compraki:classforerror="cor">
+					<label for="cor" class="col-sm-3 control-label">Cor</label>
+					<div class="col-sm-4"> 
 						<input type="text" class="form-control" id="cor" th:field="*{cor}" placeholder="Ex: Prata, preto"/>
 					</div>
-				</div>
-				<div class="form-group  col-sm-6" compraki:classforerror="parachoqueCorCarro">
-                   
-                           <div class="checkbox  checkbox-inline"> 
+					<div>
+					<div class="checkbox checkbox-inline"> 
                                 <input type="checkbox" th:field="*{parachoqueCorCarro}" />
-                                <label>Quero para choque da cor do carro</label>
-                            </div>
-                </div>
+                                <label class="control-label">Quero para choque da cor do carro</label>
+                    </div>
+                    </div>
+                </div>    
+                           	
                </div>
                <div class="row">
                 <div class="form-group compraki-required" compraki:classforerror="ano">
@@ -92,25 +93,28 @@
                  		<select id="tipoCombustivel" class="form-control js-select-search" th:field="*{tipoCombustivel}">
                          <option value=""></option>
                          <option th:each="tipoCombustivel : ${tiposCombustivel}" th:text="${tipoCombustivel.descricao}" th:value="${tipoCombustivel}"></option>
-                    </select>
+                    	</select>
                  	</div>
                 </div> 
                 </div>
                 <div class="row">
 				<div class="form-group compraki-required" compraki:classforerror="outrasCaracterísticas">
-					<label for="valor" class="col-sm-2 control-label">Outras características</label>
+					<label for="outrasCaracteristicas" class="col-sm-2 control-label">Outras características</label>
 					<div class="col-sm-5">   
-						<input type="text" class="form-control" id="outrasCaracterísticas" th:field="*{outrasCaracterísticas}"
+						<input type="text" class="form-control" id="outrasCaracteristicas" th:field="*{outrasCaracterísticas}"
 						placeholder="Ex: Único dono ; Sem defeito na pintura... "/>
 					</div>
 				</div>
 				</div>
 				<div class="row">
 				<div class="form-group compraki-required" compraki:classforerror="potencia">
-					<label for="valor" class="col-sm-2 control-label">Potência do Veiculo</label>
+					<label for="potencia" class="col-sm-2 control-label">Potência do Veiculo</label>
 					<div class="col-sm-2">   
-						<input type="text" class="form-control" id="outrasCaracterísticas" th:field="*{potencia}"/>
-					</div>
+						<select id="potencia" class="form-control js-select-search" th:field="*{potencia}">
+                         <option value=""></option>
+                         <option th:each="potencia : ${potencias}" th:text="${potencia.descricao}" th:value="${potencia}"></option>
+                    	</select>
+						</div>
 				</div>
 				</div>
 				<div class="row">
@@ -126,7 +130,7 @@
 				<div class="form-group compraki-required" compraki:classforerror="tipoDeRoda">
 					<label for="tipoDeRoda" class="col-sm-2 control-label">Tipo de roda</label>
 					<div class="col-sm-2">   
-						<input type="text" class="form-control" id="tipoDeRoda" th:field="*{tipoDeRoda}" placeholder="Alumínio, Ferro..."/>
+						<input type="text" class="form-control" id="tipoDeRoda" th:field="*{tipoDeRoda}" placeholder="Ex:Alumínio, Ferro..."/>
 					</div>
 				</div>
 				<div class="form-group compraki-required" compraki:classforerror="aroRoda">
@@ -154,6 +158,7 @@
                     	<select id="cidade" class="form-control js-select-search" data:url="@{/intencoes/buscarCidades}" th:field="*{cidadePreferencia}">                    	
                     	</select>
                  	 </div>
+                 	  
                 </div>
                 </div>      
                <div class="form-group">

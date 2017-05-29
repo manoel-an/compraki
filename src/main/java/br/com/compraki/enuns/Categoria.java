@@ -2,7 +2,7 @@ package br.com.compraki.enuns;
 
 public enum Categoria {
 
-    HATCH("Hatch"), SEDAN("Sedan"), MINIVAN("Minivan"), ESPORTIVO("Esportivo"), UTILITÁRIO("Utilitário");
+    HATCH("Hatch"), SEDAN("Sedan"), MINIVAN("Minivan"), PICKUP("Pickup"), UTILITÁRIO("Utilitário");
 
     String descricao;
 
