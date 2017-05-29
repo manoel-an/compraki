@@ -11,8 +11,10 @@ Compraki.ModalAcessorio = (function() {
 		this.containerMensagemErro = $('.js-mensagem-cadastro-acessorio');
 		this.novoAcessorio = $('#novoAcessorio');
 		this.botaoEditarAcessorio = $('.js-btn-editar-acessorio');
+		this.botaoNovoAcessorio = $('.js-btn-novo-acessorio');
 		this.codigo = $('#codigoHidden');
 		this.acessorioHidden = $('#acessorioHidden');
+		this.flagEdicao = $('#flagEdicao');
 	}
 	
 	ModalAcessorio.prototype.enable = function(event) {
@@ -21,9 +23,14 @@ Compraki.ModalAcessorio = (function() {
 		this.modal.on('hide.bs.modal', onModalClose.bind(this));
 		this.botaoSalvar.on('click', onBotaoSalvarClick.bind(this));
 		this.botaoEditarAcessorio.on('click', onInicializaAcessorioSelecionado.bind(this));
+		this.botaoNovoAcessorio.on('click', onInicializaFlagEdicao.bind(this));
 		if(this.novoAcessorio.val() == 'true'){
 			showMessageSucess.call(this);
 		}
+	}
+	
+	function onInicializaFlagEdicao(event){
+		this.flagEdicao.val(false);
 	}
 	
 	function onInicializaAcessorioSelecionado(event){
@@ -32,6 +39,7 @@ Compraki.ModalAcessorio = (function() {
 		var acessorio = op.data('acessorio');
 		this.codigo.val(codigo);
 		this.acessorioHidden.val(acessorio);
+		this.flagEdicao.val(true);
 	}
 	
 	function showMessageSucess(){
@@ -44,8 +52,10 @@ Compraki.ModalAcessorio = (function() {
 	
 	function onModalShow(event) {
 		this.inputNomeAcessorio.focus();
-		if(this.acessorioHidden.val()){
+		if(this.acessorioHidden.val() && this.flagEdicao.val() == 'true'){
 			this.inputNomeAcessorio.val(this.acessorioHidden.val());
+		} else {
+			this.inputNomeAcessorio.val('');
 		}
 	}
 	
