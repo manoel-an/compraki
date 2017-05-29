@@ -5,11 +5,15 @@ Compraki.MaskMoney = (function() {
 	function MaskMoney() {
 		this.decimal = $('.js-decimal');
 		this.plain = $('.js-plain');
+		this.simpleDecimal = $('.js-simple-decimal');
+		this.integer = $('.js-integer');
 	}
 	
 	MaskMoney.prototype.enable = function() {
 		this.decimal.maskMoney({ decimal: ',', thousands: '.' });
 		this.plain.maskMoney({ precision: 0, thousands: '.' });
+		this.simpleDecimal.numeric({ decimal : ".",  negative : false, scale: 5 });
+		this.integer.numeric({ decimal : false,  negative : false });
 	}
 	
 	return MaskMoney;
