@@ -3,8 +3,8 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout/LayoutPadrao}"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
     xmlns:compraki="http://compraki.com.br">
-    
 <head>
     <title>Pesquisa de veículos</title>
 </head>
@@ -20,7 +20,7 @@
                 
                 <div class="col-xs-2">
                     <div class="aw-page-header-controls">
-                        <a class="btn  btn-default">
+                        <a class="btn  btn-default" data-toggle="modal" data-target="#modalCadastroAcessorio">
                             <i class="glyphicon  glyphicon-plus-sign"></i> <span class="hidden-xs  hidden-sm">Novo Acessório</span>
                         </a>
                     </div>
@@ -30,7 +30,13 @@
     </div>
     
     <div class="container-fluid">
+        <div class="alert alert-success hidden" id="success-alert-acessorio">
+             <button type="button" class="close" data-dismiss="alert">x</button>
+             <strong>Sucesso</strong>
+             Acessorio gravado com sucesso.
+        </div>    
         <form method="GET" th:object="${acessorioFilter}">
+            <input id="novoAcessorio" type="hidden" th:value="${novoAcessorio}"> 
             <div class="row">
                 <div class="form-group  col-sm-3">
                     <label class="control-label" for="codigo">Código</label>
@@ -59,7 +65,8 @@
                         <td th:text="${acessorio.codigo}" class="text-center"></td>                       
                         <td th:text="${acessorio.descricao}"></td>
                         <td class="text-left">
-                            <a class="btn  btn-link  btn-xs" title="Editar"> 
+                            <a class="btn  btn-link  btn-xs js-btn-editar-acessorio" title="Editar" data-toggle="modal" data-target="#modalCadastroAcessorio" 
+                                data:codigo="${acessorio.codigo}" data:acessorio="${acessorio.descricao}"> 
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
                         </td>
@@ -70,7 +77,12 @@
                 </tbody>
             </table>
         </div>
+        <compraki:pagination page="${pagina}" />
     </div>
+    <div th:replace="acessorio/CadastroAcessorio :: modal"></div>
 </section>
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/pesquisa-acessorios.js}"></script>
+</th:block>
 </body>
 </html>

@@ -7,11 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Table(name = "acessorio")
 public class Acessorio {
 
     private Long codigo;
+
+    @NotBlank(message = "O acessório é obrigatório")
     private String descricao;
     private Boolean selected;
 

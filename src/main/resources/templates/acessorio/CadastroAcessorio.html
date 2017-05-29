@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div class="modal fade" id="modalCadastroAcessorio" tabindex="-1" role="dialog"  th:fragment="modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Cadastro de acessório</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="alert  alert-danger  hidden  js-mensagem-cadastro-acessorio" role="alert"></div>
+                    <div class="panel-body">
+                        <form th:action="@{/acessorios/salvarAcessorio}">
+                             <input id="codigoHidden" type="hidden"> 
+                             <input id="acessorioHidden" type="hidden">
+                             <div class="container-fluid">
+                                <div class="row">
+                                    <div class="form-group">
+	                                    <label class="control-label col-sm-2" for="nomeAcessorio">Acessório</label>
+	                                    <div class="form-group  col-sm-10">
+				                             <input id="nomeAcessorio" type="text" class="form-control" placeholder="Ex: Roda aro 16, Trio Elétrico ...">
+	                                    </div>                                           
+                                    </div>
+                                </div>  
+                                <div class="modal-footer">
+                                    <button type="button" class="btn  btn-primary  js-modal-cadastro-acessorio-salvar-btn">Salvar</button>
+                                    <button type="button" class="btn  btn-default" data-dismiss="modal">Cancelar</button>
+                                </div>                                              
+                             </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
