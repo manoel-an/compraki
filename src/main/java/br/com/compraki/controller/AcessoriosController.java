@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.compraki.model.carro.Acessorio;
-import br.com.compraki.model.carro.Carro;
 import br.com.compraki.repository.filter.AcessorioFilter;
 import br.com.compraki.repository.paginacao.PageWrapper;
 import br.com.compraki.service.AcessorioService;
@@ -51,7 +50,7 @@ public class AcessoriosController {
             @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest,
             boolean novoAcessorio) {
         ModelAndView mv = new ModelAndView("acessorio/PesquisaAcessorios");
-        PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
+        PageWrapper<Acessorio> paginaWrapper = new PageWrapper<>(
                 this.acessorioService.getAcessorios().filtrar(acessorioFilter, pageable), httpServletRequest);
         mv.addObject("pagina", paginaWrapper);
         mv.addObject("novoAcessorio", novoAcessorio);

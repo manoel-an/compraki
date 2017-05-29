@@ -47,7 +47,7 @@ Compraki.ModalAcessorio = (function() {
         $("#success-alert-acessorio").alert();
         $("#success-alert-acessorio").fadeTo(2000, 2000).slideUp(2000, function(){
         	$("#success-alert-acessorio").slideUp(2000);
-        });  		
+        }); 
 	}
 	
 	function onModalShow(event) {

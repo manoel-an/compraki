@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.compraki.model.carro.Acessorio;
-import br.com.compraki.model.carro.Carro;
 import br.com.compraki.repository.filter.AcessorioFilter;
 import br.com.compraki.repository.paginacao.PaginacaoUtil;
 
@@ -31,7 +30,7 @@ public class AcessoriosImpl implements AcessoriosQueries {
     @SuppressWarnings("unchecked")
     @Override
     @Transactional(readOnly = true)
-    public Page<Carro> filtrar(AcessorioFilter filtro, Pageable pageable) {
+    public Page<Acessorio> filtrar(AcessorioFilter filtro, Pageable pageable) {
         Criteria criteria = manager.unwrap(Session.class).createCriteria(Acessorio.class);
         adicionarFiltros(filtro, criteria);
         paginacaoUtil.preparar(criteria, pageable);
