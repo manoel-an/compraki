@@ -23,6 +23,8 @@
    	<div class="container-fluid">
 	    <form class="form-horizontal" method="post" th:action="@{/intencoes/novo}" th:object="${intencaoCompra}">
 	    <input id="idHidden" type="hidden" th:field="*{codigo}"/>
+	    <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple></select>
+	    <select id="coresEscolhidas" class="hidden" th:field="*{cores}" multiple></select>
 	    <compraki:message/>
     	<div class="panel panel-default">
     		<div class="panel-heading it-panelTituloLink">
@@ -35,7 +37,7 @@
     		<div class="panel-body">
     			
     		   <div class="row">
-				<div class="form-group compraki-required" >
+				<div class="form-group compraki-required" compraki:classforerror="marca" >
 					<label for="marca" class="col-sm-2 control-label">Marca</label>
                  	<div class="col-sm-4">   
                     	<select id="marca" class="form-control js-select-search" th:field="*{marca}">
@@ -56,20 +58,15 @@
                 </div> 
                 </div>
                <div class="row">
-                <div class="form-group col-sm-8 compraki-required" compraki:classforerror="cor">
-					<label for="cor" class="col-sm-3 control-label">Cor</label>
-					<div class="col-sm-4"> 
-						<input type="text" class="form-control" id="cor" th:field="*{cor}" placeholder="Ex: Prata, preto"/>
-					</div>
-					<div>
-					<div class="checkbox checkbox-inline"> 
-                                <input type="checkbox" th:field="*{parachoqueCorCarro}" />
-                                <label class="control-label">Quero para choque da cor do carro</label>
-                    </div>
-                    </div>
-                </div>    
-                           	
-               </div>
+               	<div class="form-group  col-sm-12" compraki:classforerror="cores">
+		            <select id="selectCores" multiple="multiple" name="js-duallistbox">
+                       <option th:each="cor : ${cores}" th:text="${cor.descricao}" 
+                        th:value="|${cor.descricao}|" th:selected="${cor.selected ? true : false}"></option>
+		            </select>
+                </div>
+               </div> 
+                
+               
                <div class="row">
                 <div class="form-group compraki-required" compraki:classforerror="ano">
 					<label for="ano" class="col-sm-2 control-label">Ano</label>
@@ -78,9 +75,22 @@
 					</div>
 				</div>
 				</div>
+				
+				<div class="row">
+				<div class="form-group">
+				 <label for="valor" class="col-sm-2 control-label">Acessórios</label> 
+                 <th:block th:each="acessorio : ${acessorios}">
+                  <div class="checkbox checkbox-inline" style="margin-left:15px;">
+                	<input type="checkbox" th:value="${acessorio.codigo}" th:field="*{acessorios}" />
+                    <label style="padding-top:0px" th:text="${acessorio.descricao}"></label>
+                  </div>
+                 </th:block>
+                </div>
+                </div>
+                         
 				<div class="row">
 				<div class="form-group compraki-required" compraki:classforerror="valor">
-					<label for="valor" class="col-sm-2 control-label">Valor</label>
+					<label for="valor" class="col-sm-2 control-label">Valor máximo que posso pagar</label>
 					<div class="col-sm-2">   
 						<input type="text" class="form-control js-decimal" id="valor" th:field="*{valor}"/>
 					</div>
@@ -129,20 +139,20 @@
 				<div class="row">
 				<div class="form-group compraki-required" compraki:classforerror="tipoDeRoda">
 					<label for="tipoDeRoda" class="col-sm-2 control-label">Tipo de roda</label>
-					<div class="col-sm-2">   
+					<div class="col-sm-3">   
 						<input type="text" class="form-control" id="tipoDeRoda" th:field="*{tipoDeRoda}" placeholder="Ex:Alumínio, Ferro..."/>
 					</div>
 				</div>
-				<div class="form-group compraki-required" compraki:classforerror="aroRoda">
-					<label for="aroRoda" class="col-sm-2 control-label">Aro roda</label>
+				<div class="form-group " compraki:classforerror="aroRoda">
+					<label for="aroRoda" class="col-sm-2 control-label">Aros desejados da roda</label>
 					<div class="col-sm-2">   
-						<input type="text" class="form-control" id="aroRoda" th:field="*{aroRoda}" />
+						<input type="text" class="form-control" id="aroRoda" th:field="*{aroRoda}" placeholder="Ex:16 ou 17"/>
 					</div>
 				</div>
 				</div>
 				<div class="row">
 				<div class="form-group compraki-required">
-                    <label for="uf" class="col-sm-2 control-label">Estado</label>
+                    <label for="uf" class="col-sm-2 control-label">Estado de preferência</label>
                  	<div class="col-sm-2">   
                     	<select id="uf" class="form-control js-select-search" th:field="*{uf}">
 							<option value=""></option>
@@ -168,7 +178,7 @@
 				</div>
 		   </div>
 		   
-		   
+		  
     </form>
     </div>
 </section>

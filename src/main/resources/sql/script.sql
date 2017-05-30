@@ -23,6 +23,7 @@ INSERT INTO acessorio (descricao) VALUES ('Roda de liga leve');
 INSERT INTO acessorio (descricao) VALUES ('Direção Hidraulica');
 INSERT INTO acessorio (descricao) VALUES ('Roda aro 16');
 INSERT INTO acessorio (descricao) VALUES ('Câmbio automático');
+INSERT INTO acessorio (descricao) VALUES ('Para choque cor do Carro');
 
 INSERT INTO fabricante (nome) VALUES ('Fiat');
 INSERT INTO fabricante (nome) VALUES ('Volkswagen');
@@ -64,3 +65,6 @@ INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, co
 
 INSERT INTO carro (cor, data_criacao, data_modificacao, descricao, ipva_pago, codigo_modelo, codigo_usuario) VALUES ('Rosa', '2017-05-06', null, 'Carro sem defeito de lataria',1,
 (SELECT codigo FROM modelo_carro WHERE descricao = 'Prisma'), 1);
+
+INSERT INTO `cores` (`descricao`) VALUES
+('Azul'), ('Amarelo'), ('Branco'),('Bege'),('Cinza'), ('Rosa'), ('Prata'), ('Preto'), ('Verde'), ('Vermelho');  

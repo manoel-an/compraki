@@ -42,9 +42,6 @@ public class IntencaoCompra {
 	@NotBlank(message="Ops! Escolha o ano do veículo desejado")
 	private String ano;
 	
-	@NotBlank(message="Ops! Escolha a cor do veículo desejado")
-	private String cor;
-	
 	@NotNull(message = "Ops! Valor é obrigatório")
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor;
@@ -74,6 +71,7 @@ public class IntencaoCompra {
 	@Column(name="parachoque_cor_carro")
 	private Boolean parachoqueCorCarro;
 	
+	@NotBlank(message="Ops! É importante colocar o Estado de preferência")
 	@Column(name="uf_preferencia")
 	private String uf;
 	
@@ -96,6 +94,12 @@ public class IntencaoCompra {
 				, joinColumns=@JoinColumn(name="codigo_intencao")
 				, inverseJoinColumns=@JoinColumn(name="codigo_acessorio"))
 	private List<Acessorio> acessorios;
+	
+	@ManyToMany(fetch=FetchType.LAZY)
+	@JoinTable(name="intencao_cores_desejadas"
+				, joinColumns=@JoinColumn(name="codigo_intencao")
+				, inverseJoinColumns=@JoinColumn(name="codigo_cor"))
+	private List<Cor> cores;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_criacao")
@@ -134,12 +138,7 @@ public class IntencaoCompra {
 	public void setAno(String ano) {
 		this.ano = ano;
 	}
-	public String getCor() {
-		return cor;
-	}
-	public void setCor(String cor) {
-		this.cor = cor;
-	}
+	
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -236,6 +235,13 @@ public class IntencaoCompra {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+	public List<Cor> getCores() {
+		return cores;
+	}
+
+	public void setCores(List<Cor> cores) {
+		this.cores = cores;
 	}
 
 	@Override

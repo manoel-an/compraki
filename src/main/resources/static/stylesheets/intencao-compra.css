@@ -2,10 +2,6 @@
 	background-color: #00BFFF;
 }
 
-.navbar-brand {
-	padding-top: 0px;
-	padding-left: 0px;
-}
 .panel-default{
 	margin-left: 10px;
 	margin-right: 10px;
@@ -33,5 +29,8 @@
 .it-panelTituloLink{
 	padding-top: 15px;
 	padding-bottom: 15px;
+}
+.paraChoqueCss{
+	padding-top: 0px;
 }
 

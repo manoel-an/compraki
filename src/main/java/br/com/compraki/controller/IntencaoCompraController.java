@@ -10,7 +10,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +24,7 @@ import br.com.compraki.enuns.UF;
 import br.com.compraki.model.Cidade;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.carro.ModeloCarro;
+import br.com.compraki.repository.Acessorios;
 import br.com.compraki.repository.Cidades;
 import br.com.compraki.repository.Fabricantes;
 import br.com.compraki.repository.ModelosCarros;
@@ -52,7 +52,10 @@ public class IntencaoCompraController {
 	private IntencaoValidator validator;
 	
 	@Autowired
-	private IntencaoService IntencaoService;
+	private IntencaoService intencaoService;
+	
+	@Autowired
+	private Acessorios acessorios;
 
 	@GetMapping("/novo")
 	public ModelAndView novo(@AuthenticationPrincipal User user, IntencaoCompra intencaoCompra) {
@@ -63,22 +66,19 @@ public class IntencaoCompraController {
 	@PostMapping("/novo")
 	public ModelAndView salvar(@AuthenticationPrincipal User user, @Valid IntencaoCompra intencaoCompra,
 			BindingResult result, RedirectAttributes attributes) {
-		
 		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-		
 		validator.validate(intencaoCompra, result);
 		if (result.hasErrors()) {
 			this.novo(user, intencaoCompra);
 		}
 		try {
-			intencaoCompra.setUsuario(usuarioSistema.getUsuario());
-			System.out.println("codigo do usuário: " + intencaoCompra.getUsuario().getEmail());
-			this.IntencaoService.salvar(intencaoCompra);
+			
+			this.intencaoService.salvar(intencaoCompra, usuarioSistema.getUsuario());
 			attributes.addFlashAttribute("mensagem", "Parabéns, sua intenção de compra foi salva com sucesso. Aguarde o resultado !");
 			return new ModelAndView("redirect:/intencoes/novo");
 			
 		} catch (NegocioException e) {
-			result.addError(new ObjectError("IntencaoCompra", e.getMessage()));
+			//result.addError(new ObjectError("IntencaoCompra", e.getMessage()));
 			return novo(user, intencaoCompra);
 		}
 	}
@@ -96,14 +96,15 @@ public class IntencaoCompraController {
 	}
 
 	private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
-		//UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-		
 		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
 		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
 		modelAndView.addObject("cidades", this.cidades.findAll());
+		modelAndView.addObject("acessorios", this.acessorios.findAll());
 		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
 		modelAndView.addObject("ufs", UF.values());
 		modelAndView.addObject("potencias", PotenciaVeiculo.values());
+		modelAndView.addObject("cores", this.intencaoService.getSelectedCores(intencaoCompra));
+		
 		return modelAndView;
 	}
 

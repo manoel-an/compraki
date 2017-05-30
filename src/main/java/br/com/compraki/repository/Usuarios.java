@@ -15,5 +15,7 @@ public interface Usuarios extends JpaRepository<Usuario, Long>, UsuariosQueries 
     public Optional<Usuario> findByEmailAndFetchEager(@Param("email") String email);
 
     public Optional<Usuario> findByEmail(String email);
+    
+    public Usuario findByCodigo(Long codigo);
 
 }

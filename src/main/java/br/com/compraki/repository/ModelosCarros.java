@@ -10,4 +10,7 @@ public interface ModelosCarros extends JpaRepository<ModeloCarro, Long> {
 
 	public List<ModeloCarro> findByFabricanteCodigo(Long codigoFabricante);
 
+	public ModeloCarro findByCodigo(Long codigo);
+	
+	
 }
