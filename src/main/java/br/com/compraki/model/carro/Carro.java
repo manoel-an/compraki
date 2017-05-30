@@ -161,7 +161,7 @@ public class Carro {
         this.novaFoto = novaFoto;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "codigo_usuario")
     public Usuario getUsuario() {
         return usuario;

@@ -168,6 +168,40 @@ Compraki.IntencaoCompraComboCidade = (function() {
 	return IntencaoCompraComboCidade;
 }());
 
+/* ***Função para popular select hidden de cores e acessórios; antes de salvar a intenção  
+ * Claudio é aqui que você vai acrescentar as propriedades para o select de acessorios hidden
+ * */
+Compraki.SalvarIntencaoCompra = (function() {
+	
+	function SalvarIntencaoCompra() {
+		this.selectCoresHidden = $('#coresEscolhidas');
+		this.botaoSalvarIntencao = $('.js-btn-salvar-intencao');
+		this.formIntencaoCompra = $('#formIntencao');
+	}
+	
+	SalvarIntencaoCompra.prototype.enable = function(event) {
+		this.botaoSalvarIntencao.on('click', onSalvarIntencao.bind(this));
+	}
+	
+	function onSalvarIntencao(event){
+		event.preventDefault();
+		var pickList = new Compraki.PickList();
+		var pickListCores = pickList.enable();
+		var options = [];
+		if(pickListCores.val() != null){
+			pickListCores.val().forEach(function(cor) {
+				var res = cor.split("-");
+				options.push('<option id="cor'+ res[0] +'" value="' + res[0]+ '" selected="selected">' + res[1] + '</option>');
+			});	
+			this.selectCoresHidden.html(options.join(''));
+		}
+		this.formIntencaoCompra.submit();		
+	}
+	
+	
+	return SalvarIntencaoCompra;
+}());
+
 /*Tipo um método main*/
 $(function() {
 	/*chamada às combos marca/modelo*/
@@ -183,4 +217,8 @@ $(function() {
 	
 	var intencaoCompraComboCidade = new Compraki.IntencaoCompraComboCidade(comboUf);
 	intencaoCompraComboCidade.enable();	
+	
+	var salvarIntencao = new Compraki.SalvarIntencaoCompra();
+	salvarIntencao.enable();		
+	
 });

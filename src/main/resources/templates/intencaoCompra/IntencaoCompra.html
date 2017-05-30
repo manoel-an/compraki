@@ -7,7 +7,7 @@
     layout:decorate="~{layout/LayoutPadrao}">
 
 <head>
-    <title>Minha Conta</title>
+    <title>Intenção de Compra</title>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}"/>
 </head>
 
@@ -21,7 +21,7 @@
         </div>
     </div>
    	<div class="container-fluid">
-	    <form class="form-horizontal" method="post" th:action="@{/intencoes/novo}" th:object="${intencaoCompra}">
+	    <form id="formIntencao" class="form-horizontal" method="post" th:action="@{/intencoes/novo}" th:object="${intencaoCompra}">
 	    <input id="idHidden" type="hidden" th:field="*{codigo}"/>
 	    <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple></select>
 	    <select id="coresEscolhidas" class="hidden" th:field="*{cores}" multiple></select>
@@ -65,7 +65,7 @@
                		<div class="form-group  col-sm-8" compraki:classforerror="cores" style="margin-left: 1px;">
 		            <select id="selectCores" multiple="multiple" name="js-duallistbox">
                        <option th:each="cor : ${cores}" th:text="${cor.descricao}" 
-                        th:value="|${cor.descricao}|" th:selected="${cor.selected ? true : false}"></option>
+                        th:value="|${cor.codigo}-${cor.descricao}|" th:selected="${cor.selected ? true : false}"></option>
 		            </select>
                 	</div>
                 </div>
@@ -82,7 +82,7 @@
 				</div>
 				
 				<div class="row">
-				<div class="form-group">
+				<div class="form-group" compraki:classforerror="acessorios">
 				 <label for="valor" class="col-sm-2 control-label">Acessórios</label> 
                  <th:block th:each="acessorio : ${acessorios}">
                   <div class="checkbox checkbox-inline" style="margin-left:15px;">
@@ -94,13 +94,17 @@
                 </div>
                          
 				<div class="row">
-				<div class="form-group compraki-required" compraki:classforerror="valor">
-					<label for="valor" class="col-sm-2 control-label">Valor máximo que posso pagar</label>
-					<div class="col-sm-2">   
-						<input type="text" class="form-control js-decimal" id="valor" th:field="*{valor}"/>
-					</div>
+	                <div class="form-group compraki-required" compraki:classforerror="valor">
+	                  <label class=" col-sm-2 control-label" for="nome">Valor máximo que posso pagar</label>
+		                  <div class="col-sm-2"> 
+			                    <div class="input-group">
+			                        <div class="input-group-addon">R$</div>
+			                        <input type="text" class="form-control js-decimal" id="valor" th:field="*{valor}"/>
+			                    </div>
+		                  </div>
+	                </div>   				
 				</div>
-				</div>
+				
 				<div class="row">
 				<div class="form-group compraki-required" compraki:classforerror="tipoCombustivel">
                     <label for="modelo" class="col-sm-2 control-label">Tipo de Combustivel</label>
@@ -169,16 +173,20 @@
                 <div class="form-group compraki-required">
                 	<label for="cidade" class="col-sm-2 control-label">Cidade de Preferência</label>
                 	<div class="col-sm-3">    
-                    	<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{cidadePreferencia} != null ? *{cidadePreferencia.codigo}"/>
+                    	<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{cidadePreferencia} != null ? *{cidadePreferencia}"/>
                     	<select id="cidade" class="form-control js-select-search" data:url="@{/intencoes/buscarCidades}" th:field="*{cidadePreferencia}">                    	
                     	</select>
                  	 </div>
                  	  
                 </div>
                 </div>      
+                
+                
                <div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" class="btn btn-primary">Salvar</button>
+			           <button class="btn  btn-primary js-btn-salvar-intencao">
+			                <span class="fa fa-floppy-o"></span> Salvar         
+			           </button> 
 					</div>
 				</div>
 		   </div>

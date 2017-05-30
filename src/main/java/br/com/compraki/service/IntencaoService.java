@@ -14,7 +14,6 @@ import br.com.compraki.model.carro.ModeloCarro;
 import br.com.compraki.repository.Cores;
 import br.com.compraki.repository.IntencaoCompras;
 import br.com.compraki.repository.ModelosCarros;
-import br.com.compraki.repository.Usuarios;
 
 @Service
 public class IntencaoService {
@@ -22,80 +21,74 @@ public class IntencaoService {
     @Autowired
     private IntencaoCompras intencaoCompras;
     @Autowired
-	private ModelosCarros modelos;
+    private ModelosCarros modelos;
     @Autowired
-   	private Usuarios usuarios;
-    @Autowired
-   	private Cores cores;
-   
-    @Transactional 
+    private Cores cores;
+
+    @Transactional
     public void salvar(IntencaoCompra intencaoCompra, Usuario usuario) throws NegocioException {
-    		
         try {
-        	
-        	setObjects(intencaoCompra, usuario);
-        	
+            setObjects(intencaoCompra, usuario);
             if (intencaoCompra != null && intencaoCompra.getUsuario() != null) {
                 this.intencaoCompras.save(intencaoCompra);
-            	}	
-    		} catch (Exception e) {
-    			throw new NegocioException(e.getMessage());
-    		}
-        
-    }
-        
-    public void setObjects(IntencaoCompra intencaoCompra, Usuario usuario){
-    	//seta Usuario
-    	Usuario usuarioFind = usuarios.findByCodigo(usuario.getCodigo());
-    	intencaoCompra.setUsuario(usuarioFind);
-    	
-    	//busca e setaModelo
-    	ModeloCarro modelo = this.modelos.findByCodigo(intencaoCompra.getModelo().getCodigo());
-    	intencaoCompra.setModelo(modelo);
-    	
-    	//seta data
-    	intencaoCompra.setDataCriacao(new Date());
-    	//seta Cores
-    	intencaoCompra.setCores(getCoresGerenciadas(intencaoCompra));
+            }
+        } catch (Exception e) {
+            throw new NegocioException(e.getMessage());
+        }
+
     }
 
-	public Object getSelectedCores(IntencaoCompra intencaoCompra) {
-		List<Cor> cores = this.cores.findAll();
-		int count = 0;
-		int itensSelecionados = intencaoCompra.getCores() != null ? intencaoCompra.getCores().size() : 0;
-		if (itensSelecionados > 0) {
-			do {
-				Cor cor = intencaoCompra.getCores().get(count);
-				Long codigo = cor.getCodigo();
-				int pos = cor.getCodigo().intValue();
-				String descricao = cor.getDescricao();
-				cores.set(pos - 1, new Cor(codigo, descricao, Boolean.TRUE));
-				count++;
-				if (count == itensSelecionados) {
-					break;
-				}
-			} while (count <= (itensSelecionados - 1));
+    public void setObjects(IntencaoCompra intencaoCompra, Usuario usuario) {
+        // seta Usuario
+        // Não precisa deste trecho aqui Claudio
+        // Usuario usuarioFind = usuarios.findByCodigo(usuario.getCodigo());
+        // Pode atribuir o usuario diretamente; pois o spring security ja
+        // disponibiliza o mesmo a qualquer tempo
+        intencaoCompra.setUsuario(usuario);
 
-		}
-		return cores;
-	}
+        // busca e setaModelo
+        ModeloCarro modelo = this.modelos.findByCodigo(intencaoCompra.getModelo().getCodigo());
+        intencaoCompra.setModelo(modelo);
 
-	private List<Cor> getCoresGerenciadas(IntencaoCompra intencaoCompra) {
-		Long[] codigos = new Long[intencaoCompra.getCores().size()];
-		int count = 0;
-		for (Cor cor : intencaoCompra.getCores()) {
-			codigos[count] = cor.getCodigo();
-			count++;
-		}
-		return this.cores.findByCodigoIn(codigos);
-	}
+        // seta data
+        intencaoCompra.setDataCriacao(new Date());
+        // seta Cores
+        intencaoCompra.setCores(getCoresGerenciadas(intencaoCompra));
+    }
 
-	
-	public Cores getCores() {
-		return cores;
-	}
+    public Object getSelectedCores(IntencaoCompra intencaoCompra) {
+        List<Cor> cores = this.cores.findAll();
+        int count = 0;
+        int itensSelecionados = intencaoCompra.getCores() != null ? intencaoCompra.getCores().size() : 0;
+        if (itensSelecionados > 0) {
+            do {
+                Cor cor = intencaoCompra.getCores().get(count);
+                Long codigo = cor.getCodigo();
+                int pos = cor.getCodigo().intValue();
+                String descricao = cor.getDescricao();
+                cores.set(pos - 1, new Cor(codigo, descricao, Boolean.TRUE));
+                count++;
+                if (count == itensSelecionados) {
+                    break;
+                }
+            } while (count <= (itensSelecionados - 1));
 
-	
-	
-	
-}//fim
+        }
+        return cores;
+    }
+
+    private List<Cor> getCoresGerenciadas(IntencaoCompra intencaoCompra) {
+        Long[] codigos = new Long[intencaoCompra.getCores().size()];
+        int count = 0;
+        for (Cor cor : intencaoCompra.getCores()) {
+            codigos[count] = cor.getCodigo();
+            count++;
+        }
+        return this.cores.findByCodigoIn(codigos);
+    }
+
+    public Cores getCores() {
+        return cores;
+    }
+
+}// fim
