@@ -1,5 +1,6 @@
 package br.com.compraki.repository.filter;
 
+import br.com.compraki.model.Cor;
 import br.com.compraki.model.carro.Fabricante;
 
 public class CarroFilter {
@@ -10,7 +11,7 @@ public class CarroFilter {
 
     private Fabricante fabricante;
 
-    private String cor;
+    private Cor cor;
 
     public Long getCodigo() {
         return codigo;
@@ -36,11 +37,11 @@ public class CarroFilter {
         this.fabricante = fabricante;
     }
 
-    public String getCor() {
+    public Cor getCor() {
         return cor;
     }
 
-    public void setCor(String cor) {
+    public void setCor(Cor cor) {
         this.cor = cor;
     }
 

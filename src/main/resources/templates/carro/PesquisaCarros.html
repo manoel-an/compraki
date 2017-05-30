@@ -52,7 +52,10 @@
                 </div>            
                 <div class="form-group  col-sm-6">
                     <label class="control-label" for="cor">Cor</label>
-                    <input type="text" class="form-control" id="cor" autofocus="autofocus" th:field="*{cor}" placeholder="Ex: Branco, Verde ..."/>
+                    <select id="cor" class="form-control js-select-search" th:field="*{cor}">
+                        <option value=""></option>
+                        <option th:each="cor : ${cores}" th:text="${cor.descricao}" th:value="${cor.codigo}"></option>
+                    </select>
                 </div>
             </div>
             <button type="submit" class="btn  btn-primary">Pesquisar</button>
@@ -85,7 +88,7 @@
                         <td th:text="${carro.codigo}" class="text-left"></td>                       
                         <td th:text="${carro.modelo.descricao}"></td>
                         <td th:text="${carro.modelo.fabricante.nome}"></td>
-                        <td th:text="${carro.cor}"></td>
+                        <td th:text="${carro.cor.descricao}"></td>
                         <td th:text="${carro.descricao}"></td>
                         <!-- 
                         <td class="text-right" th:text="|R$ ${cerveja.valor}|"></td>

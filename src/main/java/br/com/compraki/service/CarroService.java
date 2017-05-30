@@ -13,90 +13,98 @@ import br.com.compraki.model.carro.Fabricante;
 import br.com.compraki.model.carro.ModeloCarro;
 import br.com.compraki.repository.Acessorios;
 import br.com.compraki.repository.Carros;
+import br.com.compraki.repository.Cores;
 import br.com.compraki.repository.Fabricantes;
 import br.com.compraki.repository.ModelosCarros;
 
 @Service
 public class CarroService {
 
-	@Autowired
-	private Fabricantes fabricantes;
+    @Autowired
+    private Fabricantes fabricantes;
 
-	@Autowired
-	private Acessorios acessorios;
+    @Autowired
+    private Acessorios acessorios;
 
-	@Autowired
-	private Carros carros;
+    @Autowired
+    private Carros carros;
 
-	@Autowired
-	private ModelosCarros modelosCarros;
+    @Autowired
+    private ModelosCarros modelosCarros;
 
-	public List<Acessorio> getSelectedAcessorrios(Carro carro) {
-		List<Acessorio> acessorios = this.acessorios.findAll();
-		int count = 0;
-		int itensSelecionados = carro.getAcessorios() != null ? carro.getAcessorios().size() : 0;
-		if (itensSelecionados > 0) {
-			do {
-				Acessorio acessorio = carro.getAcessorios().get(count);
-				Long codigo = acessorio.getCodigo();
-				int pos = acessorio.getCodigo().intValue();
-				String descricao = acessorio.getDescricao();
-				acessorios.set(pos - 1, new Acessorio(codigo, descricao, Boolean.TRUE));
-				count++;
-				if (count == itensSelecionados) {
-					break;
-				}
-			} while (count <= (itensSelecionados - 1));
+    @Autowired
+    private Cores cores;
 
-		}
-		return acessorios;
-	}
+    public List<Acessorio> getSelectedAcessorrios(Carro carro) {
+        List<Acessorio> acessorios = this.acessorios.findAll();
+        int count = 0;
+        int itensSelecionados = carro.getAcessorios() != null ? carro.getAcessorios().size() : 0;
+        if (itensSelecionados > 0) {
+            do {
+                Acessorio acessorio = carro.getAcessorios().get(count);
+                Long codigo = acessorio.getCodigo();
+                int pos = acessorio.getCodigo().intValue();
+                String descricao = acessorio.getDescricao();
+                acessorios.set(pos - 1, new Acessorio(codigo, descricao, Boolean.TRUE));
+                count++;
+                if (count == itensSelecionados) {
+                    break;
+                }
+            } while (count <= (itensSelecionados - 1));
 
-	@Transactional
-	public void salvarCarro(Carro carro, Usuario usuario) throws NegocioException {
-		try {
-			ModeloCarro modelo = this.modelosCarros.saveAndFlush(carro.getModelo());
-			carro.setModelo(modelo);
-			carro.setAcessorios(getAcessoriosGerenciados(carro));
-			carro.setUsuario(usuario);
-			this.carros.save(carro);
-		} catch (Exception e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
+        }
+        return acessorios;
+    }
 
-	@Transactional
-	public Fabricante salvarMarcaRapido(Fabricante fabricante) throws NegocioException {
-		try {
-			if (this.fabricantes.findByNome(fabricante.getNome()).isPresent()) {
-				throw new NegocioException("Marca já cadastrada");
-			}
-			return this.fabricantes.saveAndFlush(fabricante);
-		} catch (Exception e) {
-			throw new NegocioException(e.getMessage());
-		}
-	}
+    @Transactional
+    public void salvarCarro(Carro carro, Usuario usuario) throws NegocioException {
+        try {
+            ModeloCarro modelo = this.modelosCarros.saveAndFlush(carro.getModelo());
+            carro.setModelo(modelo);
+            carro.setAcessorios(getAcessoriosGerenciados(carro));
+            carro.setUsuario(usuario);
+            this.carros.save(carro);
+        } catch (Exception e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
 
-	private List<Acessorio> getAcessoriosGerenciados(Carro carro) {
-		Long[] codigos = new Long[carro.getAcessorios().size()];
-		int count = 0;
-		for (Acessorio acessorio : carro.getAcessorios()) {
-			codigos[count] = acessorio.getCodigo();
-			count++;
-		}
-		return this.acessorios.findByCodigoIn(codigos);
-	}
+    @Transactional
+    public Fabricante salvarMarcaRapido(Fabricante fabricante) throws NegocioException {
+        try {
+            if (this.fabricantes.findByNome(fabricante.getNome()).isPresent()) {
+                throw new NegocioException("Marca já cadastrada");
+            }
+            return this.fabricantes.saveAndFlush(fabricante);
+        } catch (Exception e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
 
-	public Fabricantes getFabricantes() {
-		return fabricantes;
-	}
+    private List<Acessorio> getAcessoriosGerenciados(Carro carro) {
+        Long[] codigos = new Long[carro.getAcessorios().size()];
+        int count = 0;
+        for (Acessorio acessorio : carro.getAcessorios()) {
+            codigos[count] = acessorio.getCodigo();
+            count++;
+        }
+        return this.acessorios.findByCodigoIn(codigos);
+    }
 
-	public Acessorios getAcessorios() {
-		return acessorios;
-	}
+    public Fabricantes getFabricantes() {
+        return fabricantes;
+    }
 
-	public Carros getCarros() {
-		return carros;
-	}
+    public Acessorios getAcessorios() {
+        return acessorios;
+    }
+
+    public Carros getCarros() {
+        return carros;
+    }
+
+    public Cores getCores() {
+        return cores;
+    }
 
 }

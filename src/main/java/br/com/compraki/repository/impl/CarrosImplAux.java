@@ -58,9 +58,6 @@ public class CarrosImplAux implements PageableQueries<Carro, CarroFilter> {
         if (!StringUtils.isEmpty(filtro.getFabricante())) {
             criteria.add(Restrictions.eq("modelo.fabricante", filtro.getFabricante()));
         }
-        if (!StringUtils.isEmpty(filtro.getCor())) {
-            criteria.add(Restrictions.ilike("cor", filtro.getCor(), MatchMode.ANYWHERE));
-        }
     }
 
 }

@@ -1,7 +1,5 @@
 package br.com.compraki.model;
 
-import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,46 +9,44 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cores")
-public class Cor implements Serializable{
+public class Cor {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long codigo;
-	
-	private String descricao;
-	private Boolean selected;
-	
-	public Cor() {
-		
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long codigo;
+    private String descricao;
+    @Transient
+    private Boolean selected;
 
-	public Cor(Long codigo, String descricao, Boolean selected) {
-		super();
-		this.codigo = codigo;
-		this.descricao = descricao;
-		this.selected = selected;
-	}
+    public Cor() {
 
-	//getters and setters
-	public Long getCodigo() {
-		return codigo;
-	}
+    }
 
-	public void setCodigo(Long codigo) {
-		this.codigo = codigo;
-	}
+    public Cor(Long codigo, String descricao, Boolean selected) {
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.selected = selected;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    // getters and setters
+    public Long getCodigo() {
+        return codigo;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
 
-	@Transient
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public Boolean getSelected() {
         if (selected == null) {
             selected = Boolean.FALSE;
@@ -62,32 +58,29 @@ public class Cor implements Serializable{
         this.selected = selected;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+        return result;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Cor other = (Cor) obj;
+        if (codigo == null) {
+            if (other.codigo != null)
+                return false;
+        } else if (!codigo.equals(other.codigo))
+            return false;
+        return true;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cor other = (Cor) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		return true;
-	}
-	
-		
-	
 }
