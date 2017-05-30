@@ -47,8 +47,30 @@ Compraki.ModalAcessorio = (function() {
         $("#success-alert-acessorio").alert();
         $("#success-alert-acessorio").fadeTo(2000, 2000).slideUp(2000, function(){
         	$("#success-alert-acessorio").slideUp(2000);
-        }); 
+        });
+        window.setTimeout(setGetParameter.bind(this, "novoAcessorio", false), 4000);        
 	}
+	
+	function setGetParameter(paramName, paramValue){
+	    var url = window.location.href;
+	    var hash = location.hash;
+	    url = url.replace(hash, '');
+	    if (url.indexOf(paramName + "=") >= 0) {
+	        var prefix = url.substring(0, url.indexOf(paramName));
+	        var suffix = url.substring(url.indexOf(paramName));
+	        suffix = suffix.substring(suffix.indexOf("=") + 1);
+	        suffix = (suffix.indexOf("&") >= 0) ? suffix.substring(suffix.indexOf("&")) : "";
+	        url = prefix + paramName + "=" + paramValue + suffix;
+	    }
+	    else {
+	    if (url.indexOf("?") < 0)
+	        url += "?" + paramName + "=" + paramValue;
+	    else
+	        url += "&" + paramName + "=" + paramValue;
+	    }
+	    window.location.href = url + hash;
+	}
+	
 	
 	function onModalShow(event) {
 		this.inputNomeAcessorio.focus();
