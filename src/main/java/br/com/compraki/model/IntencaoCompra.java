@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +27,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.NumberFormat;
 
+import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.ModeloCarro;
 
@@ -68,9 +71,6 @@ public class IntencaoCompra {
 	@Column(name="aro_roda")
 	private String aroRoda;
 	
-	@Column(name="parachoque_cor_carro")
-	private Boolean parachoqueCorCarro;
-	
 	@NotBlank(message="Ops! É importante colocar o Estado de preferência")
 	@Column(name="uf_preferencia")
 	private String uf;
@@ -82,8 +82,10 @@ public class IntencaoCompra {
 	@JoinColumn(name="codigo_modelo")
 	private ModeloCarro modelo;
 	
-	@Column(name="outro_modelo")
-	private String outroModelo;
+	//@NotBlank(message="Ops! Esqueceu o tipo de veculo")
+	@Column(name="tipo_de_veiculo")
+	@Enumerated(EnumType.STRING)
+	private TipoVeiculo tipoVeiculo;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codigo_usuario")
@@ -181,12 +183,7 @@ public class IntencaoCompra {
 	public void setAroRoda(String aroRoda) {
 		this.aroRoda = aroRoda;
 	}
-	public Boolean getParachoqueCorCarro() {
-		return parachoqueCorCarro;
-	}
-	public void setParachoqueCorCarro(Boolean parachoqueCorCarro) {
-		this.parachoqueCorCarro = parachoqueCorCarro;
-	}
+	
 	public String getCidadePreferencia() {
 		return cidadePreferencia;
 	}
@@ -199,12 +196,14 @@ public class IntencaoCompra {
 	public void setModelo(ModeloCarro modelo) {
 		this.modelo = modelo;
 	}
-	public String getOutroModelo() {
-		return outroModelo;
+		public TipoVeiculo getTipoVeiculo() {
+		return tipoVeiculo;
 	}
-	public void setOutroModelo(String outroModelo) {
-		this.outroModelo = outroModelo;
+
+	public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+		this.tipoVeiculo = tipoVeiculo;
 	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

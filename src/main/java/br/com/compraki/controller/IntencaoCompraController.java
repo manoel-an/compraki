@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.compraki.enuns.PotenciaVeiculo;
 import br.com.compraki.enuns.TipoCombustivel;
+import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.enuns.UF;
 import br.com.compraki.model.Cidade;
 import br.com.compraki.model.IntencaoCompra;
@@ -103,6 +104,7 @@ public class IntencaoCompraController {
 		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
 		modelAndView.addObject("ufs", UF.values());
 		modelAndView.addObject("potencias", PotenciaVeiculo.values());
+		modelAndView.addObject("tiposVeiculos", TipoVeiculo.values());
 		modelAndView.addObject("cores", this.intencaoService.getSelectedCores(intencaoCompra));
 		
 		return modelAndView;

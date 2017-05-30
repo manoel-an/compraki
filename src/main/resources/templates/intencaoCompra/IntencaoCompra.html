@@ -35,6 +35,8 @@
     		</div>
     	</div>	
     		<div class="panel-body">
+    		
+    		 
     			
     		   <div class="row">
 				<div class="form-group compraki-required" compraki:classforerror="marca" >
@@ -46,7 +48,7 @@
                     	</select>
                  	 </div>
 				</div>
-			</div>
+			  </div>
 				<div class="row">
 				<div class="form-group">
                     <label for="modelo" class="col-sm-2 control-label">Modelo</label>
@@ -58,11 +60,14 @@
                 </div> 
                 </div>
                <div class="row">
-               	<div class="form-group  col-sm-12" compraki:classforerror="cores">
+                 <div class="form-group">
+                   <label for="selectCores" class="col-sm-2 control-label" style="margin-top:90px;">Cores Desejadas</label>
+               		<div class="form-group  col-sm-8" compraki:classforerror="cores">
 		            <select id="selectCores" multiple="multiple" name="js-duallistbox">
                        <option th:each="cor : ${cores}" th:text="${cor.descricao}" 
                         th:value="|${cor.descricao}|" th:selected="${cor.selected ? true : false}"></option>
 		            </select>
+                	</div>
                 </div>
                </div> 
                 
