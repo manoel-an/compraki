@@ -43,14 +43,20 @@
                 
             </div>
             <div class="row">
-                <div class="form-group  col-sm-6">
+                <div class="form-group  col-sm-4">
                    <label for="marca" class="control-label">Marca</label>
                    <select id="marca" class="form-control js-select-search" th:field="*{fabricante}">
                        <option value=""></option>
                        <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                    </select>
-                </div>            
-                <div class="form-group  col-sm-6">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="control-label" for="tipo">Tipo:</label>
+                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}" >
+                        <option th:each="tipoVeiculo : ${tipoVeiculos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
+                    </select>
+                </div>                            
+                <div class="form-group  col-sm-4">
                     <label class="control-label" for="cor">Cor</label>
                     <select id="cor" class="form-control js-select-search" th:field="*{cor}">
                         <option value=""></option>
@@ -69,6 +75,7 @@
                         <th><compraki:order page="${pagina}" field="codigo" text="Código"/></th> 
                         <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
                         <th><compraki:order page="${pagina}" field="fabricante.nome" text="Marca"/></th> 
+                        <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th>Cor</th>
                         <th>Descricao</th>
                         <th></th>
@@ -88,6 +95,7 @@
                         <td th:text="${carro.codigo}" class="text-left"></td>                       
                         <td th:text="${carro.modelo.descricao}"></td>
                         <td th:text="${carro.modelo.fabricante.nome}"></td>
+                        <td th:text="${carro.tipoVeiculo.descricao}"></td>  
                         <td th:text="${carro.cor.descricao}"></td>
                         <td th:text="${carro.descricao}"></td>
                         <!-- 

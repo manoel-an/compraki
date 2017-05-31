@@ -9,41 +9,57 @@ Compraki.CadastroCarro = (function() {
 		this.checkBoxIpva = $('.js-ipva');
 		this.comboTipoVeiculo = $('#tipoVeiculo');
 		this.divDadosCarro = $('#divDadosCarro');
+		this.divDadosMoto = $('#divDadosMoto');
+		this.divDadosPesado = $('#divDadosPesado');
 		this.codigoCarro = $('#codigoHidden');
 	}
 	
 	CadastroCarro.prototype.iniciar = function(event) {
-		if(this.comboTipoVeiculo.val() == 'CARRO'){
-			onAtualizaFormCarro.call(this);
+		if(this.comboTipoVeiculo.val()){
+			onAtualizaFormVeiculo.call(this);
 		}
+		this.comboTipoVeiculo.on('change', onAtualizaFormVeiculo.bind(this));
 		this.botaoSalvar.on('click', onSalvarCarro.bind(this));
 		this.checkBoxIpva.bootstrapSwitch();
 	}
 	
-	function onAtualizaFormCarro(obj){
+	function onAtualizaFormVeiculo(event){
 		var codigo = this.codigoCarro.val();
 		$.ajax({
-			url: "/compraki/carros/atualizaFormularioCarro",
+			url: "/compraki/carros/atualizaFormularioVeiculo",
 			method : 'GET',
 			contentType : 'application/json',
 			data: {
-				codigoCarro: codigo
+				codigoCarro: codigo, tipoVeiculo: this.comboTipoVeiculo.val()
 			},	
 			error: onError.bind(this),
-			success: onSucessFormularioCarro.bind(this),
-			complete: onAdicionaValidacoesFormularioCarro.bind(this)
+			success: onSucessFormulario.bind(this),
+			complete: onAdicionaValidacoesFormulario.bind(this)
 		});	
 	}
 	
-	function onSucessFormularioCarro(resultado){
+	function onSucessFormulario(resultado){
 		var parser = new DOMParser();
 		var html = parser.parseFromString(resultado, "text/html"); 
-		var htmlFinal = $(html).find('#targetContentTipoVeiculoCarro');
-		this.divDadosCarro.html(htmlFinal);
-		//this.divDadosEmpresa.html("");
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			var htmlFinal = $(html).find('#targetContentTipoVeiculoCarro');
+			this.divDadosCarro.html(htmlFinal);
+			this.divDadosMoto.html("");
+			this.divDadosPesado.html("");
+		} else if (this.comboTipoVeiculo.val() == 'MOTO'){
+			var htmlFinal = $(html).find('#targetContentTipoVeiculoMoto');
+			this.divDadosCarro.html("");
+			this.divDadosMoto.html(htmlFinal);
+			this.divDadosPesado.html("")
+		} else {
+			var htmlFinal = $(html).find('#targetContentTipoVeiculoPesado');
+			this.divDadosCarro.html("");
+			this.divDadosMoto.html("");
+			this.divDadosPesado.html(htmlFinal);
+		}
 	}
 	
-	function onAdicionaValidacoesFormularioCarro(event){
+	function onAdicionaValidacoesFormulario(event){
 		var selectSearch = new Compraki.SelectSearch();
 		selectSearch.enable();
 		var pickList = new Compraki.PickList();
@@ -149,6 +165,7 @@ Compraki.MarcaCadastroRapido = (function() {
 		this.url = this.form.attr('action');
 		this.inputNomeMarca = $('#nomeMarca');
 		this.containerMensagemErro = $('.js-mensagem-cadastro-rapido-marca');
+		this.comboTipoVeiculo = $('#tipoVeiculo');
 	}
 	
 	MarcaCadastroRapido.prototype.iniciar = function() {
@@ -160,6 +177,7 @@ Compraki.MarcaCadastroRapido = (function() {
 	
 	function onModalShow() {
 		this.inputNomeMarca.focus();
+		onAdicionaValidacoesModalMarca.call(this);
 	}
 	
 	function onModalClose() {
@@ -174,10 +192,20 @@ Compraki.MarcaCadastroRapido = (function() {
 			url: this.url,
 			method: 'POST',
 			contentType: 'application/json',
-			data: JSON.stringify({ nome: nomeMarca }),
+			data: JSON.stringify({ nome: nomeMarca, tipoVeiculo: this.comboTipoVeiculo.val() }),
 			error: onErroSalvandoMarca.bind(this),
 			success: onMarcaSalva.bind(this)
 		});
+	}
+	
+	function onAdicionaValidacoesModalMarca(){
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			this.inputNomeMarca.attr("placeholder", "Ex: Chevrolet, Fiat ...");	
+		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
+			this.inputNomeMarca.attr("placeholder", "Ex: Honda, Yamanha ...");
+		} else {
+			this.inputNomeMarca.attr("placeholder", "Ex: Volvo, Scania ...");
+		}
 	}
 	
 	function onErroSalvandoMarca(obj) {

@@ -1,48 +1,59 @@
 package br.com.compraki.repository.filter;
 
+import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.carro.Fabricante;
 
 public class CarroFilter {
 
-    private Long codigo;
+	private Long codigo;
 
-    private String modelo;
+	private String modelo;
 
-    private Fabricante fabricante;
+	private Fabricante fabricante;
 
-    private Cor cor;
+	private Cor cor;
 
-    public Long getCodigo() {
-        return codigo;
-    }
+	private TipoVeiculo tipoVeiculo;
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
+	public Long getCodigo() {
+		return codigo;
+	}
 
-    public String getModelo() {
-        return modelo;
-    }
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
+	public String getModelo() {
+		return modelo;
+	}
 
-    public Fabricante getFabricante() {
-        return fabricante;
-    }
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
 
-    public void setFabricante(Fabricante fabricante) {
-        this.fabricante = fabricante;
-    }
+	public Fabricante getFabricante() {
+		return fabricante;
+	}
 
-    public Cor getCor() {
-        return cor;
-    }
+	public void setFabricante(Fabricante fabricante) {
+		this.fabricante = fabricante;
+	}
 
-    public void setCor(Cor cor) {
-        this.cor = cor;
-    }
+	public Cor getCor() {
+		return cor;
+	}
+
+	public void setCor(Cor cor) {
+		this.cor = cor;
+	}
+
+	public TipoVeiculo getTipoVeiculo() {
+		return tipoVeiculo;
+	}
+
+	public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+		this.tipoVeiculo = tipoVeiculo;
+	}
 
 }

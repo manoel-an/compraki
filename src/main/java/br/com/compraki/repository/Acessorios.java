@@ -11,8 +11,10 @@ import br.com.compraki.repository.helper.AcessoriosQueries;
 
 public interface Acessorios extends JpaRepository<Acessorio, Long>, AcessoriosQueries {
 
-    public Optional<Acessorio> findByDescricaoAndTipoVeiculo(String descricao, TipoVeiculo tipoVeiculo);
+	public Optional<Acessorio> findByDescricaoAndTipoVeiculo(String descricao, TipoVeiculo tipoVeiculo);
 
-    public List<Acessorio> findByCodigoIn(Long[] codigos);
+	public List<Acessorio> findByTipoVeiculo(TipoVeiculo tipoVeiculo);
+
+	public List<Acessorio> findByCodigoIn(Long[] codigos);
 
 }
