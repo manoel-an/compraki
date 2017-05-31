@@ -104,13 +104,21 @@ public class CarrosController {
         return mv;
     }
 
-    private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
-        ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
-        modelAndView.addObject("tipos", TipoVeiculo.values());
+    @RequestMapping(value = "/atualizaFormularioCarro", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ModelAndView atualizaFormularioCarro(Long codigoCarro) {
+        ModelAndView modelAndView = new ModelAndView("carro/fragments/TipoCarro");
+        modelAndView.addObject("carro", new Carro());
         modelAndView.addObject("fabricantes", this.carroService.getFabricantes().findAll());
         modelAndView.addObject("cores", this.carroService.getCores().findAll());
         modelAndView.addObject("categorias", CategoriaCarro.values());
-        modelAndView.addObject("acessorios", this.carroService.getSelectedAcessorrios(carro));
+        modelAndView.addObject("acessorios", this.carroService.getSelectedAcessorrios(
+                codigoCarro != null ? this.carroService.getCarros().findOne(codigoCarro) : new Carro()));
+        return modelAndView;
+    }
+
+    private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
+        ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
+        modelAndView.addObject("tipos", TipoVeiculo.values());
         return modelAndView;
     }
 }

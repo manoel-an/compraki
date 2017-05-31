@@ -8,11 +8,50 @@ Compraki.CadastroCarro = (function() {
 		this.selectAcessoriosEscolhidos = $('#acessoriosEscolhidos');
 		this.checkBoxIpva = $('.js-ipva');
 		this.comboTipoVeiculo = $('#tipoVeiculo');
+		this.divDadosCarro = $('#divDadosCarro');
+		this.codigoCarro = $('#codigoHidden');
 	}
 	
 	CadastroCarro.prototype.iniciar = function(event) {
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			onAtualizaFormCarro.call(this);
+		}
 		this.botaoSalvar.on('click', onSalvarCarro.bind(this));
 		this.checkBoxIpva.bootstrapSwitch();
+	}
+	
+	function onAtualizaFormCarro(obj){
+		var codigo = this.codigoCarro.val();
+		$.ajax({
+			url: "/compraki/carros/atualizaFormularioCarro",
+			method : 'GET',
+			contentType : 'application/json',
+			data: {
+				codigoCarro: codigo
+			},	
+			error: onError.bind(this),
+			success: onSucessFormularioCarro.bind(this),
+			complete: onAdicionaValidacoesFormularioCarro.bind(this)
+		});	
+	}
+	
+	function onSucessFormularioCarro(resultado){
+		var parser = new DOMParser();
+		var html = parser.parseFromString(resultado, "text/html"); 
+		var htmlFinal = $(html).find('#targetContentTipoVeiculoCarro');
+		this.divDadosCarro.html(htmlFinal);
+		//this.divDadosEmpresa.html("");
+	}
+	
+	function onAdicionaValidacoesFormularioCarro(event){
+		var selectSearch = new Compraki.SelectSearch();
+		selectSearch.enable();
+		var pickList = new Compraki.PickList();
+		pickList.enable();
+	}
+	
+	function onError(erro){
+		console.log(erro);
 	}
 	
 	function onSalvarCarro(event){
