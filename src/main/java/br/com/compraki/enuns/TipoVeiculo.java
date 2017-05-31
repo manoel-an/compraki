@@ -2,20 +2,16 @@ package br.com.compraki.enuns;
 
 public enum TipoVeiculo {
 
-	CARRO ("Carros"),
-	MOTO ("Motos"),
-	PESADO ("Caminhões, Ônibus e Vans"),
-	UTILITARIOS("Utilitários");
-	
-	private TipoVeiculo(String descricao) {
-		this.descricao = descricao;
-	}
+    CARRO("Carros"), MOTO("Motos"), PESADO("Caminhões, Ônibus e Vans"), UTILITARIOS("Utilitários");
 
-	private String descricao;
+    private TipoVeiculo(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
-	
-	
+    private String descricao;
+
+    public String getDescricao() {
+        return descricao;
+    }
+
 }

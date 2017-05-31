@@ -13,8 +13,11 @@ Compraki.ModalAcessorio = (function() {
 		this.botaoEditarAcessorio = $('.js-btn-editar-acessorio');
 		this.botaoNovoAcessorio = $('.js-btn-novo-acessorio');
 		this.codigo = $('#codigoHidden');
+		this.tipo = $('#tipoHidden');
 		this.acessorioHidden = $('#acessorioHidden');
 		this.flagEdicao = $('#flagEdicao');
+		this.comboTipoVeiculo = $('#comboTipoVeiculo');
+		this.divTipoVeiculo = $('.js-div-tipo-veiculo');
 	}
 	
 	ModalAcessorio.prototype.enable = function(event) {
@@ -37,7 +40,9 @@ Compraki.ModalAcessorio = (function() {
 		var op = $(event.currentTarget);
 		var codigo = op.data('codigo');
 		var acessorio = op.data('acessorio');
+		var tipo = op.data('tipo');
 		this.codigo.val(codigo);
+		this.tipo.val(tipo);
 		this.acessorioHidden.val(acessorio);
 		this.flagEdicao.val(true);
 	}
@@ -75,6 +80,8 @@ Compraki.ModalAcessorio = (function() {
 	function onModalShow(event) {
 		this.inputNomeAcessorio.focus();
 		if(this.acessorioHidden.val() && this.flagEdicao.val() == 'true'){
+			this.comboTipoVeiculo.val(this.tipo.val());
+			$('.selectpicker').selectpicker('refresh');
 			this.inputNomeAcessorio.val(this.acessorioHidden.val());
 		} else {
 			this.inputNomeAcessorio.val('');
@@ -82,6 +89,8 @@ Compraki.ModalAcessorio = (function() {
 	}
 	
 	function onModalClose() {
+		this.comboTipoVeiculo.val('CARRO');
+		$('.selectpicker').selectpicker('refresh');
 		this.inputNomeAcessorio.val('');
 		this.containerMensagemErro.addClass('hidden');
 		this.form.find('.form-group').removeClass('has-error');
@@ -93,7 +102,7 @@ Compraki.ModalAcessorio = (function() {
 			url: this.url,
 			method: 'POST',
 			contentType: 'application/json',
-			data: JSON.stringify({ codigo: this.codigo.val(), descricao: nomeAcessorio }),
+			data: JSON.stringify({ codigo: this.codigo.val(), descricao: nomeAcessorio, tipoVeiculo: this.comboTipoVeiculo.val() }),
 			error: onErroSalvandoAcessorio.bind(this),
 			success: onAcesorioSalvo.bind(this)
 		});
@@ -104,6 +113,7 @@ Compraki.ModalAcessorio = (function() {
 		this.containerMensagemErro.removeClass('hidden');
 		this.containerMensagemErro.html('<span>' + mensagemErro + '</span>');
 		this.form.find('.form-group').addClass('has-error');
+		this.divTipoVeiculo.removeClass('has-error');
 	}
 	
 	function onAcesorioSalvo(acessorio) {

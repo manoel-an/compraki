@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.repository.filter.AcessorioFilter;
 import br.com.compraki.repository.paginacao.PageWrapper;
@@ -54,6 +55,8 @@ public class AcessoriosController {
                 this.acessorioService.getAcessorios().filtrar(acessorioFilter, pageable), httpServletRequest);
         mv.addObject("pagina", paginaWrapper);
         mv.addObject("novoAcessorio", novoAcessorio);
+        mv.addObject("tipos", TipoVeiculo.values());
+        mv.addObject("tipoVeiculos", TipoVeiculo.values());
         return mv;
     }
 

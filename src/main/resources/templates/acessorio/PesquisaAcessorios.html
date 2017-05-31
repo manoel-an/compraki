@@ -38,11 +38,17 @@
         <form method="GET" th:object="${acessorioFilter}">
             <input id="novoAcessorio" type="hidden" th:value="${novoAcessorio}"> 
             <div class="row">
-                <div class="form-group  col-sm-3">
+                <div class="form-group  col-sm-2">
                     <label class="control-label" for="codigo">Código</label>
                     <input type="text" class="form-control js-integer" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
-                </div>            
-                <div class="form-group  col-sm-9">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="control-label" for="tipo">Tipo:</label>
+                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}" >
+                        <option th:each="tipoVeiculo : ${tipoVeiculos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
+                    </select>
+                </div>                              
+                <div class="form-group  col-sm-6">
                     <label class="control-label" for="cnpj">Acessório</label>
                     <input type="text" class="form-control" id="modelo" autofocus="autofocus" th:field="*{acessorio}" placeholder="Ex: Roda aro 16, Trio Elétrico ..."/>
                 </div>
@@ -55,6 +61,7 @@
                 <thead>
                     <tr>
                         <th class="text-center"><compraki:order page="${pagina}" field="codigo" text="Código"/></th> 
+                        <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th><compraki:order page="${pagina}" field="descricao" text="Acessório" class="text-center"/></th> 
                         <th></th>
                     </tr>
@@ -62,11 +69,12 @@
                 
                 <tbody>
                     <tr th:each="acessorio : ${pagina.conteudo}">
-                        <td th:text="${acessorio.codigo}" class="text-center"></td>                       
+                        <td th:text="${acessorio.codigo}" class="text-center"></td>  
+                        <td th:text="${acessorio.tipoVeiculo.descricao}"></td>                     
                         <td th:text="${acessorio.descricao}"></td>
                         <td class="text-left">
                             <a class="btn  btn-link  btn-xs js-btn-editar-acessorio" title="Editar" data-toggle="modal" data-target="#modalCadastroAcessorio" 
-                                data:codigo="${acessorio.codigo}" data:acessorio="${acessorio.descricao}"> 
+                                data:codigo="${acessorio.codigo}" data:tipo="${acessorio.tipoVeiculo}" data:acessorio="${acessorio.descricao}"> 
                                 <i class="glyphicon glyphicon-pencil"></i>
                             </a>
                         </td>

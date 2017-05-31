@@ -18,7 +18,8 @@ public class AcessorioService {
     @Transactional
     public Acessorio salvarAcessorio(Acessorio acessorio) throws NegocioException {
         try {
-            Optional<Acessorio> op = this.acessorios.findByDescricao(acessorio.getDescricao());
+            Optional<Acessorio> op = this.acessorios.findByDescricaoAndTipoVeiculo(acessorio.getDescricao(),
+                    acessorio.getTipoVeiculo());
             Acessorio ac = null;
             if (op.isPresent()) {
                 ac = op.get();

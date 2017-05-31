@@ -1,8 +1,12 @@
 package br.com.compraki.repository.filter;
 
+import br.com.compraki.enuns.TipoVeiculo;
+
 public class AcessorioFilter {
 
     private Long codigo;
+
+    private TipoVeiculo tipoVeiculo;
 
     private String acessorio;
 
@@ -12,6 +16,14 @@ public class AcessorioFilter {
 
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
+    }
+
+    public TipoVeiculo getTipoVeiculo() {
+        return tipoVeiculo;
+    }
+
+    public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
     }
 
     public String getAcessorio() {

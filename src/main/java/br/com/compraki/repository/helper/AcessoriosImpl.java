@@ -49,6 +49,9 @@ public class AcessoriosImpl implements AcessoriosQueries {
         if (!StringUtils.isEmpty(filtro.getCodigo())) {
             criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
         }
+        if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
+            criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
+        }
         if (!StringUtils.isEmpty(filtro.getAcessorio())) {
             criteria.add(Restrictions.ilike("descricao", filtro.getAcessorio(), MatchMode.ANYWHERE));
         }

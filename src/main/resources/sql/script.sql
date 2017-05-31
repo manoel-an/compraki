@@ -18,12 +18,12 @@ INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (4, 3);
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (
     (SELECT codigo FROM usuario WHERE email = 'compraki@compraki.com'), 1);
     
-INSERT INTO acessorio (descricao) VALUES ('Ar condicionado');
-INSERT INTO acessorio (descricao) VALUES ('Roda de liga leve');
-INSERT INTO acessorio (descricao) VALUES ('Direção Hidraulica');
-INSERT INTO acessorio (descricao) VALUES ('Roda aro 16');
-INSERT INTO acessorio (descricao) VALUES ('Câmbio automático');
-INSERT INTO acessorio (descricao) VALUES ('Para choque cor do Carro');
+INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Ar condicionado', 'CARRO');
+INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Roda de liga leve', 'CARRO');
+INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Direção Hidraulica', 'CARRO');
+INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Roda aro 16', 'CARRO');
+INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Câmbio automático', 'CARRO');
+INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Para choque cor do Carro', 'CARRO');
 
 INSERT INTO fabricante (nome) VALUES ('Fiat');
 INSERT INTO fabricante (nome) VALUES ('Volkswagen');

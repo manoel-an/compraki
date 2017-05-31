@@ -1,6 +1,8 @@
 package br.com.compraki.model.carro;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -8,6 +10,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
+
+import br.com.compraki.enuns.TipoVeiculo;
 
 @Entity
 @Table(name = "acessorio")
@@ -17,6 +21,7 @@ public class Acessorio {
 
     @NotBlank(message = "O acessório é obrigatório")
     private String descricao;
+    private TipoVeiculo tipoVeiculo;
     private Boolean selected;
 
     public Acessorio() {
@@ -46,6 +51,15 @@ public class Acessorio {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public TipoVeiculo getTipoVeiculo() {
+        return tipoVeiculo;
+    }
+
+    public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
     }
 
     @Transient
