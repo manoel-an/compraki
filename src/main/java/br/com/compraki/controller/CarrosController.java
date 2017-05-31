@@ -23,7 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.compraki.enuns.Categoria;
+import br.com.compraki.enuns.CategoriaCarro;
+import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.carro.Carro;
 import br.com.compraki.model.carro.Fabricante;
 import br.com.compraki.repository.filter.CarroFilter;
@@ -105,9 +106,10 @@ public class CarrosController {
 
     private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
         ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
+        modelAndView.addObject("tipos", TipoVeiculo.values());
         modelAndView.addObject("fabricantes", this.carroService.getFabricantes().findAll());
         modelAndView.addObject("cores", this.carroService.getCores().findAll());
-        modelAndView.addObject("categorias", Categoria.values());
+        modelAndView.addObject("categorias", CategoriaCarro.values());
         modelAndView.addObject("acessorios", this.carroService.getSelectedAcessorrios(carro));
         return modelAndView;
     }

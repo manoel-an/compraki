@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import br.com.compraki.enuns.Categoria;
+import br.com.compraki.enuns.CategoriaCarro;
 
 @Entity
 @Table(name="modelo_carro")
@@ -19,7 +19,7 @@ public class ModeloCarro {
 	private Long codigo;
 	private String descricao;
 	private Fabricante fabricante;
-	private Categoria categoria;
+	private CategoriaCarro categoria;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,10 +47,10 @@ public class ModeloCarro {
 	}
 	
 	@Enumerated(EnumType.STRING)
-	public Categoria getCategoria() {
+	public CategoriaCarro getCategoria() {
 		return categoria;
 	}
-	public void setCategoria(Categoria categoria) {
+	public void setCategoria(CategoriaCarro categoria) {
 		this.categoria = categoria;
 	}
 	

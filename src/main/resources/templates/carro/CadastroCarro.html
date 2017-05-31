@@ -36,6 +36,20 @@
            </select>        
            <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 
            <compraki:message/>
+           <h2>Tipo Veículo</h2>
+           <div class="row">
+                <div class="col-sm-4  form-group">
+                    <label class="control-label">Informe o tipo do veículo</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">Tipo</div>
+                        <div>
+		                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true">
+		                        <option th:each="tipoVeiculo : ${tipos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
+		                    </select>
+                        </div>                       
+                    </div>
+                </div>            
+           </div>
            <h2>Modelo do Veículo</h2> 
             <div class="row">
                 <div class="form-group  col-sm-6  compraki-required" compraki:classforerror="modelo.fabricante">

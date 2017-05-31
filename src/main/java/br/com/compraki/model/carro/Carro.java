@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.Usuario;
 
@@ -49,6 +52,7 @@ public class Carro {
     private LocalDateTime dataModificacao;
     private boolean novaFoto;
     private Usuario usuario;
+    private TipoVeiculo tipoVeiculo;
 
     // getters and setters
     @Id
@@ -169,6 +173,15 @@ public class Carro {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public TipoVeiculo getTipoVeiculo() {
+        return tipoVeiculo;
+    }
+
+    public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
+        this.tipoVeiculo = tipoVeiculo;
     }
 
     @Override

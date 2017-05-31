@@ -7,6 +7,7 @@ Compraki.CadastroCarro = (function() {
 		this.formulario = $('#formCarro');
 		this.selectAcessoriosEscolhidos = $('#acessoriosEscolhidos');
 		this.checkBoxIpva = $('.js-ipva');
+		this.comboTipoVeiculo = $('#tipoVeiculo');
 	}
 	
 	CadastroCarro.prototype.iniciar = function(event) {
