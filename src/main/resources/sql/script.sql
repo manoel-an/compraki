@@ -18,12 +18,12 @@ INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (4, 3);
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (
     (SELECT codigo FROM usuario WHERE email = 'compraki@compraki.com'), 1);
     
-INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Ar condicionado', 'CARRO');
-INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Roda de liga leve', 'CARRO');
-INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Direção Hidraulica', 'CARRO');
-INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Roda aro 16', 'CARRO');
-INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Câmbio automático', 'CARRO');
-INSERT INTO acessorio (descricao, tipoVeiculo) VALUES ('Para choque cor do Carro', 'CARRO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Ar condicionado', 1, 'CARRO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Roda de liga leve', 2, 'CARRO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Direção Hidraulica', 3, 'CARRO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Roda aro 16', 4, 'CARRO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Câmbio automático', 5, 'CARRO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Para choque cor do Carro', 6, 'CARRO');
 
 INSERT INTO fabricante (nome, tipoVeiculo) VALUES ('Fiat', 'CARRO');
 INSERT INTO fabricante (nome, tipoVeiculo) VALUES ('Volkswagen', 'CARRO');

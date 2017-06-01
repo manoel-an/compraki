@@ -17,4 +17,6 @@ public interface Acessorios extends JpaRepository<Acessorio, Long>, AcessoriosQu
 
 	public List<Acessorio> findByCodigoIn(Long[] codigos);
 
+	public Long countByTipoVeiculo(TipoVeiculo tipoVeiculo);
+
 }

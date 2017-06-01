@@ -18,6 +18,7 @@ Compraki.ModalAcessorio = (function() {
 		this.flagEdicao = $('#flagEdicao');
 		this.comboTipoVeiculo = $('#comboTipoVeiculo');
 		this.divTipoVeiculo = $('.js-div-tipo-veiculo');
+		this.posicao = $('#posicaoHidden')
 	}
 	
 	ModalAcessorio.prototype.enable = function(event) {
@@ -40,10 +41,12 @@ Compraki.ModalAcessorio = (function() {
 		var op = $(event.currentTarget);
 		var codigo = op.data('codigo');
 		var acessorio = op.data('acessorio');
+		var posicao = op.data('posicao');
 		var tipo = op.data('tipo');
 		this.codigo.val(codigo);
 		this.tipo.val(tipo);
 		this.acessorioHidden.val(acessorio);
+		this.posicao.val(posicao);
 		this.flagEdicao.val(true);
 	}
 	
@@ -98,11 +101,12 @@ Compraki.ModalAcessorio = (function() {
 	
 	function onBotaoSalvarClick() {
 		var nomeAcessorio = this.inputNomeAcessorio.val().trim();
+		var posicao = this.posicao.val();
 		$.ajax({
 			url: this.url,
 			method: 'POST',
 			contentType: 'application/json',
-			data: JSON.stringify({ codigo: this.codigo.val(), descricao: nomeAcessorio, tipoVeiculo: this.comboTipoVeiculo.val() }),
+			data: JSON.stringify({ codigo: this.codigo.val(), descricao: nomeAcessorio, tipoVeiculo: this.comboTipoVeiculo.val(), posicao: posicao  }),
 			error: onErroSalvandoAcessorio.bind(this),
 			success: onAcesorioSalvo.bind(this)
 		});

@@ -48,7 +48,7 @@ public class CarroService {
 			do {
 				Acessorio acessorio = carro.getAcessorios().get(count);
 				Long codigo = acessorio.getCodigo();
-				int pos = acessorio.getCodigo().intValue();
+				int pos = acessorio.getPosicao();
 				String descricao = acessorio.getDescricao();
 				acessorios.set(pos - 1, new Acessorio(codigo, descricao, Boolean.TRUE));
 				count++;

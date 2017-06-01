@@ -5,7 +5,7 @@
     xmlns:data="http://www.thymeleaf.org/extras/data">
     <form id="formTipoVeiculoCarro" th:object="${carro}">
 	    <div id="targetContentTipoVeiculoCarro">
-            <h2>Modelo do Veículo</h2> 
+            <h2>Modelo do Carro</h2> 
             <div class="row">
                 <div class="form-group  col-sm-6  compraki-required">
                     <label for="marca" class="control-label">Marca</label>
@@ -31,7 +31,7 @@
                 <div class="form-group col-sm-6 compraki-required">
                     <label class="control-label" for="categoria">Categoria:</label>
                     <div class="bw-field-action">
-                        <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoria}">
+                        <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoriaCarro}">
                             <option value=""></option>
                             <option th:each="categoria : ${categorias}" th:text="${categoria.descricao}" th:value="${categoria}"></option>
                         </select>

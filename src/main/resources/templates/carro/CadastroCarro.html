@@ -43,7 +43,7 @@
                     <div class="input-group">
                         <div class="input-group-addon">Tipo</div>
                         <div>
-		                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true">
+		                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}">
 		                        <option th:each="tipoVeiculo : ${tipos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
 		                    </select>
                         </div>                       

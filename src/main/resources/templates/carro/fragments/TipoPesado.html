@@ -31,7 +31,7 @@
                 <div class="form-group col-sm-6 compraki-required">
                     <label class="control-label" for="categoria">Categoria:</label>
                     <div class="bw-field-action">
-                        <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoria}">
+                        <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoriaPesado}">
                             <option value=""></option>
                             <option th:each="categoria : ${categorias}" th:text="${categoria.descricao}" th:value="${categoria}"></option>
                         </select>
