@@ -32,6 +32,16 @@
     </div>    
     <div class="container-fluid">
         <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
+           <input id="erroMarca" type="hidden" th:field="*{carroHelper.erroMarca}"> 
+           <input id="marcaHelper" type="hidden" th:field="*{carroHelper.marca}"> 
+           <input id="erroModelo" type="hidden" th:field="*{carroHelper.erroModelo}"> 
+           <input id="modeloHelper" type="hidden" th:field="*{carroHelper.modelo}">
+           <input id="erroCategoria" type="hidden" th:field="*{carroHelper.erroCategoria}"> 
+           <input id="categoriaHelper" type="hidden" th:field="*{carroHelper.categoria}">   
+           <input id="erroCor" type="hidden" th:field="*{carroHelper.erroCor}"> 
+           <input id="corHelper" type="hidden" th:field="*{carroHelper.cor}">                     
+           <input id="erroAcessorios" type="hidden" th:field="*{carroHelper.erroAcessorios}"> 
+           <input id="acessoriosJSON" type="hidden" th:field="*{carroHelper.acessorios}"> 
            <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple>
            </select>        
            <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 

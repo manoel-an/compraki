@@ -16,8 +16,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -27,16 +25,10 @@ import javax.persistence.Transient;
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.Usuario;
+import br.com.compraki.model.helper.CarroHelper;
 
 @Entity
 @Table(name = "carro")
-@NamedQueries({@NamedQuery(name = "Carro.buscarTodos", query = "select c from Carro c") ,
-        @NamedQuery(name = "Carro.buscarCarroComAcessorios", query = "select c "
-                + "	from Carro c JOIN c.acessorios a " + " where c.codigo = :codigo") ,
-        @NamedQuery(name = "Carro.buscarCarroSemAcessorios", query = "select c " + "	from Carro c "
-                + " where c.codigo = :codigo")
-
-})
 public class Carro {
 
     private Long codigo;
@@ -53,6 +45,7 @@ public class Carro {
     private boolean novaFoto;
     private Usuario usuario;
     private TipoVeiculo tipoVeiculo;
+    private CarroHelper carroHelper;
 
     // getters and setters
     @Id
@@ -182,6 +175,18 @@ public class Carro {
 
     public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
         this.tipoVeiculo = tipoVeiculo;
+    }
+
+    @Transient
+    public CarroHelper getCarroHelper() {
+        if (carroHelper == null) {
+            carroHelper = new CarroHelper();
+        }
+        return carroHelper;
+    }
+
+    public void setCarroHelper(CarroHelper carroHelper) {
+        this.carroHelper = carroHelper;
     }
 
     @Override

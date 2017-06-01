@@ -12,6 +12,16 @@ Compraki.CadastroCarro = (function() {
 		this.divDadosMoto = $('#divDadosMoto');
 		this.divDadosPesado = $('#divDadosPesado');
 		this.codigoCarro = $('#codigoHidden');
+		this.erroAcessorios = $('#erroAcessorios');
+		this.acessoriosJSON = $('#acessoriosJSON');
+		this.erroMarca = $('#erroMarca');
+		this.marcaHelper = $('#marcaHelper');
+		this.erroModelo = $('#erroModelo');
+		this.modeloHelper = $('#modeloHelper');
+		this.erroCategoria = $('#erroCategoria');
+		this.categoriaHelper = $('#categoriaHelper');
+		this.erroCor = $('#erroCor');
+		this.corHelper = $('#corHelper');		
 	}
 	
 	CadastroCarro.prototype.iniciar = function(event) {
@@ -25,12 +35,19 @@ Compraki.CadastroCarro = (function() {
 	
 	function onAtualizaFormVeiculo(event){
 		var codigo = this.codigoCarro.val();
+		var acessorios = new Array();
+		if(this.acessoriosJSON.val()){
+			var obj = jQuery.parseJSON(this.acessoriosJSON.val());
+			obj.forEach(function(acessorio) {
+				acessorios.push(acessorio.codigo);
+			});				
+		} 		
 		$.ajax({
 			url: "/compraki/carros/atualizaFormularioVeiculo",
 			method : 'GET',
 			contentType : 'application/json',
 			data: {
-				codigoCarro: codigo, tipoVeiculo: this.comboTipoVeiculo.val()
+				codigoCarro: codigo, tipoVeiculo: this.comboTipoVeiculo.val(), acessorios: acessorios
 			},	
 			error: onError.bind(this),
 			success: onSucessFormulario.bind(this),
@@ -60,6 +77,38 @@ Compraki.CadastroCarro = (function() {
 	}
 	
 	function onAdicionaValidacoesFormulario(event){
+		var divMarca = $('.js-div-marca');
+		var divModelo = $('.js-div-modelo');
+		var divCategoria = $('.js-div-categoria');
+		var divAcessorios = $('.js-div-acessorios');
+		var divCor = $('.js-div-cor');
+		if(this.erroAcessorios.val() == 'true'){
+			divAcessorios.addClass('has-error');
+		}
+		if(this.erroMarca.val() == 'true'){
+			divMarca.addClass('has-error');
+		} else {
+			var marca = $('.js-combo-marca');
+			marca.val(this.marcaHelper.val());
+		}
+		if(this.erroModelo.val() == 'true'){
+			divModelo.addClass('has-error');
+		} else {
+			var modelo = $('.js-modelo');
+			modelo.val(this.modeloHelper.val());
+		}
+		if(this.erroCategoria.val() == 'true'){
+			divCategoria.addClass('has-error');
+		} else {
+			var categoria = $('.js-combo-categoria');
+			categoria.val(this.categoriaHelper.val());
+		}
+		if(this.erroCor.val() == 'true'){
+			divCor.addClass('has-error');
+		} else {
+			var cor = $('.js-combo-cor');
+			cor.val(this.corHelper.val());
+		}			
 		var selectSearch = new Compraki.SelectSearch();
 		selectSearch.enable();
 		var pickList = new Compraki.PickList();

@@ -15,7 +15,7 @@ public class CarroConverter implements Converter<String, Carro> {
     @Override
     public Carro convert(String source) {
         if (!StringUtils.isEmpty(source)) {
-			return carros.getFullCar(Long.valueOf(source));
+            return carros.getCarWithAcessories(Long.valueOf(source));
         } else {
             return null;
         }
