@@ -57,6 +57,7 @@ public class CarrosController {
         validator.validate(carro, result);
         if (result.hasErrors()) {
             this.carroService.getFieldError(carro, result);
+            carro.getCarroHelper().setHasErrors(Boolean.TRUE);
             return this.novo(carro);
         }
         try {
@@ -65,6 +66,7 @@ public class CarrosController {
             return new ModelAndView("redirect:/carros/novo");
         } catch (NegocioException e) {
             result.addError(new ObjectError("Carro", e.getMessage()));
+            carro.getCarroHelper().setHasErrors(Boolean.TRUE);
             return novo(carro);
         }
     }

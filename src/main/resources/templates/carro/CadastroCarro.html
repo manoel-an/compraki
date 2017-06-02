@@ -32,6 +32,7 @@
     </div>    
     <div class="container-fluid">
         <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
+           <input id="hasErrors" type="hidden" th:field="*{carroHelper.hasErrors}"> 
            <input id="erroMarca" type="hidden" th:field="*{carroHelper.erroMarca}"> 
            <input id="marcaHelper" type="hidden" th:field="*{carroHelper.marca}"> 
            <input id="erroModelo" type="hidden" th:field="*{carroHelper.erroModelo}"> 

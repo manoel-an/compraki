@@ -54,7 +54,7 @@ Compraki.CadastroCarro = (function() {
 			},	
 			error: onError.bind(this),
 			success: onSucessFormulario.bind(this),
-			complete: onAdicionaValidacoesFormulario.bind(this, validacao)
+			complete: onAdicionaValidacoesFormulario.bind(this)
 		});	
 	}
 	
@@ -89,120 +89,208 @@ Compraki.CadastroCarro = (function() {
 	}	
 	
 	function adicionarValidacaoCarro(){
+		var hasErrors = $('#hasErrors');
 		var divMarca = $('.js-div-marca');
 		var divModelo = $('.js-div-modelo');
 		var divCategoria = $('.js-div-categoria');
 		var divAcessorios = $('.js-div-acessorios');
 		var divCor = $('.js-div-cor');
+		var marca = $('.js-combo-marca');
+		var modelo = $('.js-modelo');
+		var categoria = $('.js-combo-categoria');
+		var cor = $('.js-combo-cor');
+		
 		if(this.erroAcessorios.val() == 'true'){
 			divAcessorios.addClass('has-error');
 		}
 		if(this.erroMarca.val() == 'true'){
 			divMarca.addClass('has-error');
+			marca.val('');
 		} else {
-			var marca = $('.js-combo-marca');
-			marca.val(this.marcaHelper.val());
+			if(hasErrors.val() == 'true'){
+				marca.val(this.marcaHelper.val());
+			} else {
+				if(!marca.val()){
+					marca.val('');
+				}
+			}
 		}
 		if(this.erroModelo.val() == 'true'){
 			divModelo.addClass('has-error');
+			modelo.val('');
 		} else {
-			var modelo = $('.js-modelo');
-			modelo.val(this.modeloHelper.val());
+			if(hasErrors.val() == 'true'){
+				modelo.val(this.modeloHelper.val());
+			} else {
+				if(!modelo.val()){
+					modelo.val('');
+				}
+			}
 		}
 		if(this.erroCategoria.val() == 'true'){
 			divCategoria.addClass('has-error');
+			categoria.val('');
 		} else {
-			var categoria = $('.js-combo-categoria');
-			categoria.val(this.categoriaHelper.val());
+			if(hasErrors.val() == 'true'){
+				categoria.val(this.categoriaHelper.val());
+			} else {
+				if(!categoria.val()){
+					categoria.val('');
+				}
+			}
 		}
 		if(this.erroCor.val() == 'true'){
 			divCor.addClass('has-error');
+			cor.val('');
 		} else {
-			var cor = $('.js-combo-cor');
-			cor.val(this.corHelper.val());
+			if(hasErrors.val() == 'true'){
+				cor.val(this.corHelper.val());
+			} else {
+				if(!cor.val()){
+					cor.val('');
+				}
+			}
 		}			
 	}
 	
 	function adicionarValidacaoMoto(){
+		var hasErrors = $('#hasErrors');
 		var divMarca = $('.js-div-marca-moto');
 		var divModelo = $('.js-div-modelo-moto');
 		var divCategoria = $('.js-div-categoria-moto');
 		var divAcessorios = $('.js-div-acessorios-moto');
 		var divCor = $('.js-div-cor-moto');
+		var marca = $('.js-combo-marca-moto');
+		var modelo = $('.js-modelo-moto');
+		var categoria = $('.js-combo-categoria-moto');
+		var cor = $('.js-combo-cor-moto');
+		
 		if(this.erroAcessorios.val() == 'true'){
 			divAcessorios.addClass('has-error');
 		}
 		if(this.erroMarca.val() == 'true'){
 			divMarca.addClass('has-error');
+			marca.val('');
 		} else {
-			var marca = $('.js-combo-marca-moto');
-			marca.val(this.marcaHelper.val());
+			if(hasErrors.val() == 'true'){
+				marca.val(this.marcaHelper.val());
+			} else {
+				if(!marca.val()){
+					marca.val('');
+				}
+			}
 		}
 		if(this.erroModelo.val() == 'true'){
 			divModelo.addClass('has-error');
+			modelo.val('');
 		} else {
-			var modelo = $('.js-modelo-moto');
-			modelo.val(this.modeloHelper.val());
+			if(hasErrors.val() == 'true'){
+				modelo.val(this.modeloHelper.val());
+			} else {
+				if(!modelo.val()){
+					modelo.val('');
+				}
+			}
 		}
 		if(this.erroCategoria.val() == 'true'){
 			divCategoria.addClass('has-error');
+			categoria.val('');
 		} else {
-			var categoria = $('.js-combo-categoria-moto');
-			categoria.val(this.categoriaHelper.val());
+			if(hasErrors.val() == 'true'){
+				categoria.val(this.categoriaHelper.val());
+			} else {
+				if(!categoria.val()){
+					categoria.val('');
+				}
+			}
 		}
 		if(this.erroCor.val() == 'true'){
 			divCor.addClass('has-error');
+			cor.val('');
 		} else {
-			var cor = $('.js-combo-cor-moto');
-			cor.val(this.corHelper.val());
-		}			
+			if(hasErrors.val() == 'true'){
+				cor.val(this.corHelper.val());
+			} else {
+				if(!cor.val()){
+					cor.val('');
+				}
+			}
+		}	
 	}
 	
 	function adicionarValidacaoPesado(){
+		var hasErrors = $('#hasErrors');
 		var divMarca = $('.js-div-marca-pesado');
 		var divModelo = $('.js-div-modelo-pesado');
 		var divCategoria = $('.js-div-categoria-pesado');
 		var divAcessorios = $('.js-div-acessorios-pesado');
 		var divCor = $('.js-div-cor-pesado');
+		var marca = $('.js-combo-marca-pesado');
+		var modelo = $('.js-modelo-pesado');
+		var categoria = $('.js-combo-categoria-pesado');
+		var cor = $('.js-combo-cor-pesado');
+		
 		if(this.erroAcessorios.val() == 'true'){
 			divAcessorios.addClass('has-error');
 		}
 		if(this.erroMarca.val() == 'true'){
 			divMarca.addClass('has-error');
+			marca.val('');
 		} else {
-			var marca = $('.js-combo-marca-pesado');
-			marca.val(this.marcaHelper.val());
+			if(hasErrors.val() == 'true'){
+				marca.val(this.marcaHelper.val());
+			} else {
+				if(!marca.val()){
+					marca.val('');
+				}
+			}
 		}
 		if(this.erroModelo.val() == 'true'){
 			divModelo.addClass('has-error');
+			modelo.val('');
 		} else {
-			var modelo = $('.js-modelo-pesado');
-			modelo.val(this.modeloHelper.val());
+			if(hasErrors.val() == 'true'){
+				modelo.val(this.modeloHelper.val());
+			} else {
+				if(!modelo.val()){
+					modelo.val('');
+				}
+			}
 		}
 		if(this.erroCategoria.val() == 'true'){
 			divCategoria.addClass('has-error');
+			categoria.val('');
 		} else {
-			var categoria = $('.js-combo-categoria-pesado');
-			categoria.val(this.categoriaHelper.val());
+			if(hasErrors.val() == 'true'){
+				categoria.val(this.categoriaHelper.val());
+			} else {
+				if(!categoria.val()){
+					categoria.val('');
+				}
+			}
 		}
 		if(this.erroCor.val() == 'true'){
 			divCor.addClass('has-error');
+			cor.val('');
 		} else {
-			var cor = $('.js-combo-cor-pesado');
-			cor.val(this.corHelper.val());
-		}	
+			if(hasErrors.val() == 'true'){
+				cor.val(this.corHelper.val());
+			} else {
+				if(!cor.val()){
+					cor.val('');
+				}
+			}
+		}		
 	}
 	
 	
-	function onAdicionaValidacoesFormulario(validacao){
-		if(!validacao){
-			if(this.comboTipoVeiculo.val() == 'CARRO'){
-				adicionarValidacaoCarro.call(this);
-			} else if(this.comboTipoVeiculo.val() == 'MOTO'){
-				adicionarValidacaoMoto.call(this);
-			} else {
-				adicionarValidacaoPesado.call(this);
-			}
+	function onAdicionaValidacoesFormulario(event){
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			adicionarValidacaoCarro.call(this);
+		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
+			adicionarValidacaoMoto.call(this);
+		} else {
+			adicionarValidacaoPesado.call(this);
 		}
 		var selectSearch = new Compraki.SelectSearch();
 		selectSearch.enable();

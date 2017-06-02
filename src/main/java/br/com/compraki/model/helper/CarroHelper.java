@@ -10,6 +10,8 @@ public class CarroHelper {
 
     private Gson parser;
 
+    private Boolean hasErrors;
+
     private Boolean erroMarca;
 
     private Long marca;
@@ -35,6 +37,17 @@ public class CarroHelper {
             parser = new Gson();
         }
         return parser;
+    }
+
+    public Boolean getHasErrors() {
+        if (hasErrors == null) {
+            hasErrors = Boolean.FALSE;
+        }
+        return hasErrors;
+    }
+
+    public void setHasErrors(Boolean hasErrors) {
+        this.hasErrors = hasErrors;
     }
 
     public Boolean getErroMarca() {

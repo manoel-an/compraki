@@ -45,7 +45,16 @@ public class CarroService {
         List<Acessorio> acessorios = this.acessorios.findByTipoVeiculo(carro.getTipoVeiculo());
         int count = 0;
         int itensSelecionados = carro.getAcessorios() != null ? carro.getAcessorios().size() : 0;
-        if (itensSelecionados > 0) {
+        boolean tipodiferente = false;
+        if(carro.getAcessorios() != null && carro.getAcessorios().size() > 0){
+            for (Acessorio acessorio : carro.getAcessorios()) {
+                if (!acessorio.getTipoVeiculo().equals(carro.getTipoVeiculo())) {
+                    tipodiferente = true;
+                    break;
+                }
+            }
+        }
+        if (itensSelecionados > 0 && !tipodiferente) {
             do {
                 Acessorio acessorio = carro.getAcessorios().get(count);
                 Long codigo = acessorio.getCodigo();
