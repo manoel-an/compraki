@@ -202,6 +202,90 @@ Compraki.SalvarIntencaoCompra = (function() {
 	return SalvarIntencaoCompra;
 }());
 
+Compraki.TipoVeiculo = (function() {
+	
+	function TipoVeiculo() {
+		this.opcaoCarro = $('#inputVeiculoCARRO');
+		this.opcaoMoto = $('#inputVeiculoMOTO');
+		this.opcaoPesado = $('#inputVeiculoPESADO');
+		this.codigoIntencao = $('#idHidden');
+		this.divDadosCarro = $('#divDadosCarro');
+		this.divDadosMoto = $('#divDadosMoto');
+		this.divDadosPesado = $('#divDadosPesado');
+		this.acessoriosJSON = $('#acessoriosJSON');
+		this.coresJSON = $('#coresJSON');
+	}
+	
+	TipoVeiculo.prototype.enable = function(event) {
+		if(this.opcaoCarro.val()){
+			onAtualizaFormulario.call(this, this.opcaoCarro.val());
+		}
+		this.opcaoCarro.on('change', onAtualizaFormulario.bind(this, this.opcaoCarro.val()));
+		this.opcaoMoto.on('change', onAtualizaFormulario.bind(this, this.opcaoMoto.val()));
+		this.opcaoPesado.on('change', onAtualizaFormulario.bind(this, this.opcaoPesado.val()));
+	}
+	
+	function onAtualizaFormulario(tipoVeiculo){
+		var codigo = this.codigoIntencao.val();
+		var cores = new Array();
+		if(this.coresJSON.val()){
+			var obj = jQuery.parseJSON(this.coresJSON.val());
+			obj.forEach(function(cor) {
+				cores.push(cor.codigo);
+			});				
+		}		
+		var acessorios = new Array();
+		if(this.acessoriosJSON.val()){
+			var obj = jQuery.parseJSON(this.acessoriosJSON.val());
+			obj.forEach(function(acessorio) {
+				acessorios.push(acessorio.codigo);
+			});				
+		}
+		$.ajax({
+			url: "/compraki/intencoes/atualizaFormularioVeiculo",
+			method : 'GET',
+			contentType : 'application/json',
+			data: {
+				codigoIntencao: codigo, tipoVeiculo: tipoVeiculo, cores: cores, acessorios: acessorios
+			},	
+			error: onError.bind(this),
+			success: onSucessFormulario.bind(this, tipoVeiculo),
+			complete: onAdicionaValidacoesFormulario.bind(this)
+		});			
+	}
+	
+	function onSucessFormulario(tipoVeiculo, resultado){
+		var parser = new DOMParser();
+		var html = parser.parseFromString(resultado, "text/html"); 
+		if(tipoVeiculo == 'CARRO'){
+			var htmlFinal = $(html).find('#targetContentTipoVeiculoCarro');
+			this.divDadosCarro.html(htmlFinal);
+			this.divDadosMoto.html("");
+			this.divDadosPesado.html("");
+		} else if (tipoVeiculo == 'MOTO'){
+			var htmlFinal = $(html).find('#targetContentTipoVeiculoMoto');
+			this.divDadosCarro.html("");
+			this.divDadosMoto.html(htmlFinal);
+			this.divDadosPesado.html("")
+		} else {
+			var htmlFinal = $(html).find('#targetContentTipoVeiculoPesado');
+			this.divDadosCarro.html("");
+			this.divDadosMoto.html("");
+			this.divDadosPesado.html(htmlFinal);
+		}
+	}
+	
+	function onError(erro){
+		console.log(erro);
+	}
+	
+	function onAdicionaValidacoesFormulario(event){
+		
+	}
+	
+	return TipoVeiculo;
+}());
+
 /*Tipo um método main*/
 $(function() {
 	/*chamada às combos marca/modelo*/
@@ -219,6 +303,9 @@ $(function() {
 	intencaoCompraComboCidade.enable();	
 	
 	var salvarIntencao = new Compraki.SalvarIntencaoCompra();
-	salvarIntencao.enable();		
+	salvarIntencao.enable();	
+	
+	var tipoVeiculo = new Compraki.TipoVeiculo();
+	tipoVeiculo.enable();		
 	
 });

@@ -219,6 +219,9 @@ public class IntencaoCompra {
     }
 
     public TipoVeiculo getTipoVeiculo() {
+        if (tipoVeiculo == null) {
+            tipoVeiculo = TipoVeiculo.CARRO;
+        }
         return tipoVeiculo;
     }
 
