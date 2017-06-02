@@ -3,14 +3,14 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
     xmlns:data="http://www.thymeleaf.org/extras/data">
-    <form id="formTipoVeiculoMoto" th:object="${carro}">
+    <form id="formTipoVeiculoCarro" th:object="${carro}">
 	    <div id="targetContentTipoVeiculoMoto">
-            <h2>Modelo da Motocicleta</h2> 
+            <h2>Modelo de Motocicleta</h2> 
             <div class="row">
-                <div class="form-group  col-sm-6  compraki-required">
+                <div class="form-group  col-sm-6  compraki-required js-div-marca-moto">
                     <label for="marca" class="control-label">Marca</label>
                     <div class="bw-field-action">
-                       <select id="marca" class="form-control js-select-search" th:field="*{modelo.fabricante}">
+                       <select id="marca" class="form-control js-select-search js-combo-marca-moto" th:field="*{modelo.fabricante}">
                            <option value=""></option>
                            <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                        </select>
@@ -22,25 +22,25 @@
                        </div>
                     </div>
                 </div>                
-                <div class="form-group  col-sm-6  compraki-required">
+                <div class="form-group  col-sm-6  compraki-required js-div-modelo-moto">
                     <label for="modelo" class="control-label">Modelo</label>
-                    <input type="text" class="form-control" id="email" th:field="*{modelo.descricao}" placeholder="Ex: Moto Honda CG 125 CC"/>
+                    <input type="text" class="form-control js-modelo-moto" id="email" th:field="*{modelo.descricao}" placeholder="Ex: Honda CG Titan 125 cc"/>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm-6 compraki-required">
+                <div class="form-group col-sm-6 compraki-required js-div-categoria-moto">
                     <label class="control-label" for="categoria">Categoria:</label>
                     <div class="bw-field-action">
-                        <select id="categoria" class="form-control js-select-search" th:field="*{modelo.categoriaMoto}">
+                        <select id="categoria" class="form-control js-select-search js-combo-categoria-moto" th:field="*{modelo.categoriaCarro}">
                             <option value=""></option>
                             <option th:each="categoria : ${categorias}" th:text="${categoria.descricao}" th:value="${categoria}"></option>
                         </select>
                     </div>
                 </div> 
-                <div class="form-group  col-sm-6  compraki-required">
+                <div class="form-group  col-sm-6  compraki-required js-div-cor-moto">
                     <label for="corCarro" class="control-label">Cor</label>
                     <div class="bw-field-action">
-                       <select id="corCarro" class="form-control js-select-search" th:field="*{cor}">
+                       <select id="corCarro" class="form-control js-select-search js-combo-cor-moto" th:field="*{cor}">
                            <option value=""></option>
                            <option th:each="cor : ${cores}" th:text="${cor.descricao}" th:value="${cor.codigo}"></option>
                        </select>
@@ -49,7 +49,7 @@
             </div>
             <h2>Acessórios</h2> 
             <div class="row">
-                <div class="form-group  col-sm-12">
+                <div class="form-group  col-sm-12 js-div-acessorios-moto">
                     <select id="selectAcessorios" multiple="multiple" name="js-duallistbox">
                        <option th:each="acessorio : ${acessorios}" th:text="${acessorio.descricao}" 
                         th:value="|${acessorio.codigo}-${acessorio.descricao}|" th:selected="${acessorio.selected ? true : false}"></option>
