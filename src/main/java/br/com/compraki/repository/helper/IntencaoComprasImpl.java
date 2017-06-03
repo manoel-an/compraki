@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.compraki.model.IntencaoCompra;
 
-public class IntencoesComprasImpl implements IntencoesQueries {
+public class IntencaoComprasImpl implements IntencoesQueries {
 
     @PersistenceContext
     private EntityManager manager;

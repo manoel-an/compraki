@@ -280,7 +280,15 @@ Compraki.TipoVeiculo = (function() {
 	}
 	
 	function onAdicionaValidacoesFormulario(event){
-		
+		/*chamada às combos marca/modelo*/
+		var comboMarca = new Compraki.IntencaoCompraComboMarca();
+		comboMarca.enable();
+		var intencaoCompraComboModelo = new Compraki.IntencaoCompraComboModelo(comboMarca);
+		intencaoCompraComboModelo.enable();			
+		var selectSearch = new Compraki.SelectSearch();
+		selectSearch.enable();
+		var pickList = new Compraki.PickList();
+		pickList.enable();		
 	}
 	
 	return TipoVeiculo;
@@ -288,13 +296,6 @@ Compraki.TipoVeiculo = (function() {
 
 /*Tipo um método main*/
 $(function() {
-	/*chamada às combos marca/modelo*/
-	var comboMarca = new Compraki.IntencaoCompraComboMarca();
-	comboMarca.enable();
-	
-	var intencaoCompraComboModelo = new Compraki.IntencaoCompraComboModelo(comboMarca);
-	intencaoCompraComboModelo.enable();	
-	
 	/*chamada às combos marca/modelo*/
 	var comboUf = new Compraki.IntencaoCompraComboUf();
 	comboUf.enable();

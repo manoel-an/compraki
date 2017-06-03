@@ -38,86 +38,86 @@ import br.com.compraki.validator.IntencaoValidator;
 @RequestMapping("/intencoes")
 public class IntencaoCompraController {
 
-    private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
+	private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
 
-    @Autowired
-    private Fabricantes fabricantes;
+	@Autowired
+	private Fabricantes fabricantes;
 
-    @Autowired
-    private Cidades cidades;
+	@Autowired
+	private Cidades cidades;
 
-    @Autowired
-    private ModelosCarros modelosCarros;
+	@Autowired
+	private ModelosCarros modelosCarros;
 
-    @Autowired
-    private IntencaoValidator validator;
+	@Autowired
+	private IntencaoValidator validator;
 
-    @Autowired
-    private IntencaoService intencaoService;
+	@Autowired
+	private IntencaoService intencaoService;
 
-    @Autowired
-    private Acessorios acessorios;
+	@Autowired
+	private Acessorios acessorios;
 
-    @GetMapping("/novo")
-    public ModelAndView novo(@AuthenticationPrincipal User user, IntencaoCompra intencaoCompra) {
-        ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra, user);
-        return mv;
-    }
+	@GetMapping("/novo")
+	public ModelAndView novo(@AuthenticationPrincipal User user, IntencaoCompra intencaoCompra) {
+		ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra, user);
+		return mv;
+	}
 
-    @PostMapping("/novo")
-    public ModelAndView salvar(@AuthenticationPrincipal User user, @Valid IntencaoCompra intencaoCompra,
-            BindingResult result, RedirectAttributes attributes) {
-        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-        validator.validate(intencaoCompra, result);
-        if (result.hasErrors()) {
-            this.novo(user, intencaoCompra);
-        }
-        try {
+	@PostMapping("/novo")
+	public ModelAndView salvar(@AuthenticationPrincipal User user, @Valid IntencaoCompra intencaoCompra,
+			BindingResult result, RedirectAttributes attributes) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+		validator.validate(intencaoCompra, result);
+		if (result.hasErrors()) {
+			this.novo(user, intencaoCompra);
+		}
+		try {
 
-            this.intencaoService.salvar(intencaoCompra, usuarioSistema.getUsuario());
-            attributes.addFlashAttribute("mensagem",
-                    "Parabéns, sua intenção de compra foi salva com sucesso. Aguarde o resultado !");
-            return new ModelAndView("redirect:/intencoes/novo");
+			this.intencaoService.salvar(intencaoCompra, usuarioSistema.getUsuario());
+			attributes.addFlashAttribute("mensagem",
+					"Parabéns, sua intenção de compra foi salva com sucesso. Aguarde o resultado !");
+			return new ModelAndView("redirect:/intencoes/novo");
 
-        } catch (NegocioException e) {
-            // result.addError(new ObjectError("IntencaoCompra",
-            // e.getMessage()));
-            return novo(user, intencaoCompra);
-        }
-    }
+		} catch (NegocioException e) {
+			// result.addError(new ObjectError("IntencaoCompra",
+			// e.getMessage()));
+			return novo(user, intencaoCompra);
+		}
+	}
 
-    @RequestMapping(value = "buscarModelos", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<ModeloCarro> pesquisarPorCodigoFabricante(
-            @RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
-        return this.modelosCarros.findByFabricanteCodigo(codigoMarca);
-    }
+	@RequestMapping(value = "buscarModelos", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<ModeloCarro> pesquisarPorCodigoFabricante(
+			@RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
+		return this.modelosCarros.findByFabricanteCodigo(codigoMarca);
+	}
 
-    @RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<Cidade> pesquisarCidadePorUf(
-            @RequestParam(name = "uf", defaultValue = "-1") String siglaUf) {
-        return this.cidades.findBySigla(siglaUf);
-    }
+	@RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<Cidade> pesquisarCidadePorUf(
+			@RequestParam(name = "uf", defaultValue = "-1") String siglaUf) {
+		return this.cidades.findBySigla(siglaUf);
+	}
 
-    @RequestMapping(value = "/atualizaFormularioVeiculo", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ModelAndView atualizaFormularioVeiculo(Long codigoIntencao, TipoVeiculo tipoVeiculo,
-            @RequestParam(value = "cores[]", required = false) Long[] cores,
-            @RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
-        ModelAndView modelAndView = new ModelAndView("intencaoCompra/fragments/TipoCarro");
-        modelAndView.addObject("intencaoCompra", new IntencaoCompra());
-        return modelAndView;
-    }
+	@RequestMapping(value = "/atualizaFormularioVeiculo", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ModelAndView atualizaFormularioVeiculo(Long codigoIntencao, TipoVeiculo tipoVeiculo,
+			@RequestParam(value = "cores[]", required = false) Long[] cores,
+			@RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
+		ModelAndView modelAndView = this.intencaoService.getModelAndViewTipoVeiculo(codigoIntencao, tipoVeiculo,
+				acessorios, cores);
+		return modelAndView;
+	}
 
-    private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
-        ModelAndView modelAndView = new ModelAndView(IT_VIEW);
-        modelAndView.addObject("fabricantes", this.fabricantes.findAll());
-        modelAndView.addObject("cidades", this.cidades.findAll());
-        modelAndView.addObject("acessorios", this.acessorios.findAll());
-        modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
-        modelAndView.addObject("ufs", UF.values());
-        modelAndView.addObject("potencias", PotenciaVeiculo.values());
-        modelAndView.addObject("tipos", TipoVeiculo.values());
-        modelAndView.addObject("cores", this.intencaoService.getSelectedCores(intencaoCompra));
-        return modelAndView;
-    }
+	private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
+		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
+		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
+		modelAndView.addObject("cidades", this.cidades.findAll());
+		modelAndView.addObject("acessorios", this.acessorios.findAll());
+		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
+		modelAndView.addObject("ufs", UF.values());
+		modelAndView.addObject("potencias", PotenciaVeiculo.values());
+		modelAndView.addObject("tipos", TipoVeiculo.values());
+		modelAndView.addObject("cores", this.intencaoService.getSelectedCores(intencaoCompra));
+		return modelAndView;
+	}
 
 }// fim
