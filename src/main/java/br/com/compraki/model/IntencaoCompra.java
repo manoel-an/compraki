@@ -41,9 +41,6 @@ public class IntencaoCompra {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigo;
 
-	@NotBlank(message = "Ops! Escolha a marca do veículo desejado")
-	private String marca;
-
 	@NotBlank(message = "Ops! Escolha o ano do veículo desejado")
 	private String ano;
 
@@ -133,14 +130,6 @@ public class IntencaoCompra {
 
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
-	}
-
-	public String getMarca() {
-		return marca;
-	}
-
-	public void setMarca(String marca) {
-		this.marca = marca;
 	}
 
 	public String getAno() {

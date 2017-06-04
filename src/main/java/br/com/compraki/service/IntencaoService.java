@@ -109,6 +109,7 @@ public class IntencaoService {
 		intencaoCompra.setDataCriacao(new Date());
 		// seta Cores
 		intencaoCompra.setCores(getCoresGerenciadas(intencaoCompra));
+		intencaoCompra.setAcessorios(getAcessoriosGerenciados(intencaoCompra));
 	}
 
 	public List<Acessorio> getSelectedAcessorrios(IntencaoCompra intencaoCompra) {
@@ -170,6 +171,16 @@ public class IntencaoService {
 			count++;
 		}
 		return this.cores.findByCodigoIn(codigos);
+	}
+
+	private List<Acessorio> getAcessoriosGerenciados(IntencaoCompra intencaoCompra) {
+		Long[] codigos = new Long[intencaoCompra.getAcessorios().size()];
+		int count = 0;
+		for (Acessorio acessorio : intencaoCompra.getAcessorios()) {
+			codigos[count] = acessorio.getCodigo();
+			count++;
+		}
+		return this.acessorios.findByCodigoIn(codigos);
 	}
 
 	public Cores getCores() {
