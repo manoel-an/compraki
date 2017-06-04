@@ -130,6 +130,7 @@ public class IntencaoCompraController {
 		mv.addObject("fabricantes", this.fabricantes.findAll());
 		mv.addObject("tipoVeiculos", TipoVeiculo.values());
 		mv.addObject("cores", this.cores.findAll());
+		mv.addObject("acessorios", this.acessorios.findAll());
 		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}

@@ -32,33 +32,54 @@
     
     <div class="container-fluid">
         <form method="GET" th:object="${intencaoFilter}">
-            <div class="row">
-                <div class="form-group  col-sm-2">
+	        <div class="row">
+                <div class="form-group  col-sm-4">
                     <label class="control-label" for="codigo">Código</label>
                     <input type="text" class="form-control js-integer" id="codigo" autofocus="autofocus" th:field="*{codigo}"/>
-                </div>
-                <div class="form-group  col-sm-5">
+                </div>	        
+	             <div class="col-sm-4  form-group">
+	                 <label class="control-label">Valor apartir de</label>
+	                 <div class="input-group">
+	                     <div class="input-group-addon">Valor R$</div>
+	                     <div>
+                         	<input type="text" class="form-control js-decimal" id="valorInicialIntencao" 
+                         		th:field="*{valorInicial}"/>
+	                     </div>                       
+	                 </div>
+	             </div>
+	             <div class="col-sm-4  form-group">
+	                 <label class="control-label">Valor ate</label>
+	                 <div class="input-group">
+	                     <div class="input-group-addon">Valor R$</div>
+	                     <div>
+                         	<input type="text" class="form-control js-decimal" id="valorFinalIntencao" th:field="*{valorFinal}"/>
+	                     </div>                       
+	                 </div>
+	             </div>	             
+	       </div>        
+            <div class="row">
+                <div class="form-group  col-sm-6">
                    <label for="marca" class="control-label">Marca</label>
                    <select id="marca" class="form-control js-select-search" th:field="*{fabricante}">
                        <option value=""></option>
                        <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                    </select>                
                 </div>            
-                <div class="form-group  col-sm-5">
+                <div class="form-group  col-sm-6">
                     <label class="control-label" for="cnpj">Modelo</label>
                     <select id="modelo" class="form-control js-select-search js-combo-modelo" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
                     </select>
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-3">
                     <label class="control-label" for="tipo">Tipo:</label>
                     <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}">
                     	<option value="" selected>Selecione uma opção</option>
                         <option th:each="tipoVeiculo : ${tipoVeiculos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
                     </select>
                 </div>
-                <div class="form-group  col-sm-6 ">
+                <div class="form-group  col-sm-4">
                     <label for="corCarro" class="control-label">Cores</label>
                     <div class="bw-field-action">
                        <select id="corCarro" class="form-control js-select-search" th:field="*{cores}" multiple >
@@ -66,7 +87,16 @@
                            <option th:each="cor : ${cores}" th:text="${cor.descricao}" th:value="${cor.codigo}"></option>
                        </select>
                     </div>
-                </div>                                            
+                </div> 
+                <div class="form-group  col-sm-5">
+                    <label for="acessorioCarro" class="control-label">Acessorios</label>
+                    <div class="bw-field-action">
+                       <select id="acessorioCarro" class="form-control js-select-search" th:field="*{acessorios}" multiple >
+                           <option value=""></option>
+                           <option th:each="acessorio : ${acessorios}" th:text="${acessorio.descricao}" th:value="${acessorio.codigo}"></option>
+                       </select>
+                    </div>
+                </div>                                                           
             </div>
             <button type="submit" class="btn  btn-primary">Pesquisar</button>
         </form>
@@ -81,6 +111,7 @@
                         <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
                         <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th>Cores</th>
+                        <th>Acessórios</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -95,6 +126,9 @@
                         <td>
                             <span th:each="cor : ${intencao.cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>
                         </td>
+                        <td>
+                            <span th:each="acessorio : ${intencao.acessorios}" th:text="|${acessorio.descricao}${acessorioStat.last ? '' : ', '}|"></span>
+                        </td>                        
                         <td class="text-left">
                             <a class="btn  btn-link  btn-xs" title="Editar" 
                                     th:href="@{/intencoes/{codigo}(codigo=${intencao.codigo})}"> 

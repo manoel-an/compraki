@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.Usuario;
+import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.repository.filter.IntencaoFilter;
 import br.com.compraki.repository.paginacao.PaginacaoUtil;
 
@@ -44,6 +45,7 @@ public class IntencaoComprasImpl implements IntencoesQueries {
 
 		List<IntencaoCompra> filtrados = criteria.list();
 		filtrados.forEach(it -> Hibernate.initialize(it.getCores()));
+		filtrados.forEach(it -> Hibernate.initialize(it.getAcessorios()));
 
 		return new PageImpl<>(filtrados, pageable, total(filtro));
 	}
@@ -61,6 +63,14 @@ public class IntencaoComprasImpl implements IntencoesQueries {
 	@Override
 	public void adicionarFiltros(Usuario usuario, IntencaoFilter filtro, Criteria criteria) {
 		criteria.add(Restrictions.eq("usuario", usuario));
+
+		if (!StringUtils.isEmpty(filtro.getValorInicial())) {
+			criteria.add(Restrictions.ge("valor", filtro.getValorInicial()));
+		}
+		if (!StringUtils.isEmpty(filtro.getValorFinal())) {
+			criteria.add(Restrictions.le("valor", filtro.getValorFinal()));
+		}
+
 		if (!StringUtils.isEmpty(filtro.getCodigo())) {
 			criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
 		}
@@ -77,9 +87,22 @@ public class IntencaoComprasImpl implements IntencoesQueries {
 			criteria.createAlias("cores", "cor");
 			List<Long> codigos = new ArrayList<Long>(0);
 			for (Cor cor : filtro.getCores()) {
-				codigos.add(cor.getCodigo());
+				if (cor != null) {
+					codigos.add(cor.getCodigo());
+				}
 			}
 			criteria.add(Restrictions.in("cor.codigo", codigos));
+			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		}
+		if (filtro.getAcessorios() != null && !filtro.getAcessorios().isEmpty()) {
+			criteria.createAlias("acessorios", "acessorio");
+			List<Long> codigos = new ArrayList<Long>(0);
+			for (Acessorio acessorio : filtro.getAcessorios()) {
+				if (acessorio != null) {
+					codigos.add(acessorio.getCodigo());
+				}
+			}
+			criteria.add(Restrictions.in("acessorio.codigo", codigos));
 			criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		}
 
