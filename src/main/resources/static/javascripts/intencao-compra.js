@@ -227,16 +227,23 @@ Compraki.TipoVeiculo = (function() {
 		this.acessoriosJSON = $('#acessoriosJSON');
 		this.coresJSON = $('#coresJSON');
 		this.tipoVeiculoHelper = $('#tipoVeiculoHelper');
+		this.erroMarca = $('#erroMarca');
+		this.marcaHelper = $('#marcaHelper');
+		this.erroModelo = $('#erroModelo');
+		this.modeloHelper = $('#modeloHelper');
+		this.erroCores = $('#erroCores');
+		this.erroAcessorios = $('#erroAcessorios');
+		
 	}
 	
 	TipoVeiculo.prototype.enable = function(event) {
 		if(this.tipoVeiculoHelper.val()){
 			adicionarActiveTipoVeiculo.call(this);
-			onAtualizaFormulario.call(this, this.tipoVeiculoHelper.val());
+			onAtualizaFormulario.call(this, this.tipoVeiculoHelper.val(), true);
 		}
-		this.opcaoCarro.on('change', onAtualizaFormulario.bind(this, this.opcaoCarro.val()));
-		this.opcaoMoto.on('change', onAtualizaFormulario.bind(this, this.opcaoMoto.val()));
-		this.opcaoPesado.on('change', onAtualizaFormulario.bind(this, this.opcaoPesado.val()));
+		this.opcaoCarro.on('change', onAtualizaFormulario.bind(this, this.opcaoCarro.val(), false));
+		this.opcaoMoto.on('change', onAtualizaFormulario.bind(this, this.opcaoMoto.val(), false));
+		this.opcaoPesado.on('change', onAtualizaFormulario.bind(this, this.opcaoPesado.val(), false));
 	}
 	
 	function adicionarActiveTipoVeiculo(){
@@ -249,7 +256,7 @@ Compraki.TipoVeiculo = (function() {
 		}
 	}
 	
-	function onAtualizaFormulario(tipoVeiculo){
+	function onAtualizaFormulario(tipoVeiculo, validacao){
 		var codigo = this.codigoIntencao.val();
 		var cores = new Array();
 		if(this.coresJSON.val()){
@@ -265,6 +272,9 @@ Compraki.TipoVeiculo = (function() {
 				acessorios.push(acessorio.codigo);
 			});				
 		}
+		if(!validacao){
+			retirarValidacaoFormVeiculo.call(this);
+		}		
 		$.ajax({
 			url: "/compraki/intencoes/atualizaFormularioVeiculo",
 			method : 'GET',
@@ -274,7 +284,7 @@ Compraki.TipoVeiculo = (function() {
 			},	
 			error: onError.bind(this),
 			success: onSucessFormulario.bind(this, tipoVeiculo),
-			complete: onAdicionaValidacoesFormulario.bind(this)
+			complete: onAdicionaValidacoesFormulario.bind(this, tipoVeiculo)
 		});			
 	}
 	
@@ -303,7 +313,14 @@ Compraki.TipoVeiculo = (function() {
 		console.log(erro);
 	}
 	
-	function onAdicionaValidacoesFormulario(event){
+	function onAdicionaValidacoesFormulario(tipoVeiculo){
+		if(tipoVeiculo == 'CARRO'){
+			adicionarValidacaoCarro.call(this);
+		} else if(tipoVeiculo == 'MOTO'){
+			adicionarValidacaoMoto.call(this);
+		} else {
+			adicionarValidacaoPesado.call(this);
+		}		
 		/*chamada às combos marca/modelo*/
 		var comboMarca = new Compraki.IntencaoCompraComboMarca();
 		comboMarca.enable();
@@ -314,6 +331,141 @@ Compraki.TipoVeiculo = (function() {
 		var pickList = new Compraki.PickList();
 		pickList.enable();		
 	}
+	
+	function retirarValidacaoFormVeiculo(){
+		this.erroAcessorios.val(false);
+		this.erroMarca.val(false);
+		this.erroModelo.val(false);
+		this.erroCores.val(false);		
+	}	
+	
+	
+	function adicionarValidacaoCarro(){
+		var hasErrors = $('#hasErrors');
+		var divMarca = $('.js-div-marca');
+		var divModelo = $('.js-div-modelo');
+		var divAcessorios = $('.js-div-acessorios');
+		var divCores = $('.js-div-cores');
+		var marca = $('.js-combo-marca');
+		var modelo = $('.js-combo-modelo');
+
+		
+		if(this.erroCores.val() == 'true'){
+			divCores.addClass('has-error');
+		}
+		if(this.erroAcessorios.val() == 'true'){
+			divAcessorios.addClass('has-error');
+		}
+		if(this.erroMarca.val() == 'true'){
+			divMarca.addClass('has-error');
+			marca.val('');
+		} else {
+			if(hasErrors.val() == 'true'){
+				marca.val(this.marcaHelper.val());
+			} else {
+				if(!marca.val()){
+					marca.val('');
+				}
+			}
+		}
+		if(this.erroModelo.val() == 'true'){
+			divModelo.addClass('has-error');
+			modelo.val('');
+		} else {
+			if(hasErrors.val() == 'true'){
+				modelo.val(this.modeloHelper.val());
+			} else {
+				if(!modelo.val()){
+					modelo.val('');
+				}
+			}
+		}
+	}
+	
+	function adicionarValidacaoMoto(){
+		var hasErrors = $('#hasErrors');
+		var divMarca = $('.js-div-marca-moto');
+		var divModelo = $('.js-div-modelo-moto');
+		var divAcessorios = $('.js-div-acessorios-moto');
+		var divCores = $('.js-div-cores-moto');
+		var marca = $('.js-combo-marca-moto');
+		var modelo = $('.js-combo-modelo-moto');
+
+		
+		if(this.erroCores.val() == 'true'){
+			divCores.addClass('has-error');
+		}
+		if(this.erroAcessorios.val() == 'true'){
+			divAcessorios.addClass('has-error');
+		}
+		if(this.erroMarca.val() == 'true'){
+			divMarca.addClass('has-error');
+			marca.val('');
+		} else {
+			if(hasErrors.val() == 'true'){
+				marca.val(this.marcaHelper.val());
+			} else {
+				if(!marca.val()){
+					marca.val('');
+				}
+			}
+		}
+		if(this.erroModelo.val() == 'true'){
+			divModelo.addClass('has-error');
+			modelo.val('');
+		} else {
+			if(hasErrors.val() == 'true'){
+				modelo.val(this.modeloHelper.val());
+			} else {
+				if(!modelo.val()){
+					modelo.val('');
+				}
+			}
+		}
+	}	
+	
+	function adicionarValidacaoPesado(){
+		var hasErrors = $('#hasErrors');
+		var divMarca = $('.js-div-marca-pesado');
+		var divModelo = $('.js-div-modelo-pesado');
+		var divAcessorios = $('.js-div-acessorios-pesado');
+		var divCores = $('.js-div-cores-pesado');
+		var marca = $('.js-combo-marca-pesado');
+		var modelo = $('.js-combo-modelo-pesado');
+
+		
+		if(this.erroCores.val() == 'true'){
+			divCores.addClass('has-error');
+		}
+		if(this.erroAcessorios.val() == 'true'){
+			divAcessorios.addClass('has-error');
+		}
+		if(this.erroMarca.val() == 'true'){
+			divMarca.addClass('has-error');
+			marca.val('');
+		} else {
+			if(hasErrors.val() == 'true'){
+				marca.val(this.marcaHelper.val());
+			} else {
+				if(!marca.val()){
+					marca.val('');
+				}
+			}
+		}
+		if(this.erroModelo.val() == 'true'){
+			divModelo.addClass('has-error');
+			modelo.val('');
+		} else {
+			if(hasErrors.val() == 'true'){
+				modelo.val(this.modeloHelper.val());
+			} else {
+				if(!modelo.val()){
+					modelo.val('');
+				}
+			}
+		}
+	}	
+	
 	
 	return TipoVeiculo;
 }());

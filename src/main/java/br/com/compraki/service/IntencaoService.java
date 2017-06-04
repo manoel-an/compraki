@@ -63,6 +63,19 @@ public class IntencaoService {
 	}
 
 	public void getFieldError(IntencaoCompra intencaoCompra, BindingResult result) {
+		if (result.getFieldError("modelo.fabricante") != null) {
+			intencaoCompra.getIntencaoHelper().setErroMarca(Boolean.TRUE);
+		} else {
+			intencaoCompra.getIntencaoHelper().setErroMarca(Boolean.FALSE);
+			intencaoCompra.getIntencaoHelper().setMarca(intencaoCompra.getModelo().getFabricante().getCodigo());
+		}
+		if (result.getFieldError("modelo") != null) {
+			intencaoCompra.getIntencaoHelper().setErroModelo(Boolean.TRUE);
+		} else {
+			intencaoCompra.getIntencaoHelper().setErroModelo(Boolean.FALSE);
+			intencaoCompra.getIntencaoHelper().setModelo(intencaoCompra.getModelo().getCodigo());
+		}
+
 		if (result.getFieldError("cores") != null) {
 			intencaoCompra.getIntencaoHelper().setErroCores(Boolean.TRUE);
 		} else {

@@ -18,7 +18,7 @@
                 <div class="form-group  col-sm-6  compraki-required js-div-modelo">
                     <label for="modelo" class="control-label">Modelo</label>
                     <input type="hidden" id="inputHiddenModeloSelecionado" th:value="*{modelo} != null ? *{modelo.codigo}"/>
-                    <select id="modelo" class="form-control js-select-search" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
+                    <select id="modelo" class="form-control js-select-search js-combo-modelo" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
                     </select>
                 </div>
             </div>

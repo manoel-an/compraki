@@ -6,7 +6,7 @@
         <div id="targetContentTipoVeiculoMoto">
             <h2>Modelo do Carro</h2> 
             <div class="row">
-                <div class="form-group  col-sm-6  compraki-required js-div-marca">
+                <div class="form-group  col-sm-6  compraki-required js-div-marca-moto">
                     <label for="marca" class="control-label">Marca</label>
                     <div class="bw-field-action">
                        <select id="marca" class="form-control js-select-search js-combo-marca" th:field="*{modelo.fabricante}">
@@ -15,7 +15,7 @@
                        </select>
                     </div>
                 </div>                
-                <div class="form-group  col-sm-6  compraki-required js-div-modelo">
+                <div class="form-group  col-sm-6  compraki-required js-div-modelo-moto">
                     <label for="modelo" class="control-label">Modelo</label>
                     <input type="hidden" id="inputHiddenModeloSelecionado" th:value="*{modelo} != null ? *{modelo.codigo}"/>
                     <select id="modelo" class="form-control js-select-search" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
@@ -24,7 +24,7 @@
             </div>
             <h2>Cores</h2> 
             <div class="row">
-                <div class="form-group  col-sm-12 js-div-cores">
+                <div class="form-group  col-sm-12 js-div-cores-moto">
                     <select id="selectCores" multiple="multiple" name="js-duallistbox">
                        <option th:each="cor : ${cores}" th:text="${cor.descricao}" 
                         th:value="|${cor.codigo}-${cor.descricao}|" th:selected="${cor.selected ? true : false}"></option>
@@ -33,7 +33,7 @@
             </div>            
             <h2>Acessórios</h2> 
             <div class="row">
-                <div class="form-group  col-sm-12 js-div-acessorios">
+                <div class="form-group  col-sm-12 js-div-acessorios-moto">
                     <select id="selectAcessorios" multiple="multiple" name="js-duallistbox">
                        <option th:each="acessorio : ${acessorios}" th:text="${acessorio.descricao}" 
                         th:value="|${acessorio.codigo}-${acessorio.descricao}|" th:selected="${acessorio.selected ? true : false}"></option>

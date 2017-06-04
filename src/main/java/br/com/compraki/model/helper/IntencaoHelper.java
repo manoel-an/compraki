@@ -16,6 +16,14 @@ public class IntencaoHelper {
 
 	private TipoVeiculo tipoVeiculo;
 
+	private Boolean erroMarca;
+
+	private Long marca;
+
+	private Boolean erroModelo;
+
+	private Long modelo;
+
 	private Boolean erroCores;
 
 	private String cores;
@@ -51,6 +59,38 @@ public class IntencaoHelper {
 
 	public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
 		this.tipoVeiculo = tipoVeiculo;
+	}
+
+	public Boolean getErroMarca() {
+		return erroMarca;
+	}
+
+	public void setErroMarca(Boolean erroMarca) {
+		this.erroMarca = erroMarca;
+	}
+
+	public Long getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Long marca) {
+		this.marca = marca;
+	}
+
+	public Boolean getErroModelo() {
+		return erroModelo;
+	}
+
+	public void setErroModelo(Boolean erroModelo) {
+		this.erroModelo = erroModelo;
+	}
+
+	public Long getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(Long modelo) {
+		this.modelo = modelo;
 	}
 
 	public Boolean getErroCores() {

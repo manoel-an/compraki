@@ -85,7 +85,6 @@ Compraki.CadastroCarro = (function() {
 		this.erroModelo.val(false);
 		this.erroCategoria.val(false);
 		this.erroCor.val(false);		
-			
 	}	
 	
 	function adicionarValidacaoCarro(){
