@@ -52,7 +52,8 @@
                 </div>
                 <div class="form-group col-sm-4">
                     <label class="control-label" for="tipo">Tipo:</label>
-                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}" >
+                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}">
+                    	<option value="" selected>Selecione uma opção</option>
                         <option th:each="tipoVeiculo : ${tipoVeiculos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
                     </select>
                 </div>                            

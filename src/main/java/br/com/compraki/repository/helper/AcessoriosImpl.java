@@ -21,39 +21,42 @@ import br.com.compraki.repository.paginacao.PaginacaoUtil;
 
 public class AcessoriosImpl implements AcessoriosQueries {
 
-    @PersistenceContext
-    private EntityManager manager;
+	@PersistenceContext
+	private EntityManager manager;
 
-    @Autowired
-    private PaginacaoUtil paginacaoUtil;
+	@Autowired
+	private PaginacaoUtil paginacaoUtil;
 
-    @SuppressWarnings("unchecked")
-    @Override
-    @Transactional(readOnly = true)
-    public Page<Acessorio> filtrar(AcessorioFilter filtro, Pageable pageable) {
-        Criteria criteria = manager.unwrap(Session.class).createCriteria(Acessorio.class);
-        adicionarFiltros(filtro, criteria);
-        paginacaoUtil.preparar(criteria, pageable);
-        return new PageImpl<>(criteria.list(), pageable, total(filtro));
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional(readOnly = true)
+	public Page<Acessorio> filtrar(AcessorioFilter filtro, Pageable pageable) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Acessorio.class);
+		adicionarFiltros(filtro, criteria);
+		paginacaoUtil.preparar(criteria, pageable);
+		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+	}
 
-    @Override
-    public Long total(AcessorioFilter filtro) {
-        Criteria criteria = manager.unwrap(Session.class).createCriteria(Acessorio.class);
-        criteria.setProjection(Projections.rowCount());
-        return (Long) criteria.uniqueResult();
-    }
+	@Override
+	public Long total(AcessorioFilter filtro) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Acessorio.class);
+		if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
+			criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
+		}
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
+	}
 
-    @Override
-    public void adicionarFiltros(AcessorioFilter filtro, Criteria criteria) {
-        if (!StringUtils.isEmpty(filtro.getCodigo())) {
-            criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
-        }
-        if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
-            criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
-        }
-        if (!StringUtils.isEmpty(filtro.getAcessorio())) {
-            criteria.add(Restrictions.ilike("descricao", filtro.getAcessorio(), MatchMode.ANYWHERE));
-        }
-    }
+	@Override
+	public void adicionarFiltros(AcessorioFilter filtro, Criteria criteria) {
+		if (!StringUtils.isEmpty(filtro.getCodigo())) {
+			criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
+		}
+		if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
+			criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
+		}
+		if (!StringUtils.isEmpty(filtro.getAcessorio())) {
+			criteria.add(Restrictions.ilike("descricao", filtro.getAcessorio(), MatchMode.ANYWHERE));
+		}
+	}
 }
