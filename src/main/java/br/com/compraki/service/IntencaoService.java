@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.compraki.enuns.TipoVeiculo;
@@ -59,6 +60,24 @@ public class IntencaoService {
 		modelAndView.addObject("acessorios", getSelectedAcessorrios(intencaoCompra));
 		modelAndView.addObject("cores", getSelectedCores(intencaoCompra));
 		return modelAndView;
+	}
+
+	public void getFieldError(IntencaoCompra intencaoCompra, BindingResult result) {
+		if (result.getFieldError("cores") != null) {
+			intencaoCompra.getIntencaoHelper().setErroCores(Boolean.TRUE);
+		} else {
+			intencaoCompra.getIntencaoHelper().setErroCores(Boolean.FALSE);
+			intencaoCompra.getIntencaoHelper()
+					.setCores(intencaoCompra.getIntencaoHelper().getCoresJSON(intencaoCompra.getCores()));
+		}
+		if (result.getFieldError("acessorios") != null) {
+			intencaoCompra.getIntencaoHelper().setErroAcessorios(Boolean.TRUE);
+		} else {
+			intencaoCompra.getIntencaoHelper().setErroAcessorios(Boolean.FALSE);
+			intencaoCompra.getIntencaoHelper().setAcessorios(
+					intencaoCompra.getIntencaoHelper().getAcessoriosJSON(intencaoCompra.getAcessorios()));
+		}
+		intencaoCompra.getIntencaoHelper().setTipoVeiculo(intencaoCompra.getTipoVeiculo());
 	}
 
 	@Transactional

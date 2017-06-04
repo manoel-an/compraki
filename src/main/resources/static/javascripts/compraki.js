@@ -65,7 +65,7 @@ Compraki.PickList = (function() {
 	}
 	
 	PickList.prototype.enable = function() {
-		return this.selectPickList.bootstrapDualListbox({
+		this.selectPickList.bootstrapDualListbox({
 			  nonSelectedListLabel: 'Disponíveis',
 			  selectedListLabel: 'Itens Selecionados',
 			  preserveSelectionOnMove: 'moved',

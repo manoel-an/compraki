@@ -174,6 +174,7 @@ Compraki.IntencaoCompraComboCidade = (function() {
 Compraki.SalvarIntencaoCompra = (function() {
 	
 	function SalvarIntencaoCompra() {
+		this.selectAcessoriosHidden = $('#acessoriosEscolhidos');
 		this.selectCoresHidden = $('#coresEscolhidas');
 		this.botaoSalvarIntencao = $('.js-btn-salvar-intencao');
 		this.formIntencaoCompra = $('#formIntencao');
@@ -185,8 +186,7 @@ Compraki.SalvarIntencaoCompra = (function() {
 	
 	function onSalvarIntencao(event){
 		event.preventDefault();
-		var pickList = new Compraki.PickList();
-		var pickListCores = pickList.enable();
+		var pickListCores = $('#selectCores').bootstrapDualListbox();
 		var options = [];
 		if(pickListCores.val() != null){
 			pickListCores.val().forEach(function(cor) {
@@ -195,6 +195,15 @@ Compraki.SalvarIntencaoCompra = (function() {
 			});	
 			this.selectCoresHidden.html(options.join(''));
 		}
+		var pickListAcessorios = $('#selectAcessorios').bootstrapDualListbox();
+		options = [];
+		if(pickListAcessorios.val() != null){
+			pickListAcessorios.val().forEach(function(acessorio) {
+				var res = acessorio.split("-");
+				options.push('<option id="cor'+ res[0] +'" value="' + res[0]+ '" selected="selected">' + res[1] + '</option>');
+			});	
+			this.selectAcessoriosHidden.html(options.join(''));
+		}		
 		this.formIntencaoCompra.submit();		
 	}
 	
@@ -205,8 +214,11 @@ Compraki.SalvarIntencaoCompra = (function() {
 Compraki.TipoVeiculo = (function() {
 	
 	function TipoVeiculo() {
+		this.labelCarro = $('#tipoCARRO');
 		this.opcaoCarro = $('#inputVeiculoCARRO');
+		this.labelMoto = $('#tipoMOTO');
 		this.opcaoMoto = $('#inputVeiculoMOTO');
+		this.labelPesado = $('#tipoPESADO');
 		this.opcaoPesado = $('#inputVeiculoPESADO');
 		this.codigoIntencao = $('#idHidden');
 		this.divDadosCarro = $('#divDadosCarro');
@@ -214,15 +226,27 @@ Compraki.TipoVeiculo = (function() {
 		this.divDadosPesado = $('#divDadosPesado');
 		this.acessoriosJSON = $('#acessoriosJSON');
 		this.coresJSON = $('#coresJSON');
+		this.tipoVeiculoHelper = $('#tipoVeiculoHelper');
 	}
 	
 	TipoVeiculo.prototype.enable = function(event) {
-		if(this.opcaoCarro.val()){
-			onAtualizaFormulario.call(this, this.opcaoCarro.val());
+		if(this.tipoVeiculoHelper.val()){
+			adicionarActiveTipoVeiculo.call(this);
+			onAtualizaFormulario.call(this, this.tipoVeiculoHelper.val());
 		}
 		this.opcaoCarro.on('change', onAtualizaFormulario.bind(this, this.opcaoCarro.val()));
 		this.opcaoMoto.on('change', onAtualizaFormulario.bind(this, this.opcaoMoto.val()));
 		this.opcaoPesado.on('change', onAtualizaFormulario.bind(this, this.opcaoPesado.val()));
+	}
+	
+	function adicionarActiveTipoVeiculo(){
+		if(this.tipoVeiculoHelper.val() == 'CARRO'){
+			this.labelCarro.addClass('active');
+		} else if(this.tipoVeiculoHelper.val() == 'MOTO'){
+			this.labelMoto.addClass('active');
+		} else {
+			this.labelPesado.addClass('active');
+		}
 	}
 	
 	function onAtualizaFormulario(tipoVeiculo){

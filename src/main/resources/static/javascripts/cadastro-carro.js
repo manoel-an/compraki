@@ -304,8 +304,7 @@ Compraki.CadastroCarro = (function() {
 	
 	function onSalvarCarro(event){
 		event.preventDefault();
-		var pickList = new Compraki.PickList();
-		var pickListAcessorios = pickList.enable();
+		var pickListAcessorios = $('#selectAcessorios').bootstrapDualListbox();
 		var options = [];
 		if(pickListAcessorios.val() != null){
 			pickListAcessorios.val().forEach(function(acessorio) {

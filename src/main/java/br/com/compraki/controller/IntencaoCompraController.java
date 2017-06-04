@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -70,7 +71,9 @@ public class IntencaoCompraController {
 		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
 		validator.validate(intencaoCompra, result);
 		if (result.hasErrors()) {
-			this.novo(user, intencaoCompra);
+			this.intencaoService.getFieldError(intencaoCompra, result);
+			intencaoCompra.getIntencaoHelper().setHasErrors(Boolean.TRUE);
+			return this.novo(user, intencaoCompra);
 		}
 		try {
 
@@ -80,8 +83,7 @@ public class IntencaoCompraController {
 			return new ModelAndView("redirect:/intencoes/novo");
 
 		} catch (NegocioException e) {
-			// result.addError(new ObjectError("IntencaoCompra",
-			// e.getMessage()));
+			result.addError(new ObjectError("IntencaoCompra", e.getMessage()));
 			return novo(user, intencaoCompra);
 		}
 	}

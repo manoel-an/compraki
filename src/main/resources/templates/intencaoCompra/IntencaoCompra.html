@@ -32,9 +32,13 @@
    	<div class="container-fluid">
 	    <form id="formIntencao" method="post" th:action="@{/intencoes/novo}" th:object="${intencaoCompra}">
 	    <input id="idHidden" type="hidden" th:field="*{codigo}"/>
-	    <input id="acessoriosJSON" type="hidden"> 
-	    <input id="coresJSON" type="hidden"> 
-	    <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple></select>
+	    <input id="hasErrors" type="hidden" th:field="*{intencaoHelper.hasErrors}"> 
+	    <input id="tipoVeiculoHelper" type="hidden" th:field="*{intencaoHelper.tipoVeiculo}">
+        <input id="erroAcessorios" type="hidden" th:field="*{intencaoHelper.erroAcessorios}"> 
+        <input id="acessoriosJSON" type="hidden" th:field="*{intencaoHelper.acessorios}"> 
+        <input id="erroCores" type="hidden" th:field="*{intencaoHelper.erroCores}"> 
+        <input id="coresJSON" type="hidden" th:field="*{intencaoHelper.cores}">         	    
+	    <select id="acessoriosEscolhidos" class="hidden"  th:field="*{acessorios}" multiple></select>
 	    <select id="coresEscolhidas" class="hidden" th:field="*{cores}" multiple></select>
 	    <compraki:message/>
         <h2>Tipo Veículo</h2>
@@ -45,7 +49,7 @@
                      <div class="input-group-addon">Tipo</div>
                      <div class="btn-group" data-toggle="buttons">
                        <th:block th:each="tipo : ${tipos}">
-                          <label th:id="|tipo${tipo}|" class="btn btn-primary" th:classappend="${tipo.descricao eq 'Carros' ? 'active' : ''}">
+                          <label th:id="|tipo${tipo}|" class="btn btn-primary">
                             <input th:id="|inputVeiculo${tipo}|" type="radio" autocomplete="off" th:text="${tipo.descricao}" th:value="${tipo}" 
                                 th:field="*{tipoVeiculo}"> 
                           </label>                                                          
