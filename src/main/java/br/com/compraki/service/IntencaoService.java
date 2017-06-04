@@ -200,4 +200,8 @@ public class IntencaoService {
 		return cores;
 	}
 
+	public IntencaoCompras getIntencaoCompras() {
+		return intencaoCompras;
+	}
+
 }// fim
