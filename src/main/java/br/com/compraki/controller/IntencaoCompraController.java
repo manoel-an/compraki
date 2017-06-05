@@ -8,16 +8,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -73,17 +71,9 @@ public class IntencaoCompraController {
     @Autowired
     private Cores cores;
 
-    @InitBinder
-    private void customizeBinding(WebDataBinder binder) {
-        NumberStyleFormatter numberFormatter = new NumberStyleFormatter();
-        numberFormatter.setPattern("#,##0.00");
-        binder.addCustomFormatter(numberFormatter, "valorInicial");
-        binder.addCustomFormatter(numberFormatter, "valorFinal");
-    }
-
     @GetMapping("/novo")
-    public ModelAndView novo(@AuthenticationPrincipal User user, IntencaoCompra intencaoCompra) {
-        ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra, user);
+    public ModelAndView novo(IntencaoCompra intencaoCompra) {
+        ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra);
         return mv;
     }
 
@@ -95,7 +85,7 @@ public class IntencaoCompraController {
         if (result.hasErrors()) {
             this.intencaoService.getFieldError(intencaoCompra, result);
             intencaoCompra.getIntencaoHelper().setHasErrors(Boolean.TRUE);
-            return this.novo(user, intencaoCompra);
+            return this.novo(intencaoCompra);
         }
         try {
 
@@ -106,7 +96,7 @@ public class IntencaoCompraController {
 
         } catch (NegocioException e) {
             result.addError(new ObjectError("IntencaoCompra", e.getMessage()));
-            return novo(user, intencaoCompra);
+            return novo(intencaoCompra);
         }
     }
 
@@ -131,6 +121,14 @@ public class IntencaoCompraController {
         return modelAndView;
     }
 
+    @GetMapping("/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra) {
+        ModelAndView modelAndView = this.novo(intencaoCompra);
+        intencaoCompra.getIntencaoHelper().setTipoVeiculo(intencaoCompra.getTipoVeiculo());
+        modelAndView.addObject("intencaoCompra", intencaoCompra);
+        return modelAndView;
+    }
+
     @GetMapping
     public ModelAndView pesquisar(@AuthenticationPrincipal User user, IntencaoFilter intencaoFilter,
             BindingResult result, @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
@@ -143,12 +141,13 @@ public class IntencaoCompraController {
         mv.addObject("cores", this.cores.findAll());
         mv.addObject("acessorios", this.acessorios.findAll());
         mv.addObject("tiposCombustivel", TipoCombustivel.values());
-        mv.addObject("potencias", PotenciaVeiculo.values());        
+        mv.addObject("ufs", UF.values());
+        mv.addObject("potencias", PotenciaVeiculo.values());
         mv.addObject("pagina", paginaWrapper);
         return mv;
     }
 
-    private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra, User user) {
+    private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra) {
         ModelAndView modelAndView = new ModelAndView(IT_VIEW);
         modelAndView.addObject("fabricantes", this.fabricantes.findAll());
         modelAndView.addObject("cidades", this.cidades.findAll());

@@ -82,14 +82,36 @@
              </div>	                          
 	       </div>        
             <div class="row">
-                <div class="form-group  col-sm-6">
+	            <div class="col-sm-3  form-group">
+	                <label for="uf" class="control-label">Estado de preferência</label>
+	                <div class="input-group">
+	                    <div class="input-group-addon">Estado</div>
+	                    <div>
+	                        <select id="uf" class="form-control js-select-search" th:field="*{uf}">
+	                            <option value=""></option>
+	                            <option th:each="uf : ${ufs}" th:text="${uf.nome}+' ('+${uf.sigla} + ')'" th:value="${uf.sigla}"></option>
+	                        </select>
+	                    </div>                       
+	                </div>
+	            </div>  
+	            <div class="col-sm-3  form-group">
+	                <label for="cidade" class="control-label">Cidade de preferência</label>
+	                <div class="input-group">
+	                    <div class="input-group-addon">Cidade</div>
+	                    <div>
+	                        <select id="cidade" class="form-control js-select-search" data:url="@{/intencoes/buscarCidades}" th:field="*{cidadePreferencia}">                       
+	                        </select>
+	                    </div>                       
+	                </div>
+	            </div>              
+                <div class="form-group  col-sm-3">
                    <label for="marca" class="control-label">Marca</label>
                    <select id="marca" class="form-control js-select-search" th:field="*{fabricante}">
                        <option value=""></option>
                        <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                    </select>                
                 </div>            
-                <div class="form-group  col-sm-6">
+                <div class="form-group  col-sm-3">
                     <label class="control-label" for="cnpj">Modelo</label>
                     <select id="modelo" class="form-control js-select-search js-combo-modelo" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
                     </select>

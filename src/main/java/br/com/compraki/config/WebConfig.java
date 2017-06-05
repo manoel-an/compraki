@@ -37,6 +37,7 @@ import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDiale
 
 import br.com.compraki.controller.SegurancaController;
 import br.com.compraki.converter.CarroConverter;
+import br.com.compraki.converter.IntencaoCompraConverter;
 import br.com.compraki.storage.local.FotoStorageLocal;
 import br.com.compraki.thymeleaf.CompraAKIDialect;
 import br.com.compraki.validator.PessoaValidator;
@@ -95,6 +96,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     public FormattingConversionService mvcConversionService() {
         DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
         conversionService.addConverter(getCarroConverter());
+        conversionService.addConverter(getIntencaoCompraConverter());
 
         NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
         conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
@@ -137,6 +139,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Bean
     public CarroConverter getCarroConverter() {
         return new CarroConverter();
+    }
+
+    @Bean
+    public IntencaoCompraConverter getIntencaoCompraConverter() {
+        return new IntencaoCompraConverter();
     }
 
 }

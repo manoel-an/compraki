@@ -83,9 +83,98 @@ Compraki.IntencaoCompraComboModelo = (function() {
 	return IntencaoCompraComboModelo;
 }());
 
+Compraki.IntencaoCompraComboUf = (function() {
+	
+	function IntencaoCompraComboUf() {
+		this.comboUf = $('#uf');
+		this.emitter = $({});
+		this.on = this.emitter.on.bind(this.emitter);
+	}
+	
+	IntencaoCompraComboUf.prototype.enable = function(event) {
+		this.comboUf.on('change', onUfAlterado.bind(this));
+	}
+	
+	function onUfAlterado(){
+		this.emitter.trigger('alterada', this.comboUf.val());
+	}
+	
+	return IntencaoCompraComboUf;
+}());
+
+Compraki.IntencaoCompraComboCidade = (function() {
+	
+	function IntencaoCompraComboCidade(comboUf) {
+		this.comboUf = comboUf;
+		this.comboCidade = $('#cidade');
+		this.inputHiddenCidadeSelecionada = $('#inputHiddenCidadeSelecionada');
+	}
+	
+	IntencaoCompraComboCidade.prototype.enable = function(event) {
+		limparComboCidade.call(this);
+		this.comboUf.on('alterada', onUfAlterado.bind(this));	
+		var siglaUf = this.comboUf.comboUf.val();
+		inicializarCidades.call(this, siglaUf);
+	}
+	
+	function onUfAlterado(evento, siglaUf) {
+		this.inputHiddenCidadeSelecionada.val('');
+		inicializarCidades.call(this, siglaUf);
+	}	
+	
+	function inicializarCidades(siglaUf) {
+		if (siglaUf) {
+			var resposta = $.ajax({
+				url: this.comboCidade.data('url'),
+				method: 'GET',
+				contentType: 'application/json',
+				data: { 'uf': siglaUf },
+				complete: onEstilizaComboCidade.bind(this),
+			});
+			resposta.done(onBuscarCidades.bind(this));
+		} else {
+			limparComboCidade.call(this);
+		}
+	}
+	
+	function onEstilizaComboCidade(event){
+		var selectSearch = new Compraki.SelectSearch();
+		selectSearch.enable();
+	}
+	
+	function onBuscarCidades(cidades) {
+		var options = [];
+		cidades.forEach(function(cidade) {
+			options.push('<option value="' + cidade.codigo + '">' + cidade.nome + '</option>');
+		});
+		
+		this.comboCidade.html(options.join(''));
+		this.comboCidade.removeAttr('disabled');
+		
+		var codigoCidadeSelecionada = this.inputHiddenCidadeSelecionada.val();
+		if (codigoCidadeSelecionada) {
+			this.comboCidade.val(codigoCidadeSelecionada);
+		}
+	}	
+	
+	function limparComboCidade() {
+		this.comboCidade.attr('disabled', 'disabled');
+	}	
+	
+	
+	return IntencaoCompraComboCidade;
+}());
+
 $(function() {
 	var comboMarca = new Compraki.IntencaoCompraComboMarca();
 	comboMarca.enable();
+	
 	var intencaoCompraComboModelo = new Compraki.IntencaoCompraComboModelo(comboMarca);
-	intencaoCompraComboModelo.enable();		;
+	intencaoCompraComboModelo.enable();		
+	
+	var comboUf = new Compraki.IntencaoCompraComboUf();
+	comboUf.enable();
+	
+	var intencaoCompraComboCidade = new Compraki.IntencaoCompraComboCidade(comboUf);
+	intencaoCompraComboCidade.enable();		
 });

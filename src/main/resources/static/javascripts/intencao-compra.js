@@ -72,7 +72,7 @@ Compraki.IntencaoCompraComboModelo = (function() {
 		
 		var codigoModeloSelecionado = this.inputHiddenModeloSelecionado.val();
 		if (codigoModeloSelecionado) {
-			this.comboMarca.val(codigoModeloSelecionado);
+			this.comboModelo.val(codigoModeloSelecionado);
 		}
 	}	
 	
@@ -156,7 +156,7 @@ Compraki.IntencaoCompraComboCidade = (function() {
 		
 		var codigoCidadeSelecionada = this.inputHiddenCidadeSelecionada.val();
 		if (codigoCidadeSelecionada) {
-			this.comboUf.val(codigoCidadeSelecionada);
+			this.comboCidade.val(codigoCidadeSelecionada);
 		}
 	}	
 	

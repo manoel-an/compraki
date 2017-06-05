@@ -82,6 +82,11 @@ public class IntencaoComprasImpl implements IntencoesQueries {
         if (!StringUtils.isEmpty(filtro.getCodigo())) {
             criteria.add(Restrictions.eq("codigo", filtro.getCodigo()));
         }
+
+        if (!StringUtils.isEmpty(filtro.getCidadePreferencia())) {
+            criteria.add(Restrictions.eq("cidadePreferencia", filtro.getCidadePreferencia().getCodigo().toString()));
+        }
+
         if (!StringUtils.isEmpty(filtro.getModelo())) {
             criteria.add(Restrictions.eq("modelo", filtro.getModelo()));
         }
@@ -127,4 +132,15 @@ public class IntencaoComprasImpl implements IntencoesQueries {
         Hibernate.initialize(intencaoCompra.getCores());
         return intencaoCompra;
     }
+
+    @Transactional(readOnly = true)
+    public IntencaoCompra getIntencaoCompraComCoresEAcessorios(Long codigo) {
+        Criteria criteria = manager.unwrap(Session.class).createCriteria(IntencaoCompra.class);
+        criteria.add(Restrictions.eq("codigo", codigo));
+        IntencaoCompra intencaoCompra = (IntencaoCompra) criteria.uniqueResult();
+        Hibernate.initialize(intencaoCompra.getAcessorios());
+        Hibernate.initialize(intencaoCompra.getCores());
+        return intencaoCompra;
+    }
+
 }

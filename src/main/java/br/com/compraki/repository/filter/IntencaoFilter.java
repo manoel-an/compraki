@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.compraki.enuns.PotenciaVeiculo;
 import br.com.compraki.enuns.TipoCombustivel;
 import br.com.compraki.enuns.TipoVeiculo;
+import br.com.compraki.model.Cidade;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.carro.Acessorio;
 import br.com.compraki.model.carro.Fabricante;
@@ -22,6 +23,10 @@ public class IntencaoFilter {
     private PotenciaVeiculo potencia;
 
     private TipoCombustivel combustivel;
+
+    private String uf;
+
+    private Cidade cidadePreferencia;
 
     private ModeloCarro modelo;
 
@@ -75,6 +80,22 @@ public class IntencaoFilter {
 
     public void setCombustivel(TipoCombustivel combustivel) {
         this.combustivel = combustivel;
+    }
+
+    public String getUf() {
+        return uf;
+    }
+
+    public void setUf(String uf) {
+        this.uf = uf;
+    }
+
+    public Cidade getCidadePreferencia() {
+        return cidadePreferencia;
+    }
+
+    public void setCidadePreferencia(Cidade cidadePreferencia) {
+        this.cidadePreferencia = cidadePreferencia;
     }
 
     public void setModelo(ModeloCarro modelo) {
