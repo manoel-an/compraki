@@ -9,7 +9,7 @@
                 <div class="form-group  col-sm-6  compraki-required js-div-marca-pesado">
                     <label for="marca" class="control-label">Marca</label>
                     <div class="bw-field-action">
-                       <select id="marca" class="form-control js-select-search js-combo-marca" th:field="*{modelo.fabricante}">
+                       <select id="marca" class="form-control js-select-search js-combo-marca-pesado" th:field="*{modelo.fabricante}">
                            <option value=""></option>
                            <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                        </select>
@@ -18,7 +18,7 @@
                 <div class="form-group  col-sm-6  compraki-required js-div-modelo-pesado">
                     <label for="modelo" class="control-label">Modelo</label>
                     <input type="hidden" id="inputHiddenModeloSelecionado" th:value="*{modelo} != null ? *{modelo.codigo}"/>
-                    <select id="modelo" class="form-control js-select-search" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
+                    <select id="modelo" class="form-control js-select-search js-combo-modelo-pesado" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
                     </select>
                 </div>
             </div>
