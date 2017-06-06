@@ -5,7 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import br.com.compraki.model.carro.Carro;
+import br.com.compraki.model.veiculo.Carro;
 
 @Component
 public class CarroValidator implements Validator {

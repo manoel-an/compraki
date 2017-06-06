@@ -8,9 +8,9 @@ import br.com.compraki.enuns.TipoCombustivel;
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cidade;
 import br.com.compraki.model.Cor;
-import br.com.compraki.model.carro.Acessorio;
-import br.com.compraki.model.carro.Fabricante;
-import br.com.compraki.model.carro.ModeloCarro;
+import br.com.compraki.model.veiculo.Acessorio;
+import br.com.compraki.model.veiculo.Fabricante;
+import br.com.compraki.model.veiculo.ModeloVeiculo;
 
 public class IntencaoFilter {
 
@@ -28,7 +28,7 @@ public class IntencaoFilter {
 
     private Cidade cidadePreferencia;
 
-    private ModeloCarro modelo;
+    private ModeloVeiculo modelo;
 
     private Fabricante fabricante;
 
@@ -46,7 +46,7 @@ public class IntencaoFilter {
         this.codigo = codigo;
     }
 
-    public ModeloCarro getModelo() {
+    public ModeloVeiculo getModelo() {
         return modelo;
     }
 
@@ -98,7 +98,7 @@ public class IntencaoFilter {
         this.cidadePreferencia = cidadePreferencia;
     }
 
-    public void setModelo(ModeloCarro modelo) {
+    public void setModelo(ModeloVeiculo modelo) {
         this.modelo = modelo;
     }
 

@@ -25,8 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.compraki.enuns.TipoVeiculo;
-import br.com.compraki.model.carro.Carro;
-import br.com.compraki.model.carro.Fabricante;
+import br.com.compraki.model.veiculo.Carro;
+import br.com.compraki.model.veiculo.Fabricante;
 import br.com.compraki.repository.filter.CarroFilter;
 import br.com.compraki.repository.paginacao.PageWrapper;
 import br.com.compraki.security.UsuarioSistema;

@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.Usuario;
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 import br.com.compraki.repository.filter.IntencaoFilter;
 import br.com.compraki.repository.paginacao.PaginacaoUtil;
 

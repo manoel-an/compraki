@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import br.com.compraki.model.Usuario;
-import br.com.compraki.model.carro.Carro;
+import br.com.compraki.model.veiculo.Carro;
 import br.com.compraki.repository.filter.CarroFilter;
 import br.com.compraki.repository.paginacao.PaginacaoUtil;
 

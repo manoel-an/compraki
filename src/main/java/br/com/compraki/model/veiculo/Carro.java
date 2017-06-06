@@ -1,4 +1,4 @@
-package br.com.compraki.model.carro;
+package br.com.compraki.model.veiculo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,7 +35,7 @@ public class Carro {
     private Cor cor;
     private Boolean ipvaPago;
     private String descricao;
-    private ModeloCarro modelo;
+    private ModeloVeiculo modelo;
     private List<Acessorio> acessorios;
     private String foto;
     @Column(name = "content_type")
@@ -87,11 +87,11 @@ public class Carro {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "codigo_modelo")
-    public ModeloCarro getModelo() {
+    public ModeloVeiculo getModelo() {
         return modelo;
     }
 
-    public void setModelo(ModeloCarro modelo) {
+    public void setModelo(ModeloVeiculo modelo) {
         this.modelo = modelo;
     }
 

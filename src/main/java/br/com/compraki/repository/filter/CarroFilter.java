@@ -2,7 +2,7 @@ package br.com.compraki.repository.filter;
 
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
-import br.com.compraki.model.carro.Fabricante;
+import br.com.compraki.model.veiculo.Fabricante;
 
 public class CarroFilter {
 

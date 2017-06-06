@@ -1,4 +1,4 @@
-package br.com.compraki.model.carro;
+package br.com.compraki.model.veiculo;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

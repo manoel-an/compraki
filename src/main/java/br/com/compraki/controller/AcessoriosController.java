@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.compraki.enuns.TipoVeiculo;
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 import br.com.compraki.repository.filter.AcessorioFilter;
 import br.com.compraki.repository.paginacao.PageWrapper;
 import br.com.compraki.service.AcessorioService;

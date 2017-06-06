@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 
 public class CarroHelper {
 

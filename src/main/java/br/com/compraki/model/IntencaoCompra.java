@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -27,10 +28,11 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.com.compraki.enuns.StatusIntencao;
 import br.com.compraki.enuns.TipoVeiculo;
-import br.com.compraki.model.carro.Acessorio;
-import br.com.compraki.model.carro.ModeloCarro;
 import br.com.compraki.model.helper.IntencaoHelper;
+import br.com.compraki.model.veiculo.Acessorio;
+import br.com.compraki.model.veiculo.ModeloVeiculo;
 
 @Entity
 @Table(name = "intencao_de_compra")
@@ -77,12 +79,19 @@ public class IntencaoCompra {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "codigo_modelo")
-    private ModeloCarro modelo;
+    private ModeloVeiculo modelo;
 
     // @NotBlank(message="Ops! Esqueceu o tipo de veculo")
     @Column(name = "tipo_de_veiculo")
     @Enumerated(EnumType.STRING)
     private TipoVeiculo tipoVeiculo;
+    
+    @Column(name = "status_de_intencao")
+    @Enumerated(EnumType.STRING)
+    private StatusIntencao statusIntencao; 
+    
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Interacao proposta;
 
     @Transient
     private IntencaoHelper intencaoHelper;
@@ -202,11 +211,11 @@ public class IntencaoCompra {
         this.cidadePreferencia = cidadePreferencia;
     }
 
-    public ModeloCarro getModelo() {
+    public ModeloVeiculo getModelo() {
         return modelo;
     }
 
-    public void setModelo(ModeloCarro modelo) {
+    public void setModelo(ModeloVeiculo modelo) {
         this.modelo = modelo;
     }
 
@@ -220,8 +229,27 @@ public class IntencaoCompra {
     public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
         this.tipoVeiculo = tipoVeiculo;
     }
+    
+    
+    public StatusIntencao getStatusIntencao() {
+		return statusIntencao;
+	}
 
-    public IntencaoHelper getIntencaoHelper() {
+	public void setStatusIntencao(StatusIntencao statusIntencao) {
+		this.statusIntencao = statusIntencao;
+	}
+	
+	
+
+	public Interacao getProposta() {
+		return proposta;
+	}
+
+	public void setProposta(Interacao proposta) {
+		this.proposta = proposta;
+	}
+
+	public IntencaoHelper getIntencaoHelper() {
         if (intencaoHelper == null) {
             intencaoHelper = new IntencaoHelper();
         }

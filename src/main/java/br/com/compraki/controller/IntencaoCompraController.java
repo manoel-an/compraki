@@ -29,12 +29,12 @@ import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.enuns.UF;
 import br.com.compraki.model.Cidade;
 import br.com.compraki.model.IntencaoCompra;
-import br.com.compraki.model.carro.ModeloCarro;
+import br.com.compraki.model.veiculo.ModeloVeiculo;
 import br.com.compraki.repository.Acessorios;
 import br.com.compraki.repository.Cidades;
 import br.com.compraki.repository.Cores;
 import br.com.compraki.repository.Fabricantes;
-import br.com.compraki.repository.ModelosCarros;
+import br.com.compraki.repository.ModelosVeiculos;
 import br.com.compraki.repository.filter.IntencaoFilter;
 import br.com.compraki.repository.paginacao.PageWrapper;
 import br.com.compraki.security.UsuarioSistema;
@@ -57,7 +57,7 @@ public class IntencaoCompraController {
     private Cidades cidades;
 
     @Autowired
-    private ModelosCarros modelosCarros;
+    private ModelosVeiculos modelosVeiculos;
 
     @Autowired
     private IntencaoValidator validator;
@@ -101,9 +101,9 @@ public class IntencaoCompraController {
     }
 
     @RequestMapping(value = "buscarModelos", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<ModeloCarro> pesquisarPorCodigoFabricante(
+    public @ResponseBody List<ModeloVeiculo> pesquisarPorCodigoFabricante(
             @RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
-        return this.modelosCarros.findByFabricanteCodigo(codigoMarca);
+        return this.modelosVeiculos.findByFabricanteCodigo(codigoMarca);
     }
 
     @RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)

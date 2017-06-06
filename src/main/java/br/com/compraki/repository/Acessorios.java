@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.compraki.enuns.TipoVeiculo;
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 import br.com.compraki.repository.helper.AcessoriosQueries;
 
 public interface Acessorios extends JpaRepository<Acessorio, Long>, AcessoriosQueries {

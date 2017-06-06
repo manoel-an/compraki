@@ -13,13 +13,13 @@ import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.Usuario;
-import br.com.compraki.model.carro.Acessorio;
-import br.com.compraki.model.carro.ModeloCarro;
+import br.com.compraki.model.veiculo.Acessorio;
+import br.com.compraki.model.veiculo.ModeloVeiculo;
 import br.com.compraki.repository.Acessorios;
 import br.com.compraki.repository.Cores;
 import br.com.compraki.repository.Fabricantes;
 import br.com.compraki.repository.IntencaoCompras;
-import br.com.compraki.repository.ModelosCarros;
+import br.com.compraki.repository.ModelosVeiculos;
 
 @Service
 public class IntencaoService {
@@ -27,7 +27,7 @@ public class IntencaoService {
 	@Autowired
 	private IntencaoCompras intencaoCompras;
 	@Autowired
-	private ModelosCarros modelos;
+	private ModelosVeiculos modelos;
 	@Autowired
 	private Cores cores;
 	@Autowired
@@ -115,7 +115,7 @@ public class IntencaoService {
 		intencaoCompra.setUsuario(usuario);
 
 		// busca e setaModelo
-		ModeloCarro modelo = this.modelos.findByCodigo(intencaoCompra.getModelo().getCodigo());
+		ModeloVeiculo modelo = this.modelos.findByCodigo(intencaoCompra.getModelo().getCodigo());
 		intencaoCompra.setModelo(modelo);
 
 		// seta data

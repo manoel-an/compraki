@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 import br.com.compraki.repository.Acessorios;
 
 @Service

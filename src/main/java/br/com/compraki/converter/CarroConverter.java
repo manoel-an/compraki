@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.StringUtils;
 
-import br.com.compraki.model.carro.Carro;
+import br.com.compraki.model.veiculo.Carro;
 import br.com.compraki.repository.Carros;
 
 public class CarroConverter implements Converter<String, Carro> {

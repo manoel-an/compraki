@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 
 public class IntencaoHelper {
 

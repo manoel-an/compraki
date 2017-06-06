@@ -13,15 +13,15 @@ import br.com.compraki.enuns.CategoriaMoto;
 import br.com.compraki.enuns.CategoriaPesado;
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Usuario;
-import br.com.compraki.model.carro.Acessorio;
-import br.com.compraki.model.carro.Carro;
-import br.com.compraki.model.carro.Fabricante;
-import br.com.compraki.model.carro.ModeloCarro;
+import br.com.compraki.model.veiculo.Acessorio;
+import br.com.compraki.model.veiculo.Carro;
+import br.com.compraki.model.veiculo.Fabricante;
+import br.com.compraki.model.veiculo.ModeloVeiculo;
 import br.com.compraki.repository.Acessorios;
 import br.com.compraki.repository.Carros;
 import br.com.compraki.repository.Cores;
 import br.com.compraki.repository.Fabricantes;
-import br.com.compraki.repository.ModelosCarros;
+import br.com.compraki.repository.ModelosVeiculos;
 
 @Service
 public class CarroService {
@@ -36,7 +36,7 @@ public class CarroService {
     private Carros carros;
 
     @Autowired
-    private ModelosCarros modelosCarros;
+    private ModelosVeiculos modelosVeiculos;
 
     @Autowired
     private Cores cores;
@@ -74,7 +74,7 @@ public class CarroService {
     @Transactional
     public void salvarCarro(Carro carro, Usuario usuario) throws NegocioException {
         try {
-            ModeloCarro modelo = this.modelosCarros.saveAndFlush(carro.getModelo());
+            ModeloVeiculo modelo = this.modelosVeiculos.saveAndFlush(carro.getModelo());
             carro.setModelo(modelo);
             carro.setAcessorios(getAcessoriosGerenciados(carro));
             carro.setUsuario(usuario);

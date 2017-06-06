@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import br.com.compraki.model.Usuario;
-import br.com.compraki.model.carro.Carro;
+import br.com.compraki.model.veiculo.Carro;
 import br.com.compraki.repository.filter.CarroFilter;
 
 public interface CarrosQueries {

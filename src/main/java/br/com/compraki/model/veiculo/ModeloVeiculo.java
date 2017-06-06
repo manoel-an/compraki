@@ -1,4 +1,4 @@
-package br.com.compraki.model.carro;
+package br.com.compraki.model.veiculo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +14,8 @@ import br.com.compraki.enuns.CategoriaMoto;
 import br.com.compraki.enuns.CategoriaPesado;
 
 @Entity
-@Table(name = "modelo_carro")
-public class ModeloCarro {
+@Table(name = "modelo_veiculo")
+public class ModeloVeiculo {
 
 	private Long codigo;
 	private String descricao;
@@ -117,7 +117,7 @@ public class ModeloCarro {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ModeloCarro other = (ModeloCarro) obj;
+		ModeloVeiculo other = (ModeloVeiculo) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;

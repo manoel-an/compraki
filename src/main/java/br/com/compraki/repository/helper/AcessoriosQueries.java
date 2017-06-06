@@ -4,7 +4,7 @@ import org.hibernate.Criteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import br.com.compraki.model.carro.Acessorio;
+import br.com.compraki.model.veiculo.Acessorio;
 import br.com.compraki.repository.filter.AcessorioFilter;
 
 public interface AcessoriosQueries {
