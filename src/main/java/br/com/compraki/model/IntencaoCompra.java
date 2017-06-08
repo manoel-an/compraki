@@ -90,16 +90,12 @@ public class IntencaoCompra {
     @Enumerated(EnumType.STRING)
     private StatusIntencao statusIntencao; 
     
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(fetch=FetchType.LAZY)
     private Interacao proposta;
 
     @Transient
     private IntencaoHelper intencaoHelper;
 
-    // Claudio retirei o cascade; pois esta propriedade não se faz necessário
-    // pois o usuario já esta salvo;
-    // por isso que você precisava buscar o usuario; com o cascade o objeto fica
-    // desatached
     @ManyToOne
     @JoinColumn(name = "codigo_usuario")
     private Usuario usuario;
