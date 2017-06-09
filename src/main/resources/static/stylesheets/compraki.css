@@ -338,4 +338,13 @@
 
         text-align: right;
     }
+  
 }
+
+	/* Componente multiple  */    
+    .bootstrap-duallistbox-container .moveall, .bootstrap-duallistbox-container .removeall{
+	width: 50%;
+	}
+	.bootstrap-duallistbox-container .move, .bootstrap-duallistbox-container .remove{
+	width: 50%;
+	}
