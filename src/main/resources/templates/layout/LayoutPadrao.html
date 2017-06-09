@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/select2.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-duallistbox.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/bootstrap-select.min.css}"/>
-       
+    
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -62,7 +62,14 @@
    $(function() {
        $('body').tooltip({
     	    selector: '[data-toggle="tooltip"]'
-    	});           
+    	});
+       $('.search-panel .dropdown-menu').find('a').click(function(e) {
+   		e.preventDefault();
+   		var param = $(this).attr("href").replace("#","");
+   		var concept = $(this).text();
+   		$('.search-panel span#search_concept').text(concept);
+   		$('.input-group #search_param').val(param);
+   	});       
    });
 </script>
 </body>
