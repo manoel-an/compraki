@@ -54,7 +54,8 @@
 <script th:src="@{/javascripts/vendors/select2.min.js}"></script>  
 <script th:src="@{/javascripts/vendors/jquery.bootstrap-duallistbox.min.js}"></script>  
 <script th:src="@{/javascripts/vendors/bootstrap-select.min.js}"></script> 
-
+<script th:src="@{/javascripts/vendors/jquery.easy-autocomplete.min.js}"></script>
+<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
 <script th:src="@{/javascripts/compraki.js}"></script>
 
 <th:block layout:fragment="javascript-extra"></th:block>
@@ -63,13 +64,6 @@
        $('body').tooltip({
     	    selector: '[data-toggle="tooltip"]'
     	});
-       $('.search-panel .dropdown-menu').find('a').click(function(e) {
-   		e.preventDefault();
-   		var param = $(this).attr("href").replace("#","");
-   		var concept = $(this).text();
-   		$('.search-panel span#search_concept').text(concept);
-   		$('.input-group #search_param').val(param);
-   	}); 
    });
 </script>
 </body>
