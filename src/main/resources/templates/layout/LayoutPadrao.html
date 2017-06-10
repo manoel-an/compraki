@@ -7,17 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <title>Compraki</title>
+    <title>Compraki </title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/vendors.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/algaworks.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/search.css}"/>    
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/application.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/compraki.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-datepicker.standalone.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/select2.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-duallistbox.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/layout/stylesheets/bootstrap-select.min.css}"/>
+       
     <link rel="shortcut icon" th:href="@{/images/favicon.ico}"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -40,8 +40,6 @@
     
     <div th:replace="layout/fragments/Footer :: layout-footer"></div>
     
-    <th:block th:replace="layout/hbs/TemplateAutoCompleteGeneralSearch"></th:block>
-    
 </div>
 
 <script th:src="@{/layout/javascripts/vendors.min.js}"></script>
@@ -56,8 +54,7 @@
 <script th:src="@{/javascripts/vendors/select2.min.js}"></script>  
 <script th:src="@{/javascripts/vendors/jquery.bootstrap-duallistbox.min.js}"></script>  
 <script th:src="@{/javascripts/vendors/bootstrap-select.min.js}"></script> 
-<script th:src="@{/javascripts/vendors/jquery.easy-autocomplete.min.js}"></script>
-<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
+
 <script th:src="@{/javascripts/compraki.js}"></script>
 
 <th:block layout:fragment="javascript-extra"></th:block>
@@ -65,7 +62,7 @@
    $(function() {
        $('body').tooltip({
     	    selector: '[data-toggle="tooltip"]'
-    	});
+    	});           
    });
 </script>
 </body>
