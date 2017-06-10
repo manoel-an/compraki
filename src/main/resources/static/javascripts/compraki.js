@@ -147,6 +147,24 @@ Compraki.SelectSearch = (function(){
 	
 }());
 
+Compraki.GeneralSearch = (function(){
+	
+	function GeneralSearch(){
+		this.inputSearch = $('.js-general-search');
+		var htmlTemplateAutocomplete = $('#template-autocomplete-search').html();
+		this.template = Handlebars.compile(htmlTemplateAutocomplete);
+		
+	}
+	
+	GeneralSearch.prototype.enable = function() {
+		
+	}
+	
+	return GeneralSearch;
+	
+}());
+
+
 $(function() {
 	var maskMoney = new Compraki.MaskMoney();
 	maskMoney.enable();
@@ -168,5 +186,8 @@ $(function() {
 	
 	var selectSearch = new Compraki.SelectSearch();
 	selectSearch.enable();
+	
+	var generalSearch = new Compraki.GeneralSearch();
+	generalSearch.enable();
 	
 });
