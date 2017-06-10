@@ -11,7 +11,7 @@ import br.com.compraki.model.Interacao;
 @RequestMapping("/interacao")
 public class InteracaoController {
 
-    private static final String ITR_VIEW = "interacao/PropostaFornecedor";
+    private static final String ITR_VIEW = "interacao/fornecedor/PropostaFornecedor";
 
     @GetMapping("/novo")
     public ModelAndView novo(Interacao propostaFonecedor) {
