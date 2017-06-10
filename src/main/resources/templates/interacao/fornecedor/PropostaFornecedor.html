@@ -38,12 +38,19 @@
                        <select id="veiculo" class="form-control js-select-search js-combo-marca">
                            <option value=""></option>
                            <option th:each="veiculo : ${veiculos}" th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
-                           
                        </select>
+                       <div class="bw-field-action__icon"  
+                            data-toggle="tooltip" data-placement="top" title="Cadastre seu Veículo ">
+                           <a href="#" data-toggle="modal" data-target="#modalCadastroIntermediarioVeiculo">
+                                <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+                           </a>
+                           
+                        </div>
                     </div>
                 </div>  
              </div>   
 	    </form>
 	</div>
+ 	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div>
 </section>
 </html>
