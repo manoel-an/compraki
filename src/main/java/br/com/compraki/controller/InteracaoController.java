@@ -34,7 +34,7 @@ public class InteracaoController {
     private ModelAndView getDefaultObjectsModelAndViewDeProposta(Usuario usuario, Interacao propostaFornecedor) {
         ModelAndView modelAndView = new ModelAndView(ITR_VIEW);
        
-        modelAndView.addObject("veiculos",carros.findByUsuario(usuario));
+        modelAndView.addObject("veiculos",carros.findByUsuarioAndFetchEager(usuario));
         return modelAndView;
     }
 

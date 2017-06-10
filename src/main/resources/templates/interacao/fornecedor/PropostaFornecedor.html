@@ -37,7 +37,7 @@
                     <div class="bw-field-action">
                        <select id="veiculo" class="form-control js-select-search js-combo-marca">
                            <option value=""></option>
-                           <option th:each="veiculo : ${veiculos}" th:text="' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
+                           <option th:each="veiculo : ${veiculos}" th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
                            
                        </select>
                     </div>

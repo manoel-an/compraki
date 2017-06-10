@@ -13,9 +13,9 @@ import br.com.compraki.repository.helper.CarrosQueries;
 
 public interface Carros extends JpaRepository<Carro, Long>, CarrosQueries {
 	
-	public List<Carro> findByUsuario(Usuario usuario);
+	//public List<Carro> findByUsuario(Usuario usuario);
 	
-	@Query("SELECT c FROM Carro c INNER JOIN FETCH c.permissoes WHERE g.codigo = (:codigo)")
-    public List<Grupo> findByCodigoAndFetchEager(@Param("codigo") Long codigo);
+	@Query("SELECT c FROM Carro c INNER JOIN FETCH c.modelo WHERE c.usuario = (:usuario)")
+    public List<Carro> findByUsuarioAndFetchEager(@Param("usuario") Usuario usuario);
 
 }
