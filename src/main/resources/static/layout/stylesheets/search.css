@@ -15,7 +15,7 @@
 }
 
 .search:focus {
-    width: 60%;
+    width: 50%;
 }
 
 .navbar-brand
@@ -33,6 +33,7 @@
 @media (max-width: 768px) { /* screen-sm-min */
     .search {
         width: 60px;
+        margin-left: 30%;
     }
     .search:focus {
         margin-left: 30%;
