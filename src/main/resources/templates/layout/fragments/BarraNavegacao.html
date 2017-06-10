@@ -8,7 +8,8 @@
 <nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar" th:fragment="navbar">
   <div class="navbar-header">
 	  <div class="navbar-brand">
-          <input type="text" name="search" placeholder="Buscar.. Intenção de Compra.. Ex.: Modelo Veículo, Valor ..." class="search">
+          <input type="text" name="search" placeholder="Buscar.. Intenção de Compra.. Ex.: Modelo Veículo, Valor ..." 
+          	class="search js-general-search" data:url="@{/cervejas}">
 	  </div>    
   </div>
   <div class="navbar-collapse collapse">
@@ -32,80 +33,5 @@
   </div>
 </nav>
 
-<!-- 
-<nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar" th:fragment="navbar">
-
-    <div class="container-fluid">
-
-    <div class="navbar-header">
-        <a class="navbar-brand  hidden-xs" href="#">
-            <img alt="Compraki" th:src="@{/images/compraki.png}" style="margin-top: -12px;"/>
-        </a>
-
-        <ul class="nav  navbar-nav">
-            <li>
-                <a href="#" class="js-sidebar-toggle"><i class="fa  fa-bars"></i></a>
-            </li>
-        </ul>
-		<ul class="nav navbar-nav  navbar-center">
-	        <li>
-	            <div class="row">
-	                 <div class="navbar-form">
-	                    <input type="text" class="form-control  js-sku-nome-cerveja-input" id="cerveja" 
-	                        placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" autofocus="autofocus" 
-	                        data:url="@{/cervejas}"/>            
-	                 </div>
-	            
-	            </div>
-	        </li>        
-		</ul>        
-        
-		    <div class="col-xs-4 col-xs-offset-2 navbar-form">
-		  		<div class="input-group">
-		            <div class="input-group-btn search-panel">
-		                <button type="button" class="btn btn-default dropdown-toggle hidden-xs  hidden-sm" data-toggle="dropdown">
-		                	<span id="search_concept">Filter by</span> <span class="caret"></span>
-		                </button>
-		                <ul class="dropdown-menu hidden-xs  hidden-sm" role="menu">
-		                  <li><a href="#contains">Contains</a></li>
-		                  <li><a href="#its_equal">It's equal</a></li>
-		                  <li><a href="#greather_than">Greather than ></a></li>
-		                  <li><a href="#less_than">Less than </a></li>
-		                  <li class="divider"></li>
-		                  <li><a href="#all">Anything</a></li>
-		                </ul>
-		            </div>
-		            <input type="hidden" name="search_param" value="all" id="search_param">         
-		            <input type="text" class="form-control" name="x" placeholder="Search term...">
-		            <span class="input-group-btn hidden-xs  hidden-sm">
-		                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-		            </span>
-		        </div>
-		    </div>         
-        
-	         <div class="form-group  col-xs-12 col-lg-12 navbar-form">
-	             <input type="text" class="form-control  js-sku-nome-cerveja-input" id="cerveja" 
-	                 placeholder="Pesquise e adicione a cerveja pelo SKU ou nome" autofocus="autofocus" 
-	                 data:url="@{/cervejas}"/>
-	         </div>
-	         
-    </div>
-    <ul class="nav navbar-nav  navbar-right">
-    	<li>
-		    <a th:href="@{/usuarios/novo}" class="btn-lg  aw-btn-full-width">
-		        <i class="fa fa-user" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Minha Conta"></i> 
-		         	<span class="hidden-xs  hidden-sm" th:text="|  Olá ${#authentication.principal.usuario.apelido != null ? 
-		         		#authentication.principal.usuario.apelido : #authentication.principal.usuario.email}|"></span>
-		    </a>    	
-    	</li>
-    
-        <li>
-            <a th:href="@{/logout}"><em class="fa  fa-sign-out" data-toggle="tooltip" data-placement="bottom" title="Sair do Sistema"></em></a>
-        </li> 
-    </ul>
-
-  </div>
-</nav>
- -->
 </body>
 </html>
