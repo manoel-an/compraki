@@ -31,7 +31,7 @@ public class Interacao implements Serializable {
     private static final long serialVersionUID = -8354269525264410932L;
 
     private Long codigo;
-    private Carro carro;
+    private Carro veiculo;
     private Usuario fornecedor;
     private IntencaoCompra intencaoCompra;
     private String descricao;
@@ -64,12 +64,13 @@ public class Interacao implements Serializable {
 	//@NotNull(message = "Ops! É necessário acrescentar o carro")
 	@OneToOne
 	 @JoinColumn(name = "codigo_carro")
-	public Carro getCarro() {
-		return carro;
+	public Carro getVeiculo() {
+		return veiculo;
 	}
-	public void setCarro(Carro carro) {
-		this.carro = carro;
+	public void setVeiculo(Carro veiculo) {
+		this.veiculo = veiculo;
 	}
+
 
 	@OneToOne
     @JoinColumn(name = "codigo_fornecedor")
@@ -77,6 +78,7 @@ public class Interacao implements Serializable {
 	public Usuario getFornecedor() {
 		return fornecedor;
 	}
+	
 	public void setFornecedor(Usuario fornecedor) {
 		this.fornecedor = fornecedor;
 	}
