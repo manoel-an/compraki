@@ -24,7 +24,7 @@ INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Direção Hidra
 INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Roda aro 16', 4, 'CARRO');
 INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Câmbio automático', 5, 'CARRO');
 INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Para choque cor do Carro', 6, 'CARRO');
-INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Roda palito', 7, 'MOTO');
+INSERT INTO acessorio (descricao, posicao, tipoVeiculo) VALUES ('Roda palito', 1, 'MOTO');
 
 INSERT INTO fabricante (nome, tipoVeiculo) VALUES ('Fiat', 'CARRO');
 INSERT INTO fabricante (nome, tipoVeiculo) VALUES ('Volkswagen', 'CARRO');
