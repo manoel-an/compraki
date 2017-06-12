@@ -319,7 +319,7 @@
 }
 
 @media (min-width: 768px) { /* screen-sm-min */
-    .bw-tabela-item__painel-exclusao {
+    .compraki-tabela-item__painel-exclusao {
         width: 40%;
         padding-top: 10px;
     }
@@ -329,11 +329,11 @@
         margin-left: 0px;
     }
     
-    .bw-tabela-item__coluna--detalhes {
+    .compraki-tabela-item__coluna--detalhes {
         width: calc(70% - 30px);
     }
     
-    .bw-tabela-item__coluna--valores {
+    .compraki-tabela-item__coluna--valores {
         width: calc(30% - 30px);
 
         text-align: right;

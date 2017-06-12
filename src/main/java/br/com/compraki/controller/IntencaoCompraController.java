@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.com.compraki.dto.IntencaoDTO;
 import br.com.compraki.enuns.PotenciaVeiculo;
 import br.com.compraki.enuns.TipoCombustivel;
 import br.com.compraki.enuns.TipoVeiculo;
@@ -46,123 +47,124 @@ import br.com.compraki.validator.IntencaoValidator;
 @RequestMapping("/intencoes")
 public class IntencaoCompraController {
 
-	private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
+    private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
 
-	private static final String IT_PESQUISA_VIEW = "intencaoCompra/PesquisaIntencoes";
+    private static final String IT_PESQUISA_VIEW = "intencaoCompra/PesquisaIntencoes";
 
-	@Autowired
-	private Fabricantes fabricantes;
+    @Autowired
+    private Fabricantes fabricantes;
 
-	@Autowired
-	private Cidades cidades;
+    @Autowired
+    private Cidades cidades;
 
-	@Autowired
-	private ModelosVeiculos modelosVeiculos;
+    @Autowired
+    private ModelosVeiculos modelosVeiculos;
 
-	@Autowired
-	private IntencaoValidator validator;
+    @Autowired
+    private IntencaoValidator validator;
 
-	@Autowired
-	private IntencaoService intencaoService;
+    @Autowired
+    private IntencaoService intencaoService;
 
-	@Autowired
-	private Acessorios acessorios;
+    @Autowired
+    private Acessorios acessorios;
 
-	@Autowired
-	private Cores cores;
+    @Autowired
+    private Cores cores;
 
-	@GetMapping("/novo")
-	public ModelAndView novo(IntencaoCompra intencaoCompra) {
-		ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra);
-		return mv;
-	}
+    @GetMapping("/novo")
+    public ModelAndView novo(IntencaoCompra intencaoCompra) {
+        ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra);
+        return mv;
+    }
 
-	@PostMapping("/novo")
-	public ModelAndView salvar(@AuthenticationPrincipal User user, @Valid IntencaoCompra intencaoCompra,
-			BindingResult result, RedirectAttributes attributes) {
-		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-		validator.validate(intencaoCompra, result);
-		if (result.hasErrors()) {
-			this.intencaoService.getFieldError(intencaoCompra, result);
-			intencaoCompra.getIntencaoHelper().setHasErrors(Boolean.TRUE);
-			return this.novo(intencaoCompra);
-		}
-		try {
+    @PostMapping("/novo")
+    public ModelAndView salvar(@AuthenticationPrincipal User user, @Valid IntencaoCompra intencaoCompra,
+            BindingResult result, RedirectAttributes attributes) {
+        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+        validator.validate(intencaoCompra, result);
+        if (result.hasErrors()) {
+            this.intencaoService.getFieldError(intencaoCompra, result);
+            intencaoCompra.getIntencaoHelper().setHasErrors(Boolean.TRUE);
+            return this.novo(intencaoCompra);
+        }
+        try {
 
-			this.intencaoService.salvar(intencaoCompra, usuarioSistema.getUsuario());
-			attributes.addFlashAttribute("mensagem",
-					"Parabéns, sua intenção de compra foi salva com sucesso. Aguarde o resultado !");
-			return new ModelAndView("redirect:/intencoes/novo");
+            this.intencaoService.salvar(intencaoCompra, usuarioSistema.getUsuario());
+            attributes.addFlashAttribute("mensagem",
+                    "Parabéns, sua intenção de compra foi salva com sucesso. Aguarde o resultado !");
+            return new ModelAndView("redirect:/intencoes/novo");
 
-		} catch (NegocioException e) {
-			result.addError(new ObjectError("IntencaoCompra", e.getMessage()));
-			return novo(intencaoCompra);
-		}
-	}
+        } catch (NegocioException e) {
+            result.addError(new ObjectError("IntencaoCompra", e.getMessage()));
+            return novo(intencaoCompra);
+        }
+    }
 
-	@RequestMapping(value = "buscarModelos", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<ModeloVeiculo> pesquisarPorCodigoFabricante(
-			@RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
-		return this.modelosVeiculos.findByFabricanteCodigo(codigoMarca);
-	}
+    @RequestMapping(value = "buscarModelos", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<ModeloVeiculo> pesquisarPorCodigoFabricante(
+            @RequestParam(name = "marca", defaultValue = "-1") Long codigoMarca) {
+        return this.modelosVeiculos.findByFabricanteCodigo(codigoMarca);
+    }
 
-	@RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<Cidade> pesquisarCidadePorUf(
-			@RequestParam(name = "uf", defaultValue = "-1") String siglaUf) {
-		return this.cidades.findBySigla(siglaUf);
-	}
+    @RequestMapping(value = "buscarCidades", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<Cidade> pesquisarCidadePorUf(
+            @RequestParam(name = "uf", defaultValue = "-1") String siglaUf) {
+        return this.cidades.findBySigla(siglaUf);
+    }
 
-	@RequestMapping(value = "/atualizaFormularioVeiculo", consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public ModelAndView atualizaFormularioVeiculo(Long codigoIntencao, TipoVeiculo tipoVeiculo,
-			@RequestParam(value = "cores[]", required = false) Long[] cores,
-			@RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
-		ModelAndView modelAndView = this.intencaoService.getModelAndViewTipoVeiculo(codigoIntencao, tipoVeiculo,
-				acessorios, cores);
-		return modelAndView;
-	}
+    @RequestMapping(value = "/atualizaFormularioVeiculo", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    public ModelAndView atualizaFormularioVeiculo(Long codigoIntencao, TipoVeiculo tipoVeiculo,
+            @RequestParam(value = "cores[]", required = false) Long[] cores,
+            @RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
+        ModelAndView modelAndView = this.intencaoService.getModelAndViewTipoVeiculo(codigoIntencao, tipoVeiculo,
+                acessorios, cores);
+        return modelAndView;
+    }
 
-	@GetMapping("/{codigo}")
-	public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra) {
-		ModelAndView modelAndView = this.novo(intencaoCompra);
-		intencaoCompra.getIntencaoHelper().setTipoVeiculo(intencaoCompra.getTipoVeiculo());
-		modelAndView.addObject("intencaoCompra", intencaoCompra);
-		return modelAndView;
-	}
+    @GetMapping("/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra) {
+        ModelAndView modelAndView = this.novo(intencaoCompra);
+        intencaoCompra.getIntencaoHelper().setTipoVeiculo(intencaoCompra.getTipoVeiculo());
+        modelAndView.addObject("intencaoCompra", intencaoCompra);
+        return modelAndView;
+    }
 
-	@GetMapping
-	public ModelAndView pesquisar(@AuthenticationPrincipal User user, IntencaoFilter intencaoFilter,
-			BindingResult result, @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
-		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-		ModelAndView mv = new ModelAndView(IT_PESQUISA_VIEW);
-		PageWrapper<IntencaoCompra> paginaWrapper = new PageWrapper<>(this.intencaoService.getIntencaoCompras()
-				.filtrar(usuarioSistema.getUsuario(), intencaoFilter, pageable), httpServletRequest);
-		mv.addObject("fabricantes", this.fabricantes.findAll());
-		mv.addObject("tipoVeiculos", TipoVeiculo.values());
-		mv.addObject("cores", this.cores.findAll());
-		mv.addObject("acessorios", this.acessorios.findAll());
-		mv.addObject("tiposCombustivel", TipoCombustivel.values());
-		mv.addObject("ufs", UF.values());
-		mv.addObject("potencias", PotenciaVeiculo.values());
-		mv.addObject("pagina", paginaWrapper);
-		return mv;
-	}
+    @GetMapping
+    public ModelAndView pesquisar(@AuthenticationPrincipal User user, IntencaoFilter intencaoFilter,
+            BindingResult result, @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
+        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+        ModelAndView mv = new ModelAndView(IT_PESQUISA_VIEW);
+        PageWrapper<IntencaoCompra> paginaWrapper = new PageWrapper<>(this.intencaoService.getIntencaoCompras()
+                .filtrar(usuarioSistema.getUsuario(), intencaoFilter, pageable), httpServletRequest);
+        mv.addObject("fabricantes", this.fabricantes.findAll());
+        mv.addObject("tipoVeiculos", TipoVeiculo.values());
+        mv.addObject("cores", this.cores.findAll());
+        mv.addObject("acessorios", this.acessorios.findAll());
+        mv.addObject("tiposCombustivel", TipoCombustivel.values());
+        mv.addObject("ufs", UF.values());
+        mv.addObject("potencias", PotenciaVeiculo.values());
+        mv.addObject("pagina", paginaWrapper);
+        return mv;
+    }
 
-	private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra) {
-		ModelAndView modelAndView = new ModelAndView(IT_VIEW);
-		modelAndView.addObject("fabricantes", this.fabricantes.findAll());
-		modelAndView.addObject("cidades", this.cidades.findAll());
-		modelAndView.addObject("acessorios", this.acessorios.findAll());
-		modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
-		modelAndView.addObject("ufs", UF.values());
-		modelAndView.addObject("potencias", PotenciaVeiculo.values());
-		modelAndView.addObject("tipos", TipoVeiculo.values());
-		modelAndView.addObject("cores", this.intencaoService.getSelectedCores(intencaoCompra));
-		return modelAndView;
-	}
+    private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra) {
+        ModelAndView modelAndView = new ModelAndView(IT_VIEW);
+        modelAndView.addObject("fabricantes", this.fabricantes.findAll());
+        modelAndView.addObject("cidades", this.cidades.findAll());
+        modelAndView.addObject("acessorios", this.acessorios.findAll());
+        modelAndView.addObject("tiposCombustivel", TipoCombustivel.values());
+        modelAndView.addObject("ufs", UF.values());
+        modelAndView.addObject("potencias", PotenciaVeiculo.values());
+        modelAndView.addObject("tipos", TipoVeiculo.values());
+        modelAndView.addObject("cores", this.intencaoService.getSelectedCores(intencaoCompra));
 
-	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<IntencaoCompra> pesquisar(String modeloCidade) {
-		return null;
-	}
+        return modelAndView;
+    }
+
+    @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody List<IntencaoDTO> pesquisar(String modeloCidade) {
+        return this.intencaoService.getIntencaoCompras().porModeloOuCidade(modeloCidade);
+    }
 
 }// fim

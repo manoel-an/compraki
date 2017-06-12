@@ -157,8 +157,38 @@ Compraki.GeneralSearch = (function(){
 	}
 	
 	GeneralSearch.prototype.enable = function() {
-		
+		var options = {
+				url: function(modeloCidade){
+					return this.inputSearch.data('url') + '?modeloCidade=' + modeloCidade;
+				}.bind(this),
+				getValue: 'modelo',
+				minCharNumber: 3,
+				requestDelay: 300,
+				ajaxSettings:{
+					contentType: 'application/json'
+				}, template:{
+					type: 'custom',
+					method: template.bind(this)
+				},
+				list: {
+					onChooseEvent: onItemSelecionado.bind(this)
+				}
+			};
+			
+			this.inputSearch.easyAutocomplete(options);		
 	}
+	
+
+	
+	function onItemSelecionado(){
+		this.inputSearch.val('');
+		this.inputSearch.focus();
+	}
+	
+	function template(modelo, intencao){
+		intencao.valorFormatado = Compraki.formatarMoeda(intencao.valor);
+		return this.template(intencao);
+	}	
 	
 	return GeneralSearch;
 	

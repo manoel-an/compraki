@@ -1,42 +1,58 @@
-.search {
-    width: 130px;
+#search-floating-panel {
+  position: absolute;
+  top: 5px;
+  left: 20%;
+  z-index: 1;
+  background-color: #000033;
+  -moz-opacity: 0.75;
+  -khtml-opacity: 0.75;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  font-family: 'Roboto','sans-serif';
+  padding-left: 10px;
+  width: 56%;
+  border-radius: 5px;
+  height: 85%;
+}
+
+#search-input{
+    width: 100%;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: 4px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     background-image: url("/compraki/images/searchicon.png"); 
-    background-position: 10px 10px; 
+    background-position: 10px 7px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
-    margin-top: -14px;
     color: black;
 }
 
-.search:focus {
-    width: 50%;
+#search-button{
+    width: 13%;
 }
 
-.navbar-brand
-{
-    position: absolute;
-    width: 100%;
-    left: 0;
+#search-table{
     text-align: center;
-    margin:0 auto;
+    margin: 0 auto;
 }
-.navbar-toggle {
-    z-index:3;
+
+#search-map-results tr td{
+    font-size: 12px;
+    padding: 2px;
+    overflow: hidden;
 }
 
 @media (max-width: 768px) { /* screen-sm-min */
-    .search {
-        width: 60px;
-        margin-left: 30%;
+    #search-floating-panel {
+	  left: 50%;
+	  width: 20%;
     }
-    .search:focus {
-        margin-left: 30%;
-        width: 30%;
+    
+    #search-input {
+        background-position: 1px 7px; 
     }
 }
+

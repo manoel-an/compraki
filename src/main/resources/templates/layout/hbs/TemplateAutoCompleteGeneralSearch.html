@@ -1,12 +1,17 @@
 <script id="template-autocomplete-search" type="text/x-handlebars-template">
-    <div class="compraki-tabela-item">
-        <div class="compraki-tabela-item__coluna  compraki-tabela-item__coluna--detalhes">
-            <span class="compraki-tabela-intencao-propriedade">{{nome}}</span>
-            <span class="label  label-default">{{sku}}</span>
-            <span class="compraki-tabela-intencao-origem">{{origem}}</span>
-        </div>
-        <div class="compraki-tabela-item__coluna  compraki-tabela-item__coluna--valores">
-            <div class="compraki-tabela-intencao-valor-medio">R${{valorFormatado}}</div>
+    <div class="row">
+        <div class="col-sm-12">
+           <div>
+               <span class="label  label-default">{{codigo}}</span>
+               <span class="label  label-default">{{modelo}}</span>
+               <span class="label  label-default">{{fabricante}}</span>
+               <span class="label  label-default">{{tipoCombustivel}}</span>
+               <span class="label  label-default">{{cidade}}</span>
+               <span class="label  label-default">{{estado}}</span>
+           </div>
+           <div>
+                <span class="label  label-default">R${{valorFormatado}}</span>
+           </div>
         </div>
     </div>
 </script>

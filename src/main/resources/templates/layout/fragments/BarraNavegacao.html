@@ -7,10 +7,10 @@
 
 <nav class="navbar  navbar-fixed-top  navbar-default  js-sticky-reference" id="main-navbar" th:fragment="navbar">
   <div class="navbar-header">
-	  <div class="navbar-brand">
-          <input type="text" name="search" placeholder="Buscar.. Intenção de Compra.. Ex.: Modelo Veículo, Valor ..." 
-          	class="search js-general-search" data:url="@{/cervejas}">
-	  </div>    
+	   <div id="search-floating-panel">
+	       <input class="js-general-search" id="search-input" type="text" placeholder="Buscar.. Intenção de Compra.. Ex.: Modelo Veículo, Valor ..." 
+	           data:url="@{/intencoes}" style="height: 40px;">
+	   </div>      
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav navbar-left">
