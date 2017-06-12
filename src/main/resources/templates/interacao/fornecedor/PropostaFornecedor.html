@@ -39,18 +39,17 @@
                            <option value=""></option>
                            <option th:each="veiculo : ${veiculos}" th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
                        </select>
-                       <div class="bw-field-action__icon"  
+                       <div class="bw-field-action__icon" th:each="intencaoProposta : ${intencoesPropostas}"
                             data-toggle="tooltip" data-placement="top" title="Cadastre seu Veículo ">
-                           <a href="#" data-toggle="modal" data-target="#modalCadastroIntermediarioVeiculo">
+                           <a th:href="@{/carros/novo}" th:attr="data-codigo=${intencaoProposta.codigo}" data-target="#cadastroIntermediarioVeiculo">
                                 <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
                            </a>
-                           
-                        </div>
+                       </div>
                     </div>
                 </div>  
              </div>   
 	    </form>
 	</div>
- 	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div>
+ 	<!-- <div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> -->
 </section>
 </html>
