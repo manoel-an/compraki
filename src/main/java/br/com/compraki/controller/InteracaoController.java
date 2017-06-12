@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.compraki.model.Interacao;
 import br.com.compraki.model.Usuario;
 import br.com.compraki.repository.Carros;
+import br.com.compraki.repository.IntencaoCompras;
 import br.com.compraki.security.UsuarioSistema;
 
 @Controller
@@ -21,6 +22,9 @@ public class InteracaoController {
     
     @Autowired
     private Carros carros;
+    
+    @Autowired
+    private IntencaoCompras intencoes;
 
     @GetMapping("/novo")
     public ModelAndView novo(@AuthenticationPrincipal User user, Interacao propostaFonecedor) {
@@ -35,6 +39,9 @@ public class InteracaoController {
         ModelAndView modelAndView = new ModelAndView(ITR_VIEW);
        
         modelAndView.addObject("veiculos",carros.findByUsuarioAndFetchEager(usuario));
+        
+        //POR ENQUANTO TÁ PUXANDO A INTENÇÃO ESTATICAMENTE PARA APRESENTAR NO PropostaFornecedor.html
+        modelAndView.addObject("intencoesPropostas",intencoes.findOne(1L));
         return modelAndView;
     }
 
