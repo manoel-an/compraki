@@ -81,16 +81,16 @@
 
 @media ( max-width : 600px) { /* screen-sm-min */
 	#search-floating-panel {
-		width: 57%;
-		left: 30%;
+		width: 52%;
+		left: 35%;
 	}
 	#search-input {
 		background-position: 1px 7px;
-		width: 95%
+		width: 93%
 	}
 }
 
-@media ( max-width : 550px) { /* screen-sm-min */
+@media ( max-width : 440px) { /* screen-sm-min */
 	#search-floating-panel {
 		display: none;
 	}
