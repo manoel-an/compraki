@@ -1,17 +1,16 @@
 <script id="template-autocomplete-search" type="text/x-handlebars-template">
-    <div class="row">
-        <div class="col-sm-12">
-           <div>
-               <span class="label  label-default">{{codigo}}</span>
-               <span class="label  label-default">{{modelo}}</span>
-               <span class="label  label-default">{{fabricante}}</span>
-               <span class="label  label-default">{{tipoCombustivel}}</span>
-               <span class="label  label-default">{{cidade}}</span>
-               <span class="label  label-default">{{estado}}</span>
-           </div>
-           <div>
-                <span class="label  label-default">R${{valorFormatado}}</span>
-           </div>
-        </div>
-    </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="aw-box">
+                    <div class="aw-box__icon">
+               			<i class="fa  fa-search fa-3x"></i>
+                    </div>
+                    <div class="aw-box__value">{{fabricante}} {{modelo}} {{tipoCombustivel}} -  R${{valorFormatado}}</div>
+                    <div class="aw-box__title">{{cidade}} - {{estado}}</div>
+                    <div align="left">
+                        <i class="fa  fa-search pull-right"></i>
+                    </div>
+                </div>
+            </div>   
+        </div>  
 </script>
