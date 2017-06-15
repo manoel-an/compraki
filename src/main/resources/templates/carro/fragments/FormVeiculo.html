@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:compraki="http://compraki.com.br"
+    layout:decorate="~{layout/LayoutPadrao}"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+    <body>
+	    <div class="container-fluid" th:fragment="formVeiculo">
+	        <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
+	           <input id="hasErrors" type="hidden" th:field="*{carroHelper.hasErrors}"> 
+	           <input id="erroMarca" type="hidden" th:field="*{carroHelper.erroMarca}"> 
+	           <input id="marcaHelper" type="hidden" th:field="*{carroHelper.marca}"> 
+	           <input id="erroModelo" type="hidden" th:field="*{carroHelper.erroModelo}"> 
+	           <input id="modeloHelper" type="hidden" th:field="*{carroHelper.modelo}">
+	           <input id="erroCategoria" type="hidden" th:field="*{carroHelper.erroCategoria}"> 
+	           <input id="categoriaHelper" type="hidden" th:field="*{carroHelper.categoria}">   
+	           <input id="erroCor" type="hidden" th:field="*{carroHelper.erroCor}"> 
+	           <input id="corHelper" type="hidden" th:field="*{carroHelper.cor}">                     
+	           <input id="erroAcessorios" type="hidden" th:field="*{carroHelper.erroAcessorios}"> 
+	           <input id="acessoriosJSON" type="hidden" th:field="*{carroHelper.acessorios}"> 
+	           <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple>
+	           </select>        
+	           <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 
+	           <compraki:message/>
+	           <h2>Tipo Veículo</h2>
+	           <div class="row">
+	                <div class="col-sm-4  form-group">
+	                    <label class="control-label">Informe o tipo do veículo</label>
+	                    <div class="input-group">
+	                        <div class="input-group-addon">Tipo</div>
+	                        <div>
+			                    <select id="tipoVeiculo" class="form-control selectpicker" data-live-search="true" th:field="*{tipoVeiculo}">
+			                        <option th:each="tipoVeiculo : ${tipos}" th:text="${tipoVeiculo.descricao}" th:value="${tipoVeiculo}"></option>
+			                    </select>
+	                        </div>                       
+	                    </div>
+	                </div>            
+	           </div>
+	           <div id="divDadosCarro"></div>
+	           <div id="divDadosMoto"></div>           
+	           <div id="divDadosPesado"></div>
+	           <h2>Foto</h2>             
+	           <div class="row">
+	                <div class="form-group  col-sm-12">
+	                    <input type="hidden" th:field="*{foto}"/>
+	                    <input type="hidden" th:field="*{contentType}"/>
+	                    <input type="hidden" th:field="*{novaFoto}">
+	                    <label class="control-label">Selecione uma foto</label>
+	                    <div class="js-container-foto-carro" th:attr="data-url-fotos=@{/fotos}">
+	                        <div id="upload-drop" class="bw-upload">
+	                            <i class="glyphicon  glyphicon-cloud-upload"></i>
+	                            <span>Arraste a foto aqui ou </span>
+	                            <a class="bw-upload-form-file">selecione <input id="upload-select" type="file" accept=".jpg,.jpeg,.png"/></a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <h2>Informações diversas</h2> 
+	            
+	           <div class="row">
+	                <div class="col-sm-12  form-group">
+	                  <label class="control-label">Situação IPVA</label>
+	                    <div class="input-group">
+	                        <div class="input-group-addon">Situação</div>
+		                    <div>
+		                        <input type="checkbox" class="js-ipva" data-size="medium" data-off-color="danger" 
+		                            data-on-text="Pago" data-off-text="Pendente" th:field="*{ipvaPago}" />
+		                    </div>                       
+	                    </div>
+	                </div>             
+	           </div>            
+	            <div class="row">
+	                <div class="form-group  col-sm-12">
+	                    <label class="control-label">Observações gerais</label>
+	                    <textarea id="descricao" class="form-control" rows="5" placeholder="Informações diversas; como situação do documento, avarias entre outros." 
+	                        th:field="*{descricao}"></textarea>
+	                </div>              
+	            </div>                                        
+	           <button class="btn  btn-primary js-btn-salvar-carro" th:if="${cadastroVeiculo}">
+	                <span class="fa fa-floppy-o"></span> Salvar         
+	           </button> 
+	           <button type="button" class="btn  btn-primary" th:unless="${cadastroVeiculo}">
+	                <span class="fa fa-floppy-o"></span> Salvar         
+	           </button> 	           
+	        </form>
+	    </div>    
+    </body>
+</html>

@@ -9,8 +9,9 @@
 <head>
     <title>Interação</title>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
 </head>
-
+<body>
 <section layout:fragment="conteudo">
     <div class="page-header js-topo-page">
         <div class="container-fluid">
@@ -39,17 +40,32 @@
                            <option value=""></option>
                            <option th:each="veiculo : ${veiculos}" th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
                        </select>
+                       <div class="bw-field-action__icon" 
+                            data-toggle="tooltip" data-placement="top" title="Cadastre seu Veículo">
+                           <a href="#" data-toggle="modal" data-target="#modalCadastroIntermediarioVeiculo">
+                                <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+                           </a>
+                       </div>                        
+                       <!-- 
                        <div class="bw-field-action__icon" th:each="intencaoProposta : ${intencoesPropostas}"
                             data-toggle="tooltip" data-placement="top" title="Cadastre seu Veículo ">
                            <a th:href="@{/carros/novo}" th:attr="data-codigo=${intencaoProposta.codigo}" data-target="#cadastroIntermediarioVeiculo">
                                 <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
                            </a>
                        </div>
+                        -->
                     </div>
                 </div>  
              </div>   
 	    </form>
 	</div>
- 	<!-- <div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> -->
+ 	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
 </section>
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/proposta-fornecedor.js}"></script>
+    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+    <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+    <script th:src="@{/javascripts/vendors/upload.min.js}"></script>    
+</th:block>
+</body>
 </html>

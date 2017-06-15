@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:th="http://www.thymeleaf.org">
 <body>
     <div class="modal fade" id="modalCadastroIntermediarioVeiculo" tabindex="-1" role="dialog" th:fragment="modal">
-        <div class="modal-dialog  modal-lg">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">Cadastro de Veiculo</h4>
+                    <h4 class="modal-title">Cadastro de Veículo</h4>
                 </div>
-                 
-                
-                <!--<div layout:include="carro/CadastroCarro">-->
-                  
+                <div class="modal-body">
+ 					<th:block th:replace="carro/fragments/FormVeiculo :: formVeiculo"></th:block>    
+				    <div th:replace="marca/CadastroRapidoMarca :: modal"></div>
+				    <th:block th:replace="hbs/FotoVeiculo"></th:block> 					            
                 </div>
-                
-				<div class="modal-footer">
-					<button type="button" class="btn  btn-default" data-dismiss="modal">Cancelar</button>
-				</div>
-			</div>
-      	</div>
-      </div>
-   </body>
-  </html>
+            </div>
+        </div>
+    </div>
+</body>
+</html>  

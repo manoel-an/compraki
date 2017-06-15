@@ -119,6 +119,7 @@ public class CarrosController {
         ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
         modelAndView.addObject("tipos", TipoVeiculo.values());
         modelAndView.addObject("carro", carro);
+        modelAndView.addObject("cadastroVeiculo", Boolean.TRUE);
         return modelAndView;
     }
 }
