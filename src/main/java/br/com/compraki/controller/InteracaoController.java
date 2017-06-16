@@ -45,8 +45,10 @@ public class InteracaoController {
 		// PropostaFornecedor.html
 		// modelAndView.addObject("intencoesPropostas",intencoes.findOne(1L));
 		modelAndView.addObject("tipos", TipoVeiculo.values());
-		modelAndView.addObject("carro", new Carro());
-        modelAndView.addObject("cadastroVeiculo", Boolean.FALSE);
+		Carro carro = new Carro();
+		carro.setUsuario(usuario);
+		modelAndView.addObject("carro", carro);
+		modelAndView.addObject("cadastroVeiculo", Boolean.FALSE);
 		return modelAndView;
 	}
 

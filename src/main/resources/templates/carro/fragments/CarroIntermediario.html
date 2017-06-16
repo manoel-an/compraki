@@ -1,0 +1,9 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <form id="formCarroIntermediario" th:object="${carro}">
+    	<select>
+		 	<option id="carroIntermediario"  th:text="*{modelo.descricao}+' ('+*{cor.descricao} + ')'"  th:value="*{codigo}"></option>
+    	</select>
+    </form>
+</html>

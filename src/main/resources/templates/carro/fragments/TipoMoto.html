@@ -50,7 +50,7 @@
             <h2>Acessórios</h2> 
             <div class="row">
                 <div class="form-group  col-sm-12 js-div-acessorios-moto">
-                    <select id="selectAcessorios" multiple="multiple" name="js-duallistbox">
+                    <select id="selectAcessoriosMoto" multiple="multiple" name="js-duallistbox">
                        <option th:each="acessorio : ${acessorios}" th:text="${acessorio.descricao}" 
                         th:value="|${acessorio.codigo}-${acessorio.descricao}|" th:selected="${acessorio.selected ? true : false}"></option>
                     </select>

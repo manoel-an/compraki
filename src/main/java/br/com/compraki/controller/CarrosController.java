@@ -38,88 +38,100 @@ import br.com.compraki.validator.CarroValidator;
 @RequestMapping("/carros")
 public class CarrosController {
 
-    @Autowired
-    private CarroService carroService;
+	@Autowired
+	private CarroService carroService;
 
-    @Autowired
-    private CarroValidator validator;
+	@Autowired
+	private CarroValidator validator;
 
-    @GetMapping("/novo")
-    public ModelAndView novo(Carro carro) {
-        ModelAndView modelAndView = getDefaultObjectsModelAndView(carro);
-        return modelAndView;
-    }
+	@GetMapping("/novo")
+	public ModelAndView novo(Carro carro) {
+		ModelAndView modelAndView = getDefaultObjectsModelAndView(carro);
+		return modelAndView;
+	}
 
-    @PostMapping("/novo")
-    public ModelAndView salvarCarro(@AuthenticationPrincipal User user, @Valid Carro carro, BindingResult result,
-            RedirectAttributes attributes) {
-        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-        validator.validate(carro, result);
-        if (result.hasErrors()) {
-            this.carroService.getFieldError(carro, result);
-            carro.getCarroHelper().setHasErrors(Boolean.TRUE);
-            return this.novo(carro);
-        }
-        try {
-            this.carroService.salvarCarro(carro, usuarioSistema.getUsuario());
-            attributes.addFlashAttribute("mensagem", "Veículo gravado com sucesso !");
-            return new ModelAndView("redirect:/carros/novo");
-        } catch (NegocioException e) {
-            result.addError(new ObjectError("Carro", e.getMessage()));
-            carro.getCarroHelper().setHasErrors(Boolean.TRUE);
-            return novo(carro);
-        }
-    }
+	@RequestMapping(value = "salvarCarroIntermediario")
+	public ModelAndView salvarCarroIntermediario(Carro carro) {
+		try {
+			ModelAndView modelAndView = new ModelAndView("carro/fragments/CarroIntermediario");
+			carro = this.carroService.salvarCarroIntermiediario(carro);
+			modelAndView.addObject("carro", carro);
+			return modelAndView;
+		} catch (NegocioException e) {
+			return null;
+		}
+	}
 
-    @RequestMapping(value = "salvarMarcaRapido", method = RequestMethod.POST, consumes = {
-            MediaType.APPLICATION_JSON_VALUE})
-    public @ResponseBody ResponseEntity<?> salvarMarca(@RequestBody @Valid Fabricante fabricante,
-            BindingResult result) {
-        try {
-            if (result.hasErrors()) {
-                return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
-            }
-            fabricante = this.carroService.salvarMarcaRapido(fabricante);
-            return ResponseEntity.ok(fabricante);
-        } catch (NegocioException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+	@PostMapping("/novo")
+	public ModelAndView salvarCarro(@AuthenticationPrincipal User user, @Valid Carro carro, BindingResult result,
+			RedirectAttributes attributes) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+		validator.validate(carro, result);
+		if (result.hasErrors()) {
+			this.carroService.getFieldError(carro, result);
+			carro.getCarroHelper().setHasErrors(Boolean.TRUE);
+			return this.novo(carro);
+		}
+		try {
+			this.carroService.salvarCarro(carro, usuarioSistema.getUsuario());
+			attributes.addFlashAttribute("mensagem", "Veículo gravado com sucesso !");
+			return new ModelAndView("redirect:/carros/novo");
+		} catch (NegocioException e) {
+			result.addError(new ObjectError("Carro", e.getMessage()));
+			carro.getCarroHelper().setHasErrors(Boolean.TRUE);
+			return novo(carro);
+		}
+	}
 
-    @GetMapping("/{codigo}")
-    public ModelAndView editar(@PathVariable("codigo") Carro carro) {
-        ModelAndView modelAndView = this.novo(carro);
-        modelAndView.addObject("carro", carro);
-        return modelAndView;
-    }
+	@RequestMapping(value = "salvarMarcaRapido", method = RequestMethod.POST, consumes = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> salvarMarca(@RequestBody @Valid Fabricante fabricante,
+			BindingResult result) {
+		try {
+			if (result.hasErrors()) {
+				return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
+			}
+			fabricante = this.carroService.salvarMarcaRapido(fabricante);
+			return ResponseEntity.ok(fabricante);
+		} catch (NegocioException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 
-    @GetMapping
-    public ModelAndView pesquisar(@AuthenticationPrincipal User user, CarroFilter carroFilter, BindingResult result,
-            @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
-        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-        ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
-        PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
-                this.carroService.getCarros().filtrar(usuarioSistema.getUsuario(), carroFilter, pageable),
-                httpServletRequest);
-        mv.addObject("fabricantes", this.carroService.getFabricantes().findAll());
-        mv.addObject("cores", this.carroService.getCores().findAll());
-        mv.addObject("tipoVeiculos", TipoVeiculo.values());
-        mv.addObject("pagina", paginaWrapper);
-        return mv;
-    }
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Carro carro) {
+		ModelAndView modelAndView = this.novo(carro);
+		modelAndView.addObject("carro", carro);
+		return modelAndView;
+	}
 
-    @RequestMapping(value = "/atualizaFormularioVeiculo", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ModelAndView atualizaFormularioVeiculo(Long codigoCarro, TipoVeiculo tipoVeiculo,
-            @RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
-        ModelAndView modelAndView = this.carroService.getModelAndViewTipoVeiculo(codigoCarro, tipoVeiculo, acessorios);
-        return modelAndView;
-    }
+	@GetMapping
+	public ModelAndView pesquisar(@AuthenticationPrincipal User user, CarroFilter carroFilter, BindingResult result,
+			@PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
+		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+		ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
+		PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
+				this.carroService.getCarros().filtrar(usuarioSistema.getUsuario(), carroFilter, pageable),
+				httpServletRequest);
+		mv.addObject("fabricantes", this.carroService.getFabricantes().findAll());
+		mv.addObject("cores", this.carroService.getCores().findAll());
+		mv.addObject("tipoVeiculos", TipoVeiculo.values());
+		mv.addObject("pagina", paginaWrapper);
+		return mv;
+	}
 
-    private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
-        ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
-        modelAndView.addObject("tipos", TipoVeiculo.values());
-        modelAndView.addObject("carro", carro);
-        modelAndView.addObject("cadastroVeiculo", Boolean.TRUE);
-        return modelAndView;
-    }
+	@RequestMapping(value = "/atualizaFormularioVeiculo", consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public ModelAndView atualizaFormularioVeiculo(Long codigoCarro, TipoVeiculo tipoVeiculo,
+			@RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
+		ModelAndView modelAndView = this.carroService.getModelAndViewTipoVeiculo(codigoCarro, tipoVeiculo, acessorios);
+		return modelAndView;
+	}
+
+	private ModelAndView getDefaultObjectsModelAndView(Carro carro) {
+		ModelAndView modelAndView = new ModelAndView("carro/CadastroCarro");
+		modelAndView.addObject("tipos", TipoVeiculo.values());
+		modelAndView.addObject("carro", carro);
+		modelAndView.addObject("cadastroVeiculo", Boolean.TRUE);
+		return modelAndView;
+	}
 }

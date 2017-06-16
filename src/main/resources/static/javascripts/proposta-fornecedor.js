@@ -90,14 +90,54 @@ Compraki.CadastroCarro = (function() {
 		$('.js-div-erro-geral').addClass('hidden');
 		
 	}
-	
+
 	function onError(erro){
 		console.log(erro);
-	}
+	}		
+	
+	function onErrorSalvandoCarro(erro){
+		console.log(erro);
+	}	
 	
 	function onSalvarCarroIntermediario(event){
 		event.preventDefault();
-		var pickListAcessorios = $('#selectAcessorios').bootstrapDualListbox();
+		if(validaCadastroIntermediario.call(this, getAcessoriosEscolhidos.call(this))){
+			onSalvar.call(this);
+		} else {
+			 this.modal.animate({ scrollTop: 0 }, 'slow');
+		}
+	}
+	
+	function onSalvar(){
+		$.ajax({
+			url: "/compraki/carros/salvarCarroIntermediario",
+			method: 'GET',
+			contentType: 'application/json',
+			data: $('.js-form-carro').serialize(),
+			error: onErrorSalvandoCarro.bind(this),
+			success: onCarroIntermediarioSalvo.bind(this),
+		});	
+		
+	}
+	
+	function onCarroIntermediarioSalvo(carroIntermediario){
+		var parser = new DOMParser();
+		var html = parser.parseFromString(carroIntermediario, "text/html"); 
+		var htmlFinal = $(html).find('#carroIntermediario');
+		var comboCarro = $('.js-combo-veiculo');
+		comboCarro.append(htmlFinal);
+		this.modal.modal('hide');
+	}
+	
+	function getAcessoriosEscolhidos(){
+		var pickListAcessorios = null;
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			pickListAcessorios = $('#selectAcessoriosCarro').bootstrapDualListbox();
+		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
+			pickListAcessorios = $('#selectAcessoriosMoto').bootstrapDualListbox();
+		} else {
+			pickListAcessorios = $('#selectAcessoriosPesado').bootstrapDualListbox();
+		}
 		var options = [];
 		if(pickListAcessorios.val() != null){
 			pickListAcessorios.val().forEach(function(acessorio) {
@@ -105,13 +145,11 @@ Compraki.CadastroCarro = (function() {
 				options.push('<option id="acessorio'+ res[0] +'" value="' + res[0]+ '" selected="selected">' + res[1] + '</option>');
 			});	
 			this.selectAcessoriosEscolhidos.html(options.join(''));
-		}
-		if(validaCadastroIntermediario.call(this, this.selectAcessoriosEscolhidos)){
-			alert('deu certo');
 		} else {
-			 this.modal.animate({ scrollTop: 0 }, 'slow');
+			this.selectAcessoriosEscolhidos.html('');
 		}
-	}	
+		return this.selectAcessoriosEscolhidos;
+	}
 	
 	function validaCadastroIntermediario(acessoriosEscolhidos){
 		var validacao = true;
@@ -126,7 +164,7 @@ Compraki.CadastroCarro = (function() {
 			if($('#marca').val() == ''){
 				divMarca.addClass('has-error');
 				$('#js-msg-erro-marca').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divMarca.removeClass('has-error');
 				$('#js-msg-erro-marca').addClass('hidden');				
@@ -134,7 +172,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-modelo').val() == ''){
 				divModelo.addClass('has-error');
 				$('#js-msg-erro-modelo').removeClass('hidden');				
-				validacao = false
+				validacao = false;
 			} else {
 				divModelo.removeClass('has-error');
 				$('#js-msg-erro-modelo').addClass('hidden');						
@@ -142,7 +180,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-categoria').val() == ''){
 				divCategoria.addClass('has-error');
 				$('#js-msg-erro-categoria').removeClass('hidden');						
-				validacao = false
+				validacao = false;
 			} else {
 				divCategoria.removeClass('has-error');
 				$('#js-msg-erro-categoria').addClass('hidden');					
@@ -150,7 +188,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-cor').val() == ''){
 				divCor.addClass('has-error');
 				$('#js-msg-erro-cor').removeClass('hidden');					
-				validacao = false
+				validacao = false;
 			} else {
 				divCor.removeClass('has-error');
 				$('#js-msg-erro-cor').addClass('hidden');				
@@ -158,7 +196,7 @@ Compraki.CadastroCarro = (function() {
 			if(acessoriosEscolhidos.val() == null){
 				divAcessorios.addClass('has-error');
 				$('#js-msg-erro-acessorio').removeClass('hidden');				
-				validacao = false
+				validacao = false;
 			} else {
 				divAcessorios.removeClass('has-error');
 				$('#js-msg-erro-acessorio').addClass('hidden');					
@@ -173,7 +211,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-marca-moto').val() == ''){
 				divMarca.addClass('has-error');
 				$('#js-msg-erro-marca').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				$('#js-msg-erro-marca').addClass('hidden');
 				divMarca.removeClass('has-error');
@@ -181,7 +219,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-modelo-moto').val() == ''){
 				divModelo.addClass('has-error');
 				$('#js-msg-erro-modelo').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divModelo.removeClass('has-error');
 				$('#js-msg-erro-modelo').addClass('hidden');
@@ -189,7 +227,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-categoria-moto').val() == ''){
 				divCategoria.addClass('has-error');
 				$('#js-msg-erro-categoria').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divCategoria.removeClass('has-error');
 				$('#js-msg-erro-categoria').addClass('hidden');
@@ -197,6 +235,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-cor-moto').val() == ''){
 				divCor.addClass('has-error');
 				$('#js-msg-erro-cor').removeClass('hidden');
+				validacao = false;
 			} else {
 				divCor.removeClass('has-error');
 				$('#js-msg-erro-cor').addClass('hidden');
@@ -204,7 +243,7 @@ Compraki.CadastroCarro = (function() {
 			if(acessoriosEscolhidos.val() == null){
 				divAcessorios.addClass('has-error');
 				$('#js-msg-erro-acessorio').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divAcessorios.removeClass('has-error');
 				$('#js-msg-erro-acessorio').addClass('hidden');
@@ -219,7 +258,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-marca-pesado').val() == ''){
 				divMarca.addClass('has-error');
 				$('#js-msg-erro-marca').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divMarca.removeClass('has-error');
 				$('#js-msg-erro-marca').addClass('hidden');
@@ -227,7 +266,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-modelo-pesado').val() == ''){
 				divModelo.addClass('has-error');
 				$('#js-msg-erro-modelo').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divModelo.removeClass('has-error');
 				$('#js-msg-erro-modelo').addClass('hidden');
@@ -235,7 +274,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-categoria-pesado').val() == ''){
 				divCategoria.addClass('has-error');
 				$('#js-msg-erro-categoria').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divCategoria.removeClass('has-error');
 				$('#js-msg-erro-categoria').addClass('hidden');
@@ -243,7 +282,7 @@ Compraki.CadastroCarro = (function() {
 			if($('.js-combo-cor-pesado').val() == ''){
 				divCor.addClass('has-error');
 				$('#js-msg-erro-cor').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divCor.removeClass('has-error');
 				$('#js-msg-erro-cor').addClass('hidden');
@@ -251,7 +290,7 @@ Compraki.CadastroCarro = (function() {
 			if(acessoriosEscolhidos.val() == null){
 				divAcessorios.addClass('has-error');
 				$('#js-msg-erro-acessorio').removeClass('hidden');
-				validacao = false
+				validacao = false;
 			} else {
 				divAcessorios.removeClass('has-error');
 				$('#js-msg-erro-acessorio').addClass('hidden');

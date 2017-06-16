@@ -8,7 +8,7 @@
     xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     <body>
 	    <div class="container-fluid" th:fragment="formVeiculo">
-	        <form id="formCarro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
+	        <form id="formCarro" class="js-form-carro" method="post" th:object="${carro}" th:action="@{/carros/novo}">
 	           <input id="hasErrors" type="hidden" th:field="*{carroHelper.hasErrors}"> 
 	           <input id="erroMarca" type="hidden" th:field="*{carroHelper.erroMarca}"> 
 	           <input id="marcaHelper" type="hidden" th:field="*{carroHelper.marca}"> 
@@ -23,6 +23,7 @@
 	           <select id="acessoriosEscolhidos" class="hidden" th:field="*{acessorios}" multiple>
 	           </select>        
 	           <input id="codigoHidden" type="hidden" th:field="*{codigo}"> 
+	           <input id="codigoUsuario" type="hidden" th:field="*{usuario.codigo}"> 
 	           <compraki:message/>
 	           <h2>Tipo Veículo</h2>
 	           <div class="row">

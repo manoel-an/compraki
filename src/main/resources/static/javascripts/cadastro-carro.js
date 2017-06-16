@@ -303,7 +303,16 @@ Compraki.CadastroCarro = (function() {
 	
 	function onSalvarCarro(event){
 		event.preventDefault();
-		var pickListAcessorios = $('#selectAcessorios').bootstrapDualListbox();
+		var pickListAcessorios = null;
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			pickListAcessorios = $('#selectAcessoriosCarro').bootstrapDualListbox();
+		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
+			pickListAcessorios = $('#selectAcessoriosMoto').bootstrapDualListbox();
+		} else {
+			if(this.comboTipoVeiculo.val() == 'PESADO'){
+				pickListAcessorios = $('#selectAcessoriosPesado').bootstrapDualListbox();
+			}
+		}
 		var options = [];
 		if(pickListAcessorios.val() != null){
 			pickListAcessorios.val().forEach(function(acessorio) {
@@ -313,7 +322,7 @@ Compraki.CadastroCarro = (function() {
 			this.selectAcessoriosEscolhidos.html(options.join(''));
 		}
 		this.formulario.submit();
-	}	
+	}
 	
 	return CadastroCarro;
 }());
