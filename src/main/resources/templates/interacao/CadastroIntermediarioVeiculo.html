@@ -13,6 +13,27 @@
                     <h4 class="modal-title">Cadastro de Veículo</h4>
                 </div>
                 <div class="modal-body">
+					<div class="alert  alert-danger  alert-dismissible js-div-erro-geral hidden" role="alert">
+						<button type="button" class="close" data-dismiss="alert"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div id="js-msg-erro-marca" class="hidden">
+							<i class="fa  fa-exclamation-circle"></i>É necesário informar a marca
+						</div>
+						<div id="js-msg-erro-modelo" class="hidden">
+							<i class="fa  fa-exclamation-circle"></i>É necesário informar o modelo do véiculo
+						</div>	
+						<div id="js-msg-erro-categoria" class="hidden">
+							<i class="fa  fa-exclamation-circle"></i>É necesário informar a categoria do véiculo
+						</div>
+						<div id="js-msg-erro-cor" class="hidden">
+							<i class="fa  fa-exclamation-circle"></i>É necesário informar uma cor para o veículo
+						</div>
+						<div id="js-msg-erro-acessorio" class="hidden">
+							<i class="fa  fa-exclamation-circle"></i>É necessário selecionar pelo menos um acessório
+						</div>																							
+					</div>                
  					<th:block th:replace="carro/fragments/FormVeiculo :: formVeiculo"></th:block>    
 				    <th:block th:replace="hbs/FotoVeiculo"></th:block> 					            
                 </div>
