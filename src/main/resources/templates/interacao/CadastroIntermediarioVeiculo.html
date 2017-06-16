@@ -3,7 +3,7 @@
     xmlns:data="http://www.thymeleaf.org/extras/data"
     xmlns:th="http://www.thymeleaf.org">
 <body>
-    <div class="modal fade" id="modalCadastroIntermediarioVeiculo" tabindex="-1" role="dialog" th:fragment="modal">
+    <div class="modal fade" id="modalCadastroIntermediarioVeiculo" role="dialog" th:fragment="modal">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -14,7 +14,6 @@
                 </div>
                 <div class="modal-body">
  					<th:block th:replace="carro/fragments/FormVeiculo :: formVeiculo"></th:block>    
-				    <div th:replace="marca/CadastroRapidoMarca :: modal"></div>
 				    <th:block th:replace="hbs/FotoVeiculo"></th:block> 					            
                 </div>
             </div>

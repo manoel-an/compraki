@@ -18,11 +18,6 @@ Compraki.PropostaFornecedor = (function() {
 		var uploadFoto = new Compraki.UploadFoto();
 		uploadFoto.iniciar();		
 		
-		var marcaCadastroRapido = new Compraki.MarcaCadastroRapido();
-		marcaCadastroRapido.iniciar();
-		
-		 //$('.js-select-search').select2('reload');
-
 	}
 	
 	return PropostaFornecedor;
@@ -31,8 +26,7 @@ Compraki.PropostaFornecedor = (function() {
 Compraki.CadastroCarro = (function() {
 	
 	function CadastroCarro() {
-		this.botaoSalvar = $('.js-btn-salvar-carro');
-		this.formulario = $('#formCarro');
+		this.botaoSalvarCarroIntermediario = $('.js-btn-salvar-carro-intermediario');
 		this.selectAcessoriosEscolhidos = $('#acessoriosEscolhidos');
 		this.checkBoxIpva = $('.js-ipva');
 		this.comboTipoVeiculo = $('#tipoVeiculo');
@@ -40,16 +34,8 @@ Compraki.CadastroCarro = (function() {
 		this.divDadosMoto = $('#divDadosMoto');
 		this.divDadosPesado = $('#divDadosPesado');
 		this.codigoCarro = $('#codigoHidden');
-		this.erroAcessorios = $('#erroAcessorios');
-		this.acessoriosJSON = $('#acessoriosJSON');
-		this.erroMarca = $('#erroMarca');
-		this.marcaHelper = $('#marcaHelper');
-		this.erroModelo = $('#erroModelo');
-		this.modeloHelper = $('#modeloHelper');
-		this.erroCategoria = $('#erroCategoria');
-		this.categoriaHelper = $('#categoriaHelper');
-		this.erroCor = $('#erroCor');
-		this.corHelper = $('#corHelper');		
+		this.topoPagina = $('.js-topo-page');
+		this.modal = $('#modalCadastroIntermediarioVeiculo');
 	}
 	
 	CadastroCarro.prototype.iniciar = function(event) {
@@ -57,22 +43,13 @@ Compraki.CadastroCarro = (function() {
 			onAtualizaFormVeiculo.call(this, true);
 		}
 		this.comboTipoVeiculo.on('change', onAtualizaFormVeiculo.bind(this, false));
-		this.botaoSalvar.on('click', onSalvarCarro.bind(this));
+		this.botaoSalvarCarroIntermediario.on('click', onSalvarCarroIntermediario.bind(this));
 		this.checkBoxIpva.bootstrapSwitch();
 	}
 	
 	function onAtualizaFormVeiculo(validacao){
 		var codigo = this.codigoCarro.val();
 		var acessorios = new Array();
-		if(this.acessoriosJSON.val()){
-			var obj = jQuery.parseJSON(this.acessoriosJSON.val());
-			obj.forEach(function(acessorio) {
-				acessorios.push(acessorio.codigo);
-			});				
-		}
-		if(!validacao){
-			retirarValidacaoFormVeiculo.call(this);
-		}
 		$.ajax({
 			url: "/compraki/carros/atualizaFormularioVeiculo",
 			method : 'GET',
@@ -81,8 +58,7 @@ Compraki.CadastroCarro = (function() {
 				codigoCarro: codigo, tipoVeiculo: this.comboTipoVeiculo.val(), acessorios: acessorios
 			},	
 			error: onError.bind(this),
-			success: onSucessFormulario.bind(this),
-			complete: onAdicionaValidacoesFormulario.bind(this)
+			success: onSucessFormulario.bind(this)
 		});	
 	}
 	
@@ -105,231 +81,19 @@ Compraki.CadastroCarro = (function() {
 			this.divDadosMoto.html("");
 			this.divDadosPesado.html(htmlFinal);
 		}
-	}
-	
-	function retirarValidacaoFormVeiculo(){
-		this.erroAcessorios.val(false);
-		this.erroMarca.val(false);
-		this.erroModelo.val(false);
-		this.erroCategoria.val(false);
-		this.erroCor.val(false);		
-	}	
-	
-	function adicionarValidacaoCarro(){
-		var hasErrors = $('#hasErrors');
-		var divMarca = $('.js-div-marca');
-		var divModelo = $('.js-div-modelo');
-		var divCategoria = $('.js-div-categoria');
-		var divAcessorios = $('.js-div-acessorios');
-		var divCor = $('.js-div-cor');
-		var marca = $('.js-combo-marca');
-		var modelo = $('.js-modelo');
-		var categoria = $('.js-combo-categoria');
-		var cor = $('.js-combo-cor');
-		
-		if(this.erroAcessorios.val() == 'true'){
-			divAcessorios.addClass('has-error');
-		}
-		if(this.erroMarca.val() == 'true'){
-			divMarca.addClass('has-error');
-			marca.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				marca.val(this.marcaHelper.val());
-			} else {
-				if(!marca.val()){
-					marca.val('');
-				}
-			}
-		}
-		if(this.erroModelo.val() == 'true'){
-			divModelo.addClass('has-error');
-			modelo.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				modelo.val(this.modeloHelper.val());
-			} else {
-				if(!modelo.val()){
-					modelo.val('');
-				}
-			}
-		}
-		if(this.erroCategoria.val() == 'true'){
-			divCategoria.addClass('has-error');
-			categoria.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				categoria.val(this.categoriaHelper.val());
-			} else {
-				if(!categoria.val()){
-					categoria.val('');
-				}
-			}
-		}
-		if(this.erroCor.val() == 'true'){
-			divCor.addClass('has-error');
-			cor.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				cor.val(this.corHelper.val());
-			} else {
-				if(!cor.val()){
-					cor.val('');
-				}
-			}
-		}			
-	}
-	
-	function adicionarValidacaoMoto(){
-		var hasErrors = $('#hasErrors');
-		var divMarca = $('.js-div-marca-moto');
-		var divModelo = $('.js-div-modelo-moto');
-		var divCategoria = $('.js-div-categoria-moto');
-		var divAcessorios = $('.js-div-acessorios-moto');
-		var divCor = $('.js-div-cor-moto');
-		var marca = $('.js-combo-marca-moto');
-		var modelo = $('.js-modelo-moto');
-		var categoria = $('.js-combo-categoria-moto');
-		var cor = $('.js-combo-cor-moto');
-		
-		if(this.erroAcessorios.val() == 'true'){
-			divAcessorios.addClass('has-error');
-		}
-		if(this.erroMarca.val() == 'true'){
-			divMarca.addClass('has-error');
-			marca.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				marca.val(this.marcaHelper.val());
-			} else {
-				if(!marca.val()){
-					marca.val('');
-				}
-			}
-		}
-		if(this.erroModelo.val() == 'true'){
-			divModelo.addClass('has-error');
-			modelo.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				modelo.val(this.modeloHelper.val());
-			} else {
-				if(!modelo.val()){
-					modelo.val('');
-				}
-			}
-		}
-		if(this.erroCategoria.val() == 'true'){
-			divCategoria.addClass('has-error');
-			categoria.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				categoria.val(this.categoriaHelper.val());
-			} else {
-				if(!categoria.val()){
-					categoria.val('');
-				}
-			}
-		}
-		if(this.erroCor.val() == 'true'){
-			divCor.addClass('has-error');
-			cor.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				cor.val(this.corHelper.val());
-			} else {
-				if(!cor.val()){
-					cor.val('');
-				}
-			}
-		}	
-	}
-	
-	function adicionarValidacaoPesado(){
-		var hasErrors = $('#hasErrors');
-		var divMarca = $('.js-div-marca-pesado');
-		var divModelo = $('.js-div-modelo-pesado');
-		var divCategoria = $('.js-div-categoria-pesado');
-		var divAcessorios = $('.js-div-acessorios-pesado');
-		var divCor = $('.js-div-cor-pesado');
-		var marca = $('.js-combo-marca-pesado');
-		var modelo = $('.js-modelo-pesado');
-		var categoria = $('.js-combo-categoria-pesado');
-		var cor = $('.js-combo-cor-pesado');
-		
-		if(this.erroAcessorios.val() == 'true'){
-			divAcessorios.addClass('has-error');
-		}
-		if(this.erroMarca.val() == 'true'){
-			divMarca.addClass('has-error');
-			marca.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				marca.val(this.marcaHelper.val());
-			} else {
-				if(!marca.val()){
-					marca.val('');
-				}
-			}
-		}
-		if(this.erroModelo.val() == 'true'){
-			divModelo.addClass('has-error');
-			modelo.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				modelo.val(this.modeloHelper.val());
-			} else {
-				if(!modelo.val()){
-					modelo.val('');
-				}
-			}
-		}
-		if(this.erroCategoria.val() == 'true'){
-			divCategoria.addClass('has-error');
-			categoria.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				categoria.val(this.categoriaHelper.val());
-			} else {
-				if(!categoria.val()){
-					categoria.val('');
-				}
-			}
-		}
-		if(this.erroCor.val() == 'true'){
-			divCor.addClass('has-error');
-			cor.val('');
-		} else {
-			if(hasErrors.val() == 'true'){
-				cor.val(this.corHelper.val());
-			} else {
-				if(!cor.val()){
-					cor.val('');
-				}
-			}
-		}		
-	}
-	
-	
-	function onAdicionaValidacoesFormulario(event){
-		if(this.comboTipoVeiculo.val() == 'CARRO'){
-			adicionarValidacaoCarro.call(this);
-		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
-			adicionarValidacaoMoto.call(this);
-		} else {
-			adicionarValidacaoPesado.call(this);
-		}
 		var selectSearch = new Compraki.SelectSearch();
 		selectSearch.enable();
+		
 		var pickList = new Compraki.PickList();
 		pickList.enable();
+		
 	}
 	
 	function onError(erro){
 		console.log(erro);
 	}
 	
-	function onSalvarCarro(event){
+	function onSalvarCarroIntermediario(event){
 		event.preventDefault();
 		var pickListAcessorios = $('#selectAcessorios').bootstrapDualListbox();
 		var options = [];
@@ -340,8 +104,97 @@ Compraki.CadastroCarro = (function() {
 			});	
 			this.selectAcessoriosEscolhidos.html(options.join(''));
 		}
-		this.formulario.submit();
+		if(validaCadastroIntermediario.call(this, this.selectAcessoriosEscolhidos)){
+			alert('deu certo');
+		} else {
+			 this.modal.animate({ scrollTop: 0 }, 'slow');
+		}
 	}	
+	
+	function validaCadastroIntermediario(acessoriosEscolhidos){
+		var validacao = true;
+		if(this.comboTipoVeiculo.val() == 'CARRO'){
+			var divMarca = $('.js-div-marca');
+			var divModelo = $('.js-div-modelo');
+			var divCategoria = $('.js-div-categoria');
+			var divAcessorios = $('.js-div-acessorios');
+			var divCor = $('.js-div-cor');
+			if($('#marca').val() == ''){
+				divMarca.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-modelo').val() == ''){
+				divModelo.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-combo-categoria').val() == ''){
+				divCategoria.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-combo-cor').val() == ''){
+				divCor.addClass('has-error');
+				validacao = false
+			}
+			if(acessoriosEscolhidos.val() == null){
+				divAcessorios.addClass('has-error');
+				validacao = false
+			}
+
+		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
+			var divMarca = $('.js-div-marca-moto');
+			var divModelo = $('.js-div-modelo-moto');
+			var divCategoria = $('.js-div-categoria-moto');
+			var divAcessorios = $('.js-div-acessorios-moto');
+			var divCor = $('.js-div-cor-moto');
+			if($('.js-combo-marca-moto').val() == ''){
+				divMarca.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-modelo-moto').val() == ''){
+				divModelo.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-combo-categoria-moto').val() == ''){
+				divCategoria.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-combo-cor-moto').val() == ''){
+				divCor.addClass('has-error');
+			}
+			if(acessoriosEscolhidos.val() == null){
+				divAcessorios.addClass('has-error');
+				validacao = false
+			}
+			
+		} else  {
+			var divMarca = $('.js-div-marca-pesado');
+			var divModelo = $('.js-div-modelo-pesado');
+			var divCategoria = $('.js-div-categoria-pesado');
+			var divAcessorios = $('.js-div-acessorios-pesado');
+			var divCor = $('.js-div-cor-pesado');
+			if($('.js-combo-marca-pesado').val() == ''){
+				divMarca.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-modelo-pesado').val() == ''){
+				divModelo.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-combo-categoria-pesado').val() == ''){
+				divCategoria.addClass('has-error');
+				validacao = false
+			}
+			if($('.js-combo-cor-pesado').val() == ''){
+				divCor.addClass('has-error');
+				validacao = false
+			}
+			if(acessoriosEscolhidos.val() == null){
+				divAcessorios.addClass('has-error');
+				validacao = false
+			}
+		} 
+		return validacao;
+	}
 	
 	return CadastroCarro;
 }());
@@ -412,77 +265,6 @@ Compraki.UploadFoto = (function() {
 	return UploadFoto;
 	
 })();
-
-
-Compraki.MarcaCadastroRapido = (function() {
-	
-	function MarcaCadastroRapido() {
-		this.modal = $('#modalCadastroRapidoMarca');
-		this.botaoSalvar = this.modal.find('.js-modal-cadastro-marca-salvar-btn');
-		this.form = this.modal.find('form');
-		this.url = this.form.attr('action');
-		this.inputNomeMarca = $('#nomeMarca');
-		this.containerMensagemErro = $('.js-mensagem-cadastro-rapido-marca');
-		this.comboTipoVeiculo = $('#tipoVeiculo');
-	}
-	
-	MarcaCadastroRapido.prototype.iniciar = function() {
-		this.form.on('submit', function(event) { event.preventDefault() });
-		this.modal.on('shown.bs.modal', onModalShow.bind(this));
-		this.modal.on('hide.bs.modal', onModalClose.bind(this));
-		this.botaoSalvar.on('click', onBotaoSalvarClick.bind(this));
-	}
-	
-	function onModalShow() {
-		this.inputNomeMarca.focus();
-		onAdicionaValidacoesModalMarca.call(this);
-	}
-	
-	function onModalClose() {
-		this.inputNomeMarca.val('');
-		this.containerMensagemErro.addClass('hidden');
-		this.form.find('.form-group').removeClass('has-error');
-	}
-	
-	function onBotaoSalvarClick() {
-		var nomeMarca = this.inputNomeMarca.val().trim();
-		$.ajax({
-			url: this.url,
-			method: 'POST',
-			contentType: 'application/json',
-			data: JSON.stringify({ nome: nomeMarca, tipoVeiculo: this.comboTipoVeiculo.val() }),
-			error: onErroSalvandoMarca.bind(this),
-			success: onMarcaSalva.bind(this)
-		});
-	}
-	
-	function onAdicionaValidacoesModalMarca(){
-		if(this.comboTipoVeiculo.val() == 'CARRO'){
-			this.inputNomeMarca.attr("placeholder", "Ex: Chevrolet, Fiat ...");	
-		} else if(this.comboTipoVeiculo.val() == 'MOTO'){
-			this.inputNomeMarca.attr("placeholder", "Ex: Honda, Yamanha ...");
-		} else {
-			this.inputNomeMarca.attr("placeholder", "Ex: Volvo, Scania ...");
-		}
-	}
-	
-	function onErroSalvandoMarca(obj) {
-		var mensagemErro = obj.responseText;
-		this.containerMensagemErro.removeClass('hidden');
-		this.containerMensagemErro.html('<span>' + mensagemErro + '</span>');
-		this.form.find('.form-group').addClass('has-error');
-	}
-	
-	function onMarcaSalva(marca) {
-		var comboMarca = $('#marca');
-		comboMarca.append('<option value=' + marca.codigo + '>' + marca.nome + '</option>');
-		comboMarca.val(marca.codigo);
-		this.modal.modal('hide');
-	}
-	
-	return MarcaCadastroRapido;
-	
-}());
 
 $(function() {
 	var propostaFornecedor = new Compraki.PropostaFornecedor();

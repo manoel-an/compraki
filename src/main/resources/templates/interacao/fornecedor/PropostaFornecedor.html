@@ -33,10 +33,10 @@
    	<div class="container-fluid">
 	    <form id="formPropostaFornecor" method="post" th:action="@{/interacao/novo}">
 	    	<div class="row">
-                <div class="form-group  col-sm-4  compraki-required js-div-marca">
+                <div class="form-group  col-sm-4  compraki-required js-div-veiculo">
                     <label for="marca" class="control-label">Veículo</label>
                     <div class="bw-field-action">
-                       <select id="veiculo" class="form-control js-select-search js-combo-marca">
+                       <select id="veiculo" class="form-control js-select-search js-combo-veiculo">
                            <option value=""></option>
                            <option th:each="veiculo : ${veiculos}" th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
                        </select>
