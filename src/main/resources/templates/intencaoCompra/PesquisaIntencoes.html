@@ -157,7 +157,7 @@
                         <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
                         <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th>Cores</th>
-                        <th>Acessórios</th>
+                        <th>Ações</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -172,9 +172,17 @@
                         <td>
                             <span th:each="cor : ${intencao.cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>
                         </td>
-                        <td>
-                            <span th:each="acessorio : ${intencao.acessorios}" th:text="|${acessorio.descricao}${acessorioStat.last ? '' : ', '}|"></span>
-                        </td>                        
+                        
+                        
+                        <td class="text-left">
+                            <a class="btn  btn-link  btn-xs" title="Detalhar" 
+                                    th:href="@{/intencoes/{codigo}(codigo=${intencao.codigo})}"> 
+                                <i class="glyphicon glyphicon-search"></i>
+                            </a>
+                        </td>
+                        
+                        
+                                               
                         <td class="text-left">
                             <a class="btn  btn-link  btn-xs" title="Editar" 
                                     th:href="@{/intencoes/{codigo}(codigo=${intencao.codigo})}"> 
