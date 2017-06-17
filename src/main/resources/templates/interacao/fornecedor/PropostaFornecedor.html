@@ -32,31 +32,49 @@
     </div> 
    	<div class="container-fluid">
 	    <form id="formPropostaFornecor" method="post" th:action="@{/interacao/novo}">
+	    	
 	    	<div class="row">
-                <div class="form-group  col-sm-4  compraki-required js-div-veiculo">
+                <div class="form-group  col-sm-4 compraki-required js-div-veiculo">
                     <label for="marca" class="control-label">Veículo</label>
-                    <div class="bw-field-action">
-                       <select id="veiculo" class="form-control js-select-search js-combo-veiculo">
-                           <option value=""></option>
-                           <option th:each="veiculo : ${veiculos}" th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'" th:value="${veiculo.codigo}"></option>
-                       </select>
-                       <div class="bw-field-action__icon" 
-                            data-toggle="tooltip" data-placement="top" title="Cadastre seu Veículo">
-                           <a href="#" data-toggle="modal" data-target="#modalCadastroIntermediarioVeiculo">
-                                <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
-                           </a>
-                       </div>                        
-                       <!-- 
-                       <div class="bw-field-action__icon" th:each="intencaoProposta : ${intencoesPropostas}"
-                            data-toggle="tooltip" data-placement="top" title="Cadastre seu Veículo ">
-                           <a th:href="@{/carros/novo}" th:attr="data-codigo=${intencaoProposta.codigo}" data-target="#cadastroIntermediarioVeiculo">
-                                <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
-                           </a>
-                       </div>
-                        -->
-                    </div>
-                </div>  
-             </div>   
+						<div class="bw-field-action">
+							<select id="veiculo"
+								class="form-control js-select-search js-combo-veiculo">
+								<option value=""></option>
+								<option th:each="veiculo : ${veiculos}"
+									th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'"
+									th:value="${veiculo.codigo}"></option>
+							</select>
+							<div class="bw-field-action__icon" data-toggle="tooltip"
+								data-placement="top" title="Cadastre seu Veículo">
+								<a href="#" data-toggle="modal"
+									data-target="#modalCadastroIntermediarioVeiculo"> <i
+									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+								</a>
+							</div>
+			
+					</div>
+            </div>
+                            
+            <div class="col-sm-6 form-group" style="padding-left: 60px;">
+				<label class="control-label">Valor</label>
+						<div class="input-group">				 
+								 <div class="input-group-addon">R$</div>
+						<div class="btn-group">		
+								
+									<input type="text" class="form-control js-decimal" id="valor" />
+						</div>
+						</div>		
+               </div>
+              </div>
+                  
+             <div class="row">
+					<div class="form-group  col-sm-8  compraki-required">
+							<label for="descricao" class="control-label">Escreva algo pra quem fez a proposta</label>
+							<textarea rows="5" class="form-control" id="descricao"
+							   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
+				  	</div>
+			 </div> 
+			    
 	    </form>
 	</div>
  	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
