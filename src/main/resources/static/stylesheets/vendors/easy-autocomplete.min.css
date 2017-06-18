@@ -356,7 +356,10 @@
 	padding-bottom: 0;
 	padding-left: 0;
 	position: relative;
-	top: -1px
+	top: -1px;
+	max-height: 300px; /* Set your expected height */
+	overflow-y: scroll; /* Enable vertical scrollbar */
+	overflow-x: hidden;
 }
 
 .easy-autocomplete-container ul li, .easy-autocomplete-container ul .eac-category
