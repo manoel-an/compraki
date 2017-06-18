@@ -122,8 +122,9 @@ public class CarrosController {
 
 	@RequestMapping(value = "/atualizaFormularioVeiculo", consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public ModelAndView atualizaFormularioVeiculo(Long codigoCarro, TipoVeiculo tipoVeiculo,
-			@RequestParam(value = "acessorios[]", required = false) Long[] acessorios) {
+			@RequestParam(value = "acessorios[]", required = false) Long[] acessorios, boolean cadastroRapidoMarca) {
 		ModelAndView modelAndView = this.carroService.getModelAndViewTipoVeiculo(codigoCarro, tipoVeiculo, acessorios);
+		modelAndView.addObject("cadastroRapidoMarca", cadastroRapidoMarca);
 		return modelAndView;
 	}
 

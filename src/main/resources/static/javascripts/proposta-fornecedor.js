@@ -55,7 +55,7 @@ Compraki.CadastroCarro = (function() {
 			method : 'GET',
 			contentType : 'application/json',
 			data: {
-				codigoCarro: codigo, tipoVeiculo: this.comboTipoVeiculo.val(), acessorios: acessorios
+				codigoCarro: codigo, tipoVeiculo: this.comboTipoVeiculo.val(), acessorios: acessorios, cadastroRapidoMarca: false
 			},	
 			error: onError.bind(this),
 			success: onSucessFormulario.bind(this)

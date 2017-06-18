@@ -15,7 +15,7 @@
                            <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
                        </select>
                        <div class="bw-field-action__icon" sec:authorize="hasRole('ROLE_CADASTRAR_USUARIO')" 
-                            data-toggle="tooltip" data-placement="top" title="Cadastro Rápido de  Marca" th:if="${cadastroVeiculo}">
+                            data-toggle="tooltip" data-placement="top" title="Cadastro Rápido de  Marca" th:if="${cadastroRapidoMarca}">
                            <a href="#" data-toggle="modal" data-target="#modalCadastroRapidoMarca">
                                 <i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
                            </a>
