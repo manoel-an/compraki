@@ -1,0 +1,15 @@
+/* Campo Telefone  */	
+.layoutTelefone{
+	text-decoration: underline;
+}
+
+/* Botão Enviar Proposta  */
+.layoutBotaoEnviarProposta{
+	background-color: rgba(251,154,8, 0.88);
+	border-color: rgba(251,154,8, 0.88); 
+	font-size: 15px;
+}
+
+.formatFonteInteracao{
+	font-size: 14px;
+}
