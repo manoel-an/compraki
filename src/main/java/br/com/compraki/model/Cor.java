@@ -11,8 +11,6 @@ import javax.persistence.Transient;
 @Table(name = "cores")
 public class Cor {
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codigo;

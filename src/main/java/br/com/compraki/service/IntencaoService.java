@@ -107,11 +107,7 @@ public class IntencaoService {
 	}
 
 	public void setObjects(IntencaoCompra intencaoCompra, Usuario usuario) {
-		// seta Usuario
-		// Não precisa deste trecho aqui Claudio
-		// Usuario usuarioFind = usuarios.findByCodigo(usuario.getCodigo());
-		// Pode atribuir o usuario diretamente; pois o spring security ja
-		// disponibiliza o mesmo a qualquer tempo
+		
 		intencaoCompra.setUsuario(usuario);
 
 		// busca e setaModelo

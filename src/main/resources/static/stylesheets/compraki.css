@@ -348,3 +348,11 @@
 	.bootstrap-duallistbox-container .move, .bootstrap-duallistbox-container .remove{
 	width: 50%;
 	}
+	
+	/* Formatações Cadastro rápido telefone  */
+  .paddingCampoTelefone{
+   padding-left: 20px;
+  }
+  .paddingBotaoCancelar{
+   margin-left: 100px;
+  }

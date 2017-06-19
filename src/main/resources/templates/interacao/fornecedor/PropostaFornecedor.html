@@ -8,7 +8,7 @@
 
 <head>
     <title>Interação</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/interacao.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
 </head>
 <body>
@@ -22,8 +22,8 @@
                 
                 <div class="col-xs-2">
                     <div class="aw-page-header-controls">
-                        <a class="btn  btn-primary">
-                            <i class="glyphicon  glyphicon-search"></i> <span class="hidden-xs  hidden-sm">Pesquisar</span>
+                        <a class="btn  btn-primary col-sm-12 layoutBotaoEnviarProposta">
+                            <i class="glyphicon"></i> <span class="hidden-xs  hidden-sm">Enviar Proposta</span>
                         </a>                        
                     </div>
                 </div>
@@ -34,7 +34,7 @@
 	    <form id="formPropostaFornecor" method="post" th:action="@{/interacao/novo}">
 	    	
 	    	<div class="row">
-                <div class="form-group  col-sm-4 compraki-required js-div-veiculo">
+                <div class="form-group  col-sm-3 compraki-required js-div-veiculo">
                     <label for="marca" class="control-label">Veículo</label>
 						<div class="bw-field-action">
 							<select id="veiculo"
@@ -55,22 +55,34 @@
 					</div>
             </div>
                             
-            <div class="col-sm-6 form-group" style="padding-left: 60px;">
+              <div class="col-sm-2 form-group">
 				<label class="control-label">Valor</label>
 						<div class="input-group">				 
 								 <div class="input-group-addon">R$</div>
 						<div class="btn-group">		
 								
-									<input type="text" class="form-control js-decimal" id="valor" />
+									<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" />
 						</div>
-						</div>		
-               </div>
-              </div>
+						</div>
+			  </div>
+			  
+			  <div class="col-sm-3 form-group" >
+				<label class="control-label">Meu Telefone</label>
+						<div class="input-group">				 
+							<div class="input-group-addon layoutTelefone"><a href="#" data-toggle="modal"
+							  data-target="#modalCadastroRapidoTelefone">Modificar</a></div>
+							<div class="btn-group">		
+							  <input type="text" class="form-control js-phone-number formatFonteInteracao" id="telefone" />
+							</div>
+						</div>
+			  </div>
+               
+             </div>
                   
              <div class="row">
 					<div class="form-group  col-sm-8  compraki-required">
 							<label for="descricao" class="control-label">Escreva algo pra quem fez a proposta</label>
-							<textarea rows="5" class="form-control" id="descricao"
+							<textarea rows="5" class="form-control formatFonteInteracao" id="descricao"
 							   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
 				  	</div>
 			 </div> 
@@ -78,12 +90,15 @@
 	    </form>
 	</div>
  	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
-</section>
-<th:block layout:fragment="javascript-extra">
-    <script th:src="@{/javascripts/proposta-fornecedor.js}"></script>
-    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
-    <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
-    <script th:src="@{/javascripts/vendors/upload.min.js}"></script>    
-</th:block>
+ 	<div th:replace="interacao/AlteracaoRapidaTelefone :: modal"></div> 
+ 	
+		</section>
+		
+		<th:block layout:fragment="javascript-extra">
+		    <script th:src="@{/javascripts/proposta-fornecedor.js}"></script>
+		    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+		    <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+		    <script th:src="@{/javascripts/vendors/upload.min.js}"></script>    
+		</th:block>
 </body>
 </html>

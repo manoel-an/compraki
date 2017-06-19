@@ -48,8 +48,8 @@ import br.com.compraki.validator.IntencaoValidator;
 public class IntencaoCompraController {
 
     private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
-
     private static final String IT_PESQUISA_VIEW = "intencaoCompra/PesquisaIntencoes";
+    private static final String IT_DETALHES_VIEW = "intencaoCompra/DetalhesIntencaoCompra";
 
     @Autowired
     private Fabricantes fabricantes;
@@ -71,7 +71,7 @@ public class IntencaoCompraController {
 
     @Autowired
     private Cores cores;
-
+    
     @GetMapping("/novo")
     public ModelAndView novo(IntencaoCompra intencaoCompra) {
         ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra);
@@ -129,7 +129,7 @@ public class IntencaoCompraController {
         modelAndView.addObject("intencaoCompra", intencaoCompra);
         return modelAndView;
     }
-
+    
     @GetMapping
     public ModelAndView pesquisar(@AuthenticationPrincipal User user, IntencaoFilter intencaoFilter,
             BindingResult result, @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
@@ -145,6 +145,19 @@ public class IntencaoCompraController {
         mv.addObject("ufs", UF.values());
         mv.addObject("potencias", PotenciaVeiculo.values());
         mv.addObject("pagina", paginaWrapper);
+        return mv;
+    }
+    
+    @GetMapping("/detalhes")
+    public ModelAndView detalhesIntencao(IntencaoFilter intencaoFilter,
+            BindingResult result, HttpServletRequest httpServletRequest) {
+        
+        ModelAndView mv = new ModelAndView(IT_DETALHES_VIEW);
+        List<IntencaoCompra> detalhes = intencaoService.getIntencaoCompras().BuscaIntencoes(1L);
+        
+        mv.addObject("detalheIntencao", detalhes);
+        
+        
         return mv;
     }
 
