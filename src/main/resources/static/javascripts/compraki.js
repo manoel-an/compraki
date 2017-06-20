@@ -181,8 +181,9 @@ Compraki.GeneralSearch = (function(){
 
 	
 	function onItemSelecionado(){
-		this.inputSearch.val('');
-		this.inputSearch.focus();
+		var codigoIntencao = $(".js-general-search").getSelectedItemData().codigo;
+		var url = window.location.href+"/interacao/"+codigoIntencao;
+		window.location.href = url;
 	}
 	
 	function template(modelo, intencao){

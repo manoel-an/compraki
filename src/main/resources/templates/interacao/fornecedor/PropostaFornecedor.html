@@ -19,19 +19,18 @@
                 <div class="col-xs-10">
                     <h1>Proposta ao Possível Comprador</h1>
                 </div>
-                
                 <div class="col-xs-2">
                     <div class="aw-page-header-controls">
-                        <a class="btn  btn-primary col-sm-12 layoutBotaoEnviarProposta">
-                            <i class="glyphicon"></i> <span class="hidden-xs  hidden-sm">Enviar Proposta</span>
-                        </a>                        
+	                    <a class="btn  btn-primary layoutBotaoEnviarProposta">
+	                        <i class="fa fa-paper-plane"></i> <span class="hidden-xs  hidden-sm">Enviar Proposta</span>
+	                    </a>                        
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
     </div> 
    	<div class="container-fluid">
-	    <form id="formPropostaFornecor" method="post" th:action="@{/interacao/novo}">
+	    <form id="formPropostaFornecor" method="post" th:action="@{/interacao/novo}" th:object="${propostaFonecedor}">
 	    	
 	    	<div class="row">
                 <div class="form-group  col-sm-3 compraki-required js-div-veiculo">
@@ -54,18 +53,16 @@
 			
 					</div>
             </div>
-                            
               <div class="col-sm-2 form-group">
 				<label class="control-label">Valor</label>
-						<div class="input-group">				 
-								 <div class="input-group-addon">R$</div>
-						<div class="btn-group">		
-								
-									<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" />
-						</div>
-						</div>
+				<div class="input-group">				 
+					<div class="input-group-addon">R$</div>
+					<div class="btn-group">		
+						<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" 
+							th:value="*{intencaoCompra.valor}" />
+					</div>
+				</div>
 			  </div>
-			  
 			  <div class="col-sm-3 form-group" >
 				<label class="control-label">Meu Telefone</label>
 						<div class="input-group">				 
