@@ -49,8 +49,7 @@ public class IntencaoCompraController {
 
     private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
     private static final String IT_PESQUISA_VIEW = "intencaoCompra/PesquisaIntencoes";
-    private static final String IT_DETALHES_VIEW = "intencaoCompra/DetalhesIntencaoCompra";
-
+   
     @Autowired
     private Fabricantes fabricantes;
 
@@ -148,19 +147,6 @@ public class IntencaoCompraController {
         return mv;
     }
     
-    @GetMapping("/detalhes")
-    public ModelAndView detalhesIntencao(IntencaoFilter intencaoFilter,
-            BindingResult result, HttpServletRequest httpServletRequest) {
-        
-        ModelAndView mv = new ModelAndView(IT_DETALHES_VIEW);
-        List<IntencaoCompra> detalhes = intencaoService.getIntencaoCompras().BuscaIntencoes(1L);
-        
-        mv.addObject("detalheIntencao", detalhes);
-        
-        
-        return mv;
-    }
-
     private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra) {
         ModelAndView modelAndView = new ModelAndView(IT_VIEW);
         modelAndView.addObject("fabricantes", this.fabricantes.findAll());

@@ -13,3 +13,16 @@
 .formatFonteInteracao{
 	font-size: 14px;
 }
+
+hr{
+  border-color:#1e94d2;
+  box-sizing:border-box;
+  width:70%;  
+}
+
+ /* Div jumbotron dos campos da proposta  */
+ .jumbotronCamposProposta{
+ 	padding-top: 20px;
+ 	padding-bottom: 20px;
+    margin-right: 1%;
+ }  

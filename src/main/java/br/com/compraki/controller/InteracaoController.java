@@ -22,10 +22,10 @@ import br.com.compraki.security.UsuarioSistema;
 public class InteracaoController {
 
 	private static final String ITR_VIEW = "interacao/fornecedor/PropostaFornecedor";
-
+	
 	@Autowired
 	private Carros carros;
-
+	
 	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra,
 			@AuthenticationPrincipal User user, Interacao propostaFonecedor) {

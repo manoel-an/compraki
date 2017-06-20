@@ -1,67 +1,29 @@
-<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
-    xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/LayoutPadrao}"
+    xmlns:th="http://www.thymeleaf.org"
     xmlns:data="http://www.thymeleaf.org/extras/data"
-    xmlns:compraki="http://compraki.com.br">
-    
+    xmlns:compraki="http://compraki.com.br"
+    layout:decorate="~{layout/LayoutPadrao}">
+
 <head>
-    <title>Intenção de Compra</title>
+    <title>Detalhe Intenção</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}"/>
 </head>
 
-<body>
-	<section layout:fragment="conteudo">
-    <div class="page-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-10">
-                    <h1>Detalhes de Intenções de Compra</h1>
-                </div>
-            </div>
-        </div>
-     </div>
-     <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-center col-md-1">#</th>
-	   					<th class="text-center col-md-2">Data</th>
-	   					<th>Valor</th>
-	   					<th class="text-center col-md-2">Marca</th>
-	   					<th class="text-right col-md-2">Modelo</th>
-	   					<th class="text-center col-md-2">Acessórios</th>
-	   					<th class="text-center col-md-2">Cores</th>
-	   					<th class="text-center col-md-2">Cidade</th>
-	   					<th class="text-center col-md-2">Aro da Roda</th>
-	   					<th class="text-center col-md-2">Potência Desejada</th>
-	   					<th class="text-center col-md-2">Descricão</th>
-	   					<th></th>
-                    </tr>
-                </thead>
-                
-                
-                    <tbody>
-                    <tr th:each="intencao : ${detalheIntencao}">
-                        
-                        <td th:text="${intencao.codigo}" class="text-left"></td>
-                        <td th:text="${intencao.dataCriacao}" class="text-center"></td> 
-                        <td th:text="|R$ ${intencao.valor}|" class="text-center"></td>   
-                        <td th:text="${intencao.modelo.fabricante.nome}" class="text-center"></td>
-                        <td th:text="${intencao.modelo.descricao}" class="text-center"></td>
-                        <td th:text="Acessorios" class="text-center"></td>
-                        <td>
-                            <span th:each="cor : ${intencao.cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>
-                        </td>
-                      	<td th:text="${intencao.cidadePreferencia}" class="text-center"></td>
-                      	<td th:text="${intencao.aroRoda}" class="text-center"></td>
-                      	<td th:text="${intencao.potencia}" class="text-center"></td>
-                      	<td th:text="${intencao.descricao}" class="text-center"></td>
-                     </tr>
-                     </tbody>
-                    
-            </table>
-        </div>
- 
+<section layout:fragment="conteudo">
+    
+	<div class="container-fluid layoutformDetalhe" th:fragment="formDetalheItencao" style="padding-left: 0px;">
+		<form id="formDetalhe">
+		<div class="list-group">
+			<a href="#" class="list-group-item active"> Detalhe da Intenção de Compra </a> 
+			<a href="#" class="list-group-item">Palio...</a> 
+			<a href="#" class="list-group-item">Preto, azul, cinza</a> 
+			<a href="#" class="list-group-item">Goiânia</a> 
+			<a href="#" class="list-group-item">demais...</a>
+		</div>
+	</form>
+	</div>
 </section>
-</body>
+
 </html>

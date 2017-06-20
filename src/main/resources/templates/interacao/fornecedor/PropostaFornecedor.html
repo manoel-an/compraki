@@ -31,7 +31,8 @@
     </div> 
    	<div class="container-fluid">
 	    <form id="formPropostaFornecor" method="post" th:action="@{/interacao/novo}" th:object="${propostaFonecedor}">
-	    	
+	    	<th:block th:replace="intencaoCompra/DetalhesIntencaoCompra :: formDetalheItencao"></th:block>
+	      <div class="jumbotron jumbotronCamposProposta">
 	    	<div class="row">
                 <div class="form-group  col-sm-3 compraki-required js-div-veiculo">
                     <label for="marca" class="control-label">Veículo</label>
@@ -83,14 +84,16 @@
 							   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
 				  	</div>
 			 </div> 
-			    
+		 </div>	
 	    </form>
+	      
 	</div>
+	
  	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
  	<div th:replace="interacao/AlteracaoRapidaTelefone :: modal"></div> 
  	
 		</section>
-		
+		 
 		<th:block layout:fragment="javascript-extra">
 		    <script th:src="@{/javascripts/proposta-fornecedor.js}"></script>
 		    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
