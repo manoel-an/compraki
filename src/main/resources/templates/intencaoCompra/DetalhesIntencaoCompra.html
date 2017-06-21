@@ -1,29 +1,73 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:data="http://www.thymeleaf.org/extras/data"
-    xmlns:compraki="http://compraki.com.br"
-    layout:decorate="~{layout/LayoutPadrao}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:data="http://www.thymeleaf.org/extras/data"
+	xmlns:compraki="http://compraki.com.br"
+	layout:decorate="~{layout/LayoutPadrao}">
 
 <head>
-    <title>Detalhe Intenção</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}"/>
+<title>Detalhe Intenção</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}" />
+	 <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/interacao.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
+
 </head>
 
-<section layout:fragment="conteudo">
-    
-	<div class="container-fluid layoutformDetalhe" th:fragment="formDetalheItencao" style="padding-left: 0px;">
-		<form id="formDetalhe">
-		<div class="list-group">
-			<a href="#" class="list-group-item active"> Detalhe da Intenção de Compra </a> 
-			<a href="#" class="list-group-item">Palio...</a> 
-			<a href="#" class="list-group-item">Preto, azul, cinza</a> 
-			<a href="#" class="list-group-item">Goiânia</a> 
-			<a href="#" class="list-group-item">demais...</a>
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header js-topo-page">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-10">
+						<h1>Intenção de Compra Detalhada</h1>
+					</div>
+					
+				</div>
+			</div>
 		</div>
-	</form>
-	</div>
-</section>
 
+		<div class="container-fluid layoutFluidGeral">
+			<form id="formDetahesIntencao" class= "layoutformDetalhe" th:object="${intencaoCompra}">
+				<div class="row">
+				 <div class="form-group  col-sm-6">
+				  <div class="list-group layoutformDetalheGroup">
+					<a href="#" class="list-group-item active"></a> 
+						<a href="#" class="list-group-item formataLabelInputs" >Valor:
+						  <input type="text" class="js-decimal formataInputs" id="valor" th:field="*{valor}" readonly="readonly"/></a> 
+						<a href="#" class="list-group-item formataLabelInputs"> Cidade:
+						  <input type="text" id="inputHiddenCidadeSelecionada" class="formataInputs"  
+						  th:field="*{cidadePreferencia}" readonly="readonly"/></a> 
+						<a href="#" class="list-group-item formataLabelInputs">Estado:
+						  <input type="text" class="js-decimal formataInputs" id="uf" th:field="*{uf}" readonly="readonly"/></a>  
+						<a href="#" class="list-group-item">demais...</a>
+						<a href="#" class="list-group-item">demais...</a>
+					
+				  </div>
+				 </div>
+				 <div class="form-group  col-sm-6 layoutGrupoDireito">
+				  <div class="list-group layoutformDetalheGroup">
+					<a href="#" class="list-group-item active"></a> 
+					<a href="#" class="list-group-item">Palio...</a> 
+					<a href="#" class="list-group-item">Preto, azul, cinza</a> 
+					<a href="#" class="list-group-item">Goiânia</a> 
+					<a href="#" class="list-group-item">demais...</a>
+					<a href="#" class="list-group-item">demais...</a>
+				  </div>
+				 </div>
+				</div>
+				
+				<div class="row jumbotronCamposProposta" >
+				<th:block
+					th:replace="interacao/fornecedor/PropostaFornecedor :: formProposta"></th:block>
+				</div>	
+			</form>
+		</div>
+		<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div>
+		<div th:replace="interacao/AlteracaoRapidaTelefone :: modal"></div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/pesquisa-intencoes.js}"></script>
+	</th:block>
+</body>
 </html>

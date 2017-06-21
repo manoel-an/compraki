@@ -44,11 +44,39 @@
 	}
 	
 
-  /* Detalhes De Intenção de Compra  */  
+  /*DETALHES DE INTENCAO DE COMPRA  */  
  
  .layoutformDetalhe{
- 	padding-left: 0px;
+ 	margin-top:-15px;
  }
+ 
+ .layoutformDetalheGroup{
+ 	padding-left: 15px;
+ }
+ @media (min-width: 767px){
+ .layoutGrupoDireito{
+ 	margin-left: -44px;
+ }
+ }
+ 
+ @media (max-width: 767px){
+ .layoutGrupoDireito{
+ 	margin-top: -20px;
+ }
+ }
+ 
+ 
+.layoutFluidGeral{
+	margin-left: -15px;
+}
+
+.formataInputs{
+	font-size: 14px;
+	border: none;
+}
+.formataLabelInputs{
+	font-size: 14px;
+}
  
 
 
