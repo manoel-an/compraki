@@ -183,7 +183,7 @@ Compraki.GeneralSearch = (function(){
 	function onItemSelecionado(){
 		var codigoIntencao = $(".js-general-search").getSelectedItemData().codigo;
 		var url = window.location.protocol +"//" + window.location.hostname +":"+ 
-			window.location.port +"/compraki/interacao/"+codigoIntencao;
+			window.location.port +"/compraki/detalhesIntencao/"+codigoIntencao;
 		window.location.href = url;
 	}
 	

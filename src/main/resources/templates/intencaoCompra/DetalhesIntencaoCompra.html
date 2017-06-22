@@ -11,7 +11,6 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/intencao-compra.css}" />
 	 <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/interacao.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap-switch.min.css}"/>
-
 </head>
 
 <body>
@@ -67,7 +66,10 @@
 		<div th:replace="interacao/AlteracaoRapidaTelefone :: modal"></div>
 	</section>
 	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/pesquisa-intencoes.js}"></script>
+	    <script th:src="@{/javascripts/proposta-fornecedor.js}"></script>
+	    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
+	    <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
+	    <script th:src="@{/javascripts/vendors/upload.min.js}"></script>    
 	</th:block>
 </body>
 </html>
