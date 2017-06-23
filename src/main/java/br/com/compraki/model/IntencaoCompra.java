@@ -85,12 +85,12 @@ public class IntencaoCompra {
     @Column(name = "tipo_de_veiculo")
     @Enumerated(EnumType.STRING)
     private TipoVeiculo tipoVeiculo;
-    
+
     @Column(name = "status_de_intencao")
     @Enumerated(EnumType.STRING)
-    private StatusIntencao statusIntencao; 
-    
-    @OneToOne(fetch=FetchType.LAZY)
+    private StatusIntencao statusIntencao;
+
+    @OneToOne(fetch = FetchType.LAZY)
     private Interacao proposta;
 
     @Transient
@@ -115,6 +115,9 @@ public class IntencaoCompra {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "data_modificacao")
     private Date dataModificacao;
+
+    @Transient
+    private String cidade;
 
     @PrePersist
     @PreUpdate
@@ -225,27 +228,24 @@ public class IntencaoCompra {
     public void setTipoVeiculo(TipoVeiculo tipoVeiculo) {
         this.tipoVeiculo = tipoVeiculo;
     }
-    
-    
+
     public StatusIntencao getStatusIntencao() {
-		return statusIntencao;
-	}
+        return statusIntencao;
+    }
 
-	public void setStatusIntencao(StatusIntencao statusIntencao) {
-		this.statusIntencao = statusIntencao;
-	}
-	
-	
+    public void setStatusIntencao(StatusIntencao statusIntencao) {
+        this.statusIntencao = statusIntencao;
+    }
 
-	public Interacao getProposta() {
-		return proposta;
-	}
+    public Interacao getProposta() {
+        return proposta;
+    }
 
-	public void setProposta(Interacao proposta) {
-		this.proposta = proposta;
-	}
+    public void setProposta(Interacao proposta) {
+        this.proposta = proposta;
+    }
 
-	public IntencaoHelper getIntencaoHelper() {
+    public IntencaoHelper getIntencaoHelper() {
         if (intencaoHelper == null) {
             intencaoHelper = new IntencaoHelper();
         }
@@ -286,6 +286,14 @@ public class IntencaoCompra {
 
     public void setDataModificacao(Date dataModificacao) {
         this.dataModificacao = dataModificacao;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     public String getUf() {
