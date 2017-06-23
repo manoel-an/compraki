@@ -55,7 +55,7 @@ public class IntencaoCompra {
 
     @NotBlank(message = "Ops! As características são importantes para uma intenção de compra")
     @Column(name = "outras_caracteristicas")
-    private String outrasCaracterísticas;
+    private String outrasCaracteristicas;
 
     @NotBlank(message = "Ops! Potência do veículo também ajuda")
     private String potencia;
