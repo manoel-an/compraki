@@ -10,13 +10,6 @@
 		   	 <div class="col-xs-10">
 		         <h2>Faça sua Proposta</h2>
 		      </div>
-		      <div class="col-xs-2">
-		          <div class="aw-page-header-controls">
-		              <a class="btn  btn-primary layoutBotaoEnviarProposta" href="#">
-		                  <i class="fa fa-paper-plane"></i> <span class="hidden-xs  hidden-sm">Enviar Proposta</span>
-		              </a>
-		          </div>
-		      </div>	
 		      <div class="container-fluid">
 				  <form id="formPropostaFornecedor" th:object="${intencaoCompra}">
 			        <div class="row">
@@ -77,6 +70,20 @@
 								   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
 					  	</div>
 				    </div> 
+				   <!-- 
+				      <div class="col-xs-2">
+				          <div class="aw-page-header-controls">
+				              <a class="btn  btn-primary layoutBotaoEnviarProposta" href="#">
+				                  <i class="fa fa-paper-plane"></i> <span class="hidden-xs  hidden-sm">Enviar Proposta</span>
+				              </a>
+				          </div>
+				      </div>				    
+				    --> 
+				    
+		           <button class="btn  btn-primary js-btn-salvar-proposta pull-right">
+		                <span class="fa fa-paper-plane"></span> Enviar Proposta         
+		           </button> 					    
+				    
 				 </form>   
 		      </div>    
 			 <div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
