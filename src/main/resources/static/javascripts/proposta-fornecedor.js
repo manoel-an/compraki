@@ -4,11 +4,14 @@ Compraki.PropostaFornecedor = (function() {
 	
 	function PropostaFornecedor() {
 		this.modal = $('#modalCadastroIntermediarioVeiculo');
+		this.modalTelefone = $('#modalCadastroRapidoTelefone');
+		this.inputTelefone = $('#nomeTelefone');
 
 	}
 	
 	PropostaFornecedor.prototype.enable = function(event) {
 		this.modal.on('shown.bs.modal', onModalShow.bind(this));
+		this.modalTelefone.on('shown.bs.modal', onModalTelefoneShow.bind(this));
 	}
 	
 	function onModalShow(event){
@@ -18,6 +21,10 @@ Compraki.PropostaFornecedor = (function() {
 		var uploadFoto = new Compraki.UploadFoto();
 		uploadFoto.iniciar();		
 		
+	}
+	
+	function onModalTelefoneShow(event){
+		this.inputTelefone.val($('#telefone').val());
 	}
 	
 	return PropostaFornecedor;
