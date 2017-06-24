@@ -13,11 +13,9 @@
 </head>
 
 <section layout:fragment="conteudo">
-      
    	<div class="container-fluid" th:fragment="formProposta">
 	    <form id="formPropostaFornecedor" method="post" th:action="@{/interacao/novo}" th:object="${propostaFonecedor}">
 	       <div class="jumbotron" style="padding-left: 30px;padding-top: 15px;">
-	  
 			<div class="container-fluid labelProposta">
 				<div class="row">
 					<div class="col-xs-10">
@@ -36,7 +34,7 @@
 			<div class="row">
                 <div class="form-group  col-sm-3 compraki-required js-div-veiculo">
                     <label for="marca" class="control-label">Veículo</label>
-						<div class="bw-field-action">
+					<div class="bw-field-action">
 							<select id="veiculo"
 								class="form-control js-select-search js-combo-veiculo">
 								<option value=""></option>
@@ -53,52 +51,39 @@
 							</div>
 			
 					</div>
-            </div>
-              <div class="col-sm-2 form-group">
-				<label class="control-label">Valor</label>
-				<div class="input-group">				 
-					<div class="input-group-addon">R$</div>
-					<div class="btn-group">		
-						<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" 
-							th:value="*{intencaoCompra.valor}" />
+            	</div>
+	            <div class="col-sm-2 form-group">
+					<label class="control-label">Valor</label>
+					<div class="input-group">				 
+						<div class="input-group-addon">R$</div>
+						<div class="btn-group">		
+							<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" 
+								th:value="*{intencaoCompra.valor}" />
+						</div>
 					</div>
 				</div>
-			  </div>
-			  <div class="col-sm-3 form-group" >
-				<label class="control-label">Meu Telefone</label>
-						<div class="input-group">				 
-							<div class="input-group-addon layoutTelefone"><a href="#" data-toggle="modal"
-							  data-target="#modalCadastroRapidoTelefone">Modificar</a></div>
-							<div class="btn-group">		
-							  <input type="text" class="form-control js-phone-number formatFonteInteracao" id="telefone" />
-							</div>
+			  	<div class="col-sm-3 form-group" >
+					<label class="control-label">Meu Telefone</label>
+					<div class="input-group">				 
+						<div class="input-group-addon layoutTelefone"><a href="#" data-toggle="modal"
+						  data-target="#modalCadastroRapidoTelefone">Modificar</a></div>
+						<div class="btn-group">		
+						  <input type="text" class="form-control js-phone-number formatFonteInteracao" id="telefone" />
 						</div>
-			  </div>
-               
+					</div>
+			  	</div>
              </div>
-                  
              <div class="row">
-					<div class="form-group  col-sm-8  compraki-required">
-							<label for="descricao" class="control-label">Escreva algo pra quem fez a proposta</label>
-							<textarea rows="5" class="form-control formatFonteInteracao" id="descricao"
-							   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
-				  	</div>
+				<div class="form-group  col-sm-8  compraki-required">
+						<label for="descricao" class="control-label">Escreva algo pra quem fez a proposta</label>
+						<textarea rows="5" class="form-control formatFonteInteracao" id="descricao"
+						   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
+			  	</div>
 			 </div> 
 		 </div>	
 	    </form>
-	      
+	 	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
+	 	<div th:replace="interacao/AlteracaoRapidaTelefone :: modal"></div> 
 	</div>
-	
- 	<div th:replace="interacao/CadastroIntermediarioVeiculo :: modal"></div> 
- 	<div th:replace="interacao/AlteracaoRapidaTelefone :: modal"></div> 
- 	
-		</section>
-		 
-		<th:block layout:fragment="javascript-extra">
-		    <script th:src="@{/javascripts/proposta-fornecedor.js}"></script>
-		    <script th:src="@{/javascripts/vendors/bootstrap-switch.min.js}"></script>
-		    <script th:src="@{/javascripts/vendors/uikit.min.js}"></script>
-		    <script th:src="@{/javascripts/vendors/upload.min.js}"></script>    
-		</th:block>
-
+</section>
 </html>
