@@ -162,15 +162,15 @@ public class IntencaoCompra {
         this.tipoCombustivel = tipoCombustivel;
     }
 
-    public String getOutrasCaracterísticas() {
-        return outrasCaracterísticas;
-    }
+    public String getOutrasCaracteristicas() {
+		return outrasCaracteristicas;
+	}
 
-    public void setOutrasCaracterísticas(String outrasCaracterísticas) {
-        this.outrasCaracterísticas = outrasCaracterísticas;
-    }
+	public void setOutrasCaracteristicas(String outrasCaracteristicas) {
+		this.outrasCaracteristicas = outrasCaracteristicas;
+	}
 
-    public String getPotencia() {
+	public String getPotencia() {
         return potencia;
     }
 

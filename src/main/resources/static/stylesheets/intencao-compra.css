@@ -34,13 +34,13 @@
 	padding-top: 0px;
 }
 
-/* Componente multiple  */    
+/* Componente multiple(ex:cadastro acessórios)  */    
     .bootstrap-duallistbox-container .moveall, .bootstrap-duallistbox-container .removeall{
 	width: 50%;
 	}
 	.bootstrap-duallistbox-container .move, .bootstrap-duallistbox-container .remove{
 	width: 50%;
-	background-color: springgreen;
+	background-color: #1875a5;
 	}
 	
 
