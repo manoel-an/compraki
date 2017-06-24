@@ -161,7 +161,7 @@ Compraki.CadastroCarro = (function() {
 			var divCategoria = $('.js-div-categoria');
 			var divAcessorios = $('.js-div-acessorios');
 			var divCor = $('.js-div-cor');
-			if($('#marca').val() == ''){
+			if($('.js-combo-marca').val() == ''){
 				divMarca.addClass('has-error');
 				$('#js-msg-erro-marca').removeClass('hidden');
 				validacao = false;
