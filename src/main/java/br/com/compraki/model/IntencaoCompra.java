@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import br.com.compraki.enuns.StatusIntencao;
+import br.com.compraki.enuns.StatusAtivoInativo;
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.helper.IntencaoHelper;
 import br.com.compraki.model.veiculo.Acessorio;
@@ -87,7 +87,7 @@ public class IntencaoCompra {
 
 	@Column(name = "status_de_intencao")
 	@Enumerated(EnumType.STRING)
-	private StatusIntencao statusIntencao;
+	private StatusAtivoInativo statusIntencao;
 
 	@Transient
 	private IntencaoHelper intencaoHelper;
@@ -225,11 +225,11 @@ public class IntencaoCompra {
 		this.tipoVeiculo = tipoVeiculo;
 	}
 
-	public StatusIntencao getStatusIntencao() {
+	public StatusAtivoInativo getStatusIntencao() {
 		return statusIntencao;
 	}
 
-	public void setStatusIntencao(StatusIntencao statusIntencao) {
+	public void setStatusIntencao(StatusAtivoInativo statusIntencao) {
 		this.statusIntencao = statusIntencao;
 	}
 

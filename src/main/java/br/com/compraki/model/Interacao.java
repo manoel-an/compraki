@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import br.com.compraki.enuns.StatusIntencao;
+import br.com.compraki.enuns.StatusAtivoInativo;
 import br.com.compraki.model.veiculo.Carro;
 
 @Entity
@@ -39,7 +39,7 @@ public class Interacao implements Serializable {
 	private BigDecimal valor;
 	private Date dataCriacao;
 	private Date dataModificacao;
-	private StatusIntencao status;
+	private StatusAtivoInativo status;
 
 	@PrePersist
 	@PreUpdate
@@ -134,13 +134,14 @@ public class Interacao implements Serializable {
 	}
 
 	@Enumerated(EnumType.STRING)
-	// @NotNull(message = "O Status não foi inserido")
-	public StatusIntencao getStatus() {
+	public StatusAtivoInativo getStatus() {
 		return status;
 	}
 
-	public void setStatus(StatusIntencao status) {
+	public void setStatus(StatusAtivoInativo status) {
 		this.status = status;
 	}
 
+	
+	
 }
