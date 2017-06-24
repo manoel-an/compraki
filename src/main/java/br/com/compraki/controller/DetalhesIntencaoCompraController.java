@@ -15,27 +15,23 @@ import br.com.compraki.model.Interacao;
 import br.com.compraki.model.Usuario;
 import br.com.compraki.model.veiculo.Carro;
 import br.com.compraki.repository.Carros;
+import br.com.compraki.repository.Pessoas;
 import br.com.compraki.security.UsuarioSistema;
-
-
 
 @Controller
 @RequestMapping("/detalhesIntencao")
 public class DetalhesIntencaoCompraController {
 
-    private static final String IT_DETALHES_VIEW = "intencaoCompra/DetalhesIntencaoCompra";
+	private static final String IT_DETALHES_VIEW = "intencaoCompra/DetalhesIntencaoCompra";
 	private static final String ITR_VIEW = "interacao/fornecedor/PropostaFornecedor";
-    
-    @Autowired
-	private Carros carros;
-          
-    /*@GetMapping("/novo")
-	public ModelAndView detalhe() {
-    	ModelAndView modelAndView = new ModelAndView(IT_DETALHES_VIEW);
-		return modelAndView;
-	}*/
 
-    @GetMapping("/{codigo}")
+	@Autowired
+	private Carros carros;
+
+	@Autowired
+	private Pessoas pessoas;
+
+	@GetMapping("/{codigo}")
 	public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra,
 			@AuthenticationPrincipal User user, Interacao propostaFonecedor) {
 		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
@@ -49,10 +45,10 @@ public class DetalhesIntencaoCompraController {
 			Interacao propostaFornecedor) {
 		ModelAndView modelAndView = new ModelAndView(IT_DETALHES_VIEW);
 		ModelAndView mvProposta = new ModelAndView(ITR_VIEW);
-		
+
 		modelAndView.addObject("veiculos", carros.findByUsuarioAndFetchEager(usuario));
 		modelAndView.addObject(mvProposta);
-		
+
 		propostaFornecedor.setIntencaoCompra(intencaoCompra);
 		modelAndView.addObject("tipos", TipoVeiculo.values());
 		Carro carro = new Carro();
@@ -61,9 +57,9 @@ public class DetalhesIntencaoCompraController {
 		modelAndView.addObject("cadastroVeiculo", Boolean.FALSE);
 		modelAndView.addObject("propostaFonecedor", propostaFornecedor);
 		modelAndView.addObject("intencaoCompra", intencaoCompra);
+		modelAndView.addObject("telefone", this.pessoas.findByUsuario(usuario).isPresent()
+				? this.pessoas.findByUsuario(usuario).get().getTelefone().getNumeroUm().replace(" ", "") : "");
 		return modelAndView;
 	}
 
-   
-
-  }// fim
+}// fim

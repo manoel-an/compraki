@@ -41,9 +41,11 @@
 						  <input type="text" class="formataInputs" id="marca" readonly="readonly"/>
 						  Modelo:<input type="text" class="formataInputs" id="modelo" readonly="readonly"/></a> 
 						<a href="#" class="list-group-item formataLabelInputs">Cores Desejadas:
-						  <input type="text" class="formataInputs" id="uf" th:field="*{cores}" readonly="readonly"/></a>
+							<span th:each="cor : *{cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>						  	
+						</a>
 						<a href="#" class="list-group-item formataLabelInputs">Acessórios Desejados:
-						  <input type="text" class="formataInputs" id="uf" th:field="*{acessorios}" readonly="readonly"/></a>         
+							<span th:each="acessorio : *{acessorios}" th:text="|${acessorio.descricao}${acessorioStat.last ? '' : ', '}|"></span>
+						</a>         
 						<a href="#" class="list-group-item formataLabelInputs">Potência:
 						  <input type="text" class="formataInputs" id="potencia" th:field="*{potencia}" readonly="readonly"/></a>
 					
