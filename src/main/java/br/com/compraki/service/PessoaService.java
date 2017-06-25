@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import br.com.compraki.enuns.TipoPessoa;
 import br.com.compraki.model.Grupo;
 import br.com.compraki.model.Pessoa;
+import br.com.compraki.model.Telefone;
 import br.com.compraki.model.Usuario;
 import br.com.compraki.repository.Grupos;
 import br.com.compraki.repository.Pessoas;
@@ -155,6 +156,17 @@ public class PessoaService {
 				pessoa.setUsuario(usuario);
 				this.pessoas.save(pessoa);
 			}
+		} catch (Exception e) {
+			throw new NegocioException(e.getMessage());
+		}
+	}
+
+	@Transactional
+	public Telefone atualizarTelefonePessoa(Telefone telefone) throws NegocioException {
+		try {
+			Pessoa pessoa = this.pessoas.findByCodigo(telefone.getCodigoPessoa()).get();
+			pessoa = this.pessoas.saveAndFlush(pessoa);
+			return pessoa.getTelefone();
 		} catch (Exception e) {
 			throw new NegocioException(e.getMessage());
 		}

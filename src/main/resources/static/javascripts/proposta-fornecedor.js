@@ -6,12 +6,40 @@ Compraki.PropostaFornecedor = (function() {
 		this.modal = $('#modalCadastroIntermediarioVeiculo');
 		this.modalTelefone = $('#modalCadastroRapidoTelefone');
 		this.inputTelefone = $('#nomeTelefone');
-
+		this.botaoSalvarTelefoneModal = $('.js-btn-salvar-telefone');
+		this.botaoSalvarInteracao = $('.js-btn-salvar-proposta');
+		this.formularioInteracao = $('#formInteracao');
 	}
 	
 	PropostaFornecedor.prototype.enable = function(event) {
 		this.modal.on('shown.bs.modal', onModalShow.bind(this));
 		this.modalTelefone.on('shown.bs.modal', onModalTelefoneShow.bind(this));
+		this.botaoSalvarTelefoneModal.on('click', onSalvarTeefone.bind(this));
+		this.botaoSalvarInteracao.on('click', onSalvarInteracao.bind(this)); 
+	}
+	
+	function onSalvarInteracao(event){
+		event.preventDefault();
+		$.ajax({
+			url: "/compraki/detalhesIntencao/salvarInteracao",
+			method: 'GET',
+			contentType: 'application/json',
+			data: this.formularioInteracao.serialize(),
+			error: onErrorSalvandoInteracao.bind(this),
+			success: onInteracaoSalva.bind(this)
+		});			
+	}
+	
+	function onInteracaoSalva(dta){
+		
+	}
+	
+	function onErrorSalvandoInteracao(error){
+		console.log(error);
+	}
+	
+	function onSalvarTeefone(event){
+		
 	}
 	
 	function onModalShow(event){

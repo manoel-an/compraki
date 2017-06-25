@@ -15,7 +15,7 @@
                 <div class="modal-body">
                     <div class="alert  alert-danger  hidden" role="alert"></div>
                     
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" th:action="@{/detalhesIntencao/salvarTelefoneRapido}">
                         <div class="form-group">
                             <label class="col-sm-2  control-label" for="nomeTelefone">Número</label>
                             <div class="col-sm-9 paddingCampoTelefone">
@@ -24,7 +24,7 @@
                         </div>
                     </form>
                     
-                    <button type="button" class="btn  btn-primary">Salvar</button>
+                    <button type="button" class="btn  btn-primary js-btn-salvar-telefone">Salvar</button>
                     <button type="button" class="btn  btn-default paddingBotaoCancelar" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>

@@ -9,6 +9,8 @@ import br.com.compraki.model.Usuario;
 
 public interface Pessoas extends JpaRepository<Pessoa, Long> {
 
+	public Optional<Pessoa> findByCodigo(Long codigo);
+
 	public Optional<Pessoa> findByUsuario(Usuario usuario);
 
 	public Optional<Pessoa> findByCpfOuCnpj(String cpfOuCnpj);
