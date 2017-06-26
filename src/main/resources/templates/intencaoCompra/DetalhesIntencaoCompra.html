@@ -67,6 +67,21 @@
 				</div>		
 			</form>
 			<form id="formInteracao" class= "layoutformDetalhe" th:object="${interacao}">
+                <div class="alert  alert-danger  alert-dismissible js-div-erro-geral-interacao hidden" role="alert">
+                    <button type="button" class="close" data-dismiss="alert"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div id="js-msg-erro-veiculo" class="hidden">
+                        <i class="fa  fa-exclamation-circle"></i>É necesário informar o veículo
+                    </div>
+                    <div id="js-msg-erro-valor" class="hidden">
+                        <i class="fa  fa-exclamation-circle"></i>É necesário informar o valor
+                    </div>  
+                    <div id="js-msg-erro-descricao" class="hidden">
+                        <i class="fa  fa-exclamation-circle"></i>É necesário informar uma descrição para o possível comprador
+                    </div>
+                </div>  			
 				<div class="row jumbotronCamposProposta">
 					<th:block th:replace="interacao/fornecedor/PropostaFornecedor :: formProposta"></th:block>
 				</div>	

@@ -14,7 +14,7 @@
 			  	<input id="codigoPessoa" type="hidden" th:value="${codigoPessoa}"> 
 				<input id="codigoIntencao" type="hidden" th:value="${intencaoCompra.codigo}">
 		        <div class="row">
-		             <div class="col-sm-4  form-group compraki-required">
+		             <div class="col-sm-5  form-group compraki-required js-div-select-veiculo">
 		                 <label class="control-label">Informe o Veículo</label>
 		                 <div class="input-group">
 		                     <div class="input-group-addon">Veículo</div>
@@ -36,18 +36,18 @@
 		                 </div>
 		             </div>
 			             
-		             <div class="col-sm-3  form-group compraki-required">
+		             <div class="col-sm-3  form-group js-div-input-veiculo compraki-required">
 			             <label class="control-label">Valor</label>
 		                 <div class="input-group">
 		                     <div class="input-group-addon">R$</div>
 		                     <div>
-								<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" 
+								<input type="text" class="form-control js-decimal formatFonteInteracao js-input-valor" id="valor" 
 										th:value="*{valor}" th:field="*{valor}" />
 		                     </div>                       
 		                 </div>
 		             </div>	             
 			             
-		             <div class="col-sm-5  form-group compraki-required">
+		             <div class="col-sm-4  form-group compraki-required">
 						 <label class="control-label">Telefone</label>
 		                 <div class="input-group">
 		                     <div class="input-group-addon"> <label class="control-label">
@@ -64,9 +64,9 @@
 		        </div>             
 		          
 			    <div class="row">
-					<div class="form-group  col-sm-12  compraki-required">
+					<div class="form-group  col-sm-12  compraki-required js-div-descricao-interacao">
 						<label for="descricao" class="control-label">Escreva algo pra quem fez a proposta</label>
-						<textarea rows="5" class="form-control formatFonteInteracao" id="descricao" th:field="*{descricao}"
+						<textarea rows="5" class="form-control formatFonteInteracao js-descricao-interacao" id="descricao" th:field="*{descricao}"
 							   		placeholder="NOTA: Seja formal e direto, evite palavras perjorativas. Lembre-se: quem lê essa mensagem é um potencial comprador "></textarea>
 				  	</div>
 			    </div> 
