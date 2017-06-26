@@ -47,6 +47,9 @@ public class InteracaoService {
 				: null;
 		modelAndView.addObject("telefone", pessoa != null ? pessoa.getTelefone().getNumeroUm().replace(" ", "") : "");
 		modelAndView.addObject("codigoPessoa", pessoa != null ? pessoa.getCodigo() : 0);
+		Interacao interacao = new Interacao();
+		interacao.setValor(intencaoCompra.getValor());
+		modelAndView.addObject("interacao", interacao);
 		return modelAndView;
 	}
 

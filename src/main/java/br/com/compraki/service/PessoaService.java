@@ -165,6 +165,7 @@ public class PessoaService {
 	public Telefone atualizarTelefonePessoa(Telefone telefone) throws NegocioException {
 		try {
 			Pessoa pessoa = this.pessoas.findByCodigo(telefone.getCodigoPessoa()).get();
+			pessoa.getTelefone().setNumeroUm(telefone.getNumeroUm());
 			pessoa = this.pessoas.saveAndFlush(pessoa);
 			return pessoa.getTelefone();
 		} catch (Exception e) {

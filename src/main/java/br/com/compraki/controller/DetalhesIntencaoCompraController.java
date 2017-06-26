@@ -57,7 +57,7 @@ public class DetalhesIntencaoCompraController {
 
 	@RequestMapping(value = "salvarInteracao")
 	public ModelAndView salvarInteracao(Interacao interacao) {
-		System.out.println(interacao.getDescricao());
+		System.out.println(interacao.getVeiculo().getDescricao() + interacao.getValor() + interacao.getDescricao());
 		return null;
 
 	}

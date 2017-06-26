@@ -9,12 +9,16 @@ Compraki.PropostaFornecedor = (function() {
 		this.botaoSalvarTelefoneModal = $('.js-btn-salvar-telefone');
 		this.botaoSalvarInteracao = $('.js-btn-salvar-proposta');
 		this.formularioInteracao = $('#formInteracao');
+		this.formTelefone = this.modalTelefone.find('form');
+		this.url = this.formTelefone.attr('action');
+		this.codigoPessoa = $('#codigoPessoa');
+		this.containerMensagemErro = $('.js-mensagem-cadastro-rapido-telefone');
 	}
 	
 	PropostaFornecedor.prototype.enable = function(event) {
 		this.modal.on('shown.bs.modal', onModalShow.bind(this));
 		this.modalTelefone.on('shown.bs.modal', onModalTelefoneShow.bind(this));
-		this.botaoSalvarTelefoneModal.on('click', onSalvarTeefone.bind(this));
+		this.botaoSalvarTelefoneModal.on('click', onSalvarTelefone.bind(this));
 		this.botaoSalvarInteracao.on('click', onSalvarInteracao.bind(this)); 
 	}
 	
@@ -25,22 +29,43 @@ Compraki.PropostaFornecedor = (function() {
 			method: 'GET',
 			contentType: 'application/json',
 			data: this.formularioInteracao.serialize(),
-			error: onErrorSalvandoInteracao.bind(this),
+			error: onError.bind(this),
 			success: onInteracaoSalva.bind(this)
 		});			
 	}
 	
-	function onInteracaoSalva(dta){
+	function onInteracaoSalva(data){
 		
 	}
 	
-	function onErrorSalvandoInteracao(error){
+	function onError(error){
 		console.log(error);
 	}
 	
-	function onSalvarTeefone(event){
-		
+	function onErrorSalvandoTelefone(obj){
+		var mensagemErro = obj.responseText;
+		this.containerMensagemErro.removeClass('hidden');
+		this.containerMensagemErro.html('<span>' + mensagemErro + '</span>');
+		this.formTelefone.find('.form-group').addClass('has-error');		
 	}
+	
+	function onSalvarTelefone(event){
+		var numeroTelefone = this.inputTelefone.val();
+		$.ajax({
+			url: this.url,
+			method: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({ numeroUm: numeroTelefone, codigoPessoa: this.codigoPessoa.val() }),
+			error: onErrorSalvandoTelefone.bind(this),
+			success: onTelefoneSalve.bind(this)
+		});		
+	}
+	
+	function onTelefoneSalve(telefone){
+		var inputTelefone = $('#telefone');
+		inputTelefone.val(telefone.numeroUm);
+		this.modalTelefone.modal('hide');		
+	}	
 	
 	function onModalShow(event){
 		var cadastroCarro = new Compraki.CadastroCarro();

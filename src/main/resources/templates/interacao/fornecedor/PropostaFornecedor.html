@@ -12,14 +12,14 @@
 		      </div>
 		      <div class="container-fluid">
 			  	<input id="codigoPessoa" type="hidden" th:value="${codigoPessoa}"> 
+				<input id="codigoIntencao" type="hidden" th:value="${intencaoCompra.codigo}">
 		        <div class="row">
 		             <div class="col-sm-4  form-group compraki-required">
 		                 <label class="control-label">Informe o Veículo</label>
 		                 <div class="input-group">
 		                     <div class="input-group-addon">Veículo</div>
 		                     <div class="bw-field-action">
-								<select id="veiculo"
-									class="form-control js-select-search js-combo-veiculo">
+								<select id="veiculo" class="form-control js-select-search js-combo-veiculo" th:field="*{veiculo}">
 									<option value=""></option>
 									<option th:each="veiculo : ${veiculos}"
 										th:text="${veiculo.modelo.descricao}+' ('+${veiculo.cor.descricao} + ')'"
@@ -42,7 +42,7 @@
 		                     <div class="input-group-addon">R$</div>
 		                     <div>
 								<input type="text" class="form-control js-decimal formatFonteInteracao" id="valor" 
-										th:value="*{valor}" />
+										th:value="*{valor}" th:field="*{valor}" />
 		                     </div>                       
 		                 </div>
 		             </div>	             
@@ -57,7 +57,7 @@
 		                     </div>
 		                     <div>
 								<input type="text" class="form-control js-phone-number formatFonteInteracao" id="telefone" 
-									th:value=${telefone} />
+									th:value=${telefone} readonly="readonly" />
 		                     </div>                       
 		                 </div>
 		             </div>	              
