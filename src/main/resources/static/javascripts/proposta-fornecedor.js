@@ -13,6 +13,8 @@ Compraki.PropostaFornecedor = (function() {
 		this.url = this.formTelefone.attr('action');
 		this.codigoPessoa = $('#codigoPessoa');
 		this.containerMensagemErro = $('.js-mensagem-cadastro-rapido-telefone');
+		this.divMensagemSucessoProposta = $('#success-alert-proposta');
+		this.divMensagemErroProposta = $('#erro-alert-proposta');
 	}
 
 	PropostaFornecedor.prototype.enable = function(event) {
@@ -39,11 +41,14 @@ Compraki.PropostaFornecedor = (function() {
 	function validaCadastroInteracao() {
 		var validacao = true;
 		var divErroGeral = $('.js-div-erro-geral-interacao');
-		divErroGeral.removeClass('hidden');
 		var divVeiculo = $('.js-div-select-veiculo');
 		var divValor = $('.js-div-input-veiculo');
 		var divDescricao = $('.js-div-descricao-interacao');
-
+		this.divMensagemSucessoProposta.addClass('hidden');
+		this.divMensagemErroProposta.addClass('hidden');
+		this.divMensagemSucessoProposta.html('');
+		this.divMensagemErroProposta.html('');
+		
 		if ($('.js-combo-veiculo').val() == '') {
 			divVeiculo.addClass('has-error');
 			$('#js-msg-erro-veiculo').removeClass('hidden');
@@ -70,11 +75,26 @@ Compraki.PropostaFornecedor = (function() {
 			divDescricao.removeClass('has-error');
 			$('#js-msg-erro-descricao').addClass('hidden');
 		}
+		
+		if(!validacao){
+			divErroGeral.removeClass('hidden');
+		}
 		return validacao;
 	}
 
 	function onInteracaoSalva(data) {
-
+		var parser = new DOMParser();
+		var html = parser.parseFromString(data, "text/html"); 
+		if($(html).find('#sucesso').val() === undefined){
+			this.divMensagemErroProposta.removeClass('hidden');
+			this.divMensagemErroProposta.append(data);
+		} else {
+			this.divMensagemSucessoProposta.append(data);
+			this.divMensagemSucessoProposta.removeClass('hidden');
+			$('.js-combo-veiculo').val(null).trigger('change.select2');
+			$('.js-input-valor').val('');
+			$('.js-descricao-interacao').val('');			
+		}
 	}
 
 	function onError(error) {

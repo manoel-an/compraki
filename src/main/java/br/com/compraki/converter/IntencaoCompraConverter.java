@@ -19,7 +19,7 @@ public class IntencaoCompraConverter implements Converter<String, IntencaoCompra
     @Override
     public IntencaoCompra convert(String source) {
         if (!StringUtils.isEmpty(source)) {
-            IntencaoCompra intencaoCompra = intencoes.getIntencaoCompraComCoresEAcessorios(Long.valueOf(source));
+            IntencaoCompra intencaoCompra = intencoes.getIntencaoCompraCompleto(Long.valueOf(source));
             intencaoCompra.setCidade(
                     this.cidades.findByCodigo(new Long(intencaoCompra.getCidadePreferencia())).get().getNome());
             return intencaoCompra;

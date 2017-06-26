@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.compraki.model.IntencaoCompra;
 import br.com.compraki.model.Interacao;
 import br.com.compraki.model.Telefone;
-import br.com.compraki.model.Usuario;
 import br.com.compraki.security.UsuarioSistema;
 import br.com.compraki.service.InteracaoService;
 import br.com.compraki.service.NegocioException;
@@ -29,45 +28,42 @@ import br.com.compraki.service.NegocioException;
 @RequestMapping("/detalhesIntencao")
 public class DetalhesIntencaoCompraController {
 
-	@Autowired
-	private InteracaoService interacaoService;
+    @Autowired
+    private InteracaoService interacaoService;
 
-	@GetMapping("/{codigo}")
-	public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra,
-			@AuthenticationPrincipal User user, Interacao propostaFonecedor) {
-		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
-		ModelAndView mv = getDefaultObjectsModelAndViewDeProposta(usuarioSistema.getUsuario(), intencaoCompra,
-				propostaFonecedor);
-		return mv;
-	}
+    @GetMapping("/{codigo}")
+    public ModelAndView editar(@PathVariable("codigo") IntencaoCompra intencaoCompra,
+            @AuthenticationPrincipal User user) {
+        UsuarioSistema usuarioSistema = (UsuarioSistema) user;
+        ModelAndView mv = this.interacaoService.getDefaultModelAndView(usuarioSistema.getUsuario(), intencaoCompra);
+        return mv;
+    }
 
-	@RequestMapping(value = "salvarTelefoneRapido", method = RequestMethod.POST, consumes = {
-			MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ResponseEntity<?> salvarTelefone(@RequestBody @Valid Telefone telefone, BindingResult result) {
-		try {
-			if (result.hasErrors()) {
-				return ResponseEntity.badRequest().body(result.getFieldError("numeroUm").getDefaultMessage());
-			}
-			telefone = this.interacaoService.getPessoaService().atualizarTelefonePessoa(telefone);
-			return ResponseEntity.ok(telefone);
-		} catch (NegocioException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-	}
+    @RequestMapping(value = "salvarTelefoneRapido", method = RequestMethod.POST, consumes = {
+            MediaType.APPLICATION_JSON_VALUE})
+    public @ResponseBody ResponseEntity<?> salvarTelefone(@RequestBody @Valid Telefone telefone, BindingResult result) {
+        try {
+            if (result.hasErrors()) {
+                return ResponseEntity.badRequest().body(result.getFieldError("numeroUm").getDefaultMessage());
+            }
+            telefone = this.interacaoService.getPessoaService().atualizarTelefonePessoa(telefone);
+            return ResponseEntity.ok(telefone);
+        } catch (NegocioException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 
-	@RequestMapping(value = "salvarInteracao")
-	public ModelAndView salvarInteracao(Interacao interacao) {
-		System.out.println(interacao.getVeiculo().getDescricao() + interacao.getValor() + interacao.getDescricao());
-		return null;
-
-	}
-
-	// renderiza na view os objetos da Porposta do fornecedor
-	private ModelAndView getDefaultObjectsModelAndViewDeProposta(Usuario usuario, IntencaoCompra intencaoCompra,
-			Interacao propostaFornecedor) {
-		ModelAndView modelAndView = this.interacaoService.getDefaultModelAndView(usuario, intencaoCompra,
-				propostaFornecedor);
-		return modelAndView;
-	}
+    @RequestMapping(value = "salvarInteracao")
+    public ModelAndView salvarInteracao(Interacao interacao) {
+        ModelAndView modelAndView = new ModelAndView("intencaoCompra/fragments/PropostaSucesso");
+        try {
+            this.interacaoService.salvarProposta(interacao);
+        } catch (NegocioException e) {
+            ModelAndView modelAndViewErro = new ModelAndView("intencaoCompra/fragments/PropostaErro");
+            modelAndViewErro.addObject("mensagem", e.getMessage());
+            return modelAndViewErro;
+        }
+        return modelAndView;
+    }
 
 }// fim

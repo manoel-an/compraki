@@ -37,8 +37,8 @@
 								  <input type="text" id="cidade" class="formataInputs" th:field="*{cidade}" readonly="readonly"/>
 								  - <input type="text" class="formataInputs" id="uf" th:field="*{uf}" readonly="readonly"/></a> 
 								<a href="#" class="list-group-item formataLabelInputs">Marca:
-								  <input type="text" class="formataInputs" id="marca" readonly="readonly"/>
-								  Modelo:<input type="text" class="formataInputs" id="modelo" readonly="readonly"/></a> 
+								  <input type="text" class="formataInputs" id="marca" th:value="*{modelo.fabricante.nome}" readonly="readonly"/>
+								  Modelo:<input type="text" class="formataInputs" id="modelo" th:value="*{modelo.descricao}"  readonly="readonly"/></a> 
 								<a href="#" class="list-group-item formataLabelInputs">Cores Desejadas:
 									<span th:each="cor : *{cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>						  	
 								</a>
@@ -67,6 +67,9 @@
 				</div>		
 			</form>
 			<form id="formInteracao" class= "layoutformDetalhe" th:object="${interacao}">
+                <input id="codigoPessoa" type="hidden" th:value="*{codigoPessoa}" th:field="*{codigoPessoa}"> 
+                <input id="codigoIntencao" type="hidden" th:value="*{intencaoCompra.codigo}" th:field="*{intencaoCompra.codigo}">	
+                <input id="codigoUsuario" type="hidden" th:value="*{codigoUsuario}" th:field="*{codigoUsuario}">   		
 				<div class="row jumbotronCamposProposta">
 	                <div class="alert  alert-danger  alert-dismissible js-div-erro-geral-interacao hidden" role="alert">
 	                    <button type="button" class="close" data-dismiss="alert"
@@ -82,7 +85,9 @@
 	                    <div id="js-msg-erro-descricao" class="hidden">
 	                        <i class="fa  fa-exclamation-circle"></i>É necesário informar uma descrição para o possível comprador
 	                    </div>
-	                </div>  				
+	                </div> 
+			        <div class="alert alert-success hidden" id="success-alert-proposta"></div>	   
+                    <div class="alert  alert-danger  alert-dismissible hidden" id="erro-alert-proposta" role="alert"></div> 			                      				
 					<th:block th:replace="interacao/fornecedor/PropostaFornecedor :: formProposta"></th:block>
 				</div>	
 			</form>
