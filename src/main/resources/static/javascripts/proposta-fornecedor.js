@@ -219,15 +219,15 @@ Compraki.CadastroCarro = (function() {
 	}
 
 	function onSalvar() {
+		var data = $('#formCarro').serialize();
 		$.ajax({
 			url : "/compraki/carros/salvarCarroIntermediario",
 			method : 'GET',
 			contentType : 'application/json',
-			data : $('.js-form-carro').serialize(),
+			data : data,
 			error : onErrorSalvandoCarro.bind(this),
-			success : onCarroIntermediarioSalvo.bind(this),
+			success : onCarroIntermediarioSalvo.bind(this)
 		});
-
 	}
 
 	function onCarroIntermediarioSalvo(carroIntermediario) {
