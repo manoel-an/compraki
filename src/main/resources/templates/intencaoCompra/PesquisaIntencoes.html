@@ -181,9 +181,33 @@
                             <a class="btn  btn-link  btn-xs" title="Detalhar" 
                                     th:href="@{/detalhesIntencao/{codigo}(codigo=${intencao.codigo})}"> 
                                 <i class="glyphicon glyphicon-search"></i>
-                            </a>                            
+                            </a>
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							      <i class="fa fa-envelope fa-lg"></i>
+							       <span class="badge">3</span>
+							</a>  
+						    <div class="btn-group">
+							    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							      <img src="http://lorempixel.com/75/50/abstract/">
+							      0123 4567 8912 3456
+							      <span class="glyphicon glyphicon-chevron-down"></span>
+							    </button>
+							    
+							    <ul class="dropdown-menu drop-intencao">
+							      <li class="dropdown-header">Member name (you)</li>
+							      <li>
+							        <a href="#" title="Select this card"><img src="http://lorempixel.com/75/50/abstract/">0123 4567 8912 3456</a>
+							      </li>
+							      <li>
+							        <a href="#" title="Select this card"><img src="http://lorempixel.com/75/50/abstract/">0123 4567 8912 3456</a>
+							      </li>
+							      <li class="dropdown-header">Member name</li>
+							      <li>
+							        <a href="#" title="Select this card"><img src="http://lorempixel.com/75/50/abstract/">0123 4567 8912 3456</a>
+							      </li>
+							    </ul>
+						  </div>							                                                      
                         </td>                        
-                        
                     </tr>
                     <tr th:if="${pagina.vazia}">
                         <td colspan="7">Nenhuma intenção encontrada</td>
