@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/LayoutPadrao}"
+    xmlns:data="http://www.thymeleaf.org/extras/data"
+    xmlns:compraki="http://compraki.com.br">
+    
+<head>
+    <title>Propostas</title>
+</head>
+
+<body>
+<section layout:fragment="conteudo">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h1>Propostas Enviadas</h1>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-fluid">
+        <form method="GET" th:object="${intencaoFilter}">
+         <div class="row">
+	           <div class="form-group col-sm-3">
+	                <label for="cidade" class="control-label">Cidade de preferência</label>
+	                <div class="input-group">
+	                    <div class="input-group-addon">Cidade</div>
+	                    <div>
+	                        <select id="cidade" class="form-control js-select-search" data:url="@{/intencoes/buscarCidades}" th:field="*{cidadePreferencia}">                       
+	                        </select>
+	                    </div>                       
+	                </div>
+	            </div>              
+                <div class="form-group  col-sm-3">
+                   <label for="marca" class="control-label">Marca</label>
+                   <select id="marca" class="form-control js-select-search" th:field="*{fabricante}">
+                       <option value=""></option>
+                       <option th:each="fabricante : ${fabricantes}" th:text="${fabricante.nome}" th:value="${fabricante.codigo}"></option>
+                   </select>
+                </div>            
+                <div class="form-group  col-sm-3">
+                    <label class="control-label" for="cnpj">Modelo</label>
+                       <select id="modelo" class="form-control js-select-search js-combo-modelo" data:url="@{/intencoes/buscarModelos}" th:field="*{modelo}">
+                    </select>
+                </div>
+               	<div class="form-group  col-sm-2">
+               	  <label class="control-label"></label>
+               	    <button type="submit" class="btn  btn-primary form-control" style="margin-top: 5px;">Pesquisar</button>
+               	</div>
+            </div> 
+        </form>
+        
+        <div class="table-responsive  bw-tabela-simples">
+            <table class="table  table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center col-md-1">Código</th>
+                        <th class="text-center col-md-2">Nº da Intenção</th> 
+                        <th class="text-center col-md-2">Data</th> 
+                        <th class="text-center col-md-2">Descrição</th> 
+                        <th class="text-center col-md-2">Valor</th> 
+                        <th class="text-center col-md-2">Marca</th>
+                        <th class="text-center col-md-2">Modelo</th>
+                        <th class="text-center col-md-2">Status</th>   
+                        <th>Ações</th>
+                       
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr th:each="propostasEnviadas : ${todasPropostasEnviadas}">
+                        <td th:text="${propostasEnviadas.codigo}" class="text-left"></td>
+                         <td></td>
+                        <td th:text="${propostasEnviadas.dataCriacao}"></td>
+                        <td th:text="${propostasEnviadas.descricao}"></td>
+                        <td th:text="|R$ ${propostasEnviadas.valor}|"></td>
+                        <td></td>
+                        <td></td> 
+                        <td></td> 
+                        
+                        
+                    </tr>
+                    <tr>
+                        <td colspan="7">Nenhuma proposta enviada</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       </div>
+ 
+</section>
+<th:block layout:fragment="javascript-extra">
+    <script th:src="@{/javascripts/pesquisa-intencoes.js}"></script>
+</th:block>
+</body>
+</html>
