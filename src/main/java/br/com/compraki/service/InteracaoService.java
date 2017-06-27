@@ -64,6 +64,8 @@ public class InteracaoService {
         interacao.setIntencaoCompra(intencaoCompra);
         interacao.setCodigoUsuario(intencaoCompra.getUsuario().getCodigo());
         modelAndView.addObject("interacao", interacao);
+        boolean formProposta = usuario.getCodigo() != intencaoCompra.getUsuario().getCodigo();
+        modelAndView.addObject("formProposta", formProposta);
         return modelAndView;
     }
 

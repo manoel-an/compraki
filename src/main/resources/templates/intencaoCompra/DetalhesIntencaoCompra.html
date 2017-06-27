@@ -67,7 +67,7 @@
 					 </div>
 				</div>		
 			</form>
-			<form id="formInteracao" class= "layoutformDetalhe" th:object="${interacao}" sec:authorize="hasRole('ROLE_FAZER_PROPOSTA')">
+			<form id="formInteracao" class= "layoutformDetalhe" th:object="${interacao}" sec:authorize="hasRole('ROLE_FAZER_PROPOSTA')" th:if="${formProposta}">
                 <input id="codigoPessoa" type="hidden" th:value="*{codigoPessoa}" th:field="*{codigoPessoa}"> 
                 <input id="codigoIntencao" type="hidden" th:value="*{intencaoCompra.codigo}" th:field="*{intencaoCompra.codigo}">	
                 <input id="codigoUsuario" type="hidden" th:value="*{codigoUsuario}" th:field="*{codigoUsuario}">   		

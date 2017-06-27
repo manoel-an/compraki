@@ -156,7 +156,7 @@ public class IntencaoComprasImpl implements IntencoesQueries {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_FAZER_PROPOSTA"));
         String strByRole = "";
-        String jpql = "select it.codigo, mv.descricao, f.nome as fabricante, it.tipo_combustivel, c.nome as cidade, it.uf_preferencia, it.valor from intencao_de_compra it  "
+        String jpql = "select it.codigo, mv.descricao, it.ano, f.nome as fabricante, it.tipo_combustivel, c.nome as cidade, it.uf_preferencia, it.valor from intencao_de_compra it  "
                 + " inner join modelo_veiculo mv on it.codigo_modelo = mv.codigo "
                 + " inner join fabricante f on mv.codigo_fabricante = f.codigo "
                 + " inner join cidade c on it.cidade_preferencia = c.codigo ";
@@ -172,8 +172,8 @@ public class IntencaoComprasImpl implements IntencoesQueries {
         List<IntencaoDTO> intencoes = new ArrayList<IntencaoDTO>(0);
         for (Object[] result : intencoesFiltradas) {
             intencoes.add(new IntencaoDTO(new Long(result[0].toString()), result[1].toString(), result[2].toString(),
-                    result[3].toString(), result[4].toString(), result[5].toString(),
-                    new BigDecimal(result[6].toString())));
+                    result[3].toString(), result[4].toString(), result[5].toString(), result[6].toString(),
+                    new BigDecimal(result[7].toString())));
         }
         return intencoes;
     }

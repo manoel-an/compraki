@@ -8,6 +8,8 @@ public class IntencaoDTO {
 
     private String modelo;
 
+    private String ano;
+
     private String fabricante;
 
     private String tipoCombustivel;
@@ -18,10 +20,11 @@ public class IntencaoDTO {
 
     private BigDecimal valor;
 
-    public IntencaoDTO(Long codigo, String modelo, String fabricante, String tipoCombustivel, String cidade,
+    public IntencaoDTO(Long codigo, String modelo, String ano, String fabricante, String tipoCombustivel, String cidade,
             String estado, BigDecimal valor) {
         this.codigo = codigo;
         this.modelo = modelo;
+        this.ano = ano;
         this.fabricante = fabricante;
         this.tipoCombustivel = tipoCombustivel;
         this.cidade = cidade;
@@ -43,6 +46,14 @@ public class IntencaoDTO {
 
     public void setModelo(String modelo) {
         this.modelo = modelo;
+    }
+
+    public String getAno() {
+        return ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
     }
 
     public String getFabricante() {
