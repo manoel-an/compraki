@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/carros/novo").hasRole("CADASTRAR_VEICULO").antMatchers("/carros/**")
                 .hasRole("CADASTRAR_VEICULO").antMatchers("/acessorios/**").hasRole("CADASTRAR_USUARIO").anyRequest()
                 .authenticated().and().formLogin().loginPage("/login").failureHandler(loginFailureHandler).permitAll()
-                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/info")
+                .and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
                 .and().exceptionHandling().accessDeniedPage("/403");
 
         // http.authorizeRequests().antMatchers("/cidades/nova").hasRole("CADASTRAR_CIDADE").antMatchers("/usuarios/**")
