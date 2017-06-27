@@ -2,6 +2,7 @@ package br.com.compraki.repository.helper;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -147,13 +152,21 @@ public class IntencaoComprasImpl implements IntencoesQueries {
 
     @Override
     public List<IntencaoDTO> porModeloOuCidade(String modeloCidade, Long codigoUsuario) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_FAZER_PROPOSTA"));
+        String strByRole = "";
         String jpql = "select it.codigo, mv.descricao, f.nome as fabricante, it.tipo_combustivel, c.nome as cidade, it.uf_preferencia, it.valor from intencao_de_compra it  "
                 + " inner join modelo_veiculo mv on it.codigo_modelo = mv.codigo "
                 + " inner join fabricante f on mv.codigo_fabricante = f.codigo "
-                + " inner join cidade c on it.cidade_preferencia = c.codigo "
-                + " where it.codigo_usuario != :codigoUsuario and (lower (mv.descricao) like lower(:modeloCidade) or lower(c.nome) like lower(:modeloCidade))";
+                + " inner join cidade c on it.cidade_preferencia = c.codigo ";
+        if (authorized) {
+            strByRole = " where it.codigo_usuario != :codigoUsuario and (lower (mv.descricao) like lower(:modeloCidade) or lower(c.nome) like lower(:modeloCidade)) ";
+        } else {
+            strByRole = " where it.codigo_usuario = :codigoUsuario and (lower (mv.descricao) like lower(:modeloCidade) or lower(c.nome) like lower(:modeloCidade)) ";
+        }
         @SuppressWarnings({"unchecked"})
-        List<Object[]> intencoesFiltradas = this.manager.createNativeQuery(jpql)
+        List<Object[]> intencoesFiltradas = this.manager.createNativeQuery(jpql + strByRole)
                 .setParameter("modeloCidade", modeloCidade + "%").setParameter("codigoUsuario", codigoUsuario)
                 .getResultList();
         List<IntencaoDTO> intencoes = new ArrayList<IntencaoDTO>(0);
