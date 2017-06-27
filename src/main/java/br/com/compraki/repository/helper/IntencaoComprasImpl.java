@@ -146,15 +146,16 @@ public class IntencaoComprasImpl implements IntencoesQueries {
     }
 
     @Override
-    public List<IntencaoDTO> porModeloOuCidade(String modeloCidade) {
+    public List<IntencaoDTO> porModeloOuCidade(String modeloCidade, Long codigoUsuario) {
         String jpql = "select it.codigo, mv.descricao, f.nome as fabricante, it.tipo_combustivel, c.nome as cidade, it.uf_preferencia, it.valor from intencao_de_compra it  "
                 + " inner join modelo_veiculo mv on it.codigo_modelo = mv.codigo "
                 + " inner join fabricante f on mv.codigo_fabricante = f.codigo "
                 + " inner join cidade c on it.cidade_preferencia = c.codigo "
-                + " where lower (mv.descricao) like lower(:modeloCidade) or lower(c.nome) like lower(:modeloCidade) ";
+                + " where it.codigo_usuario != :codigoUsuario and (lower (mv.descricao) like lower(:modeloCidade) or lower(c.nome) like lower(:modeloCidade))";
         @SuppressWarnings({"unchecked"})
         List<Object[]> intencoesFiltradas = this.manager.createNativeQuery(jpql)
-                .setParameter("modeloCidade", modeloCidade + "%").getResultList();
+                .setParameter("modeloCidade", modeloCidade + "%").setParameter("codigoUsuario", codigoUsuario)
+                .getResultList();
         List<IntencaoDTO> intencoes = new ArrayList<IntencaoDTO>(0);
         for (Object[] result : intencoesFiltradas) {
             intencoes.add(new IntencaoDTO(new Long(result[0].toString()), result[1].toString(), result[2].toString(),

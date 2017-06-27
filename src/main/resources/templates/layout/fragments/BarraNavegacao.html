@@ -9,7 +9,7 @@
   <div class="navbar-header">
 	   <div id="search-floating-panel">
 	       <input class="js-general-search" id="search-input" type="text" placeholder="Buscar.. Intenção de Compra.. Ex.: Modelo Veículo, Cidade ..." 
-	           data:url="@{/intencoes}" style="height: 40px;">
+	           data:url="@{/intencoes}" data:usuario="${#authentication.principal.usuario.codigo}" style="height: 40px;">
 	   </div>      
   </div>
   <div class="navbar-collapse collapse">

@@ -49,7 +49,7 @@ public class IntencaoCompraController {
 
     private static final String IT_VIEW = "intencaoCompra/IntencaoCompra";
     private static final String IT_PESQUISA_VIEW = "intencaoCompra/PesquisaIntencoes";
-   
+
     @Autowired
     private Fabricantes fabricantes;
 
@@ -70,7 +70,7 @@ public class IntencaoCompraController {
 
     @Autowired
     private Cores cores;
-    
+
     @GetMapping("/novo")
     public ModelAndView novo(IntencaoCompra intencaoCompra) {
         ModelAndView mv = getDefaultObjectsModelAndView(intencaoCompra);
@@ -128,7 +128,7 @@ public class IntencaoCompraController {
         modelAndView.addObject("intencaoCompra", intencaoCompra);
         return modelAndView;
     }
-    
+
     @GetMapping
     public ModelAndView pesquisar(@AuthenticationPrincipal User user, IntencaoFilter intencaoFilter,
             BindingResult result, @PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
@@ -146,7 +146,7 @@ public class IntencaoCompraController {
         mv.addObject("pagina", paginaWrapper);
         return mv;
     }
-    
+
     private ModelAndView getDefaultObjectsModelAndView(IntencaoCompra intencaoCompra) {
         ModelAndView modelAndView = new ModelAndView(IT_VIEW);
         modelAndView.addObject("fabricantes", this.fabricantes.findAll());
@@ -162,8 +162,8 @@ public class IntencaoCompraController {
     }
 
     @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody List<IntencaoDTO> pesquisar(String modeloCidade) {
-        return this.intencaoService.getIntencaoCompras().porModeloOuCidade(modeloCidade);
+    public @ResponseBody List<IntencaoDTO> pesquisar(String modeloCidade, Long codigoUsuario) {
+        return this.intencaoService.getIntencaoCompras().porModeloOuCidade(modeloCidade, codigoUsuario);
     }
 
 }// fim

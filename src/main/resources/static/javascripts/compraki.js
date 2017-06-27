@@ -159,7 +159,7 @@ Compraki.GeneralSearch = (function(){
 	GeneralSearch.prototype.enable = function() {
 		var options = {
 				url: function(modeloCidade){
-					return this.inputSearch.data('url') + '?modeloCidade=' + modeloCidade;
+					return this.inputSearch.data('url') + '?modeloCidade=' + modeloCidade+'&codigoUsuario='+this.inputSearch.data('usuario');
 				}.bind(this),
 				getValue: 'modelo',
 				minCharNumber: 3,

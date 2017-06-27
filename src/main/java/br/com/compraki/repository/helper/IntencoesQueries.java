@@ -23,5 +23,5 @@ public interface IntencoesQueries {
 
     public IntencaoCompra getIntencaoCompraComCoresEAcessorios(Long codigo);
 
-    public List<IntencaoDTO> porModeloOuCidade(String modeloCidade);
+    public List<IntencaoDTO> porModeloOuCidade(String modeloCidade, Long codigoUsuario);
 }
