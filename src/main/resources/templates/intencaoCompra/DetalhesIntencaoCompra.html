@@ -4,7 +4,8 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:data="http://www.thymeleaf.org/extras/data"
 	xmlns:compraki="http://compraki.com.br"
-	layout:decorate="~{layout/LayoutPadrao}">
+	layout:decorate="~{layout/LayoutPadrao}"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 <title>Detalhe Intenção</title>
@@ -66,7 +67,7 @@
 					 </div>
 				</div>		
 			</form>
-			<form id="formInteracao" class= "layoutformDetalhe" th:object="${interacao}">
+			<form id="formInteracao" class= "layoutformDetalhe" th:object="${interacao}" sec:authorize="hasRole('ROLE_FAZER_PROPOSTA')">
                 <input id="codigoPessoa" type="hidden" th:value="*{codigoPessoa}" th:field="*{codigoPessoa}"> 
                 <input id="codigoIntencao" type="hidden" th:value="*{intencaoCompra.codigo}" th:field="*{intencaoCompra.codigo}">	
                 <input id="codigoUsuario" type="hidden" th:value="*{codigoUsuario}" th:field="*{codigoUsuario}">   		

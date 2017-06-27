@@ -9,10 +9,12 @@ VALUES (1, 1, 'compraki@compraki.com', '$2a$10$g.wT4R0Wnfel1jc/k84OXuwZE02BlACSL
 INSERT INTO permissao VALUES (1, 'ROLE_CADASTRAR_VEICULO');
 INSERT INTO permissao VALUES (2, 'ROLE_CADASTRAR_USUARIO');
 INSERT INTO permissao VALUES (3, 'ROLE_ACESSAR_SISTEMA');
+INSERT INTO permissao VALUES (4, 'ROLE_FAZER_PROPOSTA');
 
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (1, 1);
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (1, 2);
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (2, 1);
+INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (2, 4);
 INSERT INTO grupo_permissao (codigo_grupo, codigo_permissao) VALUES (4, 3);
 
 INSERT INTO usuario_grupo (codigo_usuario, codigo_grupo) VALUES (
