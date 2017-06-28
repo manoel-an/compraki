@@ -47,7 +47,7 @@
 									<span th:each="acessorio : *{acessorios}" th:text="|${acessorio.descricao}${acessorioStat.last ? '' : ', '}|"></span>
 								</a>         
 								<a href="#" class="list-group-item formataLabelInputs">Potência:
-								  <input type="text" class="formataInputs" id="potencia" th:field="*{potencia}" readonly="readonly"/></a>
+								    <input type="text" class="formataInputs" id="potencia" th:field="*{potencia.descricao}" readonly="readonly"/></a>
 							
 						  </div>
 					 </div>

@@ -27,6 +27,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import br.com.compraki.enuns.PotenciaVeiculo;
 import br.com.compraki.enuns.StatusAtivoInativo;
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.helper.IntencaoHelper;
@@ -56,8 +57,9 @@ public class IntencaoCompra {
 	@Column(name = "outras_caracteristicas")
 	private String outrasCaracteristicas;
 
-	@NotBlank(message = "Ops! Potência do veículo também ajuda")
-	private String potencia;
+	@NotNull(message = "Ops! Potência do veículo também ajuda")
+	@Enumerated(EnumType.STRING)
+	private PotenciaVeiculo potencia;
 
 	@NotBlank(message = "Ops! A descrição é muito importante")
 	private String descricao;
@@ -166,11 +168,11 @@ public class IntencaoCompra {
 		this.outrasCaracteristicas = outrasCaracteristicas;
 	}
 
-	public String getPotencia() {
+		public PotenciaVeiculo getPotencia() {
 		return potencia;
 	}
 
-	public void setPotencia(String potencia) {
+	public void setPotencia(PotenciaVeiculo potencia) {
 		this.potencia = potencia;
 	}
 

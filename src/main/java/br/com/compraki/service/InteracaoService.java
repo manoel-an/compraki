@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.com.compraki.enuns.PotenciaVeiculo;
 import br.com.compraki.enuns.StatusInteracao;
 import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.Cor;
@@ -50,6 +51,7 @@ public class InteracaoService {
         modelAndView.addObject("veiculos", carros.findByUsuarioAndFetchEager(usuario));
         modelAndView.addObject(mvProposta);
         modelAndView.addObject("tipos", TipoVeiculo.values());
+        
         Carro carro = new Carro();
         carro.setUsuario(usuario);
         modelAndView.addObject("carro", carro);
