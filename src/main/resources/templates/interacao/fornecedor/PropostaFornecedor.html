@@ -6,11 +6,12 @@
     xmlns:compraki="http://compraki.com.br"
     layout:decorate="~{layout/LayoutPadrao}">
 	<section layout:fragment="conteudo">
-		<div id="blocoProposta" th:fragment="formProposta" class="labelProposta jumbotron">
+	 <div class="container-fluid">
+		<div id="blocoProposta" th:fragment="formProposta" class="conteudoProposta jumbotron">
 		   	 <div class="col-xs-10">
 		         <h2>Faça sua Proposta</h2>
 		      </div>
-		      <div class="container-fluid">
+		      
 		        <div class="row">
 		             <div class="col-sm-5  form-group compraki-required js-div-select-veiculo">
 		                 <label class="control-label">Informe o Veículo</label>

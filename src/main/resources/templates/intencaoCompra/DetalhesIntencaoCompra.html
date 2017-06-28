@@ -18,7 +18,7 @@
 	<section layout:fragment="conteudo">
 		<div class="page-header js-topo-page">
 			<div class="container-fluid">
-				<div class="row">
+				<div class="row btn-primary">
 					<div class="col-xs-10">
 						<h1>Intenção de Compra Detalhada</h1>
 					</div>
@@ -29,41 +29,133 @@
 		<div class="container-fluid layoutFluidGeral">
 			<form id="formDetahesIntencao" class= "layoutformDetalhe" th:object="${intencaoCompra}">
 				<div class="row">
-					 <div class="form-group  col-sm-6">
-						  <div class="list-group layoutformDetalheGroup">
-							<a href="#" class="list-group-item active"></a> 
-								<a href="#" class="list-group-item formataLabelInputs" >Valor Disponível:
-								  <input type="text" class="js-decimal formataInputs" id="valor" th:field="*{valor}" readonly="readonly"/></a> 
-								<a href="#" class="list-group-item formataLabelInputs"> Cidade:
-								  <input type="text" id="cidade" class="formataInputs" th:field="*{cidade}" readonly="readonly"/>
-								  - <input type="text" class="formataInputs" id="uf" th:field="*{uf}" readonly="readonly"/></a> 
-								<a href="#" class="list-group-item formataLabelInputs">Marca:
-								  <input type="text" class="formataInputs" id="marca" th:value="*{modelo.fabricante.nome}" readonly="readonly"/>
-								  Modelo:<input type="text" class="formataInputs" id="modelo" th:value="*{modelo.descricao}"  readonly="readonly"/></a> 
-								<a href="#" class="list-group-item formataLabelInputs">Cores Desejadas:
-									<span th:each="cor : *{cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>						  	
-								</a>
-								<a href="#" class="list-group-item formataLabelInputs">Acessórios Desejados:
-									<span th:each="acessorio : *{acessorios}" th:text="|${acessorio.descricao}${acessorioStat.last ? '' : ', '}|"></span>
-								</a>         
-								<a href="#" class="list-group-item formataLabelInputs">Potência:
-								    <input type="text" class="formataInputs" id="potencia" th:field="*{potencia.descricao}" readonly="readonly"/></a>
+					<div class="form-group  col-md-6">
+					  <div class="list-group layoutformDetalheGroup">
+						 
+						    <div class="list-group-item">
+							 <div class="row" style="padding-top: 5px;">
+									<div class="col-sm-6  form-group">
+										<div class="input-group">
+											<div class="input-group-addon">Valor R$</div>
+											<div>
+												<input type="text" class="js-decimal form-control formataInputs" id="valor" th:field="*{valor}" readonly="readonly"/> 
+											</div>
+										</div>
+									</div>
+							 </div>
+
+							<div class="row">
+								<div class="col-sm-6  form-group">
+									<div class="input-group">
+										<div class="input-group-addon">Cidade</div>
+										<div>
+											<input type="text" class="form-control formataInputs" id="cidade" th:field="*{cidade}" readonly="readonly" />
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-4  form-group">
+									<div class="input-group">
+										<div class="input-group-addon">Estado</div>
+										<div>
+											<input type="text" class="form-control formataInputs" id="uf" th:field="*{uf}" readonly="readonly" />
+										</div>
+									</div>
+								</div>
+							</div>
 							
-						  </div>
-					 </div>
-					 <div class="form-group  col-sm-6 layoutGrupoDireito">
+							<div class="row">
+								<div class="col-sm-5  form-group">
+									<div class="input-group">
+										<div class="input-group-addon">Marca</div>
+										<div>
+											<input type="text" class="form-control formataInputs" id="cidade" th:field="*{modelo.fabricante.nome}" readonly="readonly" />
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-7  form-group">
+									<div class="input-group">
+										<div class="input-group-addon">Modelo</div>
+										<div>
+											<input type="text" class="form-control formataInputs" id="uf" th:field="*{modelo.descricao}" readonly="readonly" />
+										</div>
+									</div>
+								</div>
+							</div>
+							
+					       </div>
+
+						   <a href="#" class="list-group-item">
+						     
+						       <label class="control-label input-group-addon">Cores Desejadas</label>
+						       <span th:each="cor : *{cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>
+						   </a>
+						   
+						   <a href="#" class="list-group-item">
+						     
+						       <label class="control-label input-group-addon">Acessorios Desejados</label>
+						       <span th:each="acessorio : *{acessorios}" th:text="|${acessorio.descricao}${acessorioStat.last ? '' : ', '}|"></span>
+						   </a>
+							
+						   <div class="list-group-item">
+								
+								<div class="input-group col-sm-6">
+								  <div class="input-group-addon">Potencia</div>
+									<div>
+									  <input type="text" class="form-control formataInputs" id="potencia" th:field="*{potencia.descricao}" readonly="readonly" />
+									</div>
+								</div>
+							</div>	
+					      	
+								 
+					</div>
+					</div>
+				 <div class="form-group  col-md-6 layoutGrupoDireito">
 						  <div class="list-group layoutformDetalheGroup">
-							<a href="#" class="list-group-item active"></a> 
-							 <a href="#" class="list-group-item formataLabelInputs">Tipo Combustível:
-								  <input type="text" class="formataInputs" id="tipoCombustivel" th:field="*{tipoCombustivel}" readonly="readonly"/></a>
-							 <a href="#" class="list-group-item formataLabelInputs"> Tipo de Roda:
-								  <input type="text" id="tipoDeRoda" class="formataInputs" th:field="*{tipoDeRoda}" readonly="readonly"/>
-								  Aro(s):<input type="text" class="formataInputs" id="aroRoda" th:field="*{aroRoda}" readonly="readonly"/></a>  
-							 <a href="#" class="list-group-item formataLabelInputs">Outras Características:
-								  <input type="text" class="formataInputs" id="outrasCaracteristicas" th:field="*{outrasCaracteristicas}" readonly="readonly"/></a>
-							 <a href="#" class="list-group-item formataLabelInputs">Mensagem ao Fornecedor:
-								 <textarea rows="4" class="form-control formataInputs" id="descricao" th:field="*{descricao}" readonly="readonly"/></textarea></a> 	   
-						  </div>
+							<div class="list-group-item">
+
+								<div class="input-group col-sm-10">
+									<div class="input-group-addon">Tipo Combustível</div>
+									<div>
+										<input type="text" class="form-control formataInputs" id="tipoCombustivel" th:field="*{tipoCombustivel}" readonly="readonly" />
+									</div>
+								</div>
+							</div>
+							<div class="list-group-item">
+							<div class="row">
+								<div class="col-sm-6  form-group">
+									<div class="input-group">
+										<div class="input-group-addon">Tipo Roda</div>
+										<div>
+											<input type="text" class="form-control formataInputs" id="tipoRoda" th:field="*{tipoDeRoda}" readonly="readonly" />
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-6  form-group">
+									<div class="input-group">
+										<div class="input-group-addon">Aro(s)</div>
+										<div>
+											<input type="text" class="form-control formataInputs" id="aroRoda" th:field="*{aroRoda}" readonly="readonly" />
+										</div>
+									</div>
+								</div>
+							</div>
+							
+					       </div>
+						   
+						    <div class="list-group-item">
+								<div class="input-group col-sm-10">
+									<div class="input-group-addon">Outras Caracteristicas</div>
+									<div>
+										<input type="text" class="form-control formataInputs" id="outrasCaracteristicas" th:field="*{outrasCaracteristicas}" readonly="readonly" />
+									</div>
+								</div>
+							</div>
+							<a href="#" class="list-group-item">
+						     
+						       <label class="control-label input-group-addon">Mensagem ao Fornecedor</label>
+						       <textarea rows="6" class="form-control formataInputs" id="descricao" th:field="*{descricao}" readonly="readonly" style="padding-top: 2.1px;"/></textarea>
+						    </a>	
+						</div>  
 					 </div>
 				</div>		
 			</form>

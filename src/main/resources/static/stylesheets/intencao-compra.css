@@ -72,7 +72,8 @@
 
 .formataInputs{
 	font-size: 14px;
-	border: none;
+	    background-color: whitesmoke !important;
+
 }
 .formataLabelInputs{
 	font-size: 14px;
