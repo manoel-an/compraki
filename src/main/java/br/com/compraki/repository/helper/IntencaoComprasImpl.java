@@ -69,7 +69,14 @@ public class IntencaoComprasImpl implements IntencoesQueries {
 
     @Override
     public void adicionarFiltros(Usuario usuario, IntencaoFilter filtro, Criteria criteria) {
-        criteria.add(Restrictions.eq("usuario", usuario));
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_FAZER_PROPOSTA"));
+
+        if (!authorized) {
+            criteria.add(Restrictions.eq("usuario", usuario));
+        }
 
         if (!StringUtils.isEmpty(filtro.getValorInicial())) {
             criteria.add(Restrictions.ge("valor", filtro.getValorInicial()));
