@@ -38,6 +38,8 @@ public class IntencaoFilter {
 
     private List<Acessorio> acessorios;
 
+    private Boolean todasIntencoes;
+
     public Long getCodigo() {
         return codigo;
     }
@@ -132,6 +134,14 @@ public class IntencaoFilter {
 
     public void setAcessorios(List<Acessorio> acessorios) {
         this.acessorios = acessorios;
+    }
+
+    public Boolean getTodasIntencoes() {
+        return todasIntencoes;
+    }
+
+    public void setTodasIntencoes(Boolean todasIntencoes) {
+        this.todasIntencoes = todasIntencoes;
     }
 
 }

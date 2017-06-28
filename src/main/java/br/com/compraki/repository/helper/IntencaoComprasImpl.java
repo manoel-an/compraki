@@ -74,7 +74,7 @@ public class IntencaoComprasImpl implements IntencoesQueries {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         boolean authorized = authorities.contains(new SimpleGrantedAuthority("ROLE_FAZER_PROPOSTA"));
 
-        if (!authorized) {
+        if (!authorized || (filtro.getTodasIntencoes() != null && filtro.getTodasIntencoes())) {
             criteria.add(Restrictions.eq("usuario", usuario));
         }
 
