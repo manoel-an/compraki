@@ -146,10 +146,10 @@
                 <div class="col-sm-4  form-group" sec:authorize="hasRole('ROLE_FAZER_PROPOSTA')">
                     <label for="cidade" class="control-label">Mostrar somente minhas Intenções de Compra</label>
                     <div class="input-group">
-                        <div class="input-group-addon">Selecione o tipo de busca</div>
+                        <div class="input-group-addon">Escolha...</div>
                         <div>
 						    <span class="button-checkbox">
-						        <button type="button" class="btn" data-color="primary"></button>
+						        <button type="button" class="btn" data-color="primary" title="Escolha e clique em pesquisar"></button>
 						        <input type="checkbox" class="hidden" th:field=*{todasIntencoes} />
 						    </span>
                         </div>                       
@@ -263,7 +263,7 @@
 	                    $button
 	                        .removeClass('btn-' + color + ' active')
 	                        .addClass('btn-default');
-	                    $button.text('Todas Intenções');
+	                    $button.text('');
 	                    $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
 	                }
 	            }
