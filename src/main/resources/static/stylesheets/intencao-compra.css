@@ -1,85 +1,36 @@
-.navbar-static-top{
-	background-color: #00BFFF;
-}
-
-.panel-default{
-	margin-left: 10px;
-	margin-right: 10px;
-	
-}
-.alert{
-	margin-left: 10px;
-	margin-right: 10px;
-}
-.panel-default>.panel-heading{
-	background-color: #000033;
-}
-
-.it-titulo-panel{
+.nav.navbar-nav li {
 	float: left;
-	padding-top: 5px;
-	color: white;
-}
-.it-link-panel{
-	float: right;
-	padding: 0px;
-	color: white;
 }
 
-.it-panelTituloLink{
-	padding-top: 15px;
-	padding-bottom: 15px;
-}
-.paraChoqueCss{
-	padding-top: 0px;
+.nav.navbar-nav li a.mlogin {
+	position: relative;
 }
 
-/* Componente multiple(ex:cadastro acessórios)  */    
-    .bootstrap-duallistbox-container .moveall, .bootstrap-duallistbox-container .removeall{
-	width: 50%;
-	}
-	.bootstrap-duallistbox-container .move, .bootstrap-duallistbox-container .remove{
-	width: 50%;
-	background-color: #1875a5;
-	}
-	
-
-  /*DETALHES DE INTENCAO DE COMPRA  */  
- 
- .layoutformDetalhe{
- 	margin-top:-15px;
- }
- 
- .layoutformDetalheGroup{
- 	padding-left: 15px;
- }
- @media (min-width: 767px){
- .layoutGrupoDireito{
- 	margin-left: -44px;
- }
- }
- 
- @media (max-width: 767px){
- .layoutGrupoDireito{
- 	margin-top: -20px;
- }
- }
- 
- 
-.layoutFluidGeral{
-	margin-left: -15px;
+div.modal#loginmodal {
+	position: absolute;
+	width: 200px;
+	height: 300px;
+	top: 30px;
+	left: 0;
+	padding: 0;
+	margin: 0;
 }
 
-.formataInputs{
-	font-size: 14px;
-	    background-color: whitesmoke !important;
-
+div.modal#loginmodal .modal-footer {
+	padding: 5px;
+	margin: 0;
 }
-.formataLabelInputs{
-	font-size: 14px;
+
+div.modal#loginmodal .modal-body {
+	padding: 10px 20px;
+	margin: 0;
 }
- 
 
+div.modal#loginmodal .modal-header {
+	padding: 5px 20px;
+	margin: 0;
+}
 
-
-
+.modal-backdrop {
+	display: none;
+}

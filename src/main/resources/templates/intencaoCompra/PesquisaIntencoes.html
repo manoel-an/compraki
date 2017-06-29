@@ -169,6 +169,7 @@
                         <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
                         <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th>Cores</th>
+                        <th>Proposta(s)</th>
                         <th>Ações</th>
                         <th></th>
                     </tr>
@@ -184,7 +185,76 @@
                         <td>
                             <span th:each="cor : ${intencao.cores}" th:text="|${cor.descricao}${corStat.last ? '' : ', '}|"></span>
                         </td>
-
+                        <td>
+					        <ul class="nav navbar-nav">
+					            <li class="dropdown">
+					              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-envelope fa-lg"></i>
+                                   <span class="badge">4</span></a>
+					              <ul class="dropdown-menu dropdown-cart" role="menu">
+					                  <li>
+					                  <div class="aw-box">
+						                 <div class="input-group">
+						                     <div class="input-group-addon">
+						                          <img src="http://lorempixel.com/50/50/" alt="" />
+						                     </div>
+						                     <div>
+						                           <div class="input-group-addon">
+		                                                <div class="input-group-addon">R$10.0000,00</div>
+		                                                <div>Gol G III 2010</div>
+						                           </div>
+						                     
+						                     </div>                       
+						                 </div>
+					                  </div>
+					                  </li>
+					                  <li>
+					                      <span class="item">
+					                        <span class="item-left">
+					                            <img src="http://lorempixel.com/50/50/" alt="" />
+					                            <span class="item-info">
+					                                <span>Item name</span>
+					                                <span>23$</span>
+					                            </span>
+					                        </span>
+					                        <span class="item-right">
+					                            <button class="btn btn-xs btn-danger pull-right">x</button>
+					                        </span>
+					                    </span>
+					                  </li>
+					                  <li>
+					                      <span class="item">
+					                        <span class="item-left">
+					                            <img src="http://lorempixel.com/50/50/" alt="" />
+					                            <span class="item-info">
+					                                <span>Item name</span>
+					                                <span>23$</span>
+					                            </span>
+					                        </span>
+					                        <span class="item-right">
+					                            <button class="btn btn-xs btn-danger pull-right">x</button>
+					                        </span>
+					                    </span>
+					                  </li>
+					                  <li>
+					                      <span class="item">
+					                        <span class="item-left">
+					                            <img src="http://lorempixel.com/50/50/" alt="" />
+					                            <span class="item-info">
+					                                <span>Item name</span>
+					                                <span>23$</span>
+					                            </span>
+					                        </span>
+					                        <span class="item-right">
+					                            <button class="btn btn-xs btn-danger pull-right">x</button>
+					                        </span>
+					                    </span>
+					                  </li>
+					                  <li class="divider"></li>
+					                  <li><a class="text-center" href="#">Fechar</a></li>
+					              </ul>
+					            </li>        
+					        </ul>                        
+                        </td>
                         <td class="text-left">
                             <a class="btn  btn-link  btn-xs" title="Editar" 
                                     th:href="@{/intencoes/{codigo}(codigo=${intencao.codigo})}"> 
@@ -194,10 +264,6 @@
                                     th:href="@{/detalhesIntencao/{codigo}(codigo=${intencao.codigo})}"> 
                                 <i class="glyphicon glyphicon-search"></i>
                             </a>
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							      <i class="fa fa-envelope fa-lg"></i>
-							       <span class="badge">3</span>
-							</a>  
                         </td>                        
                     </tr>
                     <tr th:if="${pagina.vazia}">
