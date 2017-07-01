@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-10">
-                    <h1>Propostas Enviadas</h1>
+                    <h1>Propostas</h1>
                 </div>
                 
             </div>
@@ -62,31 +62,34 @@
                         <th class="text-center col-md-1">Código</th>
                         <th class="text-center col-md-2">Nº da Intenção</th> 
                         <th class="text-center col-md-2">Data</th> 
-                        <th class="text-center col-md-2">Descrição</th> 
+                        <th class="text-center col-md-3">Descrição</th> 
                         <th class="text-center col-md-2">Valor</th> 
                         <th class="text-center col-md-2">Marca</th>
                         <th class="text-center col-md-2">Modelo</th>
                         <th class="text-center col-md-2">Status</th>   
-                        <th>Ações</th>
                        
                     </tr>
                 </thead>
                 
                 <tbody>
-                    <tr th:each="propostasEnviadas : ${todasPropostasEnviadas}">
-                        <td th:text="${propostasEnviadas.codigo}" class="text-left"></td>
-                         <td></td>
-                        <td th:text="${propostasEnviadas.dataCriacao}"></td>
-                        <td th:text="${propostasEnviadas.descricao}"></td>
-                        <td th:text="|R$ ${propostasEnviadas.valor}|"></td>
-                        <td></td>
-                        <td></td> 
-                        <td></td> 
-                        
+                    <tr th:each="proposta : ${todasPropostasEnviadas}">
+                        <td th:text="${proposta.codigo}" class="text-center"></td>
+                        <td th:text="${proposta.intencaoCompra.codigo}" class="text-center"></td>
+                        <td th:text="${proposta.dataCriacao}" class="text-center"></td>
+                        <td th:text="${proposta.descricao}" class="text-center"></td>
+                        <td th:text="|R$ ${proposta.valor}|" class="text-center"></td>
+                        <td class="text-center">marca</td>
+                        <td class="text-center">modelo</td>
+                 		<td class="text-center" th:attr="data-role = ${proposta.codigo}">
+   						<span class="label" th:text="${proposta.status.descricao}"
+   						 th:classappend="${'label-success'}">
+   						</span>
+	   					</td>
+                     
                         
                     </tr>
                     <tr>
-                        <td colspan="7">Nenhuma proposta enviada</td>
+                        <td colspan="7" th:if="${#lists.isEmpty(todasPropostasEnviadas)}">Nenhuma proposta enviada</td>
                     </tr>
                 </tbody>
             </table>
