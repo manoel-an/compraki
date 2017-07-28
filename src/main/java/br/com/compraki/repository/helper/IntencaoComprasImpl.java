@@ -54,15 +54,13 @@ public class IntencaoComprasImpl implements IntencoesQueries {
         filtrados.forEach(it -> Hibernate.initialize(it.getCores()));
         filtrados.forEach(it -> Hibernate.initialize(it.getAcessorios()));
 
-        return new PageImpl<>(filtrados, pageable, total(filtro));
+        return new PageImpl<>(filtrados, pageable, total(filtro, usuario));
     }
 
     @Override
-    public Long total(IntencaoFilter filtro) {
+    public Long total(IntencaoFilter filtro, Usuario usuario) {
         Criteria criteria = manager.unwrap(Session.class).createCriteria(IntencaoCompra.class);
-        if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
-            criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
-        }
+        this.adicionarFiltros(usuario, filtro, criteria);
         criteria.setProjection(Projections.rowCount());
         return (Long) criteria.uniqueResult();
     }

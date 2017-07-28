@@ -13,15 +13,15 @@ import br.com.compraki.repository.filter.IntencaoFilter;
 
 public interface IntencoesQueries {
 
-    public Page<IntencaoCompra> filtrar(Usuario usuario, IntencaoFilter filtro, Pageable pageable);
+	public Page<IntencaoCompra> filtrar(Usuario usuario, IntencaoFilter filtro, Pageable pageable);
 
-    public Long total(IntencaoFilter filtro);
+	public Long total(IntencaoFilter filtro, Usuario usuario);
 
-    public void adicionarFiltros(Usuario usuario, IntencaoFilter filtro, Criteria criteria);
+	public void adicionarFiltros(Usuario usuario, IntencaoFilter filtro, Criteria criteria);
 
-    public IntencaoCompra getIntencaoCompraCompleto(Long codigo);
+	public IntencaoCompra getIntencaoCompraCompleto(Long codigo);
 
-    public IntencaoCompra getIntencaoCompraComCoresEAcessorios(Long codigo);
+	public IntencaoCompra getIntencaoCompraComCoresEAcessorios(Long codigo);
 
-    public List<IntencaoDTO> porModeloOuCidade(String modeloCidade, Long codigoUsuario);
+	public List<IntencaoDTO> porModeloOuCidade(String modeloCidade, Long codigoUsuario);
 }

@@ -196,6 +196,28 @@ Compraki.GeneralSearch = (function(){
 	
 }());
 
+Compraki.Paginacao = (function() {
+
+	function Paginacao() {
+		this.comboPaginacao = $('#pageSizeSelect');
+	}
+
+	Paginacao.prototype.enable = function(event) {
+		this.comboPaginacao.on('change', onAtualizaPagina.bind(this));
+	}
+	
+	function onAtualizaPagina(event){
+		var op = $(event.currentTarget);
+		var link = op.data('link');
+		//var url = window.location.protocol +"//" + window.location.hostname +":"+ 
+		//window.location.port +"/compraki/"+link+"?pageSize=" + this.comboPaginacao.val() + "&page=1";
+		//window.location.href = url;	
+		window.location.replace(link+"?pageSize=" + this.comboPaginacao.val() + "&page=1");
+	}
+
+	return Paginacao;
+}());
+
 
 $(function() {
 	var maskMoney = new Compraki.MaskMoney();
@@ -221,5 +243,8 @@ $(function() {
 	
 	var generalSearch = new Compraki.GeneralSearch();
 	generalSearch.enable();
+	
+	var paginacao = new Compraki.Paginacao();
+	paginacao.enable();
 	
 });

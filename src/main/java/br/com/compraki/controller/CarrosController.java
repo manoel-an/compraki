@@ -1,11 +1,13 @@
 package br.com.compraki.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,7 +30,8 @@ import br.com.compraki.enuns.TipoVeiculo;
 import br.com.compraki.model.veiculo.Carro;
 import br.com.compraki.model.veiculo.Fabricante;
 import br.com.compraki.repository.filter.CarroFilter;
-import br.com.compraki.repository.paginacao.PageWrapper;
+import br.com.compraki.repository.paginacao.Pager;
+import br.com.compraki.repository.paginacao.Pagination;
 import br.com.compraki.security.UsuarioSistema;
 import br.com.compraki.service.CarroService;
 import br.com.compraki.service.NegocioException;
@@ -36,7 +39,7 @@ import br.com.compraki.validator.CarroValidator;
 
 @Controller
 @RequestMapping("/carros")
-public class CarrosController {
+public class CarrosController extends Pagination {
 
 	@Autowired
 	private CarroService carroService;
@@ -106,17 +109,21 @@ public class CarrosController {
 	}
 
 	@GetMapping
-	public ModelAndView pesquisar(@AuthenticationPrincipal User user, CarroFilter carroFilter, BindingResult result,
-			@PageableDefault(size = 7) Pageable pageable, HttpServletRequest httpServletRequest) {
+	public ModelAndView pesquisar(@AuthenticationPrincipal User user, CarroFilter carroFilter,
+			@RequestParam("pageSize") Optional<Integer> pageSize, @RequestParam("page") Optional<Integer> page,
+			HttpServletRequest httpServletRequest, @RequestParam(value = "sort", required = false) String sort) {
 		UsuarioSistema usuarioSistema = (UsuarioSistema) user;
 		ModelAndView mv = new ModelAndView("carro/PesquisaCarros");
-		PageWrapper<Carro> paginaWrapper = new PageWrapper<>(
-				this.carroService.getCarros().filtrar(usuarioSistema.getUsuario(), carroFilter, pageable),
-				httpServletRequest);
+		Page<Carro> acessorios = this.carroService.getCarros().filtrar(usuarioSistema.getUsuario(), carroFilter,
+				new PageRequest(getEvalPage(page), getEvalPageSize(pageSize), getSort(sort)));
+		Pager<Carro> pager = new Pager<Carro>(acessorios, httpServletRequest);
+		mv.addObject("pagina", acessorios);
+		mv.addObject("selectedPageSize", getEvalPageSize(pageSize));
+		mv.addObject("pageSizes", PAGE_SIZES);
+		mv.addObject("pager", pager);
 		mv.addObject("fabricantes", this.carroService.getFabricantes().findAll());
 		mv.addObject("cores", this.carroService.getCores().findAll());
 		mv.addObject("tipoVeiculos", TipoVeiculo.values());
-		mv.addObject("pagina", paginaWrapper);
 		return mv;
 	}
 

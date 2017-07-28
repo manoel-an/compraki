@@ -61,15 +61,15 @@
             <table class="table  table-hover">
                 <thead>
                     <tr>
-                        <th class="text-center"><compraki:order page="${pagina}" field="codigo" text="Código"/></th> 
-                        <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
-                        <th><compraki:order page="${pagina}" field="descricao" text="Acessório" class="text-center"/></th> 
+                        <th class="text-center"><compraki:order page="${pager}" field="codigo" text="Código"/></th> 
+                        <th><compraki:order page="${pager}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
+                        <th><compraki:order page="${pager}" field="descricao" text="Acessório" class="text-center"/></th> 
                         <th></th>
                     </tr>
                 </thead>
                 
                 <tbody>
-                    <tr th:each="acessorio : ${pagina.conteudo}">
+                    <tr th:each="acessorio : ${pager.conteudo}">
                         <td th:text="${acessorio.codigo}" class="text-center"></td>  
                         <td th:text="${acessorio.tipoVeiculo.descricao}"></td>                     
                         <td th:text="${acessorio.descricao}"></td>
@@ -81,13 +81,13 @@
                             </a>
                         </td>
                     </tr>
-                    <tr th:if="${pagina.vazia}">
+ 					<tr th:if="${pager.vazia}">
                         <td colspan="7">Nenhum acessório encontrado</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <compraki:pagination page="${pagina}" />
+        <compraki:pagination page="${pagina}" link="acessorios" />
     </div>
     <div th:replace="acessorio/CadastroAcessorio :: modal"></div>
 </section>

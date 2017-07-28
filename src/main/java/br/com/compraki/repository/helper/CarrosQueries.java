@@ -12,7 +12,7 @@ public interface CarrosQueries {
 
     public Page<Carro> filtrar(Usuario usuario, CarroFilter filtro, Pageable pageable);
 
-    public Long total(CarroFilter filtro);
+    public Long total(CarroFilter filtro, Usuario usuario);
 
     public void adicionarFiltros(Usuario usuario, CarroFilter filtro, Criteria criteria);
 

@@ -39,15 +39,13 @@ public class CarrosImpl implements CarrosQueries {
 		criteria.createAlias("cor", "cor");
 		adicionarFiltros(usuario, filtro, criteria);
 		paginacaoUtil.preparar(criteria, pageable);
-		return new PageImpl<>(criteria.list(), pageable, total(filtro));
+		return new PageImpl<>(criteria.list(), pageable, total(filtro, usuario));
 	}
 
 	@Override
-	public Long total(CarroFilter filtro) {
+	public Long total(CarroFilter filtro, Usuario usuario) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Carro.class);
-		if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
-			criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
-		}
+		this.adicionarFiltros(usuario, filtro, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}

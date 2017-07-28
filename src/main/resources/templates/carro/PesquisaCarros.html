@@ -73,10 +73,10 @@
                 <thead>
                     <tr>
                         <th class="table-carros-col-foto"></th>
-                        <th><compraki:order page="${pagina}" field="codigo" text="Código"/></th> 
-                        <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
-                        <th><compraki:order page="${pagina}" field="fabricante.nome" text="Marca"/></th> 
-                        <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
+                        <th><compraki:order page="${pager}" field="codigo" text="Código"/></th> 
+                        <th><compraki:order page="${pager}" field="modelo" text="Modelo"/></th> 
+                        <th><compraki:order page="${pager}" field="fabricante.nome" text="Marca"/></th> 
+                        <th><compraki:order page="${pager}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th>Cor</th>
                         <th>Descricao</th>
                         <th></th>
@@ -84,7 +84,7 @@
                 </thead>
                 
                 <tbody>
-                    <tr th:each="carro : ${pagina.conteudo}">
+                    <tr th:each="carro : ${pager.conteudo}">
                         <td class="text-center" th:if="${carro.foto != null && not #strings.isEmpty(carro.foto)}">
                             <img th:src="@{/fotos/thumbnail.{foto}(foto=${carro.foto})}" class="img-responsive"/>
                         </td>
@@ -109,13 +109,13 @@
                             </a>
                         </td>
                     </tr>
-                    <tr th:if="${pagina.vazia}">
+                    <tr th:if="${pager.vazia}">
                         <td colspan="7">Nenhum veículo encontrado</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-       <compraki:pagination page="${pagina}" />
+       <compraki:pagination page="${pagina}" link="carros" />
     </div>
 </section>
 </body>

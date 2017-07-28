@@ -40,9 +40,7 @@ public class AcessoriosImpl implements AcessoriosQueries {
 	@Override
 	public Long total(AcessorioFilter filtro) {
 		Criteria criteria = manager.unwrap(Session.class).createCriteria(Acessorio.class);
-		if (!StringUtils.isEmpty(filtro.getTipoVeiculo())) {
-			criteria.add(Restrictions.eq("tipoVeiculo", filtro.getTipoVeiculo()));
-		}
+		this.adicionarFiltros(filtro, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}
