@@ -4,7 +4,8 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout/LayoutPadrao}"
     xmlns:data="http://www.thymeleaf.org/extras/data"
-    xmlns:compraki="http://compraki.com.br">
+    xmlns:compraki="http://compraki.com.br"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
     
 <head>
     <title>Pesquisa de Intenções de Compra</title>
@@ -164,11 +165,11 @@
             <table class="table  table-hover">
                 <thead>
                     <tr>
-                        <th><compraki:order page="${pagina}" field="codigo" text="Código"/></th>
-                        <th><compraki:order page="${pagina}" field="valor" text="Valor"/></th> 
-                        <th><compraki:order page="${pagina}" field="modelo.fabricante" text="Marca"/></th> 
-                        <th><compraki:order page="${pagina}" field="modelo" text="Modelo"/></th> 
-                        <th><compraki:order page="${pagina}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
+                        <th><compraki:order page="${pager}" field="codigo" text="Código"/></th>
+                        <th><compraki:order page="${pager}" field="valor" text="Valor"/></th> 
+                        <th><compraki:order page="${pager}" field="modelo.fabricante" text="Marca"/></th> 
+                        <th><compraki:order page="${pager}" field="modelo" text="Modelo"/></th> 
+                        <th><compraki:order page="${pager}" field="tipoVeiculo" text="Tipo" class="text-center"/></th> 
                         <th>Cores</th>
                         <th>Proposta(s)</th>
                         <th>Ações</th>
@@ -177,7 +178,7 @@
                 </thead>
                 
                 <tbody>
-                    <tr th:each="intencao : ${pagina.conteudo}">
+                    <tr th:each="intencao : ${pager.conteudo}">
                         <td th:text="${intencao.codigo}" class="text-left"></td>
                         <td th:text="|R$ ${intencao.valor}|"></td>                       
                         <td th:text="${intencao.modelo.fabricante.nome}"></td>
@@ -283,13 +284,13 @@
                             </a>
                         </td>                        
                     </tr>
-                    <tr th:if="${pagina.vazia}">
+                    <tr th:if="${pager.vazia}">
                         <td colspan="7">Nenhuma intenção encontrada</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-       <compraki:pagination page="${pagina}" />
+       <compraki:pagination page="${pagina}" link="intencoes" />
     </div>
 </section>
 <th:block layout:fragment="javascript-extra">
