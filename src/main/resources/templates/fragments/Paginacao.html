@@ -34,21 +34,21 @@
 				</select>
 			</div>
 			<div class="form-group col-md-11 text-center">
-				<ul class="pagination" th:with="link=${link}">
-					<li th:class="${pagina.number == 0} ? disabled" th:with="tableSize=${selectedPageSize},paginaAtual=1">
+				<ul class="pagination" th:with="link=${link},size=${pager.size == 1 ? 1 : 0}">
+					<li th:remove="${pagina.number == 0} ? all" th:with="tableSize=${selectedPageSize},paginaAtual=1">
 						<a class="pageLink" th:href="@{${pager.urlParaPagina(link, tableSize, paginaAtual)}(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
 					</li>
-					<li th:class="${pagina.number == 0} ? disabled" th:with="tableSize=${selectedPageSize},paginaAtual=${pagina.number}">
+					<li th:remove="${pagina.number == 0} ? all" th:with="tableSize=${selectedPageSize},paginaAtual=${pagina.number}">
 						<a class="pageLink" th:href="@{${pager.urlParaPagina(link, tableSize, paginaAtual)}(pageSize=${selectedPageSize}, page=${pagina.number})}">&larr;</a>
 					</li>
-					<li th:class="${pagina.number == (page - 1)} ? 'active pointer-disabled'"
-						th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}" th:with="tableSize=${selectedPageSize},paginaAtual=${page}">
+					<li th:class="${pagina.number == (page - 1)} ? 'active pointer-disabled'" 
+						th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage+size)}" th:with="tableSize=${selectedPageSize},paginaAtual=${page}">
 						<a class="pageLink" th:href="@{${pager.urlParaPagina(link, tableSize, paginaAtual)}(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
 					</li>
-					<li th:class="${pagina.number + 1 == pagina.totalPages} ? disabled" th:with="tableSize=${selectedPageSize},paginaAtual=${pagina.number + 2}">
-						<a class="pageLink" th:href="@{${pager.urlParaPagina(link, tableSize, paginaAtual)}(pageSize=${selectedPageSize}, page=${pagina.number + 2})}">&rarr;</a>
+					<li th:remove="${pagina.number + 1 == pagina.totalPages} ? all" th:with="tableSize=${selectedPageSize},paginaAtual=${pagina.number + 2}">
+						<a  class="pageLink" th:href="@{${pager.urlParaPagina(link, tableSize, paginaAtual)}(pageSize=${selectedPageSize}, page=${pagina.number + 2})}">&rarr;</a>
 					</li>
-					<li th:class="${pagina.number + 1 == pagina.totalPages} ? disabled" th:with="tableSize=${selectedPageSize},paginaAtual=${pagina.totalPages}">
+					<li th:remove="${pagina.number + 1 == pagina.totalPages} ? all" th:with="tableSize=${selectedPageSize},paginaAtual=${pagina.totalPages}">
 						<a class="pageLink" th:href="@{${pager.urlParaPagina(link, tableSize, paginaAtual)}(pageSize=${selectedPageSize}, page=${pagina.totalPages})}">&raquo;</a>
 					</li>
 				</ul>

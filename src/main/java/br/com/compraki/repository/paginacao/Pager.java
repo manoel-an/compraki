@@ -69,6 +69,10 @@ public class Pager<T> {
 		return page.getContent();
 	}
 
+	public int getSize() {
+		return page.getContent().size();
+	}
+
 	public int getButtonsToShow() {
 		return buttonsToShow;
 	}
